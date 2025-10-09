@@ -14,6 +14,7 @@ namespace Hospitalzinho.Entidades.EspecificaçõesHospital
     {
         [Required]
         public virtual string Nome { get; set; }
+        [Required]
         public virtual TipoUnidade TipoUnidade { get; set; }
         public virtual HospitalEndereco Endereco { get; set; }
         
@@ -26,6 +27,7 @@ namespace Hospitalzinho.Entidades.EspecificaçõesHospital
         public virtual List<PacienteConsulta> PacientesConsulta { get; set; } = new();  
         public virtual List<PacienteVacinacao> PacientesVacinacao { get; set; } = new();
         public virtual List<Receita> Receitas { get; set; } = new();
+        [Required]
         public virtual Hospital InstituicaoPai { get; set; }
     }
 }

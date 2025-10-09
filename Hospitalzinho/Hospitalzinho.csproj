@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FGB\FGB.csproj" />
+    <ProjectReference Include="..\FGB\FGB.Dominio.csproj" />
   </ItemGroup>
 
 </Project>
