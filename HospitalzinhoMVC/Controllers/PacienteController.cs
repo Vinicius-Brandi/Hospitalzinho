@@ -13,7 +13,7 @@ namespace HospitalzinhoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastro(string nomeCompleto, string dataNascimento, string nomeMae, string nomePai, string cpfMae, string cpfPai, string cpf, string cns, string sexo, string raca, string nacionalidade, string naturalidade, string escolaridade, string pacienteContato, string pacienteEndereco)
+        public IActionResult Cadastro(string nomeCompleto, string dataNascimento, string nomeMae, string nomePai, string cpfMae, string cpfPai, string cpf, string cns, string sexo, string raca, string nacionalidade, string naturalidade, string escolaridade)
         {
             Paciente paciente = new Paciente()
             {
