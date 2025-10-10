@@ -1,11 +1,39 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HospitalzinhoMVC.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 
 namespace HospitalzinhoMVC.Controllers
 {
     public class PacienteController : Controller
     {
+        [HttpGet]
         public IActionResult Cadastro()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Cadastro(string nomeCompleto, string dataNascimento, string nomeMae, string nomePai, string cpfMae, string cpfPai, string cpf, string cns, string sexo, string raca, string nacionalidade, string naturalidade, string escolaridade, string pacienteContato, string pacienteEndereco)
+        {
+            Paciente paciente = new Paciente()
+            {
+                Nome = nomeCompleto,
+                DataNascimento = DateTime.Parse(dataNascimento),
+                NomeMae = nomeMae,
+                NomePai = nomePai,
+                CpfMae = cpfMae,
+                CpfPai = cpfPai,
+                Cpf = cpf,
+                CNS = cns,
+                Sexo = (SexoPaciente)Enum.Parse(typeof(SexoPaciente), sexo),
+                Raca = (RacaPaciente)Enum.Parse(typeof(RacaPaciente), raca),
+                Nacionalidade = nacionalidade,
+                Naturalidade = naturalidade,
+                Escolaridade = (EscolaridadePaciente)Enum.Parse(typeof(EscolaridadePaciente), escolaridade),
+                Contato = new PacienteContato(), // Implementar a lógica para popular os dados de contato
+                Endereco = new PacienteEndereco() // Implementar a lógica para popular os dados de endereço
+            };
+
             return View();
         }
 
