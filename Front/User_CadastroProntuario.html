@@ -150,17 +150,13 @@
                         <fieldset>
                             <legend>Dados Pessoais</legend>
                             <div class="form-grid">
-                                <div class="form-group">
+                                <div class="form-group full-width">
                                     <label for="nome-completo">Nome Completo</label>
                                     <input type="text" id="nome-completo" name="nome-completo" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="data-nascimento">Data de Nascimento</label>
                                     <input type="date" id="data-nascimento" name="data-nascimento" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nome-mae">Nome da Mãe</label>
-                                    <input type="text" id="nome-mae" name="nome-mae" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="cpf-novo">CPF</label>
@@ -170,6 +166,65 @@
                                     <label for="cns-novo">CNS</label>
                                     <input type="text" id="cns-novo" name="cns-novo">
                                 </div>
+                                <div class="form-group">
+                                    <label for="sexo">Sexo</label>
+                                    <select id="sexo" name="sexo">
+                                        <option value="">Selecione...</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="feminino">Feminino</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="raca">Raça/Cor</label>
+                                    <select id="raca" name="raca">
+                                        <option value="">Selecione...</option>
+                                        <option value="branca">Branca</option>
+                                        <option value="preta">Preta</option>
+                                        <option value="parda">Parda</option>
+                                        <option value="amarela">Amarela</option>
+                                        <option value="indigena">Indígena</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nacionalidade">Nacionalidade</label>
+                                    <input type="text" id="nacionalidade" name="nacionalidade" value="Brasileira">
+                                </div>
+                                <div class="form-group">
+                                    <label for="naturalidade">Naturalidade (Cidade de Nascimento)</label>
+                                    <input type="text" id="naturalidade" name="naturalidade" placeholder="Ex: Marília - SP">
+                                </div>
+                                <div class="form-group">
+                                    <label for="escolaridade">Escolaridade</label>
+                                    <select id="escolaridade" name="escolaridade">
+                                        <option value="">Selecione...</option>
+                                        <option value="analfabeto">Analfabeto</option>
+                                        <option value="fundamentalIncompleto">Fundamental Incompleto</option>
+                                        <option value="fundamentalCompleto">Fundamental Completo</option>
+                                        <option value="medioIncompleto">Médio Incompleto</option>
+                                        <option value="medioCompleto">Médio Completo</option>
+                                        <option value="superiorIncompleto">Superior Incompleto</option>
+                                        <option value="superiorCompleto">Superior Completo</option>
+                                        <option value="posGraduacao">Pós Graduação</option>
+                                        <option value="naoSeAplica">Não Se Aplica</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="nomeMae">Nome Completo da Mãe</label>
+                                    <input type="text" id="nomeMae" name="nomeMae" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cpfMae">CPF da Mãe</label>
+                                    <input type="text" id="cpfMae" name="cpfMae" placeholder="000.000.000-00">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="nomePai">Nome Completo do Pai</label>
+                                    <input type="text" id="nomePai" name="nomePai">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cpfPai">CPF do Pai</label>
+                                    <input type="text" id="cpfPai" name="cpfPai" placeholder="000.000.000-00">
+                                </div>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -177,19 +232,48 @@
                             <div class="address-grid">
                                 <div class="form-group">
                                     <label for="cep">CEP</label>
-                                    <input type="text" id="cep" name="cep">
+                                    <input type="text" id="cep" name="cep" placeholder="00000-000">
                                 </div>
                                 <div class="form-group full-width">
-                                    <label for="rua">Rua</label>
-                                    <input type="text" id="rua" name="rua">
+                                    <label for="logradouro">Logradouro</label>
+                                    <input type="text" id="logradouro" name="logradouro">
                                 </div>
                                 <div class="form-group">
                                     <label for="numero">Número</label>
                                     <input type="text" id="numero" name="numero">
                                 </div>
                                 <div class="form-group">
+                                    <label for="complemento">Complemento</label>
+                                    <input type="text" id="complemento" name="complemento" placeholder="Ex: Apto 101">
+                                </div>
+                                <div class="form-group">
                                     <label for="bairro">Bairro</label>
                                     <input type="text" id="bairro" name="bairro">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cidade">Cidade</label>
+                                    <input type="text" id="cidade" name="cidade">
+                                </div>
+                                <div class="form-group">
+                                    <label for="estado">Estado</label>
+                                    <input type="text" id="estado" name="estado">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Contato</legend>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="telefoneResidencial">Telefone Residencial</label>
+                                    <input type="tel" id="telefoneResidencial" name="telefoneResidencial" placeholder="(00) 0000-0000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefoneCelular">Telefone Celular</label>
+                                    <input type="tel" id="telefoneCelular" name="telefoneCelular" placeholder="(00) 00000-0000">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" placeholder="exemplo@email.com">
                                 </div>
                             </div>
                         </fieldset>
