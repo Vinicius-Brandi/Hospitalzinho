@@ -1,6 +1,7 @@
 ﻿using HospitalzinhoMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Numerics;
+using System.Runtime.ConstrainedExecution;
 
 namespace HospitalzinhoMVC.Controllers
 {
@@ -13,7 +14,7 @@ namespace HospitalzinhoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastro(string nomeCompleto, string dataNascimento, string nomeMae, string nomePai, string cpfMae, string cpfPai, string cpf, string cns, string sexo, string raca, string nacionalidade, string naturalidade, string escolaridade)
+        public IActionResult Cadastro(string nomeCompleto, string dataNascimento, string nomeMae, string nomePai, string cpfMae, string cpfPai, string cpf, string cns, string sexo, string raca, string nacionalidade, string naturalidade, string escolaridade, string cep, string ceplogradouro, string numero, string complemento, string bairro, string cidade, string estado, string telefoneResidencial, string telefoneCelular, string email)
         {
             Paciente paciente = new Paciente()
             {
@@ -30,8 +31,22 @@ namespace HospitalzinhoMVC.Controllers
                 Nacionalidade = nacionalidade,
                 Naturalidade = naturalidade,
                 Escolaridade = (EscolaridadePaciente)Enum.Parse(typeof(EscolaridadePaciente), escolaridade),
-                Contato = new PacienteContato(), // Implementar a lógica para popular os dados de contato
-                Endereco = new PacienteEndereco() // Implementar a lógica para popular os dados de endereço
+                Contato = new PacienteContato()
+                {
+                    TelefoneResidencial = telefoneResidencial,
+                    TelefoneCelular = telefoneCelular,
+                    Email = email
+                },
+                Endereco = new PacienteEndereco()
+                {
+                    Logradouro = ceplogradouro,
+                    Numero = numero,
+                    Complemento = complemento,
+                    Bairro = bairro,
+                    Cidade = cidade,
+                    Estado = estado,
+                    Cep = cep
+                }
             };
 
             return View();
