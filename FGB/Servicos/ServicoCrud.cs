@@ -1,5 +1,5 @@
 ﻿using FGB.Entidades;
-using FGB.Repositorio;
+using FGB.IRepositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;

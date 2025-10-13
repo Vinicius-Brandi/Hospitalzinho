@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FGB.Repositorio
+namespace FGB.IRepositorios
 {
     public interface IRepositorioSessao : IDisposable
     {

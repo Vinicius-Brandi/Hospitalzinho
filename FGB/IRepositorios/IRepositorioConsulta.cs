@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FGB.Repositorio
+namespace FGB.IRepositorios
 {
     public interface IRepositorioConsulta
     {

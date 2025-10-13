@@ -1,4 +1,4 @@
-﻿using FGB.Repositorio;
+﻿using FGB.IRepositorios;
 using FGB.Servicos;
 using Hospitalzinho.Entidades.EspecificaçõesHospital;
 using System;
