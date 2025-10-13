@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using FGB.Entidades;
 
-using FGB.Entidades;
 namespace Hospitalzinho.Entidades
 {
     public class HospitalEndereco : EntidadeBase

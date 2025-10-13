@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
 				   assembly="Hospitalzinho" 
-				   namespace="Hospitalzinho.Entidades.EspecificaçõesHospital"
+				   namespace="Hospitalzinho.Entidades.EspecificacoesHospital"
 				   auto-import="true">
 	<class name="Hospital" table="hospital" lazy="false" >
 		<id name="Id" column="id" type="Int64">

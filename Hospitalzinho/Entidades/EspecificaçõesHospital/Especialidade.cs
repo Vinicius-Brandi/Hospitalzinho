@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using FGB.Entidades;
-namespace Hospitalzinho.Entidades.EspecificaçõesHospital
+
+namespace Hospitalzinho.Entidades
 {
     public class Especialidade : EntidadeBase
     {
@@ -11,5 +11,4 @@ namespace Hospitalzinho.Entidades.EspecificaçõesHospital
         // Relacionamentos
         public virtual List<ProfissionalSaude> Profissionais { get; set; } = new();
     }
-
 }

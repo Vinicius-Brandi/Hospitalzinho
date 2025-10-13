@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Hospitalzinho.Enum;
-
 using FGB.Entidades;
-namespace Hospitalzinho.Entidades.PacientePasta
+
+namespace Hospitalzinho.Entidades
 {
     public class Paciente : EntidadeBase
     {

@@ -1,9 +1,7 @@
-﻿using Hospitalzinho.Entidades.EspecificaçõesHospital;
-using System;
-using System.ComponentModel.DataAnnotations;
-
+﻿using System.ComponentModel.DataAnnotations;
 using FGB.Entidades;
-namespace Hospitalzinho.Entidades.Medicacao
+
+namespace Hospitalzinho.Entidades
 {
     public class Medicamento : EntidadeBase
     {

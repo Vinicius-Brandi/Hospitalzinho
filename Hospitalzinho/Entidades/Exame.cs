@@ -1,7 +1,4 @@
 ﻿using FGB.Entidades;
-using Hospitalzinho.Entidades.PacientePasta;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Hospitalzinho.Entidades

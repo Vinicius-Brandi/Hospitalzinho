@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using FGB.Entidades;
-namespace Hospitalzinho.Entidades.EspecificaçõesHospital
+
+namespace Hospitalzinho.Entidades
 {
     public class Hospital : EntidadeBase
     {

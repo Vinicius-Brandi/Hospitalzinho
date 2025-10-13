@@ -1,4 +1,4 @@
-﻿using Hospitalzinho.Entidades.EspecificaçõesHospital;   
+﻿using Hospitalzinho.Entidades;   
 using FGB.Api.Controllers;
 using Hospitalzinho.Servico;
 namespace HospitalzinhoApi.Controllers

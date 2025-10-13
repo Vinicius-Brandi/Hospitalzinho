@@ -1,5 +1,5 @@
 ﻿using FGB.Api.Controllers;
-using Hospitalzinho.Entidades.EspecificaçõesHospital;
+using Hospitalzinho.Entidades;
 using Hospitalzinho.Servico;
 
 namespace HospitalzinhoApi.Controllers

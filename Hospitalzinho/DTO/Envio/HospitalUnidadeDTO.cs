@@ -1,7 +1,5 @@
 ﻿using FGB.Entidades;
 using Hospitalzinho.Entidades;
-using Hospitalzinho.Entidades.EspecificaçõesHospital;
-using Hospitalzinho.Entidades.PacientePasta;
 using Hospitalzinho.Enum;
 using System;
 using System.Collections.Generic;

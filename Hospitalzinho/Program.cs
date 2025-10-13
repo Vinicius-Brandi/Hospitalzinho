@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(typeof(Hospitalzinho.Entidades.EspecificaçõesHospital.Hospital).Assembly.FullName);
+            Console.WriteLine(typeof(Hospitalzinho.Entidades.Hospital).Assembly.FullName);
 
         }
     }

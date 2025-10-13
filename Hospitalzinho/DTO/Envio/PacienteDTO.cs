@@ -1,11 +1,6 @@
-﻿using Hospitalzinho.Entidades.PacientePasta;
-using Hospitalzinho.Enum;
-using System;
-using System.Collections.Generic;
+﻿using Hospitalzinho.Enum;
+using Hospitalzinho.Entidades;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hospitalzinho.DTO.Envio
 {

@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 // Alias para evitar conflito de ISession
 using NHSession = NHibernate.ISession;
 using NHSessionFactory = NHibernate.ISessionFactory;
-using Hospital = Hospitalzinho.Entidades.EspecificaçõesHospital.Hospital;
+using Hospital = Hospitalzinho.Entidades.Hospital;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,11 +63,11 @@ app.MapControllers();
 // =======================================
 // Teste rápido para conferir NHibernate
 // =======================================
-//using (var scope = app.Services.CreateScope())
-//{
-//    var session = scope.ServiceProvider.GetRequiredService<NHSession>();
-//    var list = session.Query<Hospital>().ToList();
-//    Console.WriteLine($"Total hospitais cadastrados: {list.Count}");
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var session = scope.ServiceProvider.GetRequiredService<NHSession>();
+    var list = session.Query<Hospital>().ToList();
+    Console.WriteLine($"Total hospitais cadastrados: {list.Count}");
+}
 
 app.Run();

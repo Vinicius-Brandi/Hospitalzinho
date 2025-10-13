@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
+﻿using System.ComponentModel.DataAnnotations;
 using FGB.Entidades;
+
 namespace Hospitalzinho.Entidades
 {
     public class VacinaModelo : EntidadeBase

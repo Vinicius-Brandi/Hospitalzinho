@@ -1,6 +1,6 @@
 ﻿using FGB.IRepositorios;
 using FGB.Servicos;
-using Hospitalzinho.Entidades.EspecificaçõesHospital;
+using Hospitalzinho.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,13 +1,15 @@
-﻿using Hospitalzinho.Entidades.EspecificaçõesHospital;
-using Hospitalzinho.Entidades.PacientePasta;
+﻿using FGB.Entidades;
 using System.ComponentModel.DataAnnotations;
 
-using FGB.Entidades;
-public class Convenio : EntidadeBase
+namespace Hospitalzinho.Entidades
 {
-    public virtual string? CNPJ { get; set; }
-    [Required]
-    public virtual string Nome { get; set; } = null!;
-    public virtual IList<PacienteConvenio> PacienteConvenios { get; set; } = new List<PacienteConvenio>();
-    public virtual IList<HospitalUnidade> HospitaisAtentidos { get; set; }
+        public class Convenio : EntidadeBase
+    {
+        public virtual string? CNPJ { get; set; }
+        [Required]
+        public virtual string Nome { get; set; } = null!;
+        public virtual IList<PacienteConvenio> PacienteConvenios { get; set; } = new List<PacienteConvenio>();
+        public virtual IList<HospitalUnidade> HospitaisAtentidos { get; set; }
+    }
 }
+
