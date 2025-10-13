@@ -12,36 +12,42 @@ using Hospital = Hospitalzinho.Entidades.Hospital;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração de JSON para ignorar ciclos de referência
+// Configuraï¿½ï¿½o de JSON para ignorar ciclos de referï¿½ncia
 builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
 // =======================================
-// Configuração NHibernate
+// Configuraï¿½ï¿½o NHibernate
 // =======================================
 builder.Services.AddSingleton<NHSessionFactory>(factory =>
 {
     var cfg = new Configuration();
-    cfg.Configure(); // lê hibernate.cfg.xml na saída do build
+    cfg.Configure(); // lï¿½ hibernate.cfg.xml na saï¿½da do build
     return cfg.BuildSessionFactory();
 });
 
-// Registrar NHibernate.ISession para injeção (scoped)
+// Registrar NHibernate.ISession para injeï¿½ï¿½o (scoped)
 builder.Services.AddScoped<NHSession>(sp =>
     sp.GetRequiredService<NHSessionFactory>().OpenSession());
 
-// Registrar RepositorioSessao para injeção de IRepositorioSessao
+// Registrar RepositorioSessao para injeï¿½ï¿½o de IRepositorioSessao
 builder.Services.AddTransient<IRepositorioSessao, RepositorioSessao>();
 
 // =======================================
-// Injeção de dependência dos serviços
+// Injeï¿½ï¿½o de dependï¿½ncia dos serviï¿½os
 // =======================================
 builder.Services.AddTransient<HospitalServico>();
 builder.Services.AddTransient<HospitalUnidadeServico>();
 builder.Services.AddTransient<PacienteServico>();
 builder.Services.AddTransient<PacienteProntuarioServico>();
+// Novos servi\u00e7os adicionados para entidades diversas
+builder.Services.AddTransient<ConvenioServico>();
+builder.Services.AddTransient<EspecialidadeServico>();
+builder.Services.AddTransient<ItemReceitaServico>();
+builder.Services.AddTransient<ProfissionalSaudeServico>();
+builder.Services.AddTransient<ReceitaServico>();
 
 // Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
@@ -63,7 +69,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 // =======================================
-// Teste rápido para conferir NHibernate
+// Teste rï¿½pido para conferir NHibernate
 // =======================================
 using (var scope = app.Services.CreateScope())
 {
