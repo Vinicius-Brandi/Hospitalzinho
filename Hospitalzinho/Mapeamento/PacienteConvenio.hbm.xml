@@ -1,33 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
-				   assembly="Hospitalzinho"
-				   namespace="Hospitalzinho.Entidades">
+                   assembly="Hospitalzinho"
+                   namespace="Hospitalzinho.Entidades">
 
 	<class name="PacienteConvenio" table="paciente_convenio" lazy="false">
 
-		<!-- ID com sequence -->
 		<id name="Id" column="id" type="long">
 			<generator class="sequence">
 				<param name="sequence">seq_paciente_convenio</param>
 			</generator>
 		</id>
 
-		<!-- Relacionamentos obrigatórios -->
-		<many-to-one name="Paciente" class="Paciente" column="paciente_id" not-null="true" />
-		<many-to-one name="Convenio" class="Convenio" column="convenio_id" not-null="true" />
+		<many-to-one name="Paciente" class="Paciente" column="paciente_id" not-null="true" unique-key="UK_PacienteConvenio"/>
+		<many-to-one name="Convenio" class="Convenio" column="convenio_id" not-null="true" unique-key="UK_PacienteConvenio"/>
 
-		<!-- Propriedades -->
 		<property name="NumeroCarteirinha" column="numero_carteira" not-null="true" />
 		<property name="Validade" column="validade" type="DateTime" />
 		<property name="Ativo" column="ativo" not-null="true" />
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
-
-		<!-- Restrições únicas -->
-		<unique-key>
-			<column name="paciente_id"/>
-			<column name="convenio_id"/>
-		</unique-key>
 
 	</class>
 </hibernate-mapping>

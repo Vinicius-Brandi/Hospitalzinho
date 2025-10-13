@@ -16,9 +16,5 @@
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
-		<bag name="Pacientes" inverse="true" cascade="all-delete-orphan">
-			<key column="doenca_modelo_id"/>
-			<one-to-many class="PacienteDoenca"/>
-		</bag>
 	</class>
 </hibernate-mapping>
