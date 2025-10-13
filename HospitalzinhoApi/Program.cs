@@ -40,6 +40,7 @@ builder.Services.AddTransient<IRepositorioSessao, RepositorioSessao>();
 // =======================================
 builder.Services.AddTransient<HospitalServico>();
 builder.Services.AddTransient<HospitalUnidadeServico>();
+builder.Services.AddTransient<PacienteServico>();
 
 // Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
