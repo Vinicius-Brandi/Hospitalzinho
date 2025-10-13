@@ -1,4 +1,5 @@
 ﻿using HospitalzinhoMVC.Models;
+using HospitalzinhoMVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Numerics;
 using System.Runtime.ConstrainedExecution;
@@ -7,6 +8,14 @@ namespace HospitalzinhoMVC.Controllers
 {
     public class PacienteController : Controller
     {
+
+        private readonly PacienteAPIService _pacienteAPIService;
+
+        public PacienteController(PacienteAPIService pacienteAPIService)
+        {
+            _pacienteAPIService = pacienteAPIService;
+        }
+
         [HttpGet]
         public IActionResult Cadastro()
         {
@@ -14,7 +23,7 @@ namespace HospitalzinhoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastro(string nomeCompleto, string dataNascimento, string nomeMae, string nomePai, string cpfMae, string cpfPai, string cpf, string cns, string sexo, string raca, string nacionalidade, string naturalidade, string escolaridade, string cep, string ceplogradouro, string numero, string complemento, string bairro, string cidade, string estado, string telefoneResidencial, string telefoneCelular, string email)
+        public async Task<IActionResult> Cadastro(string nomeCompleto, string dataNascimento, string nomeMae, string nomePai, string cpfMae, string cpfPai, string cpf, string cns, string sexo, string raca, string nacionalidade, string naturalidade, string escolaridade, string cep, string ceplogradouro, string numero, string complemento, string bairro, string cidade, string estado, string telefoneResidencial, string telefoneCelular, string email)
         {
             Paciente paciente = new Paciente()
             {
@@ -48,6 +57,15 @@ namespace HospitalzinhoMVC.Controllers
                     Cep = cep
                 }
             };
+
+            var pacienteCriado = await _pacienteAPIService.CreatePacienteAsync(paciente);
+
+            Console.WriteLine(pacienteCriado);
+
+            if (pacienteCriado != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return View();
         }

@@ -14,7 +14,7 @@ namespace HospitalzinhoMVC.Models
         public string NomeMae { get; set; }
         public string CpfPai { get; set; }
         public string CpfMae { get; set; }
-        public bool Ativo { get; set; }
+        public bool Ativo { get; set; } = true;
         public SexoPaciente Sexo { get; set; }
         public string Nacionalidade { get; set; }
         public RacaPaciente Raca { get; set; }
