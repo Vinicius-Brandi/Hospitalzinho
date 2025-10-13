@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HospitalzinhoMVC</title>
+    <link rel="stylesheet" href="~/css/headerfooter.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    @{
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    }
+
+    <header>
+        <a asp-controller="Home" asp-action="Index" title="Voltar para a página inicial">
+            <!-- Placeholder qualquer, lembrar de substituir -->
+            <img src="https://placehold.co/200x60/0056b3/white?text=LOGO" alt="Logotipo do Sistema">
+        </a>
+        <nav>
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index" class="@(currentController == "Home" && currentAction == "Index" ? "active" : "")">Inicio</a>
+                </li>
+
+                <li>
+                    <a asp-controller="Hospital" asp-action="Consulta" class="@(currentController == "Paciente" && currentAction == "Consulta" ? "active" : "")">Consultar Paciente</a>
+                </li>
+
+                <li>
+                    <a asp-controller="Hospital" asp-action="Cadastro" class="@(currentController == "Paciente" && currentAction == "Cadastro" ? "active" : "")">Cadastrar Paciente</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Secretaria Municipal de Saúde de Marília</strong></p>
+            <p>Endereço: Av. Sampaio Vidal, 218-A - Centro, Marília - SP</p>
+            <p>Telefone para contato: (14) 3402-6500 | E-mail: saude@marilia.sp.gov.br</p>
+            <p>&copy; 2025 - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

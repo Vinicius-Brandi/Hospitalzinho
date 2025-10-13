@@ -1,0 +1,267 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #0056b3;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header img {
+    max-height: 60px;
+}
+
+/* Navegação (Guias) */
+header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #0056b3;
+    padding: 0.8rem 1.5rem;
+    margin: 0 0.5rem;
+    border-radius: 5px 5px 0 0;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header nav ul li a:hover, header nav ul li a.active {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+/* Conteúdo Principal */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+h1, h2 {
+    color: #004085;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+section {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+
+/* Formulário e Filtros */
+#filtro-pesquisa form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+legend {
+    font-weight: bold;
+    color: #0056b3;
+    padding: 0 0.5rem;
+    font-size: 1.1rem;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+    outline: none;
+}
+
+/* Layout em Grade para os Filtros */
+.checkbox-grid, .address-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.checkbox-grid div {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.checkbox-grid input[type="checkbox"] {
+    margin-top: 5px;
+}
+
+.checkbox-grid label {
+    font-weight: normal;
+    color: #333;
+}
+
+/* Botões */
+.botoes-form {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+button[type="submit"]:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+button[type="reset"] {
+    background-color: #6c757d;
+    color: white;
+}
+button[type="reset"]:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Seção de Resultados */
+#resultados-consulta .hospital-item {
+    border: 1px solid #e0e0e0;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    transition: box-shadow 0.3s, border-left 0.3s;
+    border-left: 5px solid transparent;
+}
+
+#resultados-consulta .hospital-item:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-left: 5px solid #0056b3;
+}
+
+.hospital-item h3 {
+    margin-top: 0;
+    color: #0056b3;
+}
+
+.hospital-item p {
+    margin: 0.5rem 0;
+}
+
+.hospital-item a {
+    display: inline-block;
+    margin-top: 1rem;
+    background-color: #007bff;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.hospital-item a:hover {
+    background-color: #0056b3;
+}
+
+#sem-resultados {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Rodapé */
+footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.footer-content p {
+    margin: 0.5rem 0;
+}
+
+/* Design Responsivo para Telas Menores */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+    
+    header nav ul li a {
+        display: block;
+        margin: 0.2rem 0;
+        border-radius: 5px;
+    }
+
+    main {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    .botoes-form {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+    }
+}
