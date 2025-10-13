@@ -12,3 +12,55 @@ INSERT INTO hospital_unidade (nome, tipo_unidade, endereco_id, instituicao_pai_i
 ('Unidade Central', 1, 1, 1),
 ('Unidade Norte', 2, 2, 2),
 ('Unidade Sul', 3, 3, 3);
+
+-- ==========================
+-- Pacientes (somente NOT NULL)
+-- ==========================
+INSERT INTO paciente (nome, cns, sexo, raca, escolaridade)
+VALUES
+('Ana Souza', '100000000000001', 2, 1, 3),
+('Bruno Lima', '100000000000002', 1, 2, 4),
+('Carla Menezes', '100000000000003', 2, 3, 2),
+('Daniel Pereira', '100000000000004', 1, 1, 1),
+('Eduarda Alves', '100000000000005', 2, 2, 2),
+('Felipe Andrade', '100000000000006', 1, 3, 4),
+('Gabriela Torres', '100000000000007', 2, 4, 5),
+('Henrique Costa', '100000000000008', 1, 2, 3),
+('Isabela Rocha', '100000000000009', 2, 1, 2),
+('João Victor', '100000000000010', 1, 3, 1),
+('Karina Duarte', '100000000000011', 2, 4, 5),
+('Lucas Martins', '100000000000012', 1, 2, 2),
+('Mariana Oliveira', '100000000000013', 2, 3, 3),
+('Nicolas Ferreira', '100000000000014', 1, 1, 4),
+('Olívia Ramos', '100000000000015', 2, 2, 5),
+('Paulo Mendes', '100000000000016', 1, 3, 3),
+('Queila Nogueira', '100000000000017', 2, 4, 4),
+('Rafael Souza', '100000000000018', 1, 2, 2),
+('Sabrina Lima', '100000000000019', 2, 3, 1),
+('Thiago Costa', '100000000000020', 1, 1, 2);
+
+-- ==========================
+-- Prontuários (somente NOT NULL)
+-- ==========================
+INSERT INTO paciente_prontuario (paciente_id, tipo_sangue)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 1),
+(6, 2),
+(7, 3),
+(8, 4),
+(9, 1),
+(10, 2),
+(11, 3),
+(12, 4),
+(13, 1),
+(14, 2),
+(15, 3),
+(16, 4),
+(17, 1),
+(18, 2),
+(19, 3),
+(20, 4);
