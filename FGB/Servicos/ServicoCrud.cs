@@ -29,7 +29,6 @@ namespace FGB.Servicos
                 Mensagens.Add(new ArgumentNullException("entidade", "menu.mensagem.requisicao.vazia"));
                 return false;
             }
-            // Se quiser adicionar validação por DataAnnotations, pode implementar aqui
             return Valida(entidade);
         }
 
@@ -103,10 +102,6 @@ namespace FGB.Servicos
                 }
             }));
         }
-
-        /// <summary>
-        /// Executa o processo de inclusão, disparando eventos e tratando exceções dos handlers.
-        /// </summary>
         public virtual bool ProcessoInclusao(T[] entidades, Func<bool> process)
         {
             if (entidades.Length == 0)
