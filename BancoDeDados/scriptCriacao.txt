@@ -1,6 +1,7 @@
 -- ========================================================
 -- Script completo PostgreSQL para as entidades do Hospitalzinho
 -- IDs via SEQUENCE; enums como INTEGER NOT NULL
+-- Todas as tabelas recebem 'data_cadastro' e 'data_atualizacao'
 -- ========================================================
 
 -- ========================
@@ -9,41 +10,30 @@
 CREATE SEQUENCE seq_hospital START 1;
 CREATE SEQUENCE seq_hospital_endereco START 1;
 CREATE SEQUENCE seq_hospital_unidade START 1;
-
 CREATE SEQUENCE seq_ala START 1;
 CREATE SEQUENCE seq_quarto START 1;
 CREATE SEQUENCE seq_sala START 1;
-
 CREATE SEQUENCE seq_especialidade START 1;
 CREATE SEQUENCE seq_profissional START 1;
-
 CREATE SEQUENCE seq_paciente START 1;
 CREATE SEQUENCE seq_prontuario START 1;
 CREATE SEQUENCE seq_paciente_contato START 1;
 CREATE SEQUENCE seq_paciente_endereco START 1;
 CREATE SEQUENCE seq_paciente_convenio START 1;
-
 CREATE SEQUENCE seq_convenio START 1;
-
 CREATE SEQUENCE seq_exame_tipo START 1;
 CREATE SEQUENCE seq_paciente_exame START 1;
-
 CREATE SEQUENCE seq_consulta START 1;
 CREATE SEQUENCE seq_cirurgia START 1;
 CREATE SEQUENCE seq_internacao START 1;
-
 CREATE SEQUENCE seq_doenca_modelo START 1;
 CREATE SEQUENCE seq_paciente_doenca START 1;
-
 CREATE SEQUENCE seq_alergia START 1;
-
 CREATE SEQUENCE seq_medicamento_modelo START 1;
 CREATE SEQUENCE seq_medicamento START 1;
-
 CREATE SEQUENCE seq_receita START 1;
 CREATE SEQUENCE seq_item_receita START 1;
 CREATE SEQUENCE seq_paciente_medicacao START 1;
-
 CREATE SEQUENCE seq_vacina_modelo START 1;
 CREATE SEQUENCE seq_vacina START 1;
 CREATE SEQUENCE seq_paciente_vacinacao START 1;
@@ -56,7 +46,9 @@ CREATE TABLE hospital (
     nome VARCHAR(255) NOT NULL,
     cnes VARCHAR(50) NOT NULL,
     cnpj VARCHAR(20) NOT NULL,
-    token_acesso VARCHAR(255) NOT NULL
+    token_acesso VARCHAR(255) NOT NULL,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE hospital_endereco (
@@ -66,7 +58,9 @@ CREATE TABLE hospital_endereco (
     bairro VARCHAR(100),
     rua VARCHAR(150),
     numero VARCHAR(20),
-    complemento VARCHAR(100)
+    complemento VARCHAR(100),
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE hospital_unidade (
@@ -74,10 +68,10 @@ CREATE TABLE hospital_unidade (
     nome VARCHAR(255) NOT NULL,
     tipo_unidade INTEGER NOT NULL,
     endereco_id BIGINT REFERENCES hospital_endereco(id) ON DELETE SET NULL,
-    instituicao_pai_id BIGINT NOT NULL REFERENCES hospital(id) ON DELETE CASCADE
+    instituicao_pai_id BIGINT NOT NULL REFERENCES hospital(id) ON DELETE CASCADE,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_hospital_unidade_instituicao ON hospital_unidade(instituicao_pai_id);
 
 -- ========================
 -- ESTRUTURA FÍSICA: ALA / QUARTO / SALA
@@ -85,7 +79,9 @@ CREATE INDEX idx_hospital_unidade_instituicao ON hospital_unidade(instituicao_pa
 CREATE TABLE ala (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_ala'),
     nome VARCHAR(150) NOT NULL,
-    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE CASCADE
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE CASCADE,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE quarto (
@@ -93,14 +89,18 @@ CREATE TABLE quarto (
     numero VARCHAR(50),
     ala_id BIGINT NOT NULL REFERENCES ala(id) ON DELETE CASCADE,
     tipo INTEGER NOT NULL,
-    capacidade INTEGER NOT NULL
+    capacidade INTEGER NOT NULL,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE sala (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_sala'),
     numero VARCHAR(50),
     ala_id BIGINT NOT NULL REFERENCES ala(id) ON DELETE CASCADE,
-    tipo INTEGER NOT NULL
+    tipo INTEGER NOT NULL,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 -- ========================
@@ -108,7 +108,9 @@ CREATE TABLE sala (
 -- ========================
 CREATE TABLE especialidade (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_especialidade'),
-    nome VARCHAR(200) NOT NULL
+    nome VARCHAR(200) NOT NULL,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE profissional_saude (
@@ -116,11 +118,10 @@ CREATE TABLE profissional_saude (
     nome VARCHAR(200) NOT NULL,
     registro_profissional VARCHAR(50) NOT NULL,
     especialidade_id BIGINT NOT NULL REFERENCES especialidade(id) ON DELETE RESTRICT,
-    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_profissional_especialidade ON profissional_saude(especialidade_id);
-CREATE INDEX idx_profissional_unidade ON profissional_saude(hospital_unidade_id);
 
 -- ========================
 -- PACIENTE / PRONTUÁRIO / CONTATOS / ENDEREÇOS / CONVENIOS
@@ -150,7 +151,9 @@ CREATE TABLE paciente_prontuario (
     paciente_id BIGINT NOT NULL UNIQUE REFERENCES paciente(id) ON DELETE CASCADE,
     tipo_sangue INTEGER NOT NULL,
     data_abertura TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
-    ultima_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
+    ultima_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE paciente_contato (
@@ -158,10 +161,10 @@ CREATE TABLE paciente_contato (
     paciente_id BIGINT NOT NULL REFERENCES paciente(id) ON DELETE CASCADE,
     telefone_residencial VARCHAR(30),
     telefone_celular VARCHAR(30),
-    email VARCHAR(255)
+    email VARCHAR(255),
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_paciente_contato_paciente ON paciente_contato(paciente_id);
 
 CREATE TABLE paciente_endereco (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_paciente_endereco'),
@@ -172,16 +175,18 @@ CREATE TABLE paciente_endereco (
     bairro VARCHAR(100),
     cidade VARCHAR(100),
     estado VARCHAR(2),
-    cep VARCHAR(20)
+    cep VARCHAR(20),
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_paciente_endereco_paciente ON paciente_endereco(paciente_id);
 
 CREATE TABLE convenio (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_convenio'),
     nome VARCHAR(255) NOT NULL,
     cnpj VARCHAR(20),
-    registro_ans VARCHAR(50)
+    registro_ans VARCHAR(50),
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE paciente_convenio (
@@ -191,11 +196,10 @@ CREATE TABLE paciente_convenio (
     numero_carteira VARCHAR(100) NOT NULL,
     validade DATE,
     ativo BOOLEAN DEFAULT TRUE,
-    UNIQUE (paciente_id, convenio_id)
+    UNIQUE (paciente_id, convenio_id),
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_paciente_convenio_paciente ON paciente_convenio(paciente_id);
-CREATE INDEX idx_paciente_convenio_convenio ON paciente_convenio(convenio_id);
 
 -- ========================
 -- EXAMES (tipos) e PacienteExame
@@ -203,7 +207,9 @@ CREATE INDEX idx_paciente_convenio_convenio ON paciente_convenio(convenio_id);
 CREATE TABLE exame_tipo (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_exame_tipo'),
     nome VARCHAR(200) NOT NULL,
-    descricao TEXT
+    descricao TEXT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE paciente_exame (
@@ -215,10 +221,10 @@ CREATE TABLE paciente_exame (
     resultados TEXT,
     observacoes TEXT,
     profissional_id BIGINT NOT NULL REFERENCES profissional_saude(id) ON DELETE RESTRICT,
-    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_paciente_exame_prontuario ON paciente_exame(prontuario_id);
 
 -- ========================
 -- CONSULTAS / CIRURGIAS / INTERNACOES
@@ -230,10 +236,10 @@ CREATE TABLE paciente_consulta (
     profissional_id BIGINT NOT NULL REFERENCES profissional_saude(id) ON DELETE RESTRICT,
     observacoes TEXT,
     sala_id BIGINT NOT NULL REFERENCES sala(id) ON DELETE RESTRICT,
-    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_consulta_prontuario ON paciente_consulta(prontuario_id);
 
 CREATE TABLE paciente_cirurgia (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_cirurgia'),
@@ -243,10 +249,10 @@ CREATE TABLE paciente_cirurgia (
     profissional_responsavel_id BIGINT NOT NULL REFERENCES profissional_saude(id) ON DELETE RESTRICT,
     sala_id BIGINT NOT NULL REFERENCES sala(id) ON DELETE RESTRICT,
     hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
-    observacoes TEXT
+    observacoes TEXT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_cirurgia_prontuario ON paciente_cirurgia(prontuario_id);
 
 CREATE TABLE paciente_internacao (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_internacao'),
@@ -257,10 +263,10 @@ CREATE TABLE paciente_internacao (
     motivo TEXT,
     profissional_responsavel_id BIGINT NOT NULL REFERENCES profissional_saude(id) ON DELETE RESTRICT,
     observacoes TEXT,
-    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_internacao_prontuario ON paciente_internacao(prontuario_id);
 
 -- ========================
 -- DOENÇAS CRÔNICAS / ALERGIAS
@@ -269,7 +275,9 @@ CREATE TABLE doenca_cronica_modelo (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_doenca_modelo'),
     nome VARCHAR(255) NOT NULL,
     cid VARCHAR(50) NOT NULL,
-    descricao TEXT
+    descricao TEXT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE paciente_doenca_cronica (
@@ -279,19 +287,19 @@ CREATE TABLE paciente_doenca_cronica (
     data_diagnostico TIMESTAMP WITHOUT TIME ZONE,
     estagio VARCHAR(100),
     observacoes TEXT,
-    em_tratamento BOOLEAN DEFAULT TRUE
+    em_tratamento BOOLEAN DEFAULT TRUE,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_paciente_doenca_prontuario ON paciente_doenca_cronica(prontuario_id);
 
 CREATE TABLE alergia (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_alergia'),
     prontuario_id BIGINT NOT NULL REFERENCES paciente_prontuario(id) ON DELETE CASCADE,
     nome VARCHAR(200) NOT NULL,
-    tipo INTEGER NOT NULL
+    tipo INTEGER NOT NULL,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_alergia_prontuario ON alergia(prontuario_id);
 
 -- ========================
 -- MEDICAMENTOS / MODELOS
@@ -304,7 +312,9 @@ CREATE TABLE medicamento_modelo (
     forma_farmaceutica VARCHAR(100),
     dosagem VARCHAR(100),
     indicacoes TEXT,
-    contra_indicacoes TEXT
+    contra_indicacoes TEXT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE medicamento (
@@ -314,11 +324,10 @@ CREATE TABLE medicamento (
     data_fabricacao DATE,
     data_validade DATE,
     quantidade_disponivel INTEGER DEFAULT 0,
-    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_medicamento_modelo ON medicamento(modelo_id);
-CREATE INDEX idx_medicamento_unidade ON medicamento(hospital_unidade_id);
 
 -- ========================
 -- RECEITA / ITENS DA RECEITA / PACIENTE_MEDICACAO (uso contínuo)
@@ -328,7 +337,9 @@ CREATE TABLE receita (
     paciente_id BIGINT NOT NULL REFERENCES paciente(id) ON DELETE CASCADE,
     profissional_id BIGINT NOT NULL REFERENCES profissional_saude(id) ON DELETE RESTRICT,
     data TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
-    hospital_unidade_id BIGINT REFERENCES hospital_unidade(id) ON DELETE SET NULL
+    hospital_unidade_id BIGINT REFERENCES hospital_unidade(id) ON DELETE SET NULL,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE item_receita (
@@ -336,10 +347,10 @@ CREATE TABLE item_receita (
     receita_id BIGINT NOT NULL REFERENCES receita(id) ON DELETE CASCADE,
     medicamento_modelo_id BIGINT NOT NULL REFERENCES medicamento_modelo(id) ON DELETE RESTRICT,
     quantidade INTEGER,
-    posologia VARCHAR(500)
+    posologia VARCHAR(500),
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_item_receita_receita ON item_receita(receita_id);
 
 CREATE TABLE paciente_medicacao (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_paciente_medicacao'),
@@ -350,10 +361,10 @@ CREATE TABLE paciente_medicacao (
     via_administracao VARCHAR(100),
     observacoes TEXT,
     data_inicio TIMESTAMP WITHOUT TIME ZONE,
-    data_fim TIMESTAMP WITHOUT TIME ZONE
+    data_fim TIMESTAMP WITHOUT TIME ZONE,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_paciente_medicacao_prontuario ON paciente_medicacao(prontuario_id);
 
 -- ========================
 -- VACINAS / VACINA MODELO / VACINAÇÃO (registro)
@@ -365,7 +376,9 @@ CREATE TABLE vacina_modelo (
     tipo VARCHAR(100),
     indicacao TEXT,
     numero_doses INTEGER,
-    intervalo_entre_doses INTERVAL
+    intervalo_entre_doses INTERVAL,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE vacina (
@@ -375,7 +388,9 @@ CREATE TABLE vacina (
     data_producao DATE,
     data_validade DATE,
     quantidade_disponivel INTEGER DEFAULT 0,
-    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE paciente_vacinacao (
@@ -386,14 +401,7 @@ CREATE TABLE paciente_vacinacao (
     data_aplicacao TIMESTAMP WITHOUT TIME ZONE,
     dose_numero INTEGER,
     observacoes TEXT,
-    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
-
-CREATE INDEX idx_paciente_vacinacao_prontuario ON paciente_vacinacao(prontuario_id);
-
--- ========================
--- ÍNDICES E CONSTRAINTS ADICIONAIS
--- ========================
-CREATE INDEX idx_paciente_nome ON paciente(lower(nome));
-CREATE INDEX idx_paciente_cns ON paciente(cns);
-CREATE INDEX idx_profissional_registro ON profissional_saude(registro_profissional);
