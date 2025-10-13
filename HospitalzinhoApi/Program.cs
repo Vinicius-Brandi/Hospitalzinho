@@ -42,12 +42,35 @@ builder.Services.AddTransient<HospitalServico>();
 builder.Services.AddTransient<HospitalUnidadeServico>();
 builder.Services.AddTransient<PacienteServico>();
 builder.Services.AddTransient<PacienteProntuarioServico>();
-// Novos servi\u00e7os adicionados para entidades diversas
+// Serviços finais adicionados
+builder.Services.AddTransient<AlergiaServico>();
+builder.Services.AddTransient<DoencaCronicaModeloServico>();
+builder.Services.AddTransient<ExameServico>();
+builder.Services.AddTransient<HospitalEnderecoServico>();
+builder.Services.AddTransient<VacinaServico>();
+builder.Services.AddTransient<VacinaModeloServico>();
 builder.Services.AddTransient<ConvenioServico>();
 builder.Services.AddTransient<EspecialidadeServico>();
 builder.Services.AddTransient<ItemReceitaServico>();
 builder.Services.AddTransient<ProfissionalSaudeServico>();
 builder.Services.AddTransient<ReceitaServico>();
+builder.Services.AddTransient<AlaServico>();
+builder.Services.AddTransient<QuartoServico>();
+builder.Services.AddTransient<SalaServico>();
+// Serviços de medicação
+builder.Services.AddTransient<MedicamentoServico>();
+builder.Services.AddTransient<MedicamentoModeloServico>();
+// Serviços de paciente
+builder.Services.AddTransient<PacienteCirurgiaServico>();
+builder.Services.AddTransient<PacienteConsultaServico>();
+builder.Services.AddTransient<PacienteContatoServico>();
+builder.Services.AddTransient<PacienteConvenioServico>();
+builder.Services.AddTransient<PacienteDoencaCronicaServico>();
+builder.Services.AddTransient<PacienteEnderecoServico>();
+builder.Services.AddTransient<PacienteExameServico>();
+builder.Services.AddTransient<PacienteInternacaoServico>();
+builder.Services.AddTransient<PacienteMedicacaoServico>();
+builder.Services.AddTransient<PacienteProntuarioServico>();
 
 // Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
