@@ -1,4 +1,4 @@
-﻿using FGB.Dominio.Repositorio;
+﻿using FGB.Dominio.Repositorios;
 using FGB.Entidades;
 using FGB.IRepositorios;
 using NHibernate;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FGB.Repositorio
+namespace FGB.Dominio.Repositorios
 {
     public class RepositorioSessao : IRepositorioSessao
     {
@@ -99,7 +99,7 @@ namespace FGB.Repositorio
 
         public IRepositorio GetRepositorio()
         {
-            throw new NotImplementedException("Implementar a criação e retorno do repositório padrão.");
+            return new Repositorio(_session);
         }
 
         public IRepositorioConsulta GetRepositorioConsulta()

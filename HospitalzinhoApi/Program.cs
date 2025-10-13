@@ -1,6 +1,6 @@
 using Hospitalzinho.Servico;
 using FGB.IRepositorios;
-using FGB.Repositorio;
+using FGB.Dominio.Repositorios;
 using NHibernate;
 using NHibernate.Cfg;
 using System.Text.Json.Serialization;
@@ -41,6 +41,7 @@ builder.Services.AddTransient<IRepositorioSessao, RepositorioSessao>();
 builder.Services.AddTransient<HospitalServico>();
 builder.Services.AddTransient<HospitalUnidadeServico>();
 builder.Services.AddTransient<PacienteServico>();
+builder.Services.AddTransient<PacienteProntuarioServico>();
 
 // Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
