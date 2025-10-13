@@ -1,0 +1,4 @@
+INSERT INTO hospital (nome, cnes, cnpj, token_acesso) VALUES
+('Hospitalzinho Central', '1234567', '12.345.678/0001-90', 'token123456'),
+('Hospitalzinho Norte', '2345678', '23.456.789/0001-01', 'token234567'),
+('Hospitalzinho Sul', '3456789', '34.567.890/0001-12', 'token345678');

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FGB.Repositorio;
+using FGB.Servicos;
+using Hospitalzinho.Entidades.EspecificaçõesHospital;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace Hospitalzinho.Servico
 {
-    internal class HospitalServico
+    public class HospitalServico : ServicoCrud<Hospital>
     {
+        public HospitalServico(IRepositorioSessao repositorio) : base(repositorio)
+        {
+        }
     }
 }

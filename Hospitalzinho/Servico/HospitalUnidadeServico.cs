@@ -11,7 +11,7 @@ namespace Hospitalzinho.Servico
 {
     public class HospitalUnidadeServico : ServicoCrud<HospitalUnidade>
     {
-        HospitalUnidadeServico(IRepositorioSessao repositorio): base(repositorio)
+        public HospitalUnidadeServico(IRepositorioSessao repositorio): base(repositorio)
         {
         }   
     }
