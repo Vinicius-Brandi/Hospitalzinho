@@ -27,7 +27,15 @@ namespace MinisterioDaSaudeMVC.Controllers
             {
                 Nome = nomenomeHospital,
                 TipoUnidade = (TipoUnidade)Enum.Parse(typeof(TipoUnidade), tipoUnidade),
-                Endereco = new HospitalEndereco(),
+                Endereco = new HospitalEndereco()
+                {
+                    Rua = rua,
+                    Numero = numero,
+                    Bairro = bairro,
+                    Cidade = cidade,
+                    CEP = cep,
+                    Complemento = complemento
+                },
                 InstituicaoPai = new Hospital()
                 {
                     Nome = nomenomeHospital,
