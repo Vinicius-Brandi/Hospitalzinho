@@ -26,7 +26,7 @@ namespace Hospitalzinho.Entidades
         public virtual EscolaridadePaciente Escolaridade { get; set; }
         public virtual IList<PacienteContato> Contatos { get; set; } = new List<PacienteContato>();
         public virtual IList<PacienteEndereco> Enderecos { get; set; } = new List<PacienteEndereco>();
-        public virtual IList<PacienteConvenio> Convenios { get; set; }    
+        public virtual IList<PacienteConvenio> Convenios { get; set; } = new List<PacienteConvenio>();
 
         public virtual PacienteProntuario Prontuario { get; set; }
     }
