@@ -1,6 +1,6 @@
-﻿namespace HospitalzinhoMVC.Models
+﻿namespace HospitalzinhoMVC.Models.MinhaAPI
 {
-    public enum SexoPaciente
+    public enum PacienteGenero
     {
         Masculino = 1,
         Feminino = 2,

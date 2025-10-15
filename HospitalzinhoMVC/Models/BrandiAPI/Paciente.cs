@@ -1,20 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HospitalzinhoMVC.Models
+namespace HospitalzinhoMVC.Models.BrandiAPI
 {
     public class Paciente
     {
         [Required]
         public virtual string Nome { get; set; }
         [Required]
-        public virtual string CNS { get; set; }
+        public virtual string CNS { get; set; } // Cartão Nacional de Saúde
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; set; }
         public string NomePai { get; set; }
         public string NomeMae { get; set; }
         public string CpfPai { get; set; }
         public string CpfMae { get; set; }
-        public bool Ativo { get; set; } = true;
+        public bool Ativo { get; set; }
         public SexoPaciente Sexo { get; set; }
         public string Nacionalidade { get; set; }
         public RacaPaciente Raca { get; set; }
@@ -22,5 +22,11 @@ namespace HospitalzinhoMVC.Models
         public EscolaridadePaciente Escolaridade { get; set; }
         public PacienteContato Contato { get; set; }
         public PacienteEndereco Endereco { get; set; }
+
+        public Paciente()
+        {
+            Contato = new PacienteContato();
+            Endereco = new PacienteEndereco();
+        }
     }
 }

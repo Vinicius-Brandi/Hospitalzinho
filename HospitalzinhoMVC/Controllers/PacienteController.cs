@@ -1,4 +1,5 @@
-﻿using HospitalzinhoMVC.Models;
+﻿using HospitalzinhoMVC.Models.BrandiAPI;
+using HospitalzinhoMVC.Models.MinhaAPI;
 using HospitalzinhoMVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Numerics;
@@ -23,51 +24,22 @@ namespace HospitalzinhoMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cadastro(string nomeCompleto, string dataNascimento, string nomeMae, string nomePai, string cpfMae, string cpfPai, string cpf, string cns, string sexo, string raca, string nacionalidade, string naturalidade, string escolaridade, string cep, string ceplogradouro, string numero, string complemento, string bairro, string cidade, string estado, string telefoneResidencial, string telefoneCelular, string email)
+        public async Task<IActionResult> Cadastro(Paciente model)
         {
-            Paciente paciente = new Paciente()
+            if (!ModelState.IsValid)
             {
-                Nome = nomeCompleto,
-                DataNascimento = DateTime.Parse(dataNascimento),
-                NomeMae = nomeMae,
-                NomePai = nomePai,
-                CpfMae = cpfMae,
-                CpfPai = cpfPai,
-                Cpf = cpf,
-                CNS = cns,
-                Sexo = (SexoPaciente)Enum.Parse(typeof(SexoPaciente), sexo),
-                Raca = (RacaPaciente)Enum.Parse(typeof(RacaPaciente), raca),
-                Nacionalidade = nacionalidade,
-                Naturalidade = naturalidade,
-                Escolaridade = (EscolaridadePaciente)Enum.Parse(typeof(EscolaridadePaciente), escolaridade),
-                Contato = new PacienteContato()
-                {
-                    TelefoneResidencial = telefoneResidencial,
-                    TelefoneCelular = telefoneCelular,
-                    Email = email
-                },
-                Endereco = new PacienteEndereco()
-                {
-                    Logradouro = ceplogradouro,
-                    Numero = numero,
-                    Complemento = complemento,
-                    Bairro = bairro,
-                    Cidade = cidade,
-                    Estado = estado,
-                    Cep = cep
-                }
-            };
+                return View(model);
+            }
 
-            var pacienteCriado = await _pacienteAPIService.CreatePacienteAsync(paciente);
-
-            Console.WriteLine(pacienteCriado);
+            var pacienteCriado = await _pacienteAPIService.CreatePacienteAsync(model);
 
             if (pacienteCriado != null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            return View();
+            ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar o paciente. Tente novamente.");
+            return View(model);
         }
 
         [HttpGet]

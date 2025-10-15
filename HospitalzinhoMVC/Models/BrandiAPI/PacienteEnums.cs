@@ -1,5 +1,21 @@
-﻿namespace HospitalzinhoMVC.Models
+﻿namespace HospitalzinhoMVC.Models.BrandiAPI
 {
+    public enum SexoPaciente
+    {
+        Masculino = 1,
+        Feminino = 2,
+        Outro = 3
+    }
+
+    public enum RacaPaciente
+    {
+        Branca = 1,
+        Preta = 2,
+        Parda = 3,
+        Amarela = 4,
+        Indigena = 5
+    }
+
     public enum EscolaridadePaciente
     {
         Analfabeto = 1,
@@ -12,4 +28,5 @@
         PosGraduacao = 8,
         NaoSeAplica = 9
     }
+ 
 }

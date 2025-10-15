@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HospitalzinhoMVC.Models
+namespace HospitalzinhoMVC.Models.BrandiAPI
 {
     public class PacienteContato
     {

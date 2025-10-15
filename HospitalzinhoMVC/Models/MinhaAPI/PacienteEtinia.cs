@@ -1,6 +1,6 @@
-﻿namespace HospitalzinhoMVC.Models
+﻿namespace HospitalzinhoMVC.Models.MinhaAPI
 {
-    public enum RacaPaciente
+    public enum PacienteEtinia
     {
         Branca = 1,
         Preta = 2,

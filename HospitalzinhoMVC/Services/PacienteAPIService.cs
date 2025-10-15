@@ -1,4 +1,5 @@
-﻿using HospitalzinhoMVC.Models;
+﻿using HospitalzinhoMVC.Models.BrandiAPI;
+using HospitalzinhoMVC.Models.MinhaAPI;
 
 namespace HospitalzinhoMVC.Services
 {
