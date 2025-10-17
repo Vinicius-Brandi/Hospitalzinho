@@ -8,6 +8,6 @@ namespace HospitalzinhoAPI.Services.Paciente
     {
         Task<List<PacienteDTO>?> BuscarTodosPacientes();
         Task<List<PacienteDTO>?> BuscarPacientePorCPF(string CPF);
-        Task<List<PacienteModel>?> CadastrarPaciente(PacienteDTO pacienteDTO);
+        Task<PacienteDTO?> CadastrarPaciente(PacienteDTO pacienteDTO);
     }
 }

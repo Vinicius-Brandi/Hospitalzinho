@@ -13,9 +13,19 @@ namespace HospitalzinhoSistema.Services
             _httpClient = httpClient;
         }
         
-        public async void CreatePacienteAsync(PacienteDTO pacienteDTO)
+        public async Task<PacienteDTO> CreatePacienteAsync(PacienteDTO pacienteDTO)
         {
             var response = await _httpClient.PostAsJsonAsync(BaseUrl + "Paciente/CadastrarPaciente", pacienteDTO);
+
+            if(response.IsSuccessStatusCode)
+            {
+                var createdPaciente = await response.Content.ReadFromJsonAsync<PacienteDTO>();
+                return createdPaciente!;
+            }
+            else
+            {
+                throw new HttpRequestException($"Erro ao criar o paciente. Status Code: {response.StatusCode}");
+            }
         }
 
         public async Task<List<PacienteDTO>?> GetSugestoesPorCPFAsync(string cpf)

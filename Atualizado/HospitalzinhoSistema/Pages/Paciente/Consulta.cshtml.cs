@@ -1,4 +1,5 @@
 using HospitalzinhoSistema.Services;
+using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -8,7 +9,7 @@ namespace HospitalzinhoSistema.Pages.Paciente
     {
         private readonly PacienteAPIService _pacienteAPIService;
         [BindProperty(SupportsGet = true)]
-        public string SearchTerm { get; set; }
+        public string? SearchTerm { get; set; }
 
         public ConsultaModel(PacienteAPIService pacienteAPIService)
         {
@@ -22,9 +23,28 @@ namespace HospitalzinhoSistema.Pages.Paciente
         public async Task<IActionResult> OnGetBuscarSugestoesAsync()
         {
             var sugestoes = await _pacienteAPIService.GetSugestoesPorCPFAsync(SearchTerm);
-            Console.WriteLine("teste");
 
-            return Partial("_SugestoesCPF", sugestoes);
+
+            if (string.IsNullOrWhiteSpace(SearchTerm) || sugestoes != null && sugestoes.Count == 0)
+            {
+                return Content("");
+            }
+
+            return Partial("PartialHTML/_SugestoesCPF", sugestoes);
+        }
+
+        public async Task<IActionResult> OnGetSelecionarAsync(string cpf)
+        {
+            var listaPacientes = await _pacienteAPIService.GetSugestoesPorCPFAsync(cpf);
+
+            var pacienteEncontrado = listaPacientes?.FirstOrDefault();
+
+            if (pacienteEncontrado == null)
+            {
+                return Content("<div class='alerta-erro'>Paciente não encontrado. Por favor, tente novamente.</div>");
+            }
+
+            return Partial("PartialHTML/_DetalhesPaciente", pacienteEncontrado);
         }
 
     }

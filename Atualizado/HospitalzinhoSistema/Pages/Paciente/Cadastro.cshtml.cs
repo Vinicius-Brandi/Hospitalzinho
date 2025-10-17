@@ -28,6 +28,8 @@ namespace HospitalzinhoSistema.Pages.Paciente
                 return Page();
             }
 
+            await _pacienteAPIService.CreatePacienteAsync(Paciente);
+
             return RedirectToPage("/Paciente/Consulta", new { status = "sucesso" });
         }
     }

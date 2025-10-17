@@ -11,6 +11,10 @@ namespace HospitalzinhoAPI.Mappings
             CreateMap<PacienteModel, PacienteDTO>();
             CreateMap<PacienteEndereco, PacienteEnderecoDTO>();
             CreateMap<PacienteContato, PacienteContatoDTO>();
+
+            CreateMap<PacienteDTO, PacienteModel>();
+            CreateMap<PacienteEnderecoDTO, PacienteEndereco>();
+            CreateMap<PacienteContatoDTO, PacienteContato>();
         }
     }
 }

@@ -10,6 +10,17 @@ namespace HospitalzinhoAPI.Data
         {
             
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<PacienteModel>(entity =>
+            {
+                // Configura a propriedade 'DataNascimento' do seu 'PacienteModel'
+                entity.Property(p => p.DataNascimento)
+                      .HasColumnType("date"); // Mapeia para o tipo 'date' do PostgreSQL
+            });
+        }
 
         public DbSet<PacienteModel> Pacientes { get; set; }
         public DbSet<PacienteContato> PacientesContatos { get; set; }
