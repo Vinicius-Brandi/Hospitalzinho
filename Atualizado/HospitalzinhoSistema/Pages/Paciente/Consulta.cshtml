@@ -1,0 +1,205 @@
+﻿@page
+@model HospitalzinhoSistema.Pages.Paciente.ConsultaModel
+@{
+    ViewData["Title"] = "Consulta Paciente";
+}
+
+@section Styles {
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Estilo -->
+    <link rel="stylesheet" href="~/css/ConsultaPaciente.css" asp-append-version="true" />
+}
+
+<h1>Prontuário Eletrônico do Paciente</h1>
+
+<!-- Seção de Pesquisa -->
+<section id="pesquisa-paciente">
+    <h2>Buscar Paciente</h2>
+    <form class="form-pesquisa">
+        <div class="form-group" id="pesquisa-wrapper" style="position: relative;">
+            <label for="cpf-paciente">CPF ou Cartão Nacional de Saúde (CNS)</label>
+            <input type="text" id="cpf-paciente" asp-for="SearchTerm"
+                   placeholder="Digite o CPF ou CNS do paciente"
+                   hx-get="@Url.Page("Consulta", "BuscarSugestoes")"
+                   hx-trigger="keyup changed delay:300ms"
+                   hx-target="#sugestoes-cpf"
+                   hx-swap="innerHTML"
+                   autocomplete="off"
+                   required>
+
+            <!-- Container que recebe as sugestões -->
+            <div id="sugestoes-cpf" class="sugestoes-lista"></div>
+        </div>
+        <button type="submit" class="btn-pesquisar">Pesquisar</button>
+    </form>
+</section>
+
+<!-- Agrupar os resultados. Pode ficar escondida via JS -->
+<div class="hidden">
+
+    <section class="card-prontuario" id="dados-paciente">
+        <div class="card-header">
+            <h2>Dados do Paciente</h2>
+        </div>
+        <div class="card-body info-paciente">
+            <!-- EXEMPLOS -->
+            <div><strong>Nome:</strong> Ana Maria da Silva</div>
+            <div><strong>Data de Nasc.:</strong> 15/08/1985</div>
+            <div><strong>CPF:</strong> 123.456.789-00</div>
+            <div><strong>CNS:</strong> 700 1234 5678 9012</div>
+            <div><strong>Mãe:</strong> Joana Pereira da Silva</div>
+            <div><strong>Telefone:</strong> (14) 99876-5432</div>
+            <div><strong>Endereço:</strong> Rua das Flores, 123, Centro, Marília - SP</div>
+        </div>
+    </section>
+
+    <section class="card-prontuario" id="alergias">
+        <div class="card-header">
+            <h2>Alergias Conhecidas</h2>
+        </div>
+        <div class="card-body">
+            <!-- EXEMPLOS -->
+            <p class="alergia-item">Penicilina</p>
+            <p class="alergia-item">Camarão</p>
+        </div>
+    </section>
+
+    <section class="card-prontuario" id="vacinacao">
+        <div class="card-header">
+            <h2>Histórico de Vacinação</h2>
+        </div>
+        <div class="card-body table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vacina</th>
+                        <th>Dose</th>
+                        <th>Data</th>
+                        <th>Unidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- EXEMPLOS -->
+                    <tr>
+                        <td>COVID-19 (Pfizer)</td>
+                        <td>3ª Dose</td>
+                        <td>20/03/2022</td>
+                        <td>UBS Nova Marília</td>
+                    </tr>
+                    <tr>
+                        <td>Febre Amarela</td>
+                        <td>Dose Única</td>
+                        <td>10/06/2019</td>
+                        <td>UBS Cascata</td>
+                    </tr>
+                    <tr>
+                        <td>Hepatite B</td>
+                        <td>3ª Dose</td>
+                        <td>05/11/2015</td>
+                        <td>UBS Santa Augusta</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="card-prontuario" id="consultas">
+        <div class="card-header">
+            <h2>Histórico de Consultas</h2>
+        </div>
+        <div class="card-body table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Especialidade</th>
+                        <th>Profissional</th>
+                        <th>Unidade</th>
+                        <th>Resumo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- EXEMPLOS -->
+                    <tr>
+                        <td>10/09/2025</td>
+                        <td>Clínica Geral</td>
+                        <td>Dr. Carlos Andrade</td>
+                        <td>UBS Nova Marília</td>
+                        <td>Queixa de dor de cabeça. Aferida pressão arterial.</td>
+                    </tr>
+                    <tr>
+                        <td>02/06/2025</td>
+                        <td>Dermatologia</td>
+                        <td>Dra. Beatriz Lima</td>
+                        <td>Ambulatório de Especialidades</td>
+                        <td>Consulta de rotina.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="card-prontuario" id="internacoes">
+        <div class="card-header">
+            <h2>Histórico de Internações</h2>
+        </div>
+        <div class="card-body table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Entrada</th>
+                        <th>Saída</th>
+                        <th>Hospital</th>
+                        <th>Motivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- EXEMPLOS -->
+                    <tr>
+                        <td>15/01/2024</td>
+                        <td>18/01/2024</td>
+                        <td>Hospital das Clínicas</td>
+                        <td>Pneumonia Comunitária</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="card-prontuario" id="medicamentos">
+        <div class="card-header">
+            <h2>Medicamentos em Uso / Prescrições Recentes</h2>
+        </div>
+        <div class="card-body table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Dosagem</th>
+                        <th>Início</th>
+                        <th>Profissional</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- EXEMPLOS -->
+                    <tr>
+                        <td>Losartana Potássica</td>
+                        <td>50mg, 1x ao dia</td>
+                        <td>05/04/2023</td>
+                        <td>Dr. Carlos Andrade</td>
+                    </tr>
+                    <tr>
+                        <td>Sinvastatina</td>
+                        <td>20mg, 1x ao dia</td>
+                        <td>05/04/2023</td>
+                        <td>Dr. Carlos Andrade</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

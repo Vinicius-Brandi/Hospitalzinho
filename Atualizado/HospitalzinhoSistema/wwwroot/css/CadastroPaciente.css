@@ -1,0 +1,112 @@
+/* Importação de estilos base para consistência */
+@import url('ConsultaPaciente.css');
+
+/* Estilos específicos para a página de registro */
+
+#adicionar-registro,
+#cadastro-novo-paciente {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-top: 2rem;
+}
+
+#adicionar-registro h2,
+#cadastro-novo-paciente h2 {
+    color: #0056b3;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+fieldset {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+legend {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #0056b3;
+    padding: 0 0.5rem;
+}
+
+.form-grid, .address-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+/* Botões */
+.btn-salvar {
+    padding: 0.8rem 1.8rem;
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 1.5rem;
+}
+.btn-salvar:hover {
+    background-color: #218838;
+}
+
+.botoes-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+/* Alerta de "Paciente não encontrado" */
+.alerta {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #ffc107;
+    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-cadastrar-novo {
+    padding: 0.6rem 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+}

@@ -1,0 +1,6 @@
+@HospitalzinhoAPI_HostAddress = http://localhost:5139
+
+GET {{HospitalzinhoAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
