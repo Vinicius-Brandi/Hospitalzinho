@@ -17,59 +17,59 @@ namespace HospitalzinhoAPI.Controllers
             _prontuarioInterface = prontuarioInterface;
         }
 
-        [HttpGet("BuscarProntuarioAlergias/{idPaciente}")]
-        public async Task<ActionResult<List<ProntuarioAlergiaDTO>>> BuscarProntuarioAlergias(int idPaciente)
+        [HttpGet("BuscarProntuarioAlergias/{cpfPaciente}")]
+        public async Task<ActionResult<List<ProntuarioAlergiaDTO>>> BuscarProntuarioAlergias(string cpfPaciente)
         {
-            var response = await _prontuarioInterface.BuscarProntuarioAlergias(idPaciente);
+            var response = await _prontuarioInterface.BuscarProntuarioAlergias(cpfPaciente);
             return Ok(response);
         }
 
-        [HttpGet("BuscarProntuarioVacinas/{idPaciente}")]
-        public async Task<ActionResult<List<ProntuarioVacinaDTO>>> BuscarProntuarioVacinas(int idPaciente)
+        [HttpGet("BuscarProntuarioVacinas/{cpfPaciente}")]
+        public async Task<ActionResult<List<ProntuarioVacinaDTO>>> BuscarProntuarioVacinas(string cpfPaciente)
         {
-            var response = await _prontuarioInterface.BuscarProntuarioVacinas(idPaciente);
+            var response = await _prontuarioInterface.BuscarProntuarioVacinas(cpfPaciente);
             return Ok(response);
         }
 
-        [HttpGet("BuscarProntuarioConsultas/{idPaciente}")]
-        public async Task<ActionResult<List<ProntuarioConsulta>>> BuscarProntuarioConsultas(int idPaciente)
+        [HttpGet("BuscarProntuarioConsultas/{cpfPaciente}")]
+        public async Task<ActionResult<List<ProntuarioConsulta>>> BuscarProntuarioConsultas(string cpfPaciente)
         {
-            var response = await _prontuarioInterface.BuscarProntuarioConsultas(idPaciente);
+            var response = await _prontuarioInterface.BuscarProntuarioConsultas(cpfPaciente);
             return Ok(response);
         }
 
-        [HttpGet("BuscarProntuarioInternacoes/{idPaciente}")]
-        public async Task<ActionResult<List<ProntuarioInternacaoDTO>>> BuscarProntuarioInternacoes(int idPaciente)
+        [HttpGet("BuscarProntuarioInternacoes/{cpfPaciente}")]
+        public async Task<ActionResult<List<ProntuarioInternacaoDTO>>> BuscarProntuarioInternacoes(string cpfPaciente)
         {
-            var response = await _prontuarioInterface.BuscarProntuarioInternacoes(idPaciente);
+            var response = await _prontuarioInterface.BuscarProntuarioInternacoes(cpfPaciente);
             return Ok(response);
         }
 
-        [HttpPost("AdicionarProntuarioAlergia/{idPaciente}")]
-        public async Task<ActionResult<ProntuarioAlergiaDTO>> AdicionarProntuarioAlergia(int idPaciente, ProntuarioAlergiaDTO prontuarioAlergia)
+        [HttpPost("AdicionarProntuarioAlergia/{cpfPaciente}")]
+        public async Task<ActionResult<ProntuarioAlergiaDTO>> AdicionarProntuarioAlergia(string cpfPaciente, ProntuarioAlergiaDTO prontuarioAlergia)
         {
-            var response = await _prontuarioInterface.AdicionarProntuarioAlergia(idPaciente, prontuarioAlergia);
+            var response = await _prontuarioInterface.AdicionarProntuarioAlergia(cpfPaciente, prontuarioAlergia);
             return Ok(response);
         }
 
-        [HttpPost("AdicionarProntuarioConsulta/{idPaciente}")]
-        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioConsulta(int idPaciente, ProntuarioConsultaDTO prontuarioConsulta)
+        [HttpPost("AdicionarProntuarioConsulta/{cpfPaciente}")]
+        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioConsulta(string cpfPaciente, ProntuarioConsultaDTO prontuarioConsulta)
         {
-            var response = await _prontuarioInterface.AdicionarProntuarioConsulta(idPaciente, prontuarioConsulta);
+            var response = await _prontuarioInterface.AdicionarProntuarioConsulta(cpfPaciente, prontuarioConsulta);
             return Ok(response);
         }
 
-        [HttpPost("AdicionarProntuarioInternacao/{idPaciente}")]
-        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioInternacao(int idPaciente, ProntuarioInternacaoDTO prontuarioInternacao)
+        [HttpPost("AdicionarProntuarioInternacao/{cpfPaciente}")]
+        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioInternacao(string cpfPaciente, ProntuarioInternacaoDTO prontuarioInternacao)
         {
-            var response = await _prontuarioInterface.AdicionarProntuarioInternacao(idPaciente, prontuarioInternacao);
+            var response = await _prontuarioInterface.AdicionarProntuarioInternacao(cpfPaciente, prontuarioInternacao);
             return Ok(response);
         }
 
-        [HttpPost("AdicionarProntuarioVacina/{idPaciente}")]
-        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioVacina(int idPaciente, ProntuarioVacinaDTO prontuarioVacina)
+        [HttpPost("AdicionarProntuarioVacina/{cpfPaciente}")]
+        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioVacina(string cpfPaciente, ProntuarioVacinaDTO prontuarioVacina)
         {
-            var response = await _prontuarioInterface.AdicionarProntuarioVacina(idPaciente, prontuarioVacina);
+            var response = await _prontuarioInterface.AdicionarProntuarioVacina(cpfPaciente, prontuarioVacina);
             return Ok(response);
         }
 

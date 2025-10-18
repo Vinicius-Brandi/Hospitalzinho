@@ -31,7 +31,13 @@
 
 <section id="adicionar-registro">
     <h2>Adicionar Nova Informação</h2>
-    <form>
+    <form hx-post="@Url.Page("/Prontuario/Cadastro", "SalvarRegistro")"
+          hx-target="#adicionar-registro"
+          hx-swap="outerHTML">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="cpf" value="@Model.CPF" />
         <div class="form-group">
             <label for="tipo-registro">Selecione o tipo de registro</label>
             <select id="tipo-registro" name="tipoRegistro"

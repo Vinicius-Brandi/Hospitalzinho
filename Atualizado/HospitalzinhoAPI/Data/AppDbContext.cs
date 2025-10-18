@@ -15,12 +15,17 @@ namespace HospitalzinhoAPI.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<PacienteModel>(entity =>
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                // Configura a propriedade 'DataNascimento' do seu 'PacienteModel'
-                entity.Property(p => p.DataNascimento)
-                      .HasColumnType("date"); // Mapeia para o tipo 'date' do PostgreSQL
-            });
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(DateTime) || property.ClrType == typeof(DateTime?))
+                    {
+                        property.SetColumnType("timestamp without time zone");
+                    }
+                }
+            }
+
         }
 
         public DbSet<PacienteModel> Pacientes { get; set; }

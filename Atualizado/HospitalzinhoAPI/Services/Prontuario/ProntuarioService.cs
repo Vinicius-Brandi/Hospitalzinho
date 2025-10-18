@@ -21,11 +21,11 @@ namespace HospitalzinhoAPI.Services.Prontuario
             _mapper = mapper;
         }
 
-        public async Task<ProntuarioAlergiaDTO> AdicionarProntuarioAlergia(int idPaciente, ProntuarioAlergiaDTO prontuarioAlergia)
+        public async Task<ProntuarioAlergiaDTO> AdicionarProntuarioAlergia(string cpfPaciente, ProntuarioAlergiaDTO prontuarioAlergia)
         {
-            var paciente = _context.Pacientes.Where(p => p.Id == idPaciente).FirstOrDefault();
+            var paciente = await _context.Pacientes.FirstOrDefaultAsync(p => p.CPF == cpfPaciente);
             ProntuarioAlergia prontuario = _mapper.Map<ProntuarioAlergia>(prontuarioAlergia);
-            prontuario.Paciente = paciente!;
+            prontuario.Paciente = paciente;
 
             _context.Add(prontuario);
             await _context.SaveChangesAsync();
@@ -33,9 +33,9 @@ namespace HospitalzinhoAPI.Services.Prontuario
             return prontuarioAlergia;
         }
 
-        public async Task<ProntuarioConsultaDTO> AdicionarProntuarioConsulta(int idPaciente, ProntuarioConsultaDTO prontuarioConsulta)
+        public async Task<ProntuarioConsultaDTO> AdicionarProntuarioConsulta(string cpfPaciente, ProntuarioConsultaDTO prontuarioConsulta)
         {
-            var paciente = _context.Pacientes.Where(p => p.Id == idPaciente).FirstOrDefault();
+            var paciente = _context.Pacientes.Where(p => p.CPF == cpfPaciente).FirstOrDefault();
             ProntuarioConsulta prontuario = _mapper.Map<ProntuarioConsulta>(prontuarioConsulta);
             prontuario.Paciente = paciente!;
 
@@ -45,9 +45,9 @@ namespace HospitalzinhoAPI.Services.Prontuario
             return prontuarioConsulta;
         }
 
-        public async Task<ProntuarioInternacaoDTO> AdicionarProntuarioInternacao(int idPaciente, ProntuarioInternacaoDTO prontuarioInternacao)
+        public async Task<ProntuarioInternacaoDTO> AdicionarProntuarioInternacao(string cpfPaciente, ProntuarioInternacaoDTO prontuarioInternacao)
         {
-            var paciente = _context.Pacientes.Where(p => p.Id == idPaciente).FirstOrDefault();
+            var paciente = _context.Pacientes.Where(p => p.CPF == cpfPaciente).FirstOrDefault();
             ProntuarioInternacao prontuario = _mapper.Map<ProntuarioInternacao>(prontuarioInternacao);
             prontuario.Paciente = paciente!;
 
@@ -57,9 +57,9 @@ namespace HospitalzinhoAPI.Services.Prontuario
             return prontuarioInternacao;
         }
 
-        public async Task<ProntuarioVacinaDTO> AdicionarProntuarioVacina(int idPaciente, ProntuarioVacinaDTO prontuarioVacina)
+        public async Task<ProntuarioVacinaDTO> AdicionarProntuarioVacina(string cpfPaciente, ProntuarioVacinaDTO prontuarioVacina)
         {
-            var paciente = _context.Pacientes.Where(p => p.Id == idPaciente).FirstOrDefault();
+            var paciente = _context.Pacientes.Where(p => p.CPF == cpfPaciente).FirstOrDefault();
             ProntuarioVacina prontuario = _mapper.Map<ProntuarioVacina>(prontuarioVacina);
             prontuario.Paciente = paciente!;
 
@@ -69,30 +69,30 @@ namespace HospitalzinhoAPI.Services.Prontuario
             return prontuarioVacina;
         }
 
-        public async Task<List<ProntuarioAlergiaDTO>> BuscarProntuarioAlergias(int idPaciente)
+        public async Task<List<ProntuarioAlergiaDTO>> BuscarProntuarioAlergias(string cpfPaciente)
         {
-            var dado = await _context.ProntuarioAlergias.Where(p => p.Paciente.Id == idPaciente).ToListAsync();
+            var dado = await _context.ProntuarioAlergias.Where(p => p.Paciente.CPF == cpfPaciente).ToListAsync();
 
             return _mapper.Map<List<ProntuarioAlergiaDTO>>(dado);
         }
 
-        public async Task<List<ProntuarioConsultaDTO>> BuscarProntuarioConsultas(int idPaciente)
+        public async Task<List<ProntuarioConsultaDTO>> BuscarProntuarioConsultas(string cpfPaciente)
         {
-            var dado = await _context.ProntuarioConsultas.Where(p => p.Paciente.Id == idPaciente).ToListAsync();
+            var dado = await _context.ProntuarioConsultas.Where(p => p.Paciente.CPF == cpfPaciente).ToListAsync();
 
             return _mapper.Map<List<ProntuarioConsultaDTO>>(dado);
         }
 
-        public async Task<List<ProntuarioInternacaoDTO>> BuscarProntuarioInternacoes(int idPaciente)
+        public async Task<List<ProntuarioInternacaoDTO>> BuscarProntuarioInternacoes(string cpfPaciente)
         {
-            var dado = await _context.ProntuarioInternacoes.Where(p => p.Paciente.Id == idPaciente).ToListAsync();
+            var dado = await _context.ProntuarioInternacoes.Where(p => p.Paciente.CPF == cpfPaciente).ToListAsync();
 
             return _mapper.Map<List<ProntuarioInternacaoDTO>>(dado);
         }
 
-        public async Task<List<ProntuarioVacinaDTO>> BuscarProntuarioVacinas(int idPaciente)
+        public async Task<List<ProntuarioVacinaDTO>> BuscarProntuarioVacinas(string cpfPaciente)
         {
-            var dado = await _context.ProntuarioVacinas.Where(p => p.Paciente.Id == idPaciente).ToListAsync();
+            var dado = await _context.ProntuarioVacinas.Where(p => p.Paciente.CPF == cpfPaciente).ToListAsync();
 
             return _mapper.Map<List<ProntuarioVacinaDTO>>(dado);
         }

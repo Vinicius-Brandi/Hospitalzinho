@@ -1,14 +1,14 @@
-﻿@page
-@model HospitalzinhoSistema.Pages.Shared._NovaAlergiaPartialModel
-@{
-}
+﻿@using HospitalzinhoSistema.Models.Prontuario
+@model ProntuarioAlergiaDTO
+
 <fieldset id="form-nova-alergia">
     <!--class="hidden"-->
     <legend>Dados da Alergia</legend>
     <div class="form-grid">
         <div class="form-group full-width">
             <label for="descricao-alergia">Descrição da Alergia</label>
-            <input type="text" id="descricao-alergia" name="descricao-alergia" placeholder="Ex: Penicilina, Frutos do mar">
+            <input type="text" id="descricao-alergia" asp-for="DescricaoAlergia" placeholder="Ex: Penicilina, Frutos do mar">
+            <span asp-validation-for="DescricaoAlergia" class="text-danger"></span>
         </div>
     </div>
 </fieldset>

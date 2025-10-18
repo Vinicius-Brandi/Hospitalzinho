@@ -1,26 +1,21 @@
-﻿@page
-@model HospitalzinhoSistema.Pages.Shared._NovaInternacaoPartialModel
-@{
-}
+﻿@using HospitalzinhoSistema.Models.Prontuario
+@model ProntuarioInternacaoDTO
+
 <fieldset id="form-nova-internacao">
     <!--class="hidden"-->
     <legend>Dados da Internação</legend>
     <div class="form-grid">
         <div class="form-group">
             <label for="data-entrada-internacao">Data de Entrada</label>
-            <input type="date" id="data-entrada-internacao" name="data-entrada-internacao">
+            <input type="date" id="data-entrada-internacao" asp-for="DataEntrada">
         </div>
         <div class="form-group">
             <label for="data-saida-internacao">Data de Saída</label>
-            <input type="date" id="data-saida-internacao" name="data-saida-internacao">
-        </div>
-        <div class="form-group full-width">
-            <label for="hospital-internacao">Hospital</label>
-            <input type="text" id="hospital-internacao" name="hospital-internacao">
+            <input type="date" id="data-saida-internacao" asp-for="DataSaida">
         </div>
         <div class="form-group full-width">
             <label for="motivo-internacao">Motivo da Internação</label>
-            <textarea id="motivo-internacao" name="motivo-internacao" rows="4"></textarea>
+            <textarea id="motivo-internacao" asp-for="MotivoInternacao" rows="4"></textarea>
         </div>
     </div>
 </fieldset>

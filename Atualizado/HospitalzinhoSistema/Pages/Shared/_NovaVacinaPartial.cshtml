@@ -1,7 +1,5 @@
-﻿@page
-@model HospitalzinhoSistema.Pages.Shared._NovaVacinaPartialModel
-@{
-}
+﻿@using HospitalzinhoSistema.Models.Prontuario
+@model ProntuarioVacinaDTO
 
 <fieldset id="form-nova-vacina">
     <!--class="hidden"-->
@@ -9,15 +7,15 @@
     <div class="form-grid">
         <div class="form-group">
             <label for="nome-vacina">Nome da Vacina</label>
-            <input type="text" id="nome-vacina" name="nome-vacina">
+            <input type="text" id="nome-vacina" asp-for="Nome">
         </div>
         <div class="form-group">
             <label for="dose-vacina">Dose</label>
-            <input type="text" id="dose-vacina" name="dose-vacina" placeholder="Ex: 1ª Dose, Dose Única">
+            <input type="text" id="dose-vacina" asp-for="Dose" placeholder="Ex: 1ª Dose, Dose Única">
         </div>
         <div class="form-group">
             <label for="data-vacina">Data de Aplicação</label>
-            <input type="date" id="data-vacina" name="data-vacina">
+            <input type="date" id="data-vacina" asp-for="DataAplicacao">
         </div>
     </div>
 </fieldset> 

@@ -30,7 +30,7 @@ namespace HospitalzinhoAPI.Services.Paciente
             return _mapper.Map<List<PacienteDTO>>(pacientes);
         }
 
-        public async Task<List<PacienteDTO>?> BuscarPacientePorCPF(string CPF)
+        public async Task<List<PacienteDTO>?> BuscarSugestoesPacientePorCPF(string CPF)
         {
             if (string.IsNullOrWhiteSpace(CPF))
             {
@@ -55,6 +55,29 @@ namespace HospitalzinhoAPI.Services.Paciente
             await _context.SaveChangesAsync();
 
             return _mapper.Map<PacienteDTO>(paciente);
+        }
+
+        public async Task<PacienteDTO?> BuscarPacientePorCPF(string CPF)
+        {
+            if (string.IsNullOrWhiteSpace(CPF))
+            {
+                return null;
+            }
+
+            var pacientes = await _context.Pacientes
+                                      .Include(p => p.Endereco)
+                                      .Include(p => p.Contato)
+                                      .Include(p => p.Convenio)
+                                      .Where(p => p.CPF == CPF).FirstOrDefaultAsync();
+
+            if (pacientes != null)
+            {
+                return _mapper.Map<PacienteDTO>(pacientes);
+
+            }
+            
+            return null;
+
         }
     }
 }

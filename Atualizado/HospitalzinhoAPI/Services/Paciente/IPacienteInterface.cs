@@ -7,7 +7,8 @@ namespace HospitalzinhoAPI.Services.Paciente
     public interface IPacienteInterface
     {
         Task<List<PacienteDTO>?> BuscarTodosPacientes();
-        Task<List<PacienteDTO>?> BuscarPacientePorCPF(string CPF);
+        Task<List<PacienteDTO>?> BuscarSugestoesPacientePorCPF(string CPF);
+        Task<PacienteDTO?> BuscarPacientePorCPF(string CPF);
         Task<PacienteDTO?> CadastrarPaciente(PacienteDTO pacienteDTO);
     }
 }

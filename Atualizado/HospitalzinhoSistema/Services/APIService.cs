@@ -1,5 +1,6 @@
 ﻿using HospitalzinhoSistema.Models;
 using HospitalzinhoSistema.Models.Paciente;
+using HospitalzinhoSistema.Models.Prontuario;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalzinhoSistema.Services
@@ -28,10 +29,32 @@ namespace HospitalzinhoSistema.Services
                 throw new HttpRequestException($"Erro ao criar o paciente. Status Code: {response.StatusCode}");
             }
         }
+        public async Task<IActionResult> CreateProntuario<T>(T prontuario, string cpfPaciente)
+        {
+            string endpoint = prontuario switch
+            {
+                ProntuarioAlergiaDTO => $"Prontuario/AdicionarProntuarioAlergia/{cpfPaciente}",
+                ProntuarioVacinaDTO => $"Prontuario/AdicionarProntuarioVacina/{cpfPaciente}",
+                ProntuarioConsultaDTO => $"Prontuario/AdicionarProntuarioConsulta/{cpfPaciente}",
+                ProntuarioInternacaoDTO => $"Prontuario/AdicionarProntuarioInternacao/{cpfPaciente}",
+                _ => throw new ArgumentException("Tipo de prontuário desconhecido.")
+            };
+
+            var response = await _httpClient.PostAsJsonAsync(BaseUrl + endpoint, prontuario);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return new OkResult();
+            }
+            else
+            {
+                throw new HttpRequestException($"Erro ao criar o prontuário. Status Code: {response.StatusCode}");
+            }
+        }
 
         public async Task<List<PacienteDTO>?> GetSugestoesPorCPFAsync(string cpf)
         {
-            var response = await _httpClient.GetFromJsonAsync<List<PacienteDTO>>(BaseUrl + $"Paciente/BuscarPacientePorCPF/{cpf}");
+            var response = await _httpClient.GetFromJsonAsync<List<PacienteDTO>>(BaseUrl + $"Paciente/BuscarSugestoesPacientePorCPF/{cpf}");
 
             if (response != null)
             {

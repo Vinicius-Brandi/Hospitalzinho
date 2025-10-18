@@ -26,8 +26,15 @@ namespace HospitalzinhoAPI.Controllers
             return Ok(response);
         }
 
+        [HttpGet("BuscarSugestoesPacientePorCPF/{CPF}")]
+        public async Task<ActionResult<List<PacienteDTO>?>> BuscarSugestoesPacientePorCPF(string CPF)
+        {
+            var response = await _pacienteInterface.BuscarSugestoesPacientePorCPF(CPF);
+            return Ok(response);
+        }
+
         [HttpGet("BuscarPacientePorCPF/{CPF}")]
-        public async Task<ActionResult<List<PacienteDTO>?>> BuscarPacientePorCPF(string CPF)
+        public async Task<ActionResult<PacienteDTO?>> BuscarPacientePorCPF(string CPF)
         {
             var response = await _pacienteInterface.BuscarPacientePorCPF(CPF);
             return Ok(response);
