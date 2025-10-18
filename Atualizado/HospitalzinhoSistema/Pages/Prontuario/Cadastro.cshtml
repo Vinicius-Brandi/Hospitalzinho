@@ -1,0 +1,43 @@
+﻿@page "/Prontuario/Cadastro"
+@model HospitalzinhoSistema.Pages.Prontuario.CadastroModel
+@{
+    ViewData["Title"] = "Cadastro Prontuario";
+}
+
+@section Styles {
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Estilo -->
+    <link rel="stylesheet" href="~/css/CadastroPaciente.css" asp-append-version="true" />
+
+}
+
+<h1>Registro de Atendimento e Prontuário</h1>
+
+<!-- Seção de Pesquisa -->
+<section id="pesquisa-paciente">
+    <h2>Buscar Paciente</h2>
+    <form class="form-pesquisa">
+        <div class="form-group" id="pesquisa-wrapper" style="position: relative;">
+            <label for="cpf-paciente">CPF ou Cartão Nacional de Saúde (CNS)</label>
+            <input type="text" id="cpf-paciente" asp-for="SearchTerm"
+                   placeholder="Digite o CPF ou CNS do paciente"
+                   hx-get="@Url.Page("Cadastro", "BuscarSugestoes")"
+                   hx-trigger="keyup changed delay:300ms"
+                   hx-target="#sugestoes-cpf"
+                   hx-swap="innerHTML"
+                   autocomplete="off"
+                   required>
+
+            <!-- Container que recebe as sugestões -->
+            <div id="sugestoes-cpf" class="sugestoes-lista"></div>
+        </div>
+        <button type="submit" class="btn-pesquisar">Pesquisar</button>
+    </form>
+</section>
+
+<div id="resultado-paciente">
+</div>

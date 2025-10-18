@@ -34,7 +34,7 @@ namespace HospitalzinhoAPI.Controllers
         }
 
         [HttpPost("CadastrarPaciente")]
-        public async Task<ActionResult<List<PacienteModel>>> CadastrarPaciente(PacienteDTO paciente)
+        public async Task<ActionResult<PacienteDTO>> CadastrarPaciente(PacienteDTO paciente)
         {
             var response = await _pacienteInterface.CadastrarPaciente(paciente);
             return Ok(response);

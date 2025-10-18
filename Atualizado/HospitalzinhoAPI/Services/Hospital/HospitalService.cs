@@ -18,22 +18,11 @@ namespace HospitalzinhoAPI.Services.Hospital
 
         public async Task<List<HospitalUnidade>?> BuscarTodasUnidades()
         {
-
-            try
-            {
-
-                return await _context.HospitalUnidades.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            return await _context.HospitalUnidades.ToListAsync();
         }
 
         public async Task<List<HospitalUnidade>?> CadastrarUnidade(HospitalUnidadeDTO hospitalUnidadeDTO)
         {
-            try
-            {
                 HospitalUnidade hospitalUnidade = new HospitalUnidade()
                 {
                     Nome = hospitalUnidadeDTO.Nome,
@@ -59,11 +48,6 @@ namespace HospitalzinhoAPI.Services.Hospital
                 await _context.SaveChangesAsync();
 
                 return await _context.HospitalUnidades.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
         }
     }
 }

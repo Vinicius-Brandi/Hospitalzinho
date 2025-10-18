@@ -1,26 +1,23 @@
 using HospitalzinhoSistema.Models;
 using HospitalzinhoSistema.Models.Paciente;
 using HospitalzinhoSistema.Services;
-using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HospitalzinhoSistema.Pages.Paciente
+namespace HospitalzinhoSistema.Pages.Prontuario
 {
-    public class ConsultaModel : PageModel
+    public class CadastroModel : PageModel
     {
-        private readonly PacienteAPIService _pacienteAPIService;
-        [BindProperty(SupportsGet = true)]
-        public string? SearchTerm { get; set; }
 
-        public ConsultaModel(PacienteAPIService pacienteAPIService)
+        private readonly PacienteAPIService _pacienteAPIService;
+
+        public CadastroModel(PacienteAPIService pacienteAPIService)
         {
             _pacienteAPIService = pacienteAPIService;
         }
 
-        public void OnGet()
-        {
-        }
+        [BindProperty(SupportsGet = true)]
+        public string? SearchTerm { get; set; }
 
         public async Task<IActionResult> OnGetBuscarSugestoesAsync()
         {
@@ -35,7 +32,7 @@ namespace HospitalzinhoSistema.Pages.Paciente
             var viewModel = new SugestoesViewModel
             {
                 Sugestoes = sugestoes ?? new List<PacienteDTO>(),
-                PageName = "Consulta",
+                PageName = "/Prontuario/Cadastro", // O caminho completo
                 PageHandler = "Selecionar"
             };
 
@@ -53,8 +50,7 @@ namespace HospitalzinhoSistema.Pages.Paciente
                 return Content("<div class='alerta-erro'>Paciente não encontrado. Por favor, tente novamente.</div>");
             }
 
-            return Partial("_DetalhesPaciente", pacienteEncontrado);
+            return Partial("_DetalhesProntuario", pacienteEncontrado);
         }
-
     }
 }
