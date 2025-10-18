@@ -1,4 +1,5 @@
 ﻿using HospitalzinhoAPI.Models.Hospital.Paciente;
+using HospitalzinhoAPI.Models.Hospital.Prontuario;
 using HospitalzinhoAPI.Models.MinisterioDaSaude.Hospital;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,5 +31,11 @@ namespace HospitalzinhoAPI.Data
         public DbSet<HospitalUnidade> HospitalUnidades { get; set; }
         public DbSet<HospitalInstituicao> HospitalInstituicoes { get; set; }
         public DbSet<HospitalEndereco> HospitalEnderecos { get; set; }
+
+        public DbSet<ProntuarioAlergia> ProntuarioAlergias { get; set; }
+        public DbSet<ProntuarioConsulta> ProntuarioConsultas { get; set; }
+        public DbSet<ProntuarioInternacao> ProntuarioInternacoes { get; set; }
+        public DbSet<ProntuarioVacina> ProntuarioVacinas { get; set; }
+
     }
 }

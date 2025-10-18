@@ -1,4 +1,6 @@
-﻿namespace HospitalzinhoAPI.Models.Hospital.Paciente
+﻿using HospitalzinhoAPI.Models.Hospital.Prontuario;
+
+namespace HospitalzinhoAPI.Models.Hospital.Paciente
 {
     public class PacienteModel
     {
@@ -19,5 +21,9 @@
         public PacienteEndereco? Endereco { get; set; }
         public PacienteContato? Contato { get; set; }
         public PacienteConvenio? Convenio { get; set; }
+        public ICollection<ProntuarioConsulta>? ProntuarioConsulta { get; set; }
+        public ICollection<ProntuarioVacina>? ProntuarioVacina { get; set; }
+        public ICollection<ProntuarioInternacao>? ProntuarioInternacao { get; set; }
+        public ICollection<ProntuarioAlergia>? ProntuarioAlergia { get; set; }
     }
 }
