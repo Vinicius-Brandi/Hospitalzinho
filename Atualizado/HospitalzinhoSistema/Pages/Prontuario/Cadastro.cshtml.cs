@@ -39,5 +39,21 @@ namespace HospitalzinhoSistema.Pages.Prontuario
 
             return Partial("_DetalhesProntuario", pacienteEncontrado);
         }
+
+        public IActionResult OnGetFormularioRegistro(string tipoRegistro)
+        {
+            switch (tipoRegistro)
+            {
+                case "vacina":
+                    return Partial("_NovaVacinaPartial");
+                case "internacao":
+                    return Partial("_NovaInternacaoPartial");
+                case "alergia":
+                    return Partial("_NovaAlergiaPartial");
+                case "consulta":
+                default:
+                    return Partial("_NovaConsultaPartial");
+            }
+        }
     }
 }

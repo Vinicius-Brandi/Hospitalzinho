@@ -1,0 +1,21 @@
+﻿@page
+@model HospitalzinhoSistema.Pages.Shared._NovaConsultaPartialModel
+@{
+}
+<fieldset id="form-nova-consulta">
+    <legend>Dados da Consulta</legend>
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="data-consulta">Data</label>
+            <input type="date" id="data-consulta" name="data-consulta">
+        </div>
+        <div class="form-group">
+            <label for="especialidade">Especialidade</label>
+            <input type="text" id="especialidade" name="especialidade">
+        </div>
+        <div class="form-group full-width">
+            <label for="resumo-consulta">Resumo / Anotações</label>
+            <textarea id="resumo-consulta" name="resumo-consulta" rows="5"></textarea>
+        </div>
+    </div>
+</fieldset>

@@ -1,0 +1,26 @@
+﻿@page
+@model HospitalzinhoSistema.Pages.Shared._NovaInternacaoPartialModel
+@{
+}
+<fieldset id="form-nova-internacao">
+    <!--class="hidden"-->
+    <legend>Dados da Internação</legend>
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="data-entrada-internacao">Data de Entrada</label>
+            <input type="date" id="data-entrada-internacao" name="data-entrada-internacao">
+        </div>
+        <div class="form-group">
+            <label for="data-saida-internacao">Data de Saída</label>
+            <input type="date" id="data-saida-internacao" name="data-saida-internacao">
+        </div>
+        <div class="form-group full-width">
+            <label for="hospital-internacao">Hospital</label>
+            <input type="text" id="hospital-internacao" name="hospital-internacao">
+        </div>
+        <div class="form-group full-width">
+            <label for="motivo-internacao">Motivo da Internação</label>
+            <textarea id="motivo-internacao" name="motivo-internacao" rows="4"></textarea>
+        </div>
+    </div>
+</fieldset>
