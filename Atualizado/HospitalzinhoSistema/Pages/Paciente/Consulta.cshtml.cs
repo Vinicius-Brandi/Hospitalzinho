@@ -9,11 +9,11 @@ namespace HospitalzinhoSistema.Pages.Paciente
 {
     public class ConsultaModel : PageModel
     {
-        private readonly PacienteAPIService _pacienteAPIService;
+        private readonly APIService _pacienteAPIService;
         [BindProperty(SupportsGet = true)]
         public string? SearchTerm { get; set; }
 
-        public ConsultaModel(PacienteAPIService pacienteAPIService)
+        public ConsultaModel(APIService pacienteAPIService)
         {
             _pacienteAPIService = pacienteAPIService;
         }
@@ -24,20 +24,7 @@ namespace HospitalzinhoSistema.Pages.Paciente
 
         public async Task<IActionResult> OnGetBuscarSugestoesAsync()
         {
-            var sugestoes = await _pacienteAPIService.GetSugestoesPorCPFAsync(SearchTerm);
-
-
-            if (string.IsNullOrWhiteSpace(SearchTerm) || sugestoes != null && sugestoes.Count == 0)
-            {
-                return Content("");
-            }
-
-            var viewModel = new SugestoesViewModel
-            {
-                Sugestoes = sugestoes ?? new List<PacienteDTO>(),
-                PageName = "Consulta",
-                PageHandler = "Selecionar"
-            };
+            var viewModel = await _pacienteAPIService.GetBuscarSugestoesAsync(SearchTerm ?? string.Empty, "Consulta", "Selecionar");
 
             return Partial("_SugestoesCPF", viewModel);
         }

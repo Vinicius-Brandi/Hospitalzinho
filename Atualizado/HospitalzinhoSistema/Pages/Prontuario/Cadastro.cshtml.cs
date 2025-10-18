@@ -9,9 +9,9 @@ namespace HospitalzinhoSistema.Pages.Prontuario
     public class CadastroModel : PageModel
     {
 
-        private readonly PacienteAPIService _pacienteAPIService;
+        private readonly APIService _pacienteAPIService;
 
-        public CadastroModel(PacienteAPIService pacienteAPIService)
+        public CadastroModel(APIService pacienteAPIService)
         {
             _pacienteAPIService = pacienteAPIService;
         }
@@ -21,20 +21,7 @@ namespace HospitalzinhoSistema.Pages.Prontuario
 
         public async Task<IActionResult> OnGetBuscarSugestoesAsync()
         {
-            var sugestoes = await _pacienteAPIService.GetSugestoesPorCPFAsync(SearchTerm);
-
-
-            if (string.IsNullOrWhiteSpace(SearchTerm) || sugestoes != null && sugestoes.Count == 0)
-            {
-                return Content("");
-            }
-
-            var viewModel = new SugestoesViewModel
-            {
-                Sugestoes = sugestoes ?? new List<PacienteDTO>(),
-                PageName = "/Prontuario/Cadastro", // O caminho completo
-                PageHandler = "Selecionar"
-            };
+            var viewModel = await _pacienteAPIService.GetBuscarSugestoesAsync(SearchTerm ?? string.Empty, "/Prontuario/Cadastro", "Selecionar");
 
             return Partial("_SugestoesCPF", viewModel);
         }

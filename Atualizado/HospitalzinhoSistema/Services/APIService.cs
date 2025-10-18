@@ -1,14 +1,15 @@
-﻿using HospitalzinhoSistema.Models.Paciente;
+﻿using HospitalzinhoSistema.Models;
+using HospitalzinhoSistema.Models.Paciente;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalzinhoSistema.Services
 {
-    public class PacienteAPIService
+    public class APIService
     {
         private readonly HttpClient _httpClient;
         private const string BaseUrl = "http://localhost:5139/api/";
 
-        public PacienteAPIService(HttpClient httpClient)
+        public APIService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -40,6 +41,31 @@ namespace HospitalzinhoSistema.Services
             {
                 return null;
             }
+        }
+
+        public async Task<SugestoesViewModel> GetBuscarSugestoesAsync(string cpf, string pageName, string pageHandler)
+        {
+            if (string.IsNullOrWhiteSpace(cpf))
+            {
+                // Retorna um ViewModel com a lista de sugestões vazia.
+                return new SugestoesViewModel
+                {
+                    Sugestoes = new List<PacienteDTO>(), // Lista vazia
+                    PageName = pageName,
+                    PageHandler = pageHandler
+                };
+            }
+
+            var sugestoes = await GetSugestoesPorCPFAsync(cpf);
+
+            var viewModel = new SugestoesViewModel
+            {
+                Sugestoes = sugestoes ?? new List<PacienteDTO>(),
+                PageName = pageName,
+                PageHandler = pageHandler
+            };
+
+            return viewModel;
         }
     }
 }

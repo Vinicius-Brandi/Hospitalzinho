@@ -10,9 +10,9 @@ namespace HospitalzinhoSistema.Pages.Paciente
         [BindProperty]
         public PacienteDTO Paciente { get; set; } = new();
 
-        private readonly PacienteAPIService _pacienteAPIService;
+        private readonly APIService _pacienteAPIService;
 
-        public CadastroModel(PacienteAPIService pacienteAPIService)
+        public CadastroModel(APIService pacienteAPIService)
         {
             _pacienteAPIService = pacienteAPIService;
         }

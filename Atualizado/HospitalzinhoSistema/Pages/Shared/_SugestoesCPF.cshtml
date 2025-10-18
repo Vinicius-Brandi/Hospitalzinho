@@ -7,19 +7,16 @@
     string pageHandler = Model.PageHandler;
 }
 
-@if (!Model.Sugestoes.Any())
+@if (Model.Sugestoes.Count > 0)
 {
-    <div class="sugestao-item">
-    </div>
-}
-
-@foreach (var paciente in Model.Sugestoes)
-{
-    <div class="sugestao-item"
-         hx-get="@Url.Page(pageName, pageHandler, new { cpf = paciente.CPF })"
-         hx-target="#resultado-paciente"
-         hx-swap="innerHTML"
-         tabindex="-1">
-        @paciente.CPF - @paciente.Nome
-    </div>
+    @foreach (var paciente in Model.Sugestoes)
+    {
+        <div class="sugestao-item"
+             hx-get="@Url.Page(pageName, pageHandler, new { cpf = paciente.CPF })"
+             hx-target="#resultado-paciente"
+             hx-swap="innerHTML"
+             tabindex="-1">
+            @paciente.CPF - @paciente.Nome
+        </div>
+    }
 }

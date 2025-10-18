@@ -11,7 +11,7 @@ namespace HospitalzinhoSistema
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddHttpClient();
-            builder.Services.AddScoped<PacienteAPIService>();
+            builder.Services.AddScoped<APIService>();
 
             var app = builder.Build();
 
