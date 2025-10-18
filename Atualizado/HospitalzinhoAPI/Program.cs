@@ -2,6 +2,7 @@ using HospitalzinhoAPI.Data;
 using HospitalzinhoAPI.Mappings;
 using HospitalzinhoAPI.Services.Hospital;
 using HospitalzinhoAPI.Services.Paciente;
+using HospitalzinhoAPI.Services.Prontuario;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IPacienteInterface, PacienteService>();
 builder.Services.AddScoped<IHospitalInterface, HospitalService>();
+builder.Services.AddScoped<IProntuarioInterface, ProntuarioService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 

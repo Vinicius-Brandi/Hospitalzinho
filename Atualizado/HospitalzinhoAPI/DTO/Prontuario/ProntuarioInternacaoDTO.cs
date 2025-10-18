@@ -1,16 +1,12 @@
 ﻿using HospitalzinhoAPI.Models.Hospital.Paciente;
 using System.Text.Json.Serialization;
 
-namespace HospitalzinhoAPI.Models.Hospital.Prontuario
+namespace HospitalzinhoAPI.DTO.Hospital.Prontuario
 {
-    public class ProntuarioInternacao
+    public class ProntuarioInternacaoDTO
     {
-        [JsonIgnore]
-        public int Id { get; set; }
         public DateTime DataEntrada { get; set; }
         public DateTime DataSaida { get; set; }
         public string MotivoInternacao { get; set; }
-        [JsonIgnore]
-        public PacienteModel? Paciente { get; set; }
     }
 }
