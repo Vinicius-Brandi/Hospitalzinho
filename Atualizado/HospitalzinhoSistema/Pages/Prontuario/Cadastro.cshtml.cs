@@ -35,7 +35,7 @@ namespace HospitalzinhoSistema.Pages.Prontuario
 
             if (pacienteEncontrado == null)
             {
-                return Content("<div class='alerta-erro'>Paciente n„o encontrado. Por favor, tente novamente.</div>");
+                return Content("<div class='alerta-erro'>Paciente n√£o encontrado. Por favor, tente novamente.</div>");
             }
 
             return Partial("_DetalhesProntuario", pacienteEncontrado);
@@ -96,7 +96,7 @@ namespace HospitalzinhoSistema.Pages.Prontuario
                     break;
 
                 default:
-                    return BadRequest("Tipo de registro inv·lido.");
+                    return BadRequest("Tipo de registro inv√°lido.");
             }
 
             await _pacienteAPIService.CreateProntuario(registro, cpf);
