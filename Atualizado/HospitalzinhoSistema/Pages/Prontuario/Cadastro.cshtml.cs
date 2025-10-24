@@ -29,9 +29,7 @@ namespace HospitalzinhoSistema.Pages.Prontuario
 
         public async Task<IActionResult> OnGetSelecionarAsync(string cpf)
         {
-            var listaPacientes = await _pacienteAPIService.GetSugestoesPorCPFAsync(cpf);
-
-            var pacienteEncontrado = listaPacientes?.FirstOrDefault();
+            var pacienteEncontrado = await _pacienteAPIService.GetPaciente(cpf);
 
             if (pacienteEncontrado == null)
             {

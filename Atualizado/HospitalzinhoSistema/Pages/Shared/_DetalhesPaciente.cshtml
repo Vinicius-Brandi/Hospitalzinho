@@ -33,118 +33,110 @@
     </div>
 </section>
 
-<section class="card-prontuario" id="alergias">
-    <div class="card-header">
-        <h2>Alergias Conhecidas</h2>
-    </div>
-    <div class="card-body">
-        <!-- EXEMPLOS -->
-        <p class="alergia-item">Penicilina</p>
-        <p class="alergia-item">Camarão</p>
-    </div>
-</section>
+@if (@Model.ProntuarioAlergia != null && @Model.ProntuarioAlergia.Count != 0)
+{
+    <section class="card-prontuario" id="alergias">
+        <div class="card-header">
+            <h2>Alergias Conhecidas</h2>
+        </div>
+        <div class="card-body">
+        @foreach (var alergia in @Model.ProntuarioAlergia)
+        {
+            <p class="alergia-item">@alergia.DescricaoAlergia</p>
+        }
+        </div>
+    </section>
+}
 
-<section class="card-prontuario" id="vacinacao">
-    <div class="card-header">
-        <h2>Histórico de Vacinação</h2>
-    </div>
-    <div class="card-body table-container">
-        <table>
-            <thead>
+@if (@Model.ProntuarioVacina != null && @Model.ProntuarioVacina.Count != 0)
+{
+    <section class="card-prontuario" id="vacinacao">
+        <div class="card-header">
+            <h2>Histórico de Vacinação</h2>
+        </div>
+        <div class="card-body table-container">
+            <table>
+                <thead>
                 <tr>
                     <th>Vacina</th>
                     <th>Dose</th>
                     <th>Data</th>
-                    <th>Unidade</th>
                 </tr>
-            </thead>
-            <tbody>
-                <!-- EXEMPLOS -->
-                <tr>
-                    <td>COVID-19 (Pfizer)</td>
-                    <td>3ª Dose</td>
-                    <td>20/03/2022</td>
-                    <td>UBS Nova Marília</td>
-                </tr>
-                <tr>
-                    <td>Febre Amarela</td>
-                    <td>Dose Única</td>
-                    <td>10/06/2019</td>
-                    <td>UBS Cascata</td>
-                </tr>
-                <tr>
-                    <td>Hepatite B</td>
-                    <td>3ª Dose</td>
-                    <td>05/11/2015</td>
-                    <td>UBS Santa Augusta</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+                </thead>
+                <tbody>
+                @foreach (var vacina in @Model.ProntuarioVacina)
+                {
+                    <tr>
+                        <td>@vacina.Nome</td>
+                        <td>@vacina.Dose</td>
+                        <td>@vacina.DataAplicacao</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}
 
-<section class="card-prontuario" id="consultas">
-    <div class="card-header">
-        <h2>Histórico de Consultas</h2>
-    </div>
-    <div class="card-body table-container">
-        <table>
-            <thead>
+@if (@Model.ProntuarioConsulta != null && @Model.ProntuarioConsulta.Count != 0)
+{
+    <section class="card-prontuario" id="consultas">
+        <div class="card-header">
+            <h2>Histórico de Consultas</h2>
+        </div>
+        <div class="card-body table-container">
+            <table>
+                <thead>
                 <tr>
                     <th>Data</th>
                     <th>Especialidade</th>
-                    <th>Profissional</th>
-                    <th>Unidade</th>
                     <th>Resumo</th>
                 </tr>
-            </thead>
-            <tbody>
-                <!-- EXEMPLOS -->
-                <tr>
-                    <td>10/09/2025</td>
-                    <td>Clínica Geral</td>
-                    <td>Dr. Carlos Andrade</td>
-                    <td>UBS Nova Marília</td>
-                    <td>Queixa de dor de cabeça. Aferida pressão arterial.</td>
-                </tr>
-                <tr>
-                    <td>02/06/2025</td>
-                    <td>Dermatologia</td>
-                    <td>Dra. Beatriz Lima</td>
-                    <td>Ambulatório de Especialidades</td>
-                    <td>Consulta de rotina.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+                </thead>
+                <tbody>
+                @foreach (var consulta in @Model.ProntuarioConsulta)
+                {
+                    <tr>
+                        <td>@consulta.DataConsulta</td>
+                        <td>@consulta.Especialidade</td>
+                        <td>@consulta.Resumo</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}
 
-<section class="card-prontuario" id="internacoes">
-    <div class="card-header">
-        <h2>Histórico de Internações</h2>
-    </div>
-    <div class="card-body table-container">
-        <table>
-            <thead>
+@if (@Model.ProntuarioInternacao != null && @Model.ProntuarioInternacao.Count != 0)
+{
+    <section class="card-prontuario" id="internacoes">
+        <div class="card-header">
+            <h2>Histórico de Internações</h2>
+        </div>
+        <div class="card-body table-container">
+            <table>
+                <thead>
                 <tr>
                     <th>Entrada</th>
                     <th>Saída</th>
-                    <th>Hospital</th>
                     <th>Motivo</th>
                 </tr>
-            </thead>
-            <tbody>
-                <!-- EXEMPLOS -->
-                <tr>
-                    <td>15/01/2024</td>
-                    <td>18/01/2024</td>
-                    <td>Hospital das Clínicas</td>
-                    <td>Pneumonia Comunitária</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+                </thead>
+                <tbody>
+                @foreach (var internacao in @Model.ProntuarioInternacao)
+                {
+                    <tr>
+                        <td>@internacao.DataEntrada</td>
+                        <td>@internacao.DataSaida</td>
+                        <td>@internacao.MotivoInternacao</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}
 
 <section class="card-prontuario" id="medicamentos">
     <div class="card-header">
