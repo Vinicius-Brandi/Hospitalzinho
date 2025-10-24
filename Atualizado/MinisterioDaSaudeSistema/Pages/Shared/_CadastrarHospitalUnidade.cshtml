@@ -1,0 +1,42 @@
+﻿<legend>Instituição Pai</legend>
+<div class="form-group full-width" id="vinculoInstituicaoContainer"> <!--class="hidden"-->
+    <!-- Container deve ser exibido ou ocultado baseado na seleção de tipoCadastro -->
+    <label for="instituicaoPaiId">Vincular à Instituição Principal</label>
+    <input type="text" id="instituicaoPaiId" name="instituicaoPaiId" placeholder="Digite o CNPJ da instituição principal">
+</div>
+<legend>Endereço</legend>
+<div class="address-grid">
+    <div class="form-group">
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" placeholder="XXXXX-XXX">
+    </div>
+    <div class="form-group">
+        <label for="cidade">Cidade:</label>
+        <select id="cidade" name="cidade" required>
+            <option value="" disabled selected>Selecione a cidade/distrito</option>
+            <option value="marilia">Marília</option>
+            <option value="amadeu-amaral">Amadeu Amaral</option>
+            <option value="avencas">Avencas</option>
+            <option value="dirceu">Dirceu</option>
+            <option value="lacio">Lácio</option>
+            <option value="padre-nobrega">Padre Nóbrega</option>
+            <option value="rosalia">Rosália</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" name="bairro">
+    </div>
+    <div class="form-group full-width">
+        <label for="rua">Rua:</label>
+        <input type="text" id="rua" name="rua">
+    </div>
+    <div class="form-group">
+        <label for="numero">Número:</label>
+        <input type="text" id="numero" name="numero">
+    </div>
+    <div class="form-group">
+        <label for="complemento">Complemento:</label>
+        <input type="text" id="complemento" name="complemento">
+    </div>
+</div>

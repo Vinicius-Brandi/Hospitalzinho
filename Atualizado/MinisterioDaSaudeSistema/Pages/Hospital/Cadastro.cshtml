@@ -1,0 +1,45 @@
+﻿@page
+@model MinisterioDaSaudeSistema.Pages.Hospital.Cadastro
+
+@{
+    ViewData["Title"] = "Cadastro Hospital";
+}
+
+@section Styles {
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="~/css/Admin_ConsultaHospital.css" asp-append-version="true" />
+}
+
+<h1>Cadastro de Novo Hospital</h1>
+
+<section id="cadastro-hospital">
+    <h2>Informações da Unidade</h2>
+    <!-- O método POST é mais apropriado para enviar dados de um formulário de cadastro -->
+    <form action="#" method="post">
+        
+        <div class="form-group-selector">
+            <label for="tipoCadastro">Tipo de Cadastro</label>
+            <select id="tipoCadastro" name="tipoCadastro"
+                    hx-get="@Url.Page("Cadastro", "TipoCadastro")"
+                    hx-trigger="load, change"
+                    hx-target="#form-container"
+                    hx-swap="innerHTML">
+                <option value="instituicao" selected>Instituição Principal</option>
+                <option value="unidade">Unidade Vinculada</option>
+            </select>
+        </div>
+        <fieldset id="form-container">
+        </fieldset>
+        
+        <!-- Botões do Formulário -->
+        <div class="botoes-form">
+            <button type="submit" class="btn-salvar">Salvar Cadastro</button>
+            <!-- Botão abaixo poderia, redirecionar para a página de consulta por exemplo -->
+            <button type="button" class="btn-cancelar" onclick="window.location.href='Admin_ConsultaHospital.html'">Cancelar</button>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HospitalzinhoSistema</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/headerfooter.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    @{
+        // A chave aqui é "page", que retorna o caminho completo da página.
+        var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+    }
+
+    <header>
+        <a asp-page="/Index" title="Voltar para a página inicial">
+            <img src="https://placehold.co/200x60/0056b3/white?text=LOGO" alt="Logotipo do Sistema">
+        </a>
+        <nav>
+            <ul>
+                <li>
+                    <a asp-page="/Index" class="@(currentPage == "/Index" ? "active" : "")">Início</a>
+                </li>
+
+                <li>
+                    <a asp-page="/Hospital/Cadastro" class="@(currentPage == "/Hospital/Cadastro" ? "active" : "")">Cadastrar Hospital</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Secretaria Municipal de Saúde de Marília</strong></p>
+            <p>Endereço: Av. Sampaio Vidal, 218-A - Centro, Marília - SP</p>
+            <p>Telefone para contato: (14) 3402-6500 | E-mail: saude@marilia.sp.gov.br</p>
+            <p>&copy; 2025 - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
