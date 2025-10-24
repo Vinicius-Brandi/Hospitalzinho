@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using HospitalzinhoSistema.Models.Prontuario;
 
 namespace HospitalzinhoSistema.Models.Paciente
 {
     public class PacienteDTO
     {
-        [Required(ErrorMessage = "O nome é obrigatório.")]
         public string Nome { get; set; }
-        [Required(ErrorMessage = "O CNS é obrigatório.")]
         public string CNS { get; set; }
-        [Required(ErrorMessage = "O CPF é obrigatório.")]
         public string CPF { get; set; }
         public string? NomePai { get; set; }
         public string? NomeMae { get; set; }
@@ -22,5 +20,9 @@ namespace HospitalzinhoSistema.Models.Paciente
         public PacienteEscolaridade? Escolaridade { get; set; }
         public PacienteEnderecoDTO? Endereco { get; set; }
         public PacienteContatoDTO? Contato { get; set; }
+        public ICollection<ProntuarioConsultaDTO>? ProntuarioConsulta { get; set; }
+        public ICollection<ProntuarioVacinaDTO>? ProntuarioVacina { get; set; }
+        public ICollection<ProntuarioInternacaoDTO>? ProntuarioInternacao { get; set; }
+        public ICollection<ProntuarioAlergiaDTO>? ProntuarioAlergia { get; set; }
     }
 }

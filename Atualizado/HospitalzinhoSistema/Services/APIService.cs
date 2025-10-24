@@ -52,6 +52,13 @@ namespace HospitalzinhoSistema.Services
             }
         }
 
+        public async Task<PacienteDTO?> GetPaciente(string cpfPaciente)
+        {
+            var response = await _httpClient.GetFromJsonAsync<PacienteDTO>(BaseUrl + $"Paciente/BuscarPacientePorCPF/{cpfPaciente}");
+
+            return response;
+        } 
+
         public async Task<List<PacienteDTO>?> GetSugestoesPorCPFAsync(string cpf)
         {
             var response = await _httpClient.GetFromJsonAsync<List<PacienteDTO>>(BaseUrl + $"Paciente/BuscarSugestoesPacientePorCPF/{cpf}");
@@ -79,7 +86,7 @@ namespace HospitalzinhoSistema.Services
                 };
             }
 
-            var sugestoes = await GetSugestoesPorCPFAsync(cpf);
+            var sugestoes = await _httpClient.GetFromJsonAsync<List<PacienteDTO>>(BaseUrl + $"Paciente/BuscarSugestoesPacientePorCPF/{cpf}");
 
             var viewModel = new SugestoesViewModel
             {

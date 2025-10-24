@@ -31,13 +31,11 @@ namespace HospitalzinhoSistema.Pages.Paciente
 
         public async Task<IActionResult> OnGetSelecionarAsync(string cpf)
         {
-            var listaPacientes = await _pacienteAPIService.GetSugestoesPorCPFAsync(cpf);
-
-            var pacienteEncontrado = listaPacientes?.FirstOrDefault();
+            var pacienteEncontrado = await _pacienteAPIService.GetPaciente(cpf);
 
             if (pacienteEncontrado == null)
             {
-                return Content("<div class='alerta-erro'>Paciente não encontrado. Por favor, tente novamente.</div>");
+                return Content("<div class='alerta-erro'>Paciente nï¿½o encontrado. Por favor, tente novamente.</div>");
             }
 
             return Partial("_DetalhesPaciente", pacienteEncontrado);

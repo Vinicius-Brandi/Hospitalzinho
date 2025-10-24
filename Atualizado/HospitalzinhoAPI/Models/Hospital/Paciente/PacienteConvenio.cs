@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace HospitalzinhoAPI.Models.Hospital.Paciente
 {
@@ -6,6 +7,7 @@ namespace HospitalzinhoAPI.Models.Hospital.Paciente
     {
         [Key]
         public int PacienteId { get; set; }
+        [JsonIgnore]
         public PacienteModel Paciente { get; set; }
         public string NumeroCarteirinha { get; set; }
         public DateTime Validade { get; set; }

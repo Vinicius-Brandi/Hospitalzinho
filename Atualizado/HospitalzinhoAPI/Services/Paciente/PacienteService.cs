@@ -65,19 +65,16 @@ namespace HospitalzinhoAPI.Services.Paciente
             }
 
             var pacientes = await _context.Pacientes
-                                      .Include(p => p.Endereco)
-                                      .Include(p => p.Contato)
-                                      .Include(p => p.Convenio)
-                                      .Where(p => p.CPF == CPF).FirstOrDefaultAsync();
+                                    .Include(p => p.Endereco)
+                                    .Include(p => p.Contato)
+                                    .Include(p => p.Convenio)
+                                    .Include(p => p.ProntuarioConsulta)
+                                    .Include(p => p.ProntuarioVacina)
+                                    .Include(p => p.ProntuarioInternacao)
+                                    .Include(p => p.ProntuarioAlergia)
+                                    .Where(p => p.CPF == CPF).FirstOrDefaultAsync();
 
-            if (pacientes != null)
-            {
-                return _mapper.Map<PacienteDTO>(pacientes);
-
-            }
-            
-            return null;
-
+            return _mapper.Map<PacienteDTO>(pacientes);
         }
     }
 }
