@@ -44,6 +44,11 @@
                             <label for="cnpj-hospital">CNPJ</label>
                             <input type="text" id="cnpj-hospital" name="cnpj-hospital" placeholder="XX.XXX.XXX/XXXX-XX">
                         </div>
+                        <div class="form-group full-width" id="vinculoInstituicaoContainer"> <!--class="hidden"-->
+                            <!-- Container deve ser exibido ou ocultado baseado na seleção de tipoCadastro -->
+                            <label for="instituicaoPaiId">Vincular à Instituição Principal</label>
+                            <input type="text" id="instituicaoPaiId" name="instituicaoPaiId" placeholder="Digite o CNPJ da instituição principal">
+                        </div>
                         <div class="form-group">
                             <label for="tipo-unidade-cadastro">Tipo de Unidade</label>
                             <select id="tipo-unidade-cadastro" name="tipo-unidade-cadastro" required>
@@ -69,11 +74,6 @@
                 
                 <!-- Endereço -->
                 <fieldset>
-                    <div class="form-group full-width" id="vinculoInstituicaoContainer"> <!--class="hidden"-->
-                        <!-- Container deve ser exibido ou ocultado baseado na seleção de tipoCadastro -->
-                        <label for="instituicaoPaiId">Vincular à Instituição Principal</label>
-                        <input type="text" id="instituicaoPaiId" name="instituicaoPaiId" placeholder="Digite o CNPJ da instituição principal">
-                    </div>
                     <legend>Endereço</legend>
                     <div class="address-grid">
                         <div class="form-group">
