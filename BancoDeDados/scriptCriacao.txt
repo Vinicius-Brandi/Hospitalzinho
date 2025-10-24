@@ -201,6 +201,13 @@ CREATE TABLE paciente_convenio (
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
+CREATE TABLE hospital_unidade_convenio (
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE CASCADE,
+    convenio_id BIGINT NOT NULL REFERENCES convenio(id) ON DELETE CASCADE,
+    PRIMARY KEY (hospital_unidade_id, convenio_id)
+);
+
+
 -- ========================
 -- EXAMES (tipos) e PacienteExame
 -- ========================

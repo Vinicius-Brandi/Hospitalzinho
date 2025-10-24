@@ -1,9 +1,12 @@
 import { Picker } from '@react-native-picker/picker';
-import React, { useState } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Alert, Text, TextInput, TouchableOpacity, View, Modal, FlatList, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { styles } from '../styles';
 import Endereco from './Endereco';
+import hospitalUnidadeService from '@/src/servicos/hospital_servicos/servicoHospitalUnidade';
+import hospitalService from '@/src/servicos/hospital_servicos/servicoHospital';
+import CadastroInstituicao from '../instituicao';
 
 export default function CadastroUnidade() {
 	const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -11,6 +14,11 @@ export default function CadastroUnidade() {
 	const [nome, setNome] = useState('');
 	const [tipoUnidade, setTipoUnidade] = useState('');
 	const [instituicaoPaiId, setInstituicaoPaiId] = useState('');
+
+	const [showSelector, setShowSelector] = useState(false);
+	const [showCreateInstituicao, setShowCreateInstituicao] = useState(false);
+	const [hospitais, setHospitais] = useState<Array<any>>([]);
+	const [loadingHospitais, setLoadingHospitais] = useState(false);
 
 	const [cep, setCep] = useState('');
 	const [cidade, setCidade] = useState('');
@@ -30,8 +38,51 @@ export default function CadastroUnidade() {
 		}
 
 		const payload = { nome, tipoUnidade, instituicaoPaiId, endereco: { cep, cidade, bairro, rua, numero, complemento } };
-		Alert.alert('Cadastro', 'Dados prontos para envio (veja console).');
-		console.log('Unidade payload:', payload);
+
+		// enviar para API
+		(async () => {
+			try {
+				const saved = await hospitalUnidadeService.create(payload as any);
+				Alert.alert('Sucesso', 'Unidade cadastrada com sucesso.');
+				console.log('Unidade criada:', saved);
+				// reset form
+				setNome(''); setTipoUnidade(''); setInstituicaoPaiId(''); setCep(''); setCidade(''); setBairro(''); setRua(''); setNumero(''); setComplemento('');
+			} catch (err: any) {
+				console.error('Erro ao criar unidade', err);
+				if (err?.response?.data) {
+					Alert.alert('Erro', JSON.stringify(err.response.data));
+				} else {
+					Alert.alert('Erro', 'Não foi possível cadastrar a unidade.');
+				}
+			}
+		})();
+	}
+
+	async function openSelector() {
+		setShowSelector(true);
+		setLoadingHospitais(true);
+		try {
+			const list = await hospitalService.getAll();
+			setHospitais(list as any);
+		} catch (err) {
+			console.error('Erro carregar hospitais', err);
+			Alert.alert('Erro', 'Não foi possível carregar instituições.');
+		} finally {
+			setLoadingHospitais(false);
+		}
+	}
+
+	function handleSelectHospital(item: any) {
+		// depending on backend we might want id or cnpj; here we store id or cnpj if present
+		setInstituicaoPaiId(item.cnpj ?? String(item.id ?? ''));
+		setShowSelector(false);
+	}
+
+	function handleCreatedInstituicao(created: any) {
+		// select created
+		setInstituicaoPaiId(created.cnpj ?? String(created.id ?? ''));
+		setShowCreateInstituicao(false);
+		setShowSelector(false);
 	}
 
 	return (
@@ -50,7 +101,12 @@ export default function CadastroUnidade() {
 
 						<View style={styles.formGroup}>
 							<Text style={styles.label}>Vincular à Instituição Principal (CNPJ)</Text>
-							<TextInput style={[styles.input, focusedField === 'instituicaoPaiId' && styles.inputFocused]} value={instituicaoPaiId} onChangeText={setInstituicaoPaiId} onFocus={() => setFocusedField('instituicaoPaiId')} onBlur={() => setFocusedField(null)} />
+							<View>
+								<TextInput style={[styles.input, focusedField === 'instituicaoPaiId' && styles.inputFocused]} value={instituicaoPaiId} onChangeText={setInstituicaoPaiId} onFocus={() => setFocusedField('instituicaoPaiId')} onBlur={() => setFocusedField(null)} />
+								<TouchableOpacity style={[styles.smallButton]} onPress={openSelector}>
+									<Text style={styles.smallButtonText}>Escolher Instituição</Text>
+								</TouchableOpacity>
+							</View>
 						</View>
 
 						<View style={styles.formGroup}>
@@ -92,6 +148,38 @@ export default function CadastroUnidade() {
 					</TouchableOpacity>
 				</View>
 			</View>
+
+			{/* Modal: selecionar instituição pai */}
+			<Modal visible={showSelector} animationType="slide" onRequestClose={() => setShowSelector(false)}>
+				<View style={[styles.container, { padding: 16 }]}> 
+					<Text style={styles.title}>Selecionar Instituição</Text>
+					{loadingHospitais ? <ActivityIndicator /> : (
+						<FlatList data={hospitais} keyExtractor={(i) => String(i.id ?? i.cnpj ?? i.nome)} renderItem={({ item }) => (
+							<TouchableOpacity style={[styles.listItem]} onPress={() => handleSelectHospital(item)}>
+								<Text style={styles.label}>{item.nome} {item.cnpj ? `(${item.cnpj})` : ''}</Text>
+							</TouchableOpacity>
+						)} />
+					)}
+					<View style={styles.buttonsRow}>
+						<TouchableOpacity style={[styles.button, styles.saveButton]} onPress={() => setShowCreateInstituicao(true)}>
+							<Text style={styles.buttonText}>Incluir Instituição</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={() => setShowSelector(false)}>
+							<Text style={styles.buttonText}>Fechar</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+			</Modal>
+
+			{/* Modal: criar instituição (aninhado) */}
+			<Modal visible={showCreateInstituicao} animationType="slide" onRequestClose={() => setShowCreateInstituicao(false)}>
+				<View style={[styles.container]}>
+					<CadastroInstituicao onCreated={handleCreatedInstituicao} />
+					<TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={() => setShowCreateInstituicao(false)}>
+						<Text style={styles.buttonText}>Cancelar</Text>
+					</TouchableOpacity>
+				</View>
+			</Modal>
 		</KeyboardAwareScrollView>
 	);
 }

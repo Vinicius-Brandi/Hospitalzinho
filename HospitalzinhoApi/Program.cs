@@ -1,15 +1,16 @@
-using Hospitalzinho.Servico;
-using FGB.IRepositorios;
 using FGB.Dominio.Repositorios;
+using FGB.IRepositorios;
+using Hospitalzinho.Servico;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
+using AutoMapper;
 using NHibernate.Cfg;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+using Hospital = Hospitalzinho.Entidades.Hospital;
 
-// Alias para evitar conflito de ISession
 using NHSession = NHibernate.ISession;
 using NHSessionFactory = NHibernate.ISessionFactory;
-using Hospital = Hospitalzinho.Entidades.Hospital;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +75,7 @@ builder.Services.AddTransient<PacienteProntuarioServico>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // =======================================
 // Configuração CORS para permitir qualquer origem (teste em rede local)
 // =======================================
@@ -86,6 +88,8 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
+// AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -112,8 +116,6 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var session = scope.ServiceProvider.GetRequiredService<NHSession>();
-    var list = session.Query<Hospital>().ToList();
-    Console.WriteLine($"Total hospitais cadastrados: {list.Count}");
 }
 
 app.Run("http://0.0.0.0:5102");

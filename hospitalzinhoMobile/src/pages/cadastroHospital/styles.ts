@@ -118,4 +118,21 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
   },
+  smallButton: {
+    marginTop: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    alignSelf: 'flex-start',
+    backgroundColor: '#007bff',
+    borderRadius: 6,
+  },
+  smallButtonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+  listItem: {
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
 });

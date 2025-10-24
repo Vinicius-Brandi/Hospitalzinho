@@ -19,13 +19,13 @@
 		<many-to-one name="Hospital" column="hospital_unidade_id" class="HospitalUnidade" not-null="true"/>
 
 		<bag name="Consultas" inverse="true" cascade="none">
-			<key column="hospital_unidade_id"/>
+			<key column="profissional_id"/>
 			<one-to-many class="PacienteConsulta"/>
 		</bag>
 
 		<bag name="ExamesSolicitados" inverse="true" cascade="none">
 			<key column="profissional_id"/>
-			<one-to-many class="Exame"/>
+			<one-to-many class="PacienteExame"/>
 		</bag>
 
 		<bag name="Internacoes" inverse="true" cascade="none">

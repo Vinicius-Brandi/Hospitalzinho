@@ -5,7 +5,11 @@ import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { styles } from '../styles';
 
-export default function CadastroInstituicao() {
+type Props = {
+	onCreated?: (created: Hospital) => void;
+}
+
+export default function CadastroInstituicao({ onCreated }: Props) {
 	const [focusedField, setFocusedField] = useState<string | null>(null);
 	const [nome, setNome] = useState('');
 	const [cnes, setCnes] = useState('');
@@ -24,6 +28,7 @@ export default function CadastroInstituicao() {
 				const created = await hospitalService.create(payload as any);
 				Alert.alert('Sucesso', 'Instituição criada com sucesso.');
 				console.log('Instituição criada:', created);
+				if (onCreated) onCreated(created as Hospital);
 				// reset
 				setNome('');
 				setCnes('');
