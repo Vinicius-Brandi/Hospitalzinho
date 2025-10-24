@@ -9,6 +9,6 @@ namespace Hospitalzinho.Entidades
         public virtual string Nome { get; set; } = null!;
 
         // Relacionamentos
-        public virtual List<ProfissionalSaude> Profissionais { get; set; } = new();
+        public virtual  IList<ProfissionalSaude> Profissionais { get; set; } = new List<ProfissionalSaude>();
     }
 }

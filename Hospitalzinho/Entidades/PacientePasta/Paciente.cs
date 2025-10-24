@@ -19,7 +19,7 @@ namespace Hospitalzinho.Entidades
         public virtual string? CpfPai { get; set; }
         public virtual string? CpfMae { get; set; }
         public virtual bool? Ativo { get; set; }
-        public virtual SexoPaciente? Sexo { get; set; }
+        public virtual SexoPaciente Sexo { get; set; }
         public virtual string? Nacionalidade { get; set; }
         public virtual RacaPaciente Raca { get; set; }
         public virtual string? Naturalidade { get; set; }

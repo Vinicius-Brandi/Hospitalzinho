@@ -1,48 +1,49 @@
-using Hospitalzinho.Servico;
-using FGB.IRepositorios;
 using FGB.Dominio.Repositorios;
+using FGB.IRepositorios;
+using Hospitalzinho.Servico;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
+using AutoMapper;
 using NHibernate.Cfg;
 using System.Text.Json.Serialization;
+using Hospital = Hospitalzinho.Entidades.Hospital;
 
-// Alias para evitar conflito de ISession
 using NHSession = NHibernate.ISession;
 using NHSessionFactory = NHibernate.ISessionFactory;
-using Hospital = Hospitalzinho.Entidades.Hospital;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura��o de JSON para ignorar ciclos de refer�ncia
+// Configuração de JSON para ignorar ciclos de referência
 builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
 // =======================================
-// Configura��o NHibernate
+// Configuração NHibernate
 // =======================================
 builder.Services.AddSingleton<NHSessionFactory>(factory =>
 {
     var cfg = new Configuration();
-    cfg.Configure(); // l� hibernate.cfg.xml na sa�da do build
+    cfg.Configure(); // lê hibernate.cfg.xml na saída do build
     return cfg.BuildSessionFactory();
 });
 
-// Registrar NHibernate.ISession para inje��o (scoped)
+// Registrar NHibernate.ISession para injeção (scoped)
 builder.Services.AddScoped<NHSession>(sp =>
     sp.GetRequiredService<NHSessionFactory>().OpenSession());
 
-// Registrar RepositorioSessao para inje��o de IRepositorioSessao
+// Registrar RepositorioSessao para injeção de IRepositorioSessao
 builder.Services.AddTransient<IRepositorioSessao, RepositorioSessao>();
 
 // =======================================
-// Inje��o de depend�ncia dos servi�os
+// Injeção de dependência dos serviços
 // =======================================
 builder.Services.AddTransient<HospitalServico>();
 builder.Services.AddTransient<HospitalUnidadeServico>();
 builder.Services.AddTransient<PacienteServico>();
 builder.Services.AddTransient<PacienteProntuarioServico>();
-// Serviços finais adicionados
 builder.Services.AddTransient<AlergiaServico>();
 builder.Services.AddTransient<DoencaCronicaModeloServico>();
 builder.Services.AddTransient<ExameServico>();
@@ -57,10 +58,8 @@ builder.Services.AddTransient<ReceitaServico>();
 builder.Services.AddTransient<AlaServico>();
 builder.Services.AddTransient<QuartoServico>();
 builder.Services.AddTransient<SalaServico>();
-// Serviços de medicação
 builder.Services.AddTransient<MedicamentoServico>();
 builder.Services.AddTransient<MedicamentoModeloServico>();
-// Serviços de paciente
 builder.Services.AddTransient<PacienteCirurgiaServico>();
 builder.Services.AddTransient<PacienteConsultaServico>();
 builder.Services.AddTransient<PacienteContatoServico>();
@@ -76,6 +75,22 @@ builder.Services.AddTransient<PacienteProntuarioServico>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// =======================================
+// Configuração CORS para permitir qualquer origem (teste em rede local)
+// =======================================
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+// AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 // Middleware
@@ -85,20 +100,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Remover redirecionamento para HTTPS durante testes
+// app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
+
 app.UseAuthorization();
 
 // Mapear controllers
 app.MapControllers();
 
 // =======================================
-// Teste r�pido para conferir NHibernate
+// Teste rápido para conferir NHibernate
 // =======================================
 using (var scope = app.Services.CreateScope())
 {
     var session = scope.ServiceProvider.GetRequiredService<NHSession>();
-    var list = session.Query<Hospital>().ToList();
-    Console.WriteLine($"Total hospitais cadastrados: {list.Count}");
 }
 
-app.Run();
+app.Run("http://0.0.0.0:5102");

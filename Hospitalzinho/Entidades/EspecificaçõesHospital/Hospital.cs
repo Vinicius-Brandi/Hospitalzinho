@@ -18,6 +18,6 @@ namespace Hospitalzinho.Entidades
         public virtual string CNPJ { get; set; }
         public virtual IList<HospitalUnidade> Unidades { get; set; } = new List<HospitalUnidade>();
         [Required]
-        public virtual string TokenAcesso { get; set; }
+        public virtual string TokenAcesso { get; set; } = Guid.NewGuid().ToString();
     }
 }
