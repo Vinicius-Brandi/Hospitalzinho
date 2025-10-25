@@ -197,12 +197,10 @@ tbody tr:hover {
         background: #f0f0f0;
     }
 
-/* Esconde a lista de sugestões por padrão */
 #pesquisa-wrapper #sugestoes-cpf {
     display: none;
 }
 
-/* Mostra a lista de sugestões apenas quando o wrapper tem foco interno */
 #pesquisa-wrapper:focus-within #sugestoes-cpf {
     display: block;
 }
