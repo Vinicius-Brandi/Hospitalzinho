@@ -43,7 +43,7 @@ export function CampoBuscarPacienteCPF({
         ignorarBuscaRef.current = true;
         setCpf(s.cpf);
         setSugestoes([]);
-        if(onSugestaoSelecionada) onSugestaoSelecionada(s);
+        if(onSugestaoSelecionada) onSugestaoSelecionada(s.cpf);
     };
 
     const handleSubmit = (e) => {

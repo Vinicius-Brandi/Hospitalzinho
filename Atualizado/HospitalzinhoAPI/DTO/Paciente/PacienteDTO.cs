@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using HospitalzinhoAPI.DTO.Hospital.Prontuario;
 using HospitalzinhoAPI.Models.Hospital.Paciente;
 using HospitalzinhoAPI.Models.Hospital.Prontuario;
 
@@ -21,9 +22,9 @@ namespace HospitalzinhoAPI.DTO.Paciente
         public PacienteEscolaridade? Escolaridade { get; set; }
         public PacienteEnderecoDTO? Endereco { get; set; }
         public PacienteContatoDTO? Contato { get; set; }
-        public ICollection<ProntuarioConsulta>? ProntuarioConsulta { get; set; }
-        public ICollection<ProntuarioVacina>? ProntuarioVacina { get; set; }
-        public ICollection<ProntuarioInternacao>? ProntuarioInternacao { get; set; }
-        public ICollection<ProntuarioAlergia>? ProntuarioAlergia { get; set; }
+        public ICollection<ProntuarioConsultaDTO>? ProntuarioConsulta { get; set; }
+        public ICollection<ProntuarioVacinaDTO>? ProntuarioVacina { get; set; }
+        public ICollection<ProntuarioInternacaoDTO>? ProntuarioInternacao { get; set; }
+        public ICollection<ProntuarioAlergiaDTO>? ProntuarioAlergia { get; set; }
     }
 }

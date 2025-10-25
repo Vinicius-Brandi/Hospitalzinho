@@ -1,3 +1,4 @@
+using System.Text.Json;
 using HospitalzinhoAPI.Data;
 using HospitalzinhoAPI.Mappings;
 using HospitalzinhoAPI.Services.Hospital;
@@ -17,9 +18,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Evita problemas com serialização de enums ou loops de referência
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 
 // Swagger (documentação da API)

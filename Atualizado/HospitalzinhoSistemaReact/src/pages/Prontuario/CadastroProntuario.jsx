@@ -18,6 +18,70 @@ export function CadastroProntuario(){
             console.error(err);
         }
     }
+
+    async function handleSubmit(e) {
+        console.log("Paciente atual:", paciente);
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        let url = "";
+        let payload = {};
+
+        switch(tipoCadastro){
+            case "consulta":
+                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioConsulta/${paciente}`;
+                payload = {
+                    dataConsulta: formData.get("data-consulta"),
+                    especialidade: formData.get("especialidade"),
+                    resumo: formData.get("resumo-consulta")
+                };
+                break;
+            case "vacina":
+                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioVacina/${paciente}`;
+                payload = {
+                    nome: formData.get("nome-vacina"),
+                    dose: formData.get("dose-vacina"),
+                    dataAplicacao: formData.get("data-vacina")
+                };
+                break;
+            case "internacao":
+                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioInternacao/${paciente}`;
+                payload = {
+                    dataEntrada: formData.get("data-entrada-internacao"),
+                    dataSaida: formData.get("data-saida-internacao"),
+                    motivoInternacao: formData.get("motivo-internacao")
+                };
+                break;
+            case "alergia":
+                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioAlergia/${paciente}`;
+                payload = {
+                    descricaoAlergia: formData.get("descricao-alergia")
+                };
+                break;
+            default:
+                return;
+        }
+
+        try {
+            const resposta = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!resposta.ok) throw new Error("Erro ao cadastrar registro");
+
+            alert("Registro salvo com sucesso!");
+            Array.from(e.target.elements).forEach((el) => {
+                if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+                    el.value = "";
+                }
+            });
+        } catch(err) {
+            console.error(err);
+            alert("Falha ao salvar o registro.");
+        }
+    }
     
     return (
         <>
@@ -47,7 +111,7 @@ export function CadastroProntuario(){
 
                                 <section id="adicionar-registro">
                                     <h2>Adicionar Nova Informação</h2>
-                                    <form>
+                                    <form onSubmit={handleSubmit}>
                                         <div className="form-group">
                                             <label htmlFor="tipo-registro">Selecione o tipo de registro</label>
                                             <select id="tipo-registro" name="tipo-registro" value={tipoCadastro} onChange={(e) => setTipoCadastro(e.target.value)}>
@@ -109,10 +173,6 @@ export function CadastroProntuario(){
                                                     <div className="form-group">
                                                         <label htmlFor="data-saida-internacao">Data de Saída</label>
                                                         <input type="date" id="data-saida-internacao" name="data-saida-internacao" />
-                                                    </div>
-                                                    <div className="form-group full-width">
-                                                        <label htmlFor="hospital-internacao">Hospital</label>
-                                                        <input type="text" id="hospital-internacao" name="hospital-internacao" />
                                                     </div>
                                                     <div className="form-group full-width">
                                                         <label htmlFor="motivo-internacao">Motivo da Internação</label>

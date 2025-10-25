@@ -14,6 +14,7 @@ export function Header(){
                         <li><NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home Page</NavLink></li>
                         <li><NavLink to="/paciente/cadastro" className={({ isActive }) => isActive ? "active" : ""}>Cadastro Paciente</NavLink></li>
                         <li><NavLink to="/prontuario/cadastro" className={({ isActive }) => isActive ? "active" : ""}>Cadastro Prontuario</NavLink></li>
+                        <li><NavLink to="/prontuario/consulta" className={({ isActive }) => isActive ? "active" : ""}>Consulta Prontuario</NavLink></li>
                     </ul>
                 </nav>
             </header>

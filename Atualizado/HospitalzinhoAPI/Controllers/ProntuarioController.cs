@@ -32,7 +32,7 @@ namespace HospitalzinhoAPI.Controllers
         }
 
         [HttpGet("BuscarProntuarioConsultas/{cpfPaciente}")]
-        public async Task<ActionResult<List<ProntuarioConsulta>>> BuscarProntuarioConsultas(string cpfPaciente)
+        public async Task<ActionResult<List<ProntuarioConsultaDTO>>> BuscarProntuarioConsultas(string cpfPaciente)
         {
             var response = await _prontuarioInterface.BuscarProntuarioConsultas(cpfPaciente);
             return Ok(response);
@@ -53,21 +53,21 @@ namespace HospitalzinhoAPI.Controllers
         }
 
         [HttpPost("AdicionarProntuarioConsulta/{cpfPaciente}")]
-        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioConsulta(string cpfPaciente, ProntuarioConsultaDTO prontuarioConsulta)
+        public async Task<ActionResult<ProntuarioConsultaDTO>> AdicionarProntuarioConsulta(string cpfPaciente, ProntuarioConsultaDTO prontuarioConsulta)
         {
             var response = await _prontuarioInterface.AdicionarProntuarioConsulta(cpfPaciente, prontuarioConsulta);
             return Ok(response);
         }
 
         [HttpPost("AdicionarProntuarioInternacao/{cpfPaciente}")]
-        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioInternacao(string cpfPaciente, ProntuarioInternacaoDTO prontuarioInternacao)
+        public async Task<ActionResult<ProntuarioInternacaoDTO>> AdicionarProntuarioInternacao(string cpfPaciente, ProntuarioInternacaoDTO prontuarioInternacao)
         {
             var response = await _prontuarioInterface.AdicionarProntuarioInternacao(cpfPaciente, prontuarioInternacao);
             return Ok(response);
         }
 
         [HttpPost("AdicionarProntuarioVacina/{cpfPaciente}")]
-        public async Task<ActionResult<ProntuarioConsulta>> AdicionarProntuarioVacina(string cpfPaciente, ProntuarioVacinaDTO prontuarioVacina)
+        public async Task<ActionResult<ProntuarioVacinaDTO>> AdicionarProntuarioVacina(string cpfPaciente, ProntuarioVacinaDTO prontuarioVacina)
         {
             var response = await _prontuarioInterface.AdicionarProntuarioVacina(cpfPaciente, prontuarioVacina);
             return Ok(response);

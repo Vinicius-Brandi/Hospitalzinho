@@ -35,7 +35,7 @@ namespace HospitalzinhoAPI.Services.Prontuario
 
         public async Task<ProntuarioConsultaDTO> AdicionarProntuarioConsulta(string cpfPaciente, ProntuarioConsultaDTO prontuarioConsulta)
         {
-            var paciente = _context.Pacientes.Where(p => p.CPF == cpfPaciente).FirstOrDefault();
+            var paciente = await _context.Pacientes.FirstOrDefaultAsync(p => p.CPF == cpfPaciente);
             ProntuarioConsulta prontuario = _mapper.Map<ProntuarioConsulta>(prontuarioConsulta);
             prontuario.Paciente = paciente!;
 
@@ -47,7 +47,7 @@ namespace HospitalzinhoAPI.Services.Prontuario
 
         public async Task<ProntuarioInternacaoDTO> AdicionarProntuarioInternacao(string cpfPaciente, ProntuarioInternacaoDTO prontuarioInternacao)
         {
-            var paciente = _context.Pacientes.Where(p => p.CPF == cpfPaciente).FirstOrDefault();
+            var paciente = await _context.Pacientes.FirstOrDefaultAsync(p => p.CPF == cpfPaciente);
             ProntuarioInternacao prontuario = _mapper.Map<ProntuarioInternacao>(prontuarioInternacao);
             prontuario.Paciente = paciente!;
 
@@ -59,7 +59,7 @@ namespace HospitalzinhoAPI.Services.Prontuario
 
         public async Task<ProntuarioVacinaDTO> AdicionarProntuarioVacina(string cpfPaciente, ProntuarioVacinaDTO prontuarioVacina)
         {
-            var paciente = _context.Pacientes.Where(p => p.CPF == cpfPaciente).FirstOrDefault();
+            var paciente = await _context.Pacientes.FirstOrDefaultAsync(p => p.CPF == cpfPaciente);
             ProntuarioVacina prontuario = _mapper.Map<ProntuarioVacina>(prontuarioVacina);
             prontuario.Paciente = paciente!;
 
