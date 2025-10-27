@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using AutoMapper;
+using FGB.API.Utils;
 using NHibernate.Cfg;
 using System.Text.Json.Serialization;
-using Hospital = Hospitalzinho.Entidades.Hospital;
 
 using NHSession = NHibernate.ISession;
 using NHSessionFactory = NHibernate.ISessionFactory;
@@ -75,7 +75,6 @@ builder.Services.AddTransient<PacienteProntuarioServico>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 // =======================================
 // Configuração CORS para permitir qualquer origem (teste em rede local)
 // =======================================
@@ -88,8 +87,12 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
-// AutoMapper
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// AutoMapper — corrigido para evitar MissingMethodException
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AllowNullCollections = true;
+}, AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

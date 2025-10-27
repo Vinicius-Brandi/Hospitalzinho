@@ -1,13 +1,14 @@
+using AutoMapper;
 using FGB.Api.Controllers;
 using Hospitalzinho.Entidades;
 using Hospitalzinho.Servico;
 
 namespace HospitalzinhoApi.Controllers
 {
-    public class DoencaCronicaModeloController : CrudControllerBase<DoencaCronicaModelo>
+    public class DoencaCronicaModeloController : CrudControllerBase<DoencaCronicaModelo, DoencaCronicaModelo>
     {
         DoencaCronicaModeloServico _servico;
-        public DoencaCronicaModeloController(DoencaCronicaModeloServico servico) : base(servico) 
+        public DoencaCronicaModeloController(DoencaCronicaModeloServico servico, IMapper mapper) : base(servico, mapper) 
         { 
             _servico = servico; 
         }
