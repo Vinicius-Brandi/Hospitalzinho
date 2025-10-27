@@ -1,0 +1,38 @@
+/* Base / Reset leve */
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* O React monta a app dentro do #root. 
+   Tornamos o #root um flex container em coluna para o footer ir pro fim */
+#root {
+  min-height: 100dvh;          /* considera barra de endereço em mobile */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Qualquer conteúdo da página fica aqui por padrão.
+   Se você tiver uma div “conteúdo” no meio, não precisa; 
+   basta existir algo entre header e footer. */
+
+/* Footer sempre no rodapé */
+footer {
+  margin-top: auto;            /* empurra pro fim da coluna */
+}
+
+/* Acessibilidade de foco para links */
+a:focus-visible {
+  outline: 3px solid #0056b3;
+  outline-offset: 2px;
+}
+
