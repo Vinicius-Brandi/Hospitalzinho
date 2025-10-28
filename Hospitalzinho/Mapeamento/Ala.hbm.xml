@@ -16,6 +16,11 @@
 
 		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" not-null="true" />
 
+		<bag name="Salas" inverse="true" cascade="all-delete-orphan">
+			<key column="ala_id"/>
+			<one-to-many class="Sala"/>
+		</bag>
+
 		<bag name="Quartos" inverse="true" cascade="all-delete-orphan">
 			<key column="ala_id"/>
 			<one-to-many class="Quarto"/>

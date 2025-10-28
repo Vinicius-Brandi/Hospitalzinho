@@ -7,6 +7,7 @@ namespace Hospitalzinho.Entidades
     {
         public virtual string Nome { get; set; } // Ex: "Ala Norte", "Ala Pediatria"
         public virtual IList<Quarto> Quartos { get; set; } = new List<Quarto>();
+        public virtual IList<Sala> Salas { get; set; } = new List<Sala>();
         [Required]
         public virtual HospitalUnidade Hospital { get; set; }
     }

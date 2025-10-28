@@ -1,5 +1,6 @@
 ﻿using FGB.Api.Controllers;
 using Hospitalzinho.Entidades;
+using Hospitalzinho.DTO.Get;
 using Hospitalzinho.Servico;
 using AutoMapper;
 

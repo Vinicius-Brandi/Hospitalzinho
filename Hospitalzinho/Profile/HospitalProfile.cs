@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Hospitalzinho.DTO;
 using Hospitalzinho.Entidades;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Hospitalzinho.DTO.Get;
+using System.Linq;
 
 namespace Hospitalzinho.Profiles
 {
@@ -9,14 +9,37 @@ namespace Hospitalzinho.Profiles
     {
         public MappingProfile()
         {
+            // Hospital
             CreateMap<Hospital, HospitalDto>();
 
+            // Unidade hospitalar
             CreateMap<HospitalUnidade, HospitalUnidadeDto>()
-                .ForMember(dest => dest.TipoUnidade, opt => opt.MapFrom(src => src.TipoUnidade.ToString()))
-                .ForMember(dest => dest.Endereco, opt => opt.MapFrom(src =>
-                    src.Endereco != null
-                        ? $"{src.Endereco.Rua}, {src.Endereco.Numero} - {src.Endereco.Bairro}, {src.Endereco.Cidade} ({src.Endereco.CEP})"
-                        : string.Empty
+                .ForMember(dest => dest.TipoUnidade, opt => opt.MapFrom(src => (int)src.TipoUnidade))
+                .ForMember(dest => dest.Endereco, opt => opt.MapFrom(src => src.Endereco));
+
+            // Endereço
+            CreateMap<HospitalEndereco, HospitalEnderecoDto>();
+
+            // Ala
+            CreateMap<Ala, AlaDto>()
+                .ForMember(dest => dest.Quartos, opt => opt.MapFrom(src => src.Quartos))
+                .ForMember(dest => dest.Salas, opt => opt.MapFrom(src => src.Salas));
+
+
+            // Quarto
+            CreateMap<Quarto, QuartoDto>()
+                .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => (int)src.Tipo))
+                .ForMember(dest => dest.Internacoes, opt => opt.Ignore());
+
+            // Sala
+            CreateMap<Sala, SalaDto>()
+                .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => (int)src.Tipo))
+                .ForMember(dest => dest.Consultas, opt => opt.MapFrom((src, dest) =>
+                    src.Consultas.Select(c =>
+                        c.ProfResponsavel != null
+                            ? $"{c.ProfResponsavel.Nome} ({c.ProfResponsavel.Especialidade.Nome})"
+                            : "Sem profissional responsável"
+                    ).ToList()
                 ));
         }
     }

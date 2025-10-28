@@ -1,6 +1,6 @@
 ﻿namespace Hospitalzinho.Entidades
 {
-    public enum TipoqQuarto
+    public enum TipoQuarto
     {
         Enfermaria = 1,
         UTI = 2,
