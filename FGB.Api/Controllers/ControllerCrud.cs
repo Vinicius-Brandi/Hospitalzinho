@@ -25,10 +25,18 @@ namespace FGB.Api.Controllers
         [EnableQuery] // suporte a OData ($filter, $top, $skip, etc.)
         public virtual IActionResult GetOData()
         {
-            var listaDto = _servico.Consulta()
-                .ProjectTo<TDto>(_mapper.ConfigurationProvider); // converte direto no banco
+            if (typeof(T) != typeof(TDto))
+            {
+                var listaDto = _servico.Consulta()
+                    .ProjectTo<TDto>(_mapper.ConfigurationProvider); // converte direto no banco
 
-            return Ok(listaDto);
+                return Ok(listaDto);
+            }
+            else
+            {
+                var lista = _servico.Consulta();
+                return Ok(lista);
+            }
         }
 
         [HttpGet("{id:long}")]
@@ -37,9 +45,15 @@ namespace FGB.Api.Controllers
             var entity = _servico.Retorna(id);
             if (entity == null)
                 return NotFound(new { mensagem = $"{typeof(T).Name} não encontrado." });
-
-            var dto = _mapper.Map<TDto>(entity); // AutoMapper faz o mapeamento
-            return Ok(dto);
+            if (typeof(T) != typeof(TDto))
+            {
+                var dto = _mapper.Map<TDto>(entity); // AutoMapper faz o mapeamento
+                return Ok(dto);
+            }
+            else
+            {
+                return Ok(entity);
+            }
         }
 
         [HttpPost]

@@ -21,6 +21,7 @@ namespace Hospitalzinho.Entidades
         public virtual IList<PacienteExame> ExamesSolicitados { get; set; } = new List<PacienteExame>();
         public virtual IList<PacienteInternacao> Internacoes { get; set; } = new List<PacienteInternacao>();
         public virtual IList<PacienteVacinacao> VacinacoesAdministradas { get; set; } = new List<PacienteVacinacao>();
+        public virtual IList<PacienteCirurgia> Cirurgias { get; set; } = new List<PacienteCirurgia>();
         public virtual IList<Receita> ReceitasPrescritas { get; set; } = new List<Receita>();
 
         [Required]

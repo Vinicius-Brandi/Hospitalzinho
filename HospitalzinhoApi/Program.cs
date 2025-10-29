@@ -8,17 +8,26 @@ using AutoMapper;
 using FGB.API.Utils;
 using NHibernate.Cfg;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.OData;
 
 using NHSession = NHibernate.ISession;
 using NHSessionFactory = NHibernate.ISessionFactory;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração de JSON para ignorar ciclos de referência
-builder.Services.AddControllers().AddJsonOptions(opt =>
-{
-    opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
+// Configuração de JSON para ignorar ciclos de referência + habilitar OData
+builder.Services.AddControllers()
+    .AddOData(opt =>
+        opt.Select()
+           .Filter()
+           .OrderBy()
+           .Count()
+           .Expand()
+           .SetMaxTop(1000)) // permite $top até 1000 (ou remova o limite)
+    .AddJsonOptions(opt =>
+    {
+        opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 
 // =======================================
 // Configuração NHibernate

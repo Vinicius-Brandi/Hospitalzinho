@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
@@ -12,7 +13,7 @@ namespace Hospitalzinho.Entidades
         public virtual long Indicacao { get; set; } // Quem deve tomar
         public virtual long NumeroDoses { get; set; } // Total de doses previstas
         public virtual TimeSpan IntervaloEntreDoses { get; set; } // Intervalo sugerido entre doses
-
+        [JsonIgnore]
         public virtual List<Vacina> Vacinas { get; set; } = new List<Vacina>(); // Vacinas físicas produzidas a partir desse modelo
     }
 }

@@ -42,5 +42,9 @@
 			<key column="profissional_id"/>
 			<one-to-many class="Receita"/>
 		</bag>
+		<bag name="Cirurgias" inverse="true" cascade="none">
+			<key column="profissional_responsavel_id"/>
+			<one-to-many class="PacienteCirurgia"/>
+		</bag>
 	</class>
 </hibernate-mapping>
