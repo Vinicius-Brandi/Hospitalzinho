@@ -89,7 +89,7 @@ export function CadastroProntuario(){
             <main>
                 <h1>Registro de Atendimento e Prontuário</h1>
                 <CampoBuscarPacienteCPF 
-                    onSugestaoSelecionada={(s) => setPaciente(s)} 
+                    onSugestaoSelecionada={(s) => buscarPaciente(s)} 
                     onPesquisar={buscarPaciente}
                 />
 
