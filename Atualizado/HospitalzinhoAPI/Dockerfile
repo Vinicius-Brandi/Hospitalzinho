@@ -2,21 +2,20 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copia os arquivos da solução
+# Copia tudo
 COPY . .
 
-# Restaura e publica a API
-WORKDIR /src/Atualizado/HospitalzinhoAPI
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app/publish
+# Restaura e publica usando o caminho explícito para o .csproj
+RUN dotnet restore Atualizado/HospitalzinhoAPI/HospitalzinhoAPI.csproj
+RUN dotnet publish Atualizado/HospitalzinhoAPI/HospitalzinhoAPI.csproj -c Release -o /app/publish
 
 # Etapa 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Exponha a porta padrão (opcional, só informativo)
+# Exponha a porta (opcional)
 EXPOSE 80
 
-# Comando de entrada
+# Executa o projeto
 ENTRYPOINT ["dotnet", "HospitalzinhoAPI.dll"]
