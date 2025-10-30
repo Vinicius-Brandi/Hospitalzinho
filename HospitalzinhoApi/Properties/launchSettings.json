@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "https://localhost:5102",
+      "applicationUrl": "http://192.168.11.224:5102",
       "sslPort": 44332
     }
   },
@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:5102", // precisa colocar o ip da maquina para funcionar a requisicao externa: -- ficaria // http://ip_da_maquina:porta/api/values
+      "applicationUrl": "http://192.168.11.224:5102", // precisa colocar o ip da maquina para funcionar a requisicao externa: -- ficaria // http://ip_da_maquina:porta/api/values
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -24,7 +24,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:5102",
+      "applicationUrl": "http://192.168.11.224:5102",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

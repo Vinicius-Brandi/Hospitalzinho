@@ -6,5 +6,4 @@ class servicoHospitalUnidade extends CrudService<HospitalUnidade>{
         super("hospitalunidade");
     }
 }
-const hospitalUnidadeService = new servicoHospitalUnidade();
-export default hospitalUnidadeService;
+export default new servicoHospitalUnidade();

@@ -13,6 +13,6 @@ namespace Hospitalzinho.Entidades
         [Required]
         public virtual string NumeroCarteirinha { get; set; }
         public virtual DateTime? Validade { get; set; }
-        public virtual bool Ativo { get; set; }
+        public virtual bool Ativo { get; set; } = true;
     }
 }

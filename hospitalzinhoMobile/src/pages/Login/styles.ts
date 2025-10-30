@@ -1,0 +1,95 @@
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#e6f0ff',
+    justifyContent: 'flex-start',
+    padding: 16,
+    paddingTop: 20,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 8,
+    marginTop: 2,
+  },
+  logoWrap: {
+    width: 72,
+    height: 72,
+    borderRadius: 20,
+    backgroundColor: '#2563eb',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+    elevation: 3,
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#0f172a',
+  },
+  headerSubtitle: {
+    fontSize: 13,
+    color: '#475569',
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: 14,
+    padding: 18,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    marginTop: -6,
+    marginHorizontal: 4,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: 12,
+    textAlign: 'center',
+    color: '#0b1220',
+  },
+  input: {
+    flex: 1,
+    paddingHorizontal: 8,
+    paddingVertical: 10,
+    marginBottom: 0,
+    fontSize: 16,
+    color: '#0b1220',
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#cfe0ff',
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    marginBottom: 12,
+    backgroundColor: '#f8fbff',
+  },
+  inputIcon: {
+    marginRight: 8,
+  },
+  button: {
+    backgroundColor: '#1e40af',
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 6,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  link: {
+    marginTop: 12,
+    alignItems: 'center',
+  },
+  linkText: {
+    color: '#2563eb',
+    textDecorationLine: 'underline',
+  },
+});

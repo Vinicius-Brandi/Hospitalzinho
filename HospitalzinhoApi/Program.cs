@@ -127,5 +127,5 @@ using (var scope = app.Services.CreateScope())
     var session = scope.ServiceProvider.GetRequiredService<NHSession>();
 }
 
-app.Run();
-//app.Run("http://0.0.0.0:5102");
+//app.Run();
+app.Run("http://0.0.0.0:5102");

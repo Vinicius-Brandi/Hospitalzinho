@@ -11,10 +11,10 @@ namespace Hospitalzinho.Entidades
         public virtual DateTime? DataAlta { get; set; } // Pode ser nulo enquanto o paciente estiver internado
         [Required]
         public virtual Quarto Quarto { get; set; } // Ex: "101A"
-        public virtual string Motivo { get; set; }
+        public virtual string? Motivo { get; set; }
         [Required]
         public virtual ProfissionalSaude ProfResponsavel { get; set; }
-        public virtual string Observacoes { get; set; }
+        public virtual string? Observacoes { get; set; }
         [Required]
         public virtual HospitalUnidade Hospital { get; set; }
     }

@@ -13,7 +13,7 @@ namespace Hospitalzinho.Entidades
         public virtual ProfissionalSaude ProfResponsavel { get; set; }
         public virtual DateTime DataAplicacao { get; set; }
         public virtual int DoseNumero { get; set; }
-        public virtual string Observacoes { get; set; }
+        public virtual string? Observacoes { get; set; }
         [Required]
         public virtual HospitalUnidade Hospital { get; set; }
 

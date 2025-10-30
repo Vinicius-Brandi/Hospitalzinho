@@ -15,6 +15,6 @@ namespace Hospitalzinho.Entidades
         public virtual Sala Sala { get; set; }
         [Required]
         public virtual HospitalUnidade Hospital { get; set; }
-        public virtual string Observacoes { get; set; }
+        public virtual string? Observacoes { get; set; }
     }
 }
