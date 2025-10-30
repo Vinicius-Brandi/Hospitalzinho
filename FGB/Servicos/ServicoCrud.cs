@@ -3,7 +3,6 @@ using FGB.IRepositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FGB.Servicos
@@ -26,7 +25,7 @@ namespace FGB.Servicos
             Mensagens.Clear();
             if (entidade == null)
             {
-                Mensagens.Add(new ArgumentNullException("entidade", "menu.mensagem.requisicao.vazia"));
+                Mensagens.Add("Entidade vazia na requisição.");
                 return false;
             }
             return Valida(entidade);
@@ -50,7 +49,7 @@ namespace FGB.Servicos
                 catch (Exception ex)
                 {
                     Repositorio.RollBackTransacao();
-                    Mensagens.Add(ex);
+                    Mensagens.Add(ex.Message);
                 }
 
                 return !Mensagens.HasErro();
@@ -70,7 +69,7 @@ namespace FGB.Servicos
                 catch (Exception ex)
                 {
                     await Repositorio.RollBackTransacaoAsync();
-                    Mensagens.Add(ex);
+                    Mensagens.Add(ex.Message);
                 }
 
                 return !Mensagens.HasErro();
@@ -102,6 +101,7 @@ namespace FGB.Servicos
                 }
             }));
         }
+
         public virtual bool ProcessoInclusao(T[] entidades, Func<bool> process)
         {
             if (entidades.Length == 0)
@@ -114,7 +114,7 @@ namespace FGB.Servicos
             {
                 entidade.CriadoEm = DateTime.Now;
                 entidade.UltimaAlteracao = DateTime.Now;
-                try { PreInclui?.Invoke(new IncluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                try { PreInclui?.Invoke(new IncluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
             }
 
             var sucesso = process();
@@ -122,16 +122,13 @@ namespace FGB.Servicos
             {
                 foreach (var entidade in entidades)
                 {
-                    try { PosInclui?.Invoke(new IncluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                    try { PosInclui?.Invoke(new IncluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
                 }
             }
 
             return sucesso;
         }
 
-        /// <summary>
-        /// Executa o processo de inclusão assíncrono, disparando eventos e tratando exceções dos handlers.
-        /// </summary>
         public virtual async Task<bool> ProcessoInclusaoAsync(T[] entidades, Func<Task<bool>> process)
         {
             if (entidades.Length == 0)
@@ -144,7 +141,7 @@ namespace FGB.Servicos
             {
                 entidade.CriadoEm = DateTime.Now;
                 entidade.UltimaAlteracao = DateTime.Now;
-                try { PreInclui?.Invoke(new IncluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                try { PreInclui?.Invoke(new IncluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
             }
 
             var sucesso = await process();
@@ -152,7 +149,7 @@ namespace FGB.Servicos
             {
                 foreach (var entidade in entidades)
                 {
-                    try { PosInclui?.Invoke(new IncluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                    try { PosInclui?.Invoke(new IncluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
                 }
             }
 
@@ -184,9 +181,6 @@ namespace FGB.Servicos
             })) ? entidade : null;
         }
 
-        /// <summary>
-        /// Executa o processo de merge, disparando eventos e tratando exceções dos handlers.
-        /// </summary>
         protected virtual bool ProcessoMerge(T entidade, Func<T, bool> process)
         {
             if (!Validacoes(entidade))
@@ -196,21 +190,17 @@ namespace FGB.Servicos
             if (entidadeOld == null)
                 return false;
 
-            // VincularColecoes removido
-            try { PreMerge?.Invoke(new MergeInfo<T>(entidadeOld, entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+            try { PreMerge?.Invoke(new MergeInfo<T>(entidadeOld, entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
 
             var sucesso = process(entidadeOld);
             if (sucesso)
             {
-                try { PosMerge?.Invoke(new MergeInfo<T>(entidadeOld, entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                try { PosMerge?.Invoke(new MergeInfo<T>(entidadeOld, entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
             }
 
             return sucesso;
         }
 
-        /// <summary>
-        /// Executa o processo de merge assíncrono, disparando eventos e tratando exceções dos handlers.
-        /// </summary>
         protected virtual async Task<bool> ProcessoMergeAsync(T entidade, Func<T, Task<bool>> process)
         {
             if (!Validacoes(entidade))
@@ -220,13 +210,12 @@ namespace FGB.Servicos
             if (entidadeOld == null)
                 return false;
 
-            // VincularColecoes removido
-            try { PreMerge?.Invoke(new MergeInfo<T>(entidadeOld, entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+            try { PreMerge?.Invoke(new MergeInfo<T>(entidadeOld, entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
 
             var sucesso = await process(entidadeOld);
             if (sucesso)
             {
-                try { PosMerge?.Invoke(new MergeInfo<T>(entidadeOld, entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                try { PosMerge?.Invoke(new MergeInfo<T>(entidadeOld, entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
             }
 
             return sucesso;
@@ -237,8 +226,7 @@ namespace FGB.Servicos
             var entidade = Retorna(id);
             if (entidade == null)
             {
-                var ex = new ApplicationException("menu.mensagem.registro.nao.encontrado");
-                Mensagens.Add(ex);
+                Mensagens.Add("Registro não encontrado.");
                 return null;
             }
 
@@ -261,8 +249,7 @@ namespace FGB.Servicos
             var entidade = await RetornaAsync(id);
             if (entidade == null)
             {
-                var ex = new ApplicationException("menu.mensagem.registro.nao.encontrado");
-                Mensagens.Add(ex);
+                Mensagens.Add("Registro não encontrado.");
                 return null;
             }
 
@@ -280,9 +267,6 @@ namespace FGB.Servicos
             }));
         }
 
-        /// <summary>
-        /// Executa o processo de exclusão, disparando eventos e tratando exceções dos handlers.
-        /// </summary>
         protected virtual bool ProcessarExclusao(T[] entidades, Func<bool> process)
         {
             if (entidades.Length == 0)
@@ -290,7 +274,7 @@ namespace FGB.Servicos
 
             foreach (var entidade in entidades)
             {
-                try { PreExclui?.Invoke(new ExcluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                try { PreExclui?.Invoke(new ExcluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
             }
 
             var sucesso = process();
@@ -298,16 +282,13 @@ namespace FGB.Servicos
             {
                 foreach (var entidade in entidades)
                 {
-                    try { PosExclui?.Invoke(new ExcluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                    try { PosExclui?.Invoke(new ExcluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
                 }
             }
 
             return sucesso;
         }
 
-        /// <summary>
-        /// Executa o processo de exclusão assíncrono, disparando eventos e tratando exceções dos handlers.
-        /// </summary>
         protected virtual async Task<bool> ProcessarExclusaoAsync(T[] entidades, Func<Task<bool>> process)
         {
             if (entidades.Length == 0)
@@ -315,7 +296,7 @@ namespace FGB.Servicos
 
             foreach (var entidade in entidades)
             {
-                try { PreExclui?.Invoke(new ExcluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                try { PreExclui?.Invoke(new ExcluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
             }
 
             var sucesso = await process();
@@ -323,7 +304,7 @@ namespace FGB.Servicos
             {
                 foreach (var entidade in entidades)
                 {
-                    try { PosExclui?.Invoke(new ExcluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex); }
+                    try { PosExclui?.Invoke(new ExcluiInfo<T>(entidade)); } catch (Exception ex) { Mensagens.Add(ex.Message); }
                 }
             }
 
