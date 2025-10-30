@@ -7,6 +7,7 @@ namespace HospitalzinhoApi.Controllers
 {
     public class VacinaModeloController : CrudControllerBase<VacinaModelo, VacinaModelo>
     {
+        //Certo
         VacinaModeloServico _servico;
         public VacinaModeloController(VacinaModeloServico servico, IMapper mapper) : base(servico, mapper) 
         { 

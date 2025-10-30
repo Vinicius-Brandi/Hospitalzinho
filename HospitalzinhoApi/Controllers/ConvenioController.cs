@@ -1,12 +1,14 @@
 using AutoMapper;
 using FGB.Api.Controllers;
+using Hospitalzinho.DTO.Get;
 using Hospitalzinho.Entidades;
 using Hospitalzinho.Servico;
 
 namespace HospitalzinhoApi.Controllers
 {
-    public class ConvenioController : CrudControllerBase<Convenio, Convenio>
+    public class ConvenioController : CrudControllerBase<Convenio, ConvenioDto>
     {
+        //Certo
         ConvenioServico _servico;
         public ConvenioController(ConvenioServico servico, IMapper mapper) : base(servico, mapper)
         {

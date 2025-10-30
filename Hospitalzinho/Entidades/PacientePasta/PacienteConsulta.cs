@@ -10,7 +10,7 @@ namespace Hospitalzinho.Entidades
         public virtual DateTime DataConsulta { get; set; }
         [Required]
         public virtual ProfissionalSaude ProfResponsavel { get; set; }
-        public virtual string Observacoes { get; set; }
+        public virtual string? Observacoes { get; set; }
         [Required]
         public virtual Sala Sala { get; set; }
         public virtual IList<PacienteExame> Exames { get; set; } = new List<PacienteExame>();

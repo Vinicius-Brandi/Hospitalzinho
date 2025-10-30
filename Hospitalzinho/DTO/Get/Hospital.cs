@@ -18,15 +18,6 @@ namespace Hospitalzinho.DTO.Get
     {
         public string Nome { get; set; } = string.Empty;
         public string TipoUnidade { get; set; } = string.Empty;
-        public HospitalEnderecoDto Endereco { get; set; } 
-    }
-    public class HospitalEnderecoDto : EntidadeBase
-    {
-        public string CEP { get; set; }
-        public string Cidade { get; set; }
-        public string Bairro { get; set; }
-        public string Rua { get; set; }
-        public string Numero { get; set; }
-        public string Complemento { get; set; }
+        public HospitalEndereco Endereco { get; set; } 
     }
 }

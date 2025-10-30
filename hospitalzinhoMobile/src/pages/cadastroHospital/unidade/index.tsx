@@ -1,12 +1,12 @@
+import hospitalService from '@/src/servicos/hospital_servicos/servicoHospital';
+import hospitalUnidadeService from '@/src/servicos/hospital_servicos/servicoHospitalUnidade';
 import { Picker } from '@react-native-picker/picker';
-import React, { useState, useEffect } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View, Modal, FlatList, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Alert, FlatList, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import CadastroInstituicao from '../instituicao';
 import { styles } from '../styles';
 import Endereco from './Endereco';
-import hospitalUnidadeService from '@/src/servicos/hospital_servicos/servicoHospitalUnidade';
-import hospitalService from '@/src/servicos/hospital_servicos/servicoHospital';
-import CadastroInstituicao from '../instituicao';
 
 export default function CadastroUnidade() {
 	const [focusedField, setFocusedField] = useState<string | null>(null);

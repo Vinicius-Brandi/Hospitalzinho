@@ -5,6 +5,7 @@ using Hospitalzinho.Servico;
 
 namespace HospitalzinhoApi.Controllers
 {
+    //Certo
     public class MedicamentoModeloController : CrudControllerBase<MedicamentoModelo, MedicamentoModelo>
     {
         MedicamentoModeloServico _servico;

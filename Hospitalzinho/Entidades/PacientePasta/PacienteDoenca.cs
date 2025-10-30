@@ -12,7 +12,7 @@ namespace Hospitalzinho.Entidades
         public virtual DoencaCronicaModelo Modelo { get; set; }
         public virtual DateTime DataDiagnostico { get; set; }
         public virtual string Estagio { get; set; } // Ex: "Leve", "Moderada", "Avançada"
-        public virtual string Observacoes { get; set; }
-        public virtual bool EmTratamento { get; set; }
+        public virtual string? Observacoes { get; set; }
+        public virtual bool EmTratamento { get; set; } = true;
     }
 }

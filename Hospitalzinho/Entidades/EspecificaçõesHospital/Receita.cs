@@ -16,6 +16,6 @@ namespace Hospitalzinho.Entidades
 
         // Relacionamentos
         public virtual IList<ItemReceita> Itens { get; set; } = new List<ItemReceita>();
-        public virtual HospitalUnidade Hospital { get; set; }
+        public virtual HospitalUnidade? Hospital { get; set; }
     }
 }

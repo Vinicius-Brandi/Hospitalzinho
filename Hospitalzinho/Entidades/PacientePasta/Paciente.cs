@@ -21,7 +21,7 @@ namespace Hospitalzinho.Entidades
         public virtual bool? Ativo { get; set; }
         public virtual SexoPaciente Sexo { get; set; }
         public virtual string? Nacionalidade { get; set; }
-        public virtual RacaPaciente Raca { get; set; }
+        public virtual RacaPaciente? Raca { get; set; }
         public virtual string? Naturalidade { get; set; }
         public virtual EscolaridadePaciente Escolaridade { get; set; }
         public virtual IList<PacienteContato> Contatos { get; set; } = new List<PacienteContato>();

@@ -1,6 +1,4 @@
 ﻿using FGB.Entidades;
-using Hospitalzinho.Entidades;
-using System.ComponentModel.DataAnnotations;
 
 namespace Hospitalzinho.DTO.Get
 {
@@ -33,12 +31,5 @@ namespace Hospitalzinho.DTO.Get
     public class EspecialidadeDto : EntidadeBase
     {
         public string Nome { get; set; }
-    }
-
-    public class ItemReceitaDto: EntidadeBase
-    {
-        public int Quantidade { get; set; }
-        public string Posologia { get; set; }
-        public MedicamentoModelo Modelo { get; set; }
     }
 }
