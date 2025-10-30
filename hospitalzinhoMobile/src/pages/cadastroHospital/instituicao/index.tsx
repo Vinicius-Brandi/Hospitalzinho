@@ -3,6 +3,7 @@ import hospitalService from '@/src/servicos/hospital_servicos/servicoHospital';
 import React, { useState } from 'react';
 import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { MaterialIcons } from '@expo/vector-icons';
 import { styles } from '../styles';
 
 type Props = {
@@ -50,69 +51,88 @@ export default function CadastroInstituicao({ onCreated }: Props) {
 
 	return (
 		<KeyboardAwareScrollView style={styles.container} contentContainerStyle={styles.content} enableOnAndroid>
-			<Text style={styles.title}>Cadastro de Instituição</Text>
-
-			<View style={styles.section}>
-				<View style={styles.fieldset}>
-					<Text style={styles.legend}>Dados da Instituição</Text>
-
-					<View style={styles.formGrid}>
-						<View style={[styles.formGroup, styles.fullWidth]}>
-							<Text style={styles.label}>Nome da Instituição</Text>
-							<TextInput
-								style={[styles.input, focusedField === 'nome' && styles.inputFocused]}
-								value={nome}
-								onChangeText={setNome}
-								placeholder="Nome da Instituição"
-								maxLength={255}
-								onFocus={() => setFocusedField('nome')}
-								onBlur={() => setFocusedField(null)}
-							/>
+				<View style={styles.header}>
+					<View style={styles.headerTop}>
+						<View style={styles.logoWrap}>
+							<MaterialIcons name="local-hospital" size={28} color="#fff" />
 						</View>
-
-						<View style={styles.formGroup}>
-							<Text style={styles.label}>CNES</Text>
-							<TextInput
-								style={[styles.input, focusedField === 'cnes' && styles.inputFocused]}
-								value={cnes}
-								onChangeText={setCnes}
-								maxLength={7}
-								onFocus={() => setFocusedField('cnes')}
-								onBlur={() => setFocusedField(null)}
-							/>
-						</View>
-
-						<View style={styles.formGroup}>
-							<Text style={styles.label}>CNPJ</Text>
-							<TextInput
-								style={[styles.input, focusedField === 'cnpj' && styles.inputFocused]}
-								value={cnpj}
-								onChangeText={setCnpj}
-								placeholder="XX.XXX.XXX/XXXX-XX"
-								onFocus={() => setFocusedField('cnpj')}
-								onBlur={() => setFocusedField(null)}
-							/>
+						<View>
+							<Text style={styles.headerTitle}>Cadastro de Instituição</Text>
+							<Text style={styles.headerSubtitle}>Registre a instituição principal</Text>
 						</View>
 					</View>
 				</View>
 
-				<View style={styles.buttonsRow}>
-					<TouchableOpacity style={[styles.button, styles.saveButton]} onPress={handleSubmit}>
-						<Text style={styles.buttonText}>Salvar Instituição</Text>
-					</TouchableOpacity>
+				<View style={styles.card}>
+					<View style={styles.fieldset}>
+						<Text style={styles.legend}>Dados da Instituição</Text>
 
-					<TouchableOpacity
-						style={[styles.button, styles.cancelButton]}
-						onPress={() => {
-							setNome('');
-							setCnes('');
-							setCnpj('');
-						}}
-					>
-						<Text style={styles.buttonText}>Cancelar</Text>
-					</TouchableOpacity>
+						<View style={styles.formGrid}>
+							<View style={[styles.formGroup, styles.fullWidth]}>
+								<Text style={styles.label}>Nome da Instituição</Text>
+								<View style={styles.inputRow}>
+									<MaterialIcons name="badge" size={18} color="#2563eb" style={styles.inputIcon} />
+									<TextInput
+										style={[styles.input, focusedField === 'nome' && styles.inputFocused]}
+										value={nome}
+										onChangeText={setNome}
+										placeholder="Nome da Instituição"
+										maxLength={255}
+										onFocus={() => setFocusedField('nome')}
+										onBlur={() => setFocusedField(null)}
+									/>
+								</View>
+							</View>
+
+							<View style={[styles.formGroup, styles.fullWidth]}>
+								<Text style={styles.label}>CNES</Text>
+								<View style={styles.inputRow}>
+									<MaterialIcons name="confirmation-number" size={18} color="#2563eb" style={styles.inputIcon} />
+									<TextInput
+										style={[styles.input, focusedField === 'cnes' && styles.inputFocused]}
+										value={cnes}
+										onChangeText={setCnes}
+										maxLength={7}
+										onFocus={() => setFocusedField('cnes')}
+										onBlur={() => setFocusedField(null)}
+									/>
+								</View>
+							</View>
+
+							<View style={[styles.formGroup, styles.fullWidth]}>
+								<Text style={styles.label}>CNPJ</Text>
+								<View style={styles.inputRow}>
+									<MaterialIcons name="business" size={18} color="#2563eb" style={styles.inputIcon} />
+									<TextInput
+										style={[styles.input, focusedField === 'cnpj' && styles.inputFocused]}
+										value={cnpj}
+										onChangeText={setCnpj}
+										placeholder="XX.XXX.XXX/XXXX-XX"
+										onFocus={() => setFocusedField('cnpj')}
+										onBlur={() => setFocusedField(null)}
+									/>
+								</View>
+							</View>
+						</View>
+					</View>
+
+					<View style={styles.buttonsRow}>
+						<TouchableOpacity style={[styles.button, styles.saveButton]} onPress={handleSubmit}>
+							<Text style={styles.buttonText}>Salvar Instituição</Text>
+						</TouchableOpacity>
+
+						<TouchableOpacity
+							style={[styles.button, styles.cancelButton]}
+							onPress={() => {
+								setNome('');
+								setCnes('');
+								setCnpj('');
+							}}
+						>
+							<Text style={styles.buttonText}>Cancelar</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-			</View>
 		</KeyboardAwareScrollView>
 	);
 }

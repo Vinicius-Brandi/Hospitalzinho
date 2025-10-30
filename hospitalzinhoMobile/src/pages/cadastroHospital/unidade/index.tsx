@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { MaterialIcons } from '@expo/vector-icons';
 import CadastroInstituicao from '../instituicao';
 import { styles } from '../styles';
 import Endereco from './Endereco';
@@ -87,67 +88,83 @@ export default function CadastroUnidade() {
 
 	return (
 		<KeyboardAwareScrollView style={styles.container} contentContainerStyle={styles.content} enableOnAndroid>
-			<Text style={styles.title}>Cadastro de Unidade</Text>
-
-			<View style={styles.section}>
-				<View style={styles.fieldset}>
-					<Text style={styles.legend}>Dados Gerais</Text>
-
-					<View style={styles.formGrid}>
-						<View style={[styles.formGroup, styles.fullWidth]}>
-							<Text style={styles.label}>Nome da Unidade</Text>
-							<TextInput style={[styles.input, focusedField === 'nome' && styles.inputFocused]} value={nome} onChangeText={setNome} onFocus={() => setFocusedField('nome')} onBlur={() => setFocusedField(null)} />
+				<View style={styles.header}>
+					<View style={styles.headerTop}>
+						<View style={styles.logoWrap}>
+							<MaterialIcons name="local-hospital" size={28} color="#fff" />
 						</View>
-
-						<View style={styles.formGroup}>
-							<Text style={styles.label}>Vincular à Instituição Principal (CNPJ)</Text>
-							<View>
-								<TextInput style={[styles.input, focusedField === 'instituicaoPaiId' && styles.inputFocused]} value={instituicaoPaiId} onChangeText={setInstituicaoPaiId} onFocus={() => setFocusedField('instituicaoPaiId')} onBlur={() => setFocusedField(null)} />
-								<TouchableOpacity style={[styles.smallButton]} onPress={openSelector}>
-									<Text style={styles.smallButtonText}>Escolher Instituição</Text>
-								</TouchableOpacity>
-							</View>
-						</View>
-
-						<View style={styles.formGroup}>
-							<Text style={styles.label}>Tipo de Unidade</Text>
-							<View style={styles.pickerWrapper}>
-								<Picker selectedValue={tipoUnidade} onValueChange={(v: string) => setTipoUnidade(v)}>
-									<Picker.Item label="Selecione o tipo" value="" />
-									<Picker.Item label="Unidade Básica de Saúde (UBS) / Posto de Saúde" value="ubs" />
-									<Picker.Item label="Centro de Saúde" value="centro-saude" />
-									<Picker.Item label="Ambulatório de Especialidade / Policlínica" value="ambulatorio" />
-									<Picker.Item label="Clínica Especializada" value="clinica" />
-									<Picker.Item label="Hospital Especializado" value="hospital-esp" />
-									<Picker.Item label="Centro de Atenção Psicossocial (CAPS)" value="caps" />
-									<Picker.Item label="Hospital Geral" value="hospital-geral" />
-									<Picker.Item label="Unidade de Pronto Atendimento (UPA)" value="upa" />
-									<Picker.Item label="Pronto-Socorro" value="pronto-socorro" />
-									<Picker.Item label="Serviços de Apoio Diagnóstico e Terapêutico (SADT)" value="sadt" />
-									<Picker.Item label="Farmácia" value="farmacia" />
-									<Picker.Item label="Vigilância Sanitária e Epidemiológica" value="vigilancia" />
-									<Picker.Item label="Centro de Reabilitação" value="reabilitacao" />
-								</Picker>
-							</View>
+						<View>
+							<Text style={styles.headerTitle}>Cadastro de Unidade</Text>
+							<Text style={styles.headerSubtitle}>Registre uma unidade vinculada à sua instituição</Text>
 						</View>
 					</View>
 				</View>
 
-				{/* componente de endereço */}
-				<Endereco cep={cep} cidade={cidade} bairro={bairro} rua={rua} numero={numero} complemento={complemento} focusedField={focusedField} setCep={setCep} setCidade={setCidade} setBairro={setBairro} setRua={setRua} setNumero={setNumero} setComplemento={setComplemento} />
+				<View style={styles.card}>
+					<View style={styles.fieldset}>
+						<Text style={styles.legend}>Dados Gerais</Text>
 
-				<View style={styles.buttonsRow}>
-					<TouchableOpacity style={[styles.button, styles.saveButton]} onPress={handleSubmit}>
-						<Text style={styles.buttonText}>Salvar Unidade</Text>
-					</TouchableOpacity>
+						<View style={styles.formGrid}>
+							<View style={[styles.formGroup, styles.fullWidth]}>
+								<Text style={styles.label}>Nome da Unidade</Text>
+								<View style={styles.inputRow}>
+									<MaterialIcons name="apartment" size={18} color="#2563eb" style={styles.inputIcon} />
+									<TextInput style={[styles.input, focusedField === 'nome' && styles.inputFocused]} value={nome} onChangeText={setNome} onFocus={() => setFocusedField('nome')} onBlur={() => setFocusedField(null)} />
+								</View>
+							</View>
 
-					<TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={() => {
-						setNome(''); setTipoUnidade(''); setInstituicaoPaiId(''); setCep(''); setCidade(''); setBairro(''); setRua(''); setNumero(''); setComplemento('');
-					}}>
-						<Text style={styles.buttonText}>Cancelar</Text>
-					</TouchableOpacity>
+							<View style={[styles.formGroup, styles.fullWidth]}>
+								<Text style={styles.label}>Vincular à Instituição Principal (CNPJ)</Text>
+								<View>
+									<View style={styles.inputRow}>
+										<MaterialIcons name="business" size={18} color="#2563eb" style={styles.inputIcon} />
+										<TextInput style={[styles.input, focusedField === 'instituicaoPaiId' && styles.inputFocused]} value={instituicaoPaiId} onChangeText={setInstituicaoPaiId} onFocus={() => setFocusedField('instituicaoPaiId')} onBlur={() => setFocusedField(null)} />
+									</View>
+									<TouchableOpacity style={[styles.smallButton]} onPress={openSelector}>
+										<Text style={styles.smallButtonText}>Escolher Instituição</Text>
+									</TouchableOpacity>
+								</View>
+							</View>
+
+							<View style={[styles.formGroup, styles.fullWidth]}>
+								<Text style={styles.label}>Tipo de Unidade</Text>
+								<View style={styles.pickerWrapper}>
+									<Picker selectedValue={tipoUnidade} onValueChange={(v: string) => setTipoUnidade(v)}>
+										<Picker.Item label="Selecione o tipo" value="" />
+										<Picker.Item label="Unidade Básica de Saúde (UBS) / Posto de Saúde" value="ubs" />
+										<Picker.Item label="Centro de Saúde" value="centro-saude" />
+										<Picker.Item label="Ambulatório de Especialidade / Policlínica" value="ambulatorio" />
+										<Picker.Item label="Clínica Especializada" value="clinica" />
+										<Picker.Item label="Hospital Especializado" value="hospital-esp" />
+										<Picker.Item label="Centro de Atenção Psicossocial (CAPS)" value="caps" />
+										<Picker.Item label="Hospital Geral" value="hospital-geral" />
+										<Picker.Item label="Unidade de Pronto Atendimento (UPA)" value="upa" />
+										<Picker.Item label="Pronto-Socorro" value="pronto-socorro" />
+										<Picker.Item label="Serviços de Apoio Diagnóstico e Terapêutico (SADT)" value="sadt" />
+										<Picker.Item label="Farmácia" value="farmacia" />
+										<Picker.Item label="Vigilância Sanitária e Epidemiológica" value="vigilancia" />
+										<Picker.Item label="Centro de Reabilitação" value="reabilitacao" />
+									</Picker>
+								</View>
+							</View>
+						</View>
+					</View>
+
+					{/* componente de endereço */}
+					<Endereco cep={cep} cidade={cidade} bairro={bairro} rua={rua} numero={numero} complemento={complemento} focusedField={focusedField} setCep={setCep} setCidade={setCidade} setBairro={setBairro} setRua={setRua} setNumero={setNumero} setComplemento={setComplemento} />
+
+					<View style={styles.buttonsRow}>
+						<TouchableOpacity style={[styles.button, styles.saveButton]} onPress={handleSubmit}>
+							<Text style={styles.buttonText}>Salvar Unidade</Text>
+						</TouchableOpacity>
+
+						<TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={() => {
+							setNome(''); setTipoUnidade(''); setInstituicaoPaiId(''); setCep(''); setCidade(''); setBairro(''); setRua(''); setNumero(''); setComplemento('');
+						}}>
+							<Text style={styles.buttonText}>Cancelar</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-			</View>
 
 			{/* Modal: selecionar instituição pai */}
 			<Modal visible={showSelector} animationType="slide" onRequestClose={() => setShowSelector(false)}>

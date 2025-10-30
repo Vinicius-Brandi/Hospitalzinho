@@ -17,6 +17,34 @@ export const styles = StyleSheet.create({
     color: '#0056b3',
     alignSelf: 'flex-start',
   },
+  header: {
+    alignItems: 'flex-start',
+    width: '100%',
+    marginBottom: 8,
+  },
+  headerTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  logoWrap: {
+    width: 56,
+    height: 56,
+    borderRadius: 12,
+    backgroundColor: '#2563eb',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#0b1220',
+  },
+  headerSubtitle: {
+    fontSize: 13,
+    color: '#475569',
+  },
   card: {
     width: '100%',
     maxWidth: 1200,
@@ -85,6 +113,22 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
     backgroundColor: '#f8f9fa',
+    flex: 1,
+    minWidth: 0,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#cfe0ff',
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    marginBottom: 12,
+    backgroundColor: '#f8fbff',
+  },
+  inputIcon: {
+    marginRight: 8,
   },
   inputFocused: {
     borderColor: '#80bdff',
