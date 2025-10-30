@@ -1,0 +1,213 @@
+/* Resets e Estilos Globais */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+main {
+    margin: 2rem 300px;
+    padding: 1rem 2rem 2rem;
+}
+
+h1 {
+    color: #0056b3;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Seção de Pesquisa */
+#pesquisa-paciente {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2.5rem;
+}
+
+.form-pesquisa {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.form-group {
+    flex-grow: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-pesquisar {
+    padding: 0.75rem 2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-pesquisar:hover {
+    background-color: #0056b3;
+}
+
+/* Cards de Informações do Prontuário */
+#resultados-prontuario {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.card-prontuario {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden; /* Garante que o border-radius seja aplicado no conteúdo interno */
+}
+
+.card-header {
+    background-color: #e9ecef;
+    padding: 0.8rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #0056b3;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Estilos específicos para o card de dados do paciente */
+.info-paciente {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.info-paciente div {
+    font-size: 1.1rem;
+}
+
+/* Card de Alergias */
+.alergia-item {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border-left: 5px solid #ffc107;
+    margin: 0.5rem 0;
+}
+
+
+/* Tabelas de Histórico */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Adiciona scroll horizontal em telas pequenas */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.9rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+thead th {
+    background-color: #f8f9fa;
+    font-weight: 500;
+    color: #495057;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+    
+    .form-pesquisa {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-pesquisar {
+        width: 100%;
+    }
+}
+
+.sugestoes-lista {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.sugestao-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+    .sugestao-item:hover {
+        background: #f0f0f0;
+    }
+
+/* Esconde a lista de sugestões por padrão */
+#pesquisa-wrapper #sugestoes-cpf {
+    display: none;
+}
+
+/* Mostra a lista de sugestões apenas quando o wrapper tem foco interno */
+#pesquisa-wrapper:focus-within #sugestoes-cpf {
+    display: block;
+}
