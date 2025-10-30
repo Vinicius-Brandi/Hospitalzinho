@@ -6,6 +6,7 @@ using AutoMapper;
 
 namespace HospitalzinhoApi.Controllers
 {
+    //Certo
     public class HospitalController : CrudControllerBase<Hospital, HospitalDto>
     {
         public HospitalController(HospitalServico servico, IMapper mapper)

@@ -6,7 +6,8 @@ using Hospitalzinho.DTO.Get;
 
 namespace HospitalzinhoApi.Controllers
 {
-    public class HospitalEnderecoController : CrudControllerBase<HospitalEndereco, HospitalEnderecoDto>
+    //Certo
+    public class HospitalEnderecoController : CrudControllerBase<HospitalEndereco, HospitalEndereco>
     {
         HospitalEnderecoServico _servico;
         public HospitalEnderecoController(HospitalEnderecoServico servico, IMapper mapper) : base(servico, mapper) 

@@ -5,6 +5,7 @@ using Hospitalzinho.Servico;
 
 namespace HospitalzinhoApi.Controllers
 {
+    //preciso Testar
     public class ExameController : CrudControllerBase<Exame, Exame>
     {
         ExameServico _servico;

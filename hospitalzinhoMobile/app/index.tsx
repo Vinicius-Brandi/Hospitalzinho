@@ -1,4 +1,4 @@
-import CadastroUnidade from '@/src/pages/cadastroHospital/unidade';
+import CadastroInstituicao from '@/src/pages/cadastroHospital/instituicao';
 import React from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -8,7 +8,7 @@ export default function App() {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
         <StatusBar barStyle="dark-content" />
-        <CadastroUnidade />
+        <CadastroInstituicao />
       </SafeAreaView>
     </SafeAreaProvider>
   );

@@ -17,25 +17,20 @@ namespace Hospitalzinho.Profiles
                 .ForMember(dest => dest.TipoUnidade, opt => opt.MapFrom(src => (int)src.TipoUnidade))
                 .ForMember(dest => dest.Endereco, opt => opt.MapFrom(src => src.Endereco));
 
-            // Endereço
-            CreateMap<HospitalEndereco, HospitalEnderecoDto>();
-
             // Ala
             CreateMap<Ala, AlaDto>()
                 .ForMember(dest => dest.Quartos, opt => opt.MapFrom(src => src.Quartos))
-                .ForMember(dest => dest.Salas, opt => opt.MapFrom(src => src.Salas));
+                .ForMember(dest => dest.Salas, opt => opt.MapFrom(src => src.Salas))
+                .ForMember(dest => dest.Hospital, opt => opt.MapFrom(src => src.Hospital));
 
 
             // Quarto
             CreateMap<Quarto, QuartoDto>()
-                .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => (int)src.Tipo))
-                .ForMember(dest => dest.Internacoes, opt => opt.Ignore());
+                .ForMember(dest => dest.Internacoes, opt => opt.MapFrom(src => src.Internacoes));
 
             // Sala
-            // Sala
             CreateMap<Sala, SalaDto>()
-                .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => (int)src.Tipo))
-                .ForMember(dest => dest.Consultas, opt => opt.Ignore());
+                .ForMember(dest => dest.Consultas, opt => opt.MapFrom(src => src.Consultas));
 
 
             // Profissional
@@ -101,6 +96,55 @@ namespace Hospitalzinho.Profiles
 
             //ItemReceita
             CreateMap<ItemReceita, ItemReceitaDto>();
+
+            //PacienteContato
+            CreateMap<PacienteContato, PacienteContatoDto>()
+                .ForMember(dest => dest.Dono, opt => opt.MapFrom(src => src.Paciente.Nome));
+
+            //PacienteEndereco
+            CreateMap<PacienteEndereco, PacienteEnderecoDto>();
+
+            //Paciente
+            CreateMap<Paciente, PacienteDto>()
+                .ForMember(dest => dest.Contatos, opt => opt.MapFrom(src => src.Contatos))
+                .ForMember(dest => dest.Enderecos, opt => opt.MapFrom(src => src.Enderecos));
+
+            //PacienteProntuario
+            CreateMap<PacienteProntuario, ProntuarioDto>()
+                .ForMember(dest => dest.Paciente, opt => opt.MapFrom(src => src.Paciente))
+                .ForMember(dest => dest.DoencasCronicas, opt => opt.MapFrom(src => src.DoencasCronicas))
+                .ForMember(dest => dest.MedicacoesContinuas, opt => opt.MapFrom(src => src.MedicacoesContinuas))
+                .ForMember(dest => dest.Cirurgias, opt => opt.MapFrom(src => src.Cirurgias))
+                .ForMember(dest => dest.Vacinacoes, opt => opt.MapFrom(src => src.Vacinacoes))
+                .ForMember(dest => dest.Consultas, opt => opt.MapFrom(src => src.Consultas))
+                .ForMember(dest => dest.Internacoes, opt => opt.MapFrom(src => src.Internacoes))
+                .ForMember(dest => dest.Exames, opt => opt.MapFrom(src => src.Exames));
+
+            //PacienteDoenca
+            CreateMap<PacienteDoencaCronica, PacienteDoencaDto>()
+                .ForMember(dest => dest.Paciente, opt => opt.MapFrom(src => src.Prontuario.Paciente.Nome))
+                .ForMember(dest => dest.PacienteCNS, opt => opt.MapFrom(src => src.Prontuario.Paciente.CNS));
+
+            //PacienteMedicacao
+            CreateMap<PacienteMedicacao, PacienteMedicacaoDto>()
+                .ForMember(dest => dest.Paciente, opt => opt.MapFrom(src => src.Prontuario.Paciente.Nome));
+
+            //Medicamento
+            CreateMap<Medicamento, MedicamentoDto>()
+                .ForMember(dest => dest.Hospital, opt => opt.MapFrom(src => src.Hospital.Nome));
+
+            //Convenio
+            CreateMap<Convenio, ConvenioDto>()
+                .ForMember(dest => dest.PacienteConvenios, opt => opt.MapFrom(src => src.PacienteConvenios))
+                .ForMember(dest => dest.HospitaisAtentidos, opt => opt.MapFrom(src => src.HospitaisAtentidos));
+
+            //ConvenioPaciente
+            CreateMap<PacienteConvenio, PacienteConvenioDto>()
+                .ForMember(dest => dest.PacienteNome, opt => opt.MapFrom(src => src.Paciente.Nome))
+                .ForMember(dest => dest.PacienteCpf, opt => opt.MapFrom(src => src.Paciente.Cpf))
+                .ForMember(dest => dest.ConvenioCNPJ, opt => opt.MapFrom(src => src.Convenio.CNPJ));
+
+
         }
     }
 }

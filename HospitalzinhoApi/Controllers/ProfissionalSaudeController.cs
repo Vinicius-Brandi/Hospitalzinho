@@ -9,6 +9,7 @@ using NHibernate;
 
 namespace HospitalzinhoApi.Controllers
 {
+    //Certo
     public class ProfissionalSaudeController : CrudControllerBase<ProfissionalSaude, ProfissionalDto>
     {
         private readonly ProfissionalSaudeServico _servico;

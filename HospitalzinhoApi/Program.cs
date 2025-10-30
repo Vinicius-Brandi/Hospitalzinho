@@ -1,11 +1,6 @@
 using FGB.Dominio.Repositorios;
 using FGB.IRepositorios;
 using Hospitalzinho.Servico;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
-using NHibernate;
-using AutoMapper;
-using FGB.API.Utils;
 using NHibernate.Cfg;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.OData;
@@ -27,6 +22,8 @@ builder.Services.AddControllers()
     .AddJsonOptions(opt =>
     {
         opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        opt.JsonSerializerOptions.DefaultIgnoreCondition =
+            System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
     });
 
 // =======================================
@@ -130,4 +127,5 @@ using (var scope = app.Services.CreateScope())
     var session = scope.ServiceProvider.GetRequiredService<NHSession>();
 }
 
-app.Run("http://0.0.0.0:5102");
+app.Run();
+//app.Run("http://0.0.0.0:5102");
