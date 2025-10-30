@@ -29,7 +29,7 @@ export function CadastroProntuario(){
 
         switch(tipoCadastro){
             case "consulta":
-                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioConsulta/${paciente}`;
+                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioConsulta/${paciente.cpf}`;
                 payload = {
                     dataConsulta: formData.get("data-consulta"),
                     especialidade: formData.get("especialidade"),
@@ -37,7 +37,7 @@ export function CadastroProntuario(){
                 };
                 break;
             case "vacina":
-                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioVacina/${paciente}`;
+                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioVacina/${paciente.cpf    }`;
                 payload = {
                     nome: formData.get("nome-vacina"),
                     dose: formData.get("dose-vacina"),
@@ -45,7 +45,7 @@ export function CadastroProntuario(){
                 };
                 break;
             case "internacao":
-                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioInternacao/${paciente}`;
+                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioInternacao/${paciente.cpf    }`;
                 payload = {
                     dataEntrada: formData.get("data-entrada-internacao"),
                     dataSaida: formData.get("data-saida-internacao"),
@@ -53,7 +53,7 @@ export function CadastroProntuario(){
                 };
                 break;
             case "alergia":
-                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioAlergia/${paciente}`;
+                url = `http://localhost:5139/api/Prontuario/AdicionarProntuarioAlergia/${paciente.cpf   }`;
                 payload = {
                     descricaoAlergia: formData.get("descricao-alergia")
                 };

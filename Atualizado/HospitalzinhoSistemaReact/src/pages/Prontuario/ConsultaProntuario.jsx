@@ -182,7 +182,7 @@ export function ConsultaProntuario(){
                             </div>
                         </section>
 
-                        <section className="card-prontuario" id="medicamentos">
+                        {/*<section className="card-prontuario" id="medicamentos">
                             <div className="card-header">
                                 <h2>Medicamentos em Uso / Prescrições Recentes</h2>
                             </div>
@@ -220,7 +220,7 @@ export function ConsultaProntuario(){
                                     )}
                                 </table>
                             </div>
-                        </section>
+                        </section>*/}
                     </div>
                 }
             </main>
