@@ -47,6 +47,16 @@ export interface Paciente {
     contatos?: PacienteContato;
 }
 
+export interface PacienteEndereco {
+    cep?: string;
+    logradouro?: string;
+    numero?: string;
+    complemento?: string;
+    bairro?: string;
+    cidade?: string;
+    estado?: string;
+}
+
 export interface PacienteContato {
     telefoneResidencial?: string;
     telefoneCelular?: string;

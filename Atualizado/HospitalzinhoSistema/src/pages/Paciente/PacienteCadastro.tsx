@@ -36,29 +36,40 @@ export function PacienteCadastro() {
     event.preventDefault();
 
     if (!paciente.nome || !paciente.cpf || !paciente.cns) {
-      alert("Por favor, preencha os campos obrigatórios: Nome, CPF e CNS.");
-      return;
+        alert("Por favor, preencha os campos obrigatórios: Nome, CPF e CNS.");
+        return;
     }
 
     try {
-      const payload = {
-        ...paciente,
-        dataNascimento: paciente.dataNascimento
-          ? new Date(paciente.dataNascimento).toISOString()
-          : undefined,
-        sexo: paciente.sexo ? Number(paciente.sexo) : undefined,
-        raca: paciente.raca ? Number(paciente.raca) : undefined,
-        escolaridade: paciente.escolaridade ? Number(paciente.escolaridade) : undefined,
-        contatos: paciente.contatos ? [paciente.contatos] : []
-      };
+        const payload = {
+            ...paciente,
+            dataNascimento: paciente.dataNascimento
+                ? new Date(paciente.dataNascimento).toISOString()
+                : undefined,
+            sexo: paciente.sexo ? Number(paciente.sexo) : undefined,
+            raca: paciente.raca ? Number(paciente.raca) : undefined,
+            escolaridade: paciente.escolaridade ? Number(paciente.escolaridade) : undefined,
+            contatos: paciente.contatos ? [paciente.contatos] : [],
+        };
 
-      await api.post("/Paciente", payload);
+        await api.post("/Paciente", payload);
 
-      alert("Paciente cadastrado com sucesso!");
-      setPaciente({});
+        const resposta = await api.get(`/Paciente?$filter=cpf eq '${payload.cpf}'`);
+
+        const contatoPaciente = {
+            pacienteId: resposta.data[0].id,
+            telefoneResidencial: paciente.contatos?.telefoneResidencial || "",
+            telefoneCelular: paciente.contatos?.telefoneCelular || "",
+            email: paciente.contatos?.email || ""
+        };
+
+        await api.post("/PacienteContato", contatoPaciente);
+
+        alert("Paciente cadastrado com sucesso!");
+        setPaciente({});
     } catch (error) {
-      console.error("Erro ao cadastrar paciente:", error);
-      alert("Ocorreu um erro ao cadastrar o paciente.");
+        console.error("Erro ao cadastrar paciente:", error);
+        alert("Ocorreu um erro ao cadastrar o paciente.");
     }
   }
 
