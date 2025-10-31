@@ -48,6 +48,7 @@ export interface Paciente {
 }
 
 export interface PacienteEndereco {
+    pacienteId?: number;
     cep?: string;
     logradouro?: string;
     numero?: string;
@@ -58,7 +59,7 @@ export interface PacienteEndereco {
 }
 
 export interface PacienteContato {
-    Paciente?: string;
+    pacienteId?: number;
     telefoneResidencial?: string;
     telefoneCelular?: string;
     email?: string;
