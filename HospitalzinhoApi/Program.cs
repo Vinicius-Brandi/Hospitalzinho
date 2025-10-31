@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.OData;
 
 using NHSession = NHibernate.ISession;
 using NHSessionFactory = NHibernate.ISessionFactory;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
