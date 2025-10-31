@@ -173,8 +173,8 @@ CREATE TABLE paciente_endereco (
     complemento VARCHAR(100),
     bairro VARCHAR(100),
     cidade VARCHAR(100),
-    estado VARCHAR(2),
-    cep VARCHAR(20),
+    estado VARCHAR(50),
+    cep VARCHAR(50),
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
@@ -275,7 +275,7 @@ CREATE TABLE paciente_internacao (
 );
 
 -- ========================
--- DOENÇAS CRÔNICAS / ALERGIAS
+-- DOENÇAS CRÔNICAS / ALERGIAS / PACIENTE_ALERGIA 
 -- ========================
 CREATE TABLE doenca_cronica_modelo (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_doenca_modelo'),
@@ -391,7 +391,7 @@ CREATE TABLE vacina_modelo (
     tipo VARCHAR(100),
     indicacao TEXT,
     numero_doses INTEGER,
-    intervalo_entre_doses INTERVAL,
+    intervalo_entre_doses BIGINT,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );

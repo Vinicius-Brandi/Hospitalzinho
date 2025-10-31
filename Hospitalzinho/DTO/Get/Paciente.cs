@@ -1,6 +1,7 @@
 ﻿using FGB.Entidades;
 using Hospitalzinho.Entidades;
 using Hospitalzinho.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hospitalzinho.DTO.Get
 {
@@ -20,35 +21,15 @@ namespace Hospitalzinho.DTO.Get
         public RacaPaciente? Raca { get; set; }
         public string? Naturalidade { get; set; }
         public EscolaridadePaciente? Escolaridade { get; set; }
-        public List<PacienteContatoDto> Contatos { get; set; } = new();
-        public List<PacienteEnderecoDto> Enderecos { get; set; } = new();
-    }
-
-
-    public class PacienteContatoDto : EntidadeBase
-    {
-        public string Dono { get; set; }
-        public string TelefoneResidencial { get; set; }
-        public string TelefoneCelular { get; set; }
-        public string Email { get; set; }
-    }
-
-    public class PacienteEnderecoDto :  EntidadeBase
-    {
-        public string Logradouro { get; set; }
-        public string Numero { get; set; }
-        public string Complemento { get; set; }
-        public string Bairro { get; set; }
-        public string Cidade { get; set; }
-        public string Estado { get; set; }
-        public string Cep { get; set; }
+        public List<PacienteContato> Contatos { get; set; } = new();
+        public List<PacienteEndereco> Enderecos { get; set; } = new();
     }
 
     public class ProntuarioDto : EntidadeBase
     {
         public PacienteDto Paciente { get; set; }
         public TipoSanguineo TipoSangue { get; set; }
-        public List<Alergia> Alergias { get; set; } = new();
+        public List<PacienteAlergia> Alergias { get; set; } = new();
         public List<PacienteDoencaDto> DoencasCronicas { get; set; } = new();
 
         public List<PacienteMedicacaoDto> MedicacoesContinuas { get; set; } = new();
@@ -60,5 +41,14 @@ namespace Hospitalzinho.DTO.Get
         public List<ConsultaDto> Consultas { get; set; } = new();
         public List<InternacaoDto> Internacoes { get; set; } = new();
         public List<ExameDto> Exames { get; set; } = new();
+    }
+
+    public class PacienteAlergiaDto : PacienteAlergia
+    {
+        public string Paciente { get; set; }
+
+        public Alergia Alergia { get; set; }
+
+        public string? Observacao { get; set; }
     }
 }

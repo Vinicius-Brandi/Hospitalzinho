@@ -7,7 +7,7 @@ using Hospitalzinho.Servico;
 namespace HospitalzinhoApi.Controllers
 {
     //Certo
-    public class PacienteContatoController : CrudControllerBase<PacienteContato, PacienteContatoDto>
+    public class PacienteContatoController : CrudControllerBase<PacienteContato, PacienteContato>
     {
         PacienteContatoServico _servico;
         public PacienteContatoController(PacienteContatoServico servico, IMapper mapper) : base(servico, mapper) 

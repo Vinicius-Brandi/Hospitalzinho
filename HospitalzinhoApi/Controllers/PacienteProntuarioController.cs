@@ -33,6 +33,7 @@ namespace HospitalzinhoApi.Controllers
                 NHibernateUtil.Initialize(pront.MedicacoesContinuas);
                 NHibernateUtil.Initialize(pront.Cirurgias);
                 NHibernateUtil.Initialize(pront.Vacinacoes);
+                NHibernateUtil.Initialize(pront.Alergias);
                 NHibernateUtil.Initialize(pront.Consultas);
                 NHibernateUtil.Initialize(pront.Internacoes);
                 NHibernateUtil.Initialize(pront.Exames);
