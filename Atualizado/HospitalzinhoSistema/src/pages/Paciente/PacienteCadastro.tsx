@@ -1,6 +1,6 @@
 import { Header } from "../../components/HeaderAndFooter/Header"
 import { Footer } from "../../components/HeaderAndFooter/Footer"
-import '../Prontuario/ProntuarioCadastro.css';
+import '../Prontuario/PacienteCadastro.css';
 import { PacienteGenero, PacienteEtinia, PacienteEscolaridade, PacienteTipoSanguineo} from "../../../models/paciente";
 import type { Paciente, PacienteContato, PacienteEndereco } from "../../../models/paciente";
 import { useState } from "react";
