@@ -49,6 +49,7 @@ export function PacienteCadastro() {
             sexo: paciente.sexo ? Number(paciente.sexo) : undefined,
             raca: paciente.raca ? Number(paciente.raca) : undefined,
             escolaridade: paciente.escolaridade ? Number(paciente.escolaridade) : undefined,
+            contatos: paciente.contatos ? [paciente.contatos] : undefined,
         };
 
         await api.post("/Paciente", payload);
