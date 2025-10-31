@@ -7,10 +7,11 @@ namespace Hospitalzinho.Entidades
 {
     public class ProfissionalSaude : EntidadeBase
     {
+        [Required]
         public virtual string Nome { get; set; } = null!;
 
         [Required]
-        public virtual string? RegistroProfissional { get; set; } // CRM, COREN etc.
+        public virtual string RegistroProfissional { get; set; } // CRM, COREN etc.
 
         // FK
         [Required]

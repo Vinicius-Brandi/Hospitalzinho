@@ -23,8 +23,8 @@
 
 		<!-- Enums mapeados como Int32 -->
 		<property name="Sexo" column="sexo" type="Int32" not-null="false" />
-		<property name="Raca" column="raca" type="Int32" not-null="true" />
-		<property name="Escolaridade" column="escolaridade" type="Int32" not-null="true" />
+		<property name="Raca" column="raca" type="Int32" not-null="false" />
+		<property name="Escolaridade" column="escolaridade" type="Int32" not-null="false" />
 
 		<property name="Nacionalidade" column="nacionalidade" />
 		<property name="Naturalidade" column="naturalidade" />

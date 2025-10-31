@@ -5,6 +5,8 @@ namespace Hospitalzinho.Entidades
 {
         public class Convenio : EntidadeBase
     {
+        [Required]
+        public virtual string CodigoANS { get; set; }
         public virtual string? CNPJ { get; set; }
         [Required]
         public virtual string Nome { get; set; } = null!;

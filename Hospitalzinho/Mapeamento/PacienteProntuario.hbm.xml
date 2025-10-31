@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
-assembly="Hospitalzinho" 
-namespace="Hospitalzinho.Entidades">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Hospitalzinho"
+                   namespace="Hospitalzinho.Entidades">
 
 	<class name="PacienteProntuario" table="paciente_prontuario" lazy="false">
 
@@ -17,15 +17,15 @@ namespace="Hospitalzinho.Entidades">
 
 		<!-- Colunas simples -->
 		<property name="TipoSangue" column="tipo_sangue" type="int" not-null="true" />
-		<property name="DataAbertura" column="data_abertura" not-null="true" />
-		<property name="UltimaAtualizacao" column="ultima_atualizacao" not-null="true" />
+		<property name="DataAbertura" column="data_abertura" />
+		<property name="UltimaAtualizacao" column="ultima_atualizacao" />
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
 		<!-- Relacionamentos 1:N -->
-		<bag name="Alergias" cascade="all-delete-orphan" inverse="true">
+		<bag name="PacienteAlergias" cascade="all-delete-orphan" inverse="true">
 			<key column="prontuario_id"/>
-			<one-to-many class="Alergia"/>
+			<one-to-many class="PacienteAlergia"/>
 		</bag>
 
 		<bag name="DoencasCronicas" cascade="all-delete-orphan" inverse="true">

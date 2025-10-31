@@ -9,11 +9,12 @@
 				<param name="sequence">seq_convenio</param>
 			</generator>
 		</id>
-
+		
 		<property name="Nome" column="nome" not-null="true" />
 		<property name="CNPJ" column="cnpj" />
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
+		<property name="CodigoANS" column="registro_ans" not-null="true"/>
 
 		<bag name="PacienteConvenios" inverse="true" cascade="all-delete-orphan">
 			<key column="convenio_id"/>

@@ -14,5 +14,4 @@ namespace Hospitalzinho.Entidades
 
         public virtual string? Observacao { get; set; }
     }
-
 }
