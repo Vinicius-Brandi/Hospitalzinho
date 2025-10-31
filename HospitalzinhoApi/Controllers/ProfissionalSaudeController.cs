@@ -6,6 +6,7 @@ using Hospitalzinho.Servico;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using NHibernate;
+using System.Linq;
 
 namespace HospitalzinhoApi.Controllers
 {

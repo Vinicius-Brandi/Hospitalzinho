@@ -6,6 +6,7 @@ namespace Hospitalzinho.DTO.Get
     {
         public string? CNPJ { get; set; }
         public string Nome { get; set; }
+        public string CodigoANS { get; set; }
         public List<PacienteConvenioDto> PacienteConvenios { get; set; } = new();
         public List<HospitalUnidadeDto> HospitaisAtentidos { get; set; } = new();
     }

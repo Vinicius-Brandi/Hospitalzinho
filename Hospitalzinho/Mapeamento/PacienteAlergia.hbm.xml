@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Hospitalzinho"
+                   namespace="Hospitalzinho.Entidades">
+
+	<class name="PacienteAlergia" table="paciente_alergia" lazy="false">
+
+		<!-- ID com sequence -->
+		<id name="Id" column="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">seq_paciente_alergia</param>
+			</generator>
+		</id>
+
+		<!-- FK -->
+		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" not-null="true" cascade="none"/>
+		<many-to-one name="Alergia" class="Alergia" column="alergia_id" not-null="true" cascade="none"/>
+
+		<!-- Campo livre -->
+		<property name="Observacao" column="observacao" length="255"/>
+
+		<!-- Datas herdadas -->
+		<property name="CriadoEm" column="data_cadastro" not-null="true" />
+		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
+
+	</class>
+</hibernate-mapping>

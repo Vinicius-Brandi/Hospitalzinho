@@ -10,7 +10,8 @@ namespace Hospitalzinho.Entidades
         public virtual PacienteProntuario Prontuario { get; set; }
         [Required]
         public virtual DoencaCronicaModelo Modelo { get; set; }
-        public virtual DateTime DataDiagnostico { get; set; }
+        public virtual DateTime? DataDiagnostico { get; set; }
+        [Required]
         public virtual string Estagio { get; set; } // Ex: "Leve", "Moderada", "Avançada"
         public virtual string? Observacoes { get; set; }
         public virtual bool EmTratamento { get; set; } = true;

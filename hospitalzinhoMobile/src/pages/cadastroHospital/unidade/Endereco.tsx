@@ -1,6 +1,6 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, TextInput, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { styles } from '../styles';
 
 interface EnderecoProps {
