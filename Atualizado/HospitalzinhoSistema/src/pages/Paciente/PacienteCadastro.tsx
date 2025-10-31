@@ -1,32 +1,43 @@
 import { Header } from "../../components/HeaderAndFooter/Header"
 import { Footer } from "../../components/HeaderAndFooter/Footer"
 import '../Prontuario/ProntuarioCadastro.css';
-import { PacienteGenero, PacienteEtinia, PacienteEscolaridade} from "../../../models/paciente";
-import type { Paciente } from "../../../models/paciente";
+import { PacienteGenero, PacienteEtinia, PacienteEscolaridade, PacienteTipoSanguineo} from "../../../models/paciente";
+import type { Paciente, PacienteContato, PacienteEndereco } from "../../../models/paciente";
 import { useState } from "react";
 import { api } from "../../../services/api";
 
 export function PacienteCadastro() {
   const [paciente, setPaciente] = useState<Partial<Paciente>>({});
+  const [contatos, setContatos] = useState<Partial<PacienteContato>>({});
+  const [endereco, setEndereco] = useState<Partial<PacienteEndereco>>({});
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = event.target;
 
     setPaciente((prevPaciente) => {
-        const keys = name.split('.');
-        if (keys.length === 2){
-            const [objName, fielName] = keys;
-            return {
-                ...prevPaciente,
-                [objName]: {
-                    ...(prevPaciente as any)[objName],
-                    [fielName]: value
-                }
-            };
-        }
-
         return {
             ...prevPaciente,
+            [name]: value
+        };
+    })
+  }
+
+  function handleContatoChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { name, value } = event.target;
+
+    setContatos((prevContatos) => {
+        return {
+            ...prevContatos,
+            [name]: value
+        };
+    })
+  }
+
+  function handleEnderecoChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { name, value } = event.target;
+    setEndereco((prevEndereco) => {
+        return {
+            ...prevEndereco,
             [name]: value
         };
     })
@@ -49,10 +60,28 @@ export function PacienteCadastro() {
             sexo: paciente.sexo ? Number(paciente.sexo) : undefined,
             raca: paciente.raca ? Number(paciente.raca) : undefined,
             escolaridade: paciente.escolaridade ? Number(paciente.escolaridade) : undefined,
-            contatos: paciente.contatos ? [paciente.contatos] : undefined,
         };
 
         await api.post("/Paciente", payload);
+
+        const resposta = await api.get(`/Paciente?$filter=cpf eq '${payload.cpf}'`);
+
+        if (contatos) {
+            const contatoPayload = {
+                ...contatos,
+                pacienteId: resposta.data[0].id
+            };
+            await api.post("/PacienteContato", contatoPayload);
+        }
+
+        if (endereco) {
+            const enderecoPayload = {
+                ...endereco,
+                pacienteId: resposta.data[0].id
+            };
+            await api.post("/PacienteEndereco", enderecoPayload);
+        }
+
         alert("Paciente cadastrado com sucesso!");
         setPaciente({});
     } catch (error) {
@@ -60,6 +89,7 @@ export function PacienteCadastro() {
         alert("Ocorreu um erro ao cadastrar o paciente.");
     }
   }
+
 
   return (
     <>
@@ -91,7 +121,7 @@ export function PacienteCadastro() {
                             <div className="form-group">
                                 <label htmlFor="sexo">Sexo</label>
                                 <select id="sexo" name="sexo" value={paciente.sexo || ""} onChange={handleChange}>
-                                    <option value="">Selecione...</option>
+                                    <option value="" disabled>Selecione...</option>
                                     <option value={PacienteGenero.Masculino}>Masculino</option>
                                     <option value={PacienteGenero.Feminino}>Feminino</option>
                                     <option value={PacienteGenero.Outro}>Outro</option>
@@ -100,7 +130,7 @@ export function PacienteCadastro() {
                             <div className="form-group">
                                 <label htmlFor="raca">Raça/Cor</label>
                                 <select id="raca" name="raca" value={paciente.raca || ""} onChange={handleChange}>
-                                    <option value="">Selecione...</option>
+                                    <option value="" disabled>Selecione...</option>
                                     <option value={PacienteEtinia.Branca}>Branca</option>
                                     <option value={PacienteEtinia.Preta}>Preta</option>
                                     <option value={PacienteEtinia.Parda}>Parda</option>
@@ -119,7 +149,7 @@ export function PacienteCadastro() {
                             <div className="form-group">
                                 <label htmlFor="escolaridade">Escolaridade</label>
                                 <select id="escolaridade" name="escolaridade" value={paciente.escolaridade || ""} onChange={handleChange}>
-                                    <option value="">Selecione...</option>
+                                    <option value="" disabled>Selecione...</option>
                                     <option value={PacienteEscolaridade.Analfabeto}>Analfabeto</option>
                                     <option value={PacienteEscolaridade.FundamentalIncompleto}>Fundamental Incompleto</option>
                                     <option value={PacienteEscolaridade.FundamentalCompleto}>Fundamental Completo</option>
@@ -147,6 +177,21 @@ export function PacienteCadastro() {
                                 <label htmlFor="cpfPai">CPF do Pai</label>
                                 <input type="text" id="cpfPai" name="cpfPai" placeholder="000.000.000-00" value={paciente.cpfPai || ""} onChange={handleChange} />
                             </div>
+                            <div className="form-group full-width">
+                                <label htmlFor="tipoSanguineo">Tipo Sanguíneo</label>
+                                <select id="tipoSanguineo" name="tipoSanguineo" value={paciente.tipoSanguineo || ""} onChange={handleChange}>
+                                    <option value="" disabled>Selecione...</option>
+                                    <option value={PacienteTipoSanguineo.A_Pos}>A+</option>
+                                    <option value={PacienteTipoSanguineo.A_Neg}>A-</option>
+                                    <option value={PacienteTipoSanguineo.B_Pos}>B+</option>
+                                    <option value={PacienteTipoSanguineo.B_Neg}>B-</option>
+                                    <option value={PacienteTipoSanguineo.AB_Pos}>AB+</option>
+                                    <option value={PacienteTipoSanguineo.AB_Neg}>AB-</option>
+                                    <option value={PacienteTipoSanguineo.O_Pos}>O+</option>
+                                    <option value={PacienteTipoSanguineo.O_Neg}>O-</option>
+                                    <option value={PacienteTipoSanguineo.NaoSabe}>Não Sabe</option>
+                                </select>
+                            </div>
                         </div>
                     </fieldset>
                     <fieldset>
@@ -154,31 +199,31 @@ export function PacienteCadastro() {
                         <div className="address-grid">
                             <div className="form-group">
                                 <label htmlFor="cep">CEP</label>
-                                <input type="text" id="cep" name="cep" placeholder="00000-000" />
+                                <input type="text" id="cep" name="cep" placeholder="00000-000" value={endereco.cep || ""} onChange={handleEnderecoChange} />
                             </div>
                             <div className="form-group full-width">
                                 <label htmlFor="logradouro">Logradouro</label>
-                                <input type="text" id="logradouro" name="logradouro" />
+                                <input type="text" id="logradouro" name="logradouro" value={endereco.logradouro || ""} onChange={handleEnderecoChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="numero">Número</label>
-                                <input type="text" id="numero" name="numero" />
+                                <input type="text" id="numero" name="numero" value={endereco.numero || ""} onChange={handleEnderecoChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="complemento">Complemento</label>
-                                <input type="text" id="complemento" name="complemento" placeholder="Ex: Apto 101" />
+                                <input type="text" id="complemento" name="complemento" placeholder="Ex: Apto 101" value={endereco.complemento || ""} onChange={handleEnderecoChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="bairro">Bairro</label>
-                                <input type="text" id="bairro" name="bairro" />
+                                <input type="text" id="bairro" name="bairro" value={endereco.bairro || ""} onChange={handleEnderecoChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="cidade">Cidade</label>
-                                <input type="text" id="cidade" name="cidade" />
+                                <input type="text" id="cidade" name="cidade" value={endereco.cidade || ""} onChange={handleEnderecoChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="estado">Estado</label>
-                                <input type="text" id="estado" name="estado" />
+                                <input type="text" id="estado" name="estado" value={endereco.estado || ""} onChange={handleEnderecoChange} />
                             </div>
                         </div>
                     </fieldset>
@@ -187,15 +232,15 @@ export function PacienteCadastro() {
                         <div className="form-grid">
                             <div className="form-group">
                                 <label htmlFor="telefoneResidencial">Telefone Residencial</label>
-                                <input type="tel" id="telefoneResidencial" name="contatos.telefoneResidencial" placeholder="(00) 0000-0000" value={paciente.contatos?.telefoneResidencial || ""} onChange={handleChange} />
+                                <input type="tel" id="telefoneResidencial" name="telefoneResidencial" placeholder="(00) 0000-0000" value={contatos.telefoneResidencial || ""} onChange={handleContatoChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="telefoneCelular">Telefone Celular</label>
-                                <input type="tel" id="telefoneCelular" name="contatos.telefoneCelular" placeholder="(00) 00000-0000" value={paciente.contatos?.telefoneCelular || ""} onChange={handleChange} />
+                                <input type="tel" id="telefoneCelular" name="telefoneCelular" placeholder="(00) 00000-0000" value={contatos.telefoneCelular || ""} onChange={handleContatoChange} />
                             </div>
                             <div className="form-group full-width">
                                 <label htmlFor="email">Email</label>
-                                <input type="email" id="email" name="contatos.email" placeholder="exemplo@email.com" value={paciente.contatos?.email || ""} onChange={handleChange} />
+                                <input type="email" id="email" name="email" placeholder="exemplo@email.com" value={contatos.email || ""} onChange={handleContatoChange} />
                             </div>
                         </div>
                     </fieldset>
