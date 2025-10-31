@@ -15,11 +15,11 @@ namespace Hospitalzinho.DTO.Get
         public string? CpfPai { get; set; }
         public string? CpfMae { get; set; }
         public bool? Ativo { get; set; }
-        public SexoPaciente Sexo { get; set; }
+        public SexoPaciente? Sexo { get; set; }
         public string? Nacionalidade { get; set; }
-        public RacaPaciente Raca { get; set; }
+        public RacaPaciente? Raca { get; set; }
         public string? Naturalidade { get; set; }
-        public EscolaridadePaciente Escolaridade { get; set; }
+        public EscolaridadePaciente? Escolaridade { get; set; }
         public List<PacienteContatoDto> Contatos { get; set; } = new();
         public List<PacienteEnderecoDto> Enderecos { get; set; } = new();
     }
