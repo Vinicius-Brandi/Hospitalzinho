@@ -4,6 +4,7 @@ import '../Prontuario/ProntuarioCadastro.css';
 import { PacienteGenero, PacienteEtinia, PacienteEscolaridade } from "../../../models/paciente";
 import type { Paciente } from "../../../models/paciente";
 import { useState } from "react";
+import { api } from "../../../services/api";
 
 export function PacienteCadastro() {
   const [paciente, setPaciente] = useState<Partial<Paciente>>({});
@@ -18,34 +19,30 @@ export function PacienteCadastro() {
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    
+
     if (!paciente.nome || !paciente.cpf || !paciente.cns) {
       alert("Por favor, preencha os campos obrigatórios: Nome, CPF e CNS.");
       return;
     }
+
     try {
-        const payload = { ...paciente,
-            dataNascimento: paciente.dataNascimento ? new Date(paciente.dataNascimento).toISOString() : undefined,
-            sexo: paciente.sexo ? Number(paciente.sexo) : undefined,
-            raca: paciente.raca ? Number(paciente.raca) : undefined,
-            escolaridade: paciente.escolaridade ? Number(paciente.escolaridade) : undefined
-        };
+      const payload = {
+        ...paciente,
+        dataNascimento: paciente.dataNascimento
+          ? new Date(paciente.dataNascimento).toISOString()
+          : undefined,
+        sexo: paciente.sexo ? Number(paciente.sexo) : undefined,
+        raca: paciente.raca ? Number(paciente.raca) : undefined,
+        escolaridade: paciente.escolaridade ? Number(paciente.escolaridade) : undefined,
+      };
 
-        const resposta = await fetch("http://localhost:5102/api/Paciente", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
+      await api.post("/Paciente", payload);
 
-        if (resposta.ok) {
-            alert("Paciente cadastrado com sucesso!");
-            setPaciente({});
-        }
+      alert("Paciente cadastrado com sucesso!");
+      setPaciente({});
     } catch (error) {
-        console.error("Erro ao cadastrar paciente:", error);
-        alert("Ocorreu um erro ao cadastrar o paciente.");
+      console.error("Erro ao cadastrar paciente:", error);
+      alert("Ocorreu um erro ao cadastrar o paciente.");
     }
   }
 
