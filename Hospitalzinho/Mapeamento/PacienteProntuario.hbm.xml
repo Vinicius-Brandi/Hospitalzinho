@@ -17,13 +17,11 @@
 
 		<!-- Colunas simples -->
 		<property name="TipoSangue" column="tipo_sangue" type="int" not-null="true" />
-		<property name="DataAbertura" column="data_abertura" />
-		<property name="UltimaAtualizacao" column="ultima_atualizacao" />
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
 		<!-- Relacionamentos 1:N -->
-		<bag name="PacienteAlergias" cascade="all-delete-orphan" inverse="true">
+		<bag name="Alergias" cascade="all-delete-orphan" inverse="true">
 			<key column="prontuario_id"/>
 			<one-to-many class="PacienteAlergia"/>
 		</bag>
