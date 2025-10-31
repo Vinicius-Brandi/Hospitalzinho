@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
-				   assembly="Hospitalzinho"
-				   namespace="Hospitalzinho.Entidades">
+                   assembly="Hospitalzinho"
+                   namespace="Hospitalzinho.Entidades">
 
 	<class name="PacienteContato" table="paciente_contato" lazy="false">
 
@@ -12,8 +12,8 @@
 			</generator>
 		</id>
 
-		<!-- Relacionamento obrigatório com Paciente -->
-		<many-to-one name="Paciente" class="Paciente" column="paciente_id" not-null="true" />
+		<!-- Coluna para FK do paciente -->
+		<property name="PacienteId" column="paciente_id" not-null="true" />
 
 		<!-- Colunas simples -->
 		<property name="TelefoneResidencial" column="telefone_residencial" />

@@ -15,7 +15,7 @@
 		<property name="Tipo" column="tipo" type="string" />
 		<property name="Indicacao" column="indicacao" type="string" />
 		<property name="NumeroDoses" column="numero_doses" type="int" />
-		<property name="IntervaloEntreDoses" column="intervalo_entre_doses" type="TimeSpan" />
+		<property name="IntervaloEntreDoses" column="intervalo_entre_doses" type="long" />
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 

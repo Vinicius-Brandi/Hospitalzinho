@@ -97,13 +97,6 @@ namespace Hospitalzinho.Profiles
             //ItemReceita
             CreateMap<ItemReceita, ItemReceitaDto>();
 
-            //PacienteContato
-            CreateMap<PacienteContato, PacienteContatoDto>()
-                .ForMember(dest => dest.Dono, opt => opt.MapFrom(src => src.Paciente.Nome));
-
-            //PacienteEndereco
-            CreateMap<PacienteEndereco, PacienteEnderecoDto>();
-
             //Paciente
             CreateMap<Paciente, PacienteDto>()
                 .ForMember(dest => dest.Contatos, opt => opt.MapFrom(src => src.Contatos))
@@ -118,7 +111,11 @@ namespace Hospitalzinho.Profiles
                 .ForMember(dest => dest.Vacinacoes, opt => opt.MapFrom(src => src.Vacinacoes))
                 .ForMember(dest => dest.Consultas, opt => opt.MapFrom(src => src.Consultas))
                 .ForMember(dest => dest.Internacoes, opt => opt.MapFrom(src => src.Internacoes))
-                .ForMember(dest => dest.Exames, opt => opt.MapFrom(src => src.Exames));
+                .ForMember(dest => dest.Exames, opt => opt.MapFrom(src => src.Exames))
+                .ForMember(dest => dest.Alergias, opt => opt.MapFrom(src => src.Alergias));
+
+            CreateMap<PacienteAlergia, PacienteAlergiaDto>()
+                .ForMember(dest => dest.Paciente, opt => opt.MapFrom(src => src.Prontuario.Paciente.Nome));
 
             //PacienteDoenca
             CreateMap<PacienteDoencaCronica, PacienteDoencaDto>()
