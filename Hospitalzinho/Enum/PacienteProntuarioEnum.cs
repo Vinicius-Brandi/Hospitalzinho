@@ -7,5 +7,6 @@
     AB_Pos = 4,
     AB_Neg = 5,
     O_Pos = 6,
-    O_Neg = 7
+    O_Neg = 7,
+    NaoSabe = 8
 }

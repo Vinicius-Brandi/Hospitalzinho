@@ -15,5 +15,7 @@ namespace Hospitalzinho.Servico
         {
 
         }
+
+        //public bool Cadastro ()
     }
 }
