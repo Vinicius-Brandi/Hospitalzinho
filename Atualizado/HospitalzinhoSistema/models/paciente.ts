@@ -44,4 +44,11 @@ export interface Paciente {
     cpfMae?: string;
     nomePai?: string;
     cpfPai?: string;
+    contatos?: PacienteContato;
+}
+
+export interface PacienteContato {
+    telefoneResidencial?: string;
+    telefoneCelular?: string;
+    email?: string;
 }
