@@ -1,7 +1,7 @@
 import { Header } from "../../components/HeaderAndFooter/Header"
 import { Footer } from "../../components/HeaderAndFooter/Footer"
 import '../Prontuario/ProntuarioCadastro.css';
-import { PacienteGenero, PacienteEtinia, PacienteEscolaridade } from "../../../models/paciente";
+import { PacienteGenero, PacienteEtinia, PacienteEscolaridade} from "../../../models/paciente";
 import type { Paciente } from "../../../models/paciente";
 import { useState } from "react";
 import { api } from "../../../services/api";
@@ -49,22 +49,9 @@ export function PacienteCadastro() {
             sexo: paciente.sexo ? Number(paciente.sexo) : undefined,
             raca: paciente.raca ? Number(paciente.raca) : undefined,
             escolaridade: paciente.escolaridade ? Number(paciente.escolaridade) : undefined,
-            contatos: paciente.contatos ? [paciente.contatos] : [],
         };
 
         await api.post("/Paciente", payload);
-
-        const resposta = await api.get(`/Paciente?$filter=cpf eq '${payload.cpf}'`);
-
-        const contatoPaciente = {
-            pacienteId: resposta.data[0].id,
-            telefoneResidencial: paciente.contatos?.telefoneResidencial || "",
-            telefoneCelular: paciente.contatos?.telefoneCelular || "",
-            email: paciente.contatos?.email || ""
-        };
-
-        await api.post("/PacienteContato", contatoPaciente);
-
         alert("Paciente cadastrado com sucesso!");
         setPaciente({});
     } catch (error) {
