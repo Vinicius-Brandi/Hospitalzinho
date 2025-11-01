@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Doença Crônica</title>
+  <link rel="stylesheet" href="ModalBaseCadastros.css">
+</head>
+<body>
+
+<div id="modalDoenca" class="modal">
+  <div class="modal-conteudo">
+    <span class="fechar">&times;</span>
+    <h1>Cadastro de Doença Crônica</h1>
+
+    <form class="formulario">
+      <label>Nome</label>
+      <input type="text" required>
+
+      <label>CID</label>
+      <input type="text" required>
+
+      <label>Descrição</label>
+      <textarea rows="4"></textarea>
+
+      <div class="botoes-form">
+        <button type="submit" class="btn-editar">Salvar</button>
+        <button type="button" class="btn-excluir fechar">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
