@@ -1,17 +1,31 @@
 import './PacienteCadastro.css'
 import { Header } from "../../components/HeaderAndFooter/Header"
 import { Footer } from "../../components/HeaderAndFooter/Footer"
+import { Modal } from '../../components/Modal'
+import { useState } from 'react';
 
 export function AntendimentoRegistro() {
-
-    function handleSubmit(event: React.FormEvent) {
-        event.preventDefault();
-    }
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <>
             <Header />
                 <main>
+                    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                        <h1>Cadastro de Tipo de Exame</h1>
+
+                        <form className="formulario">
+                            <label>Nome</label>
+                            <input type="text" required />
+
+                            <label>Descrição</label>
+                            <textarea rows={3}></textarea>
+
+                            <div className="botoes-form">
+                                <button type="submit" className="btn-editar">Salvar</button>
+                            </div>
+                        </form>
+                    </Modal>
                     <h1>Registro de Atendimento</h1>
 
                     <section id="pesquisa-paciente">
@@ -41,7 +55,7 @@ export function AntendimentoRegistro() {
 
                             <section id="adicionar-registro">
                                 <h2>Adicionar Nova Informação</h2>
-                                <form>
+                                <form onSubmit={(e) => { e.preventDefault(); setShowModal(true); }}>
                                     <div className="form-group">
                                         <label htmlFor="tipo-registro">Selecione o tipo de registro</label>
                                         <select id="tipo-registro" name="tipo-registro">
