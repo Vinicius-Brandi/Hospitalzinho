@@ -56,6 +56,7 @@
                                 <option value="vacina">Nova Vacina</option>
                                 <option value="internacao">Nova Internação</option>
                                 <option value="alergia">Nova Alergia</option>
+                                <option value="exame">Novo Exame</option>
                             </select>
                         </div>
                         
@@ -136,6 +137,39 @@
                                 <div class="form-group full-width">
                                     <label for="descricao-alergia">Descrição da Alergia</label>
                                     <input type="text" id="descricao-alergia" name="descricao-alergia" placeholder="Ex: Penicilina, Frutos do mar">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="formNovoExame" > <!--class="hidden"-->
+                            <legend>Dados do Exame</legend>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="tipoExame">Tipo do Exame</label>
+                                    <input type="text" id="tipoExame" name="tipoExame" placeholder="Ex: Hemograma Completo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dataExame">Data do Exame</label>
+                                    <input type="date" id="dataExame" name="dataExame">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cnesExame">CNES da Instituição</label>
+                                    <input type="text" id="cnesExame" name="cnesExame" placeholder="Onde foi realizado o exame">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="crmProfissionalExame">CRM do Profissional</label>
+                                    <input type="text" id="crmProfissionalExame" name="crmProfissionalExame">
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="resultadosExame">Resultados</label> <!--Não sabia o que colocar aqui...-->
+                                    <textarea id="resultadosExame" name="resultadosExame" rows="4"></textarea>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="obsExame">Observações</label>
+                                    <textarea id="obsExame" name="obsExame" rows="4"></textarea>
                                 </div>
                             </div>
                         </fieldset>
