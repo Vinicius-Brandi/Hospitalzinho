@@ -57,6 +57,8 @@
                                 <option value="internacao">Nova Internação</option>
                                 <option value="alergia">Nova Alergia</option>
                                 <option value="exame">Novo Exame</option>
+                                <option value="doencaCronica">Nova Doença Crônica</option>
+                                <option value="medicacao">Nova Medicação</option>
                             </select>
                         </div>
                         
@@ -145,7 +147,10 @@
                             <legend>Dados do Exame</legend>
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="tipoExame">Tipo do Exame</label>
+                                    <div class="label-com-botao">
+                                        <label for="tipoExame">Tipo do Exame</label>
+                                        <button type="button" class="btn-cadastrar-inline">Cadastrar</button>
+                                    </div>
                                     <input type="text" id="tipoExame" name="tipoExame" placeholder="Ex: Hemograma Completo">
                                 </div>
                                 <div class="form-group">
@@ -171,6 +176,71 @@
                                     <label for="obsExame">Observações</label>
                                     <textarea id="obsExame" name="obsExame" rows="4"></textarea>
                                 </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="formNovaDoencaCronica"> <!-- class="hidden"-->
+                            <legend>Adicionar Doença Crônica</legend>
+                            <div class="form-grid">
+                                
+                                <div class="form-group full-width">
+                                    <div class="label-com-botao">
+                                        <label for="doencaCronicaPesquisa">Pesquisar Doença</label>
+                                        <button type="button" class="btn-cadastrar-inline">Cadastrar</button>
+                                    </div>
+                                    <input type="text" id="doencaCronicaPesquisa" name="doencaCronicaPesquisa" placeholder="Digite o nome ou CID para buscar">
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="doencaCronicaObs">Observações</label>
+                                    <textarea id="doencaCronicaObs" name="doencaCronicaObs" rows="4"></textarea>
+                                </div>
+
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="formNovaMedicacao"> <!-- class="hidden"-->
+                            <legend>Dados da Medicação</legend>
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <div class="label-com-botao">
+                                        <label for="medicamento">Medicamento</label>
+                                        <button type="button" class="btn-cadastrar-inline">Cadastrar</button>
+                                    </div>
+                                    <input type="text" id="medicamento" name="medicamento" placeholder="Ex: Paracetamol"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dosagemPrescrita">Dosagem Prescrita</label>
+                                    <input type="text" id="dosagemPrescrita" name="dosagemPrescrita" placeholder="Ex: 500mg, 1 comprimido">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="frequenciaMedicacao">Frequência</label>
+                                    <input type="text" id="frequenciaMedicacao" name="frequenciaMedicacao" placeholder="Ex: 1x ao dia, 8 em 8 horas">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="viaAdministracao">Via de Administração</label>
+                                    <input type="text" id="viaAdministracao" name="viaAdministracao" placeholder="Ex: Oral, Intravenosa">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dataInicioMedicacao">Data de Início</label>
+                                    <input type="date" id="dataInicioMedicacao" name="dataInicioMedicacao">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dataFinalMedicacao">Data Final</label>
+                                    <input type="date" id="dataFinalMedicacao" name="dataFinalMedicacao">
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="obsMedicacao">Observações</label>
+                                    <textarea id="obsMedicacao" name="obsMedicacao" rows="4"></textarea>
+                                </div>
+
                             </div>
                         </fieldset>
 
