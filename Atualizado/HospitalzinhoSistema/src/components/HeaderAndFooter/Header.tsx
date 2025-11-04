@@ -13,7 +13,7 @@ export function Header(){
                     <ul>
                         <li><NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home Page</NavLink></li>
                         <li><NavLink to="/paciente/cadastro" className={({ isActive }) => isActive ? "active" : ""}>Cadastro de Paciente</NavLink></li>
-                        <li><NavLink to="/prontuario/cadastro" className={({ isActive }) => isActive ? "active" : ""}>Cadastro de Prontuario</NavLink></li>
+                        <li><NavLink to="/atendimento/registro" className={({ isActive }) => isActive ? "active" : ""}>Registro de Atendimento</NavLink></li>
                     </ul>
                 </nav>
             </header>

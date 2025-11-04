@@ -160,6 +160,42 @@ tbody tr:hover {
     background-color: #e9ecef;
 }
 
+.label-com-botao {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%;
+    
+    /* * ADIÇÃO: Esta margem simula a margem que um <label> normal teria,
+     * garantindo que o <input> abaixo dele se alinhe com os outros.
+     */
+    margin-bottom: 0.5rem; 
+}
+
+.label-com-botao label {
+    margin-bottom: 0;
+}
+
+.btn-cadastrar-inline {
+    /* Estilos copiados do .btn-pesquisar */
+    background-color: #007bff; /* Azul padrão */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    /* Estilos "pequenos" para se ajustar ao lado do label */
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem; 
+}
+
+/* Hover copiado do .btn-pesquisar */
+.btn-cadastrar-inline:hover {
+    background-color: #0056b3; 
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     main {

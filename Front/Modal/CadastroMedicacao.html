@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Medicação</title>
+  <link rel="stylesheet" href="ModalBaseCadastros.css">
+</head>
+<body>
+
+<div id="modalMedicacao" class="modal">
+  <div class="modal-conteudo">
+    <span class="fechar">&times;</span>
+    <h1>Cadastro de Medicação</h1>
+
+    <form class="formulario">
+      <label>Nome</label>
+      <input type="text" required>
+
+      <label>Princípio Ativo</label>
+      <input type="text">
+
+      <label>Fabricante</label>
+      <input type="text">
+
+      <label>Forma Farmacêutica</label>
+      <input type="text">
+
+      <label>Dosagem</label>
+      <input type="text">
+
+      <label>Indicações</label>
+      <textarea rows="3"></textarea>
+
+      <label>Contraindicações</label>
+      <textarea rows="3"></textarea>
+
+      <div class="botoes-form">
+        <button type="submit" class="btn-editar">Salvar</button>
+        <button type="button" class="btn-excluir fechar">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
