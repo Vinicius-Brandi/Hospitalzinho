@@ -13,7 +13,7 @@
 
 		<property name="Nome" column="nome" not-null="true" />
 		<property name="CNS" column="cns" not-null="true" />
-		<property name="Cpf" column="cpf" />
+		<property name="Cpf" column="cpf" not-null="true"/>
 		<property name="DataNascimento" column="data_nascimento" />
 		<property name="NomePai" column="nome_pai" />
 		<property name="NomeMae" column="nome_mae" />
@@ -22,9 +22,9 @@
 		<property name="Ativo" column="ativo" not-null="true" />
 
 		<!-- Enums mapeados como Int32 -->
-		<property name="Sexo" column="sexo" type="NHibernate.Type.EnumType`1[[Hospitalzinho.Enum.SexoPaciente, Hospitalzinho]]" not-null="false"/>
-		<property name="Raca" column="raca" type="NHibernate.Type.EnumType`1[[Hospitalzinho.Enum.RacaPaciente, Hospitalzinho]]" not-null="false"/>
-		<property name="Escolaridade" column="escolaridade" type="NHibernate.Type.EnumType`1[[Hospitalzinho.Enum.EscolaridadePaciente, Hospitalzinho]]" not-null="false"/>
+		<property name="Sexo" column="sexo" type="Int32" not-null="false"/>
+		<property name="Raca" column="raca" type="Int32" not-null="false"/>
+		<property name="Escolaridade" column="escolaridade" type="Int32" not-null="false"/>
 
 
 		<property name="Nacionalidade" column="nacionalidade" />

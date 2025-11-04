@@ -56,6 +56,11 @@ namespace FGB.Dominio.Repositorios
             await _session.DeleteAsync(entidade);
         }
 
+        public async Task FlushAsync()
+        {
+            await _session.FlushAsync();
+        }
+
         public int Update<T>(Func<IBuilderUpdate<T>, IQueryable<T>> setValues) where T : EntidadeBase
         {
             throw new NotImplementedException("Update direto não implementado neste repositório.");

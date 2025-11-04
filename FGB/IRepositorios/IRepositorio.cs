@@ -19,6 +19,7 @@ namespace FGB.IRepositorios
         void Exclui<T>(T entidade) where T : EntidadeBase;
 
         Task IncluiAsync<T>(T entidade) where T : EntidadeBase;
+        Task FlushAsync();
 
         Task UpsertAsync<T>(T entidade) where T : EntidadeBase;
 

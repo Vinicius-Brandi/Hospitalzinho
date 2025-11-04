@@ -40,4 +40,3 @@ export interface Hospital {
 	cnes?: string;
 	cnpj?: string;
 }
-

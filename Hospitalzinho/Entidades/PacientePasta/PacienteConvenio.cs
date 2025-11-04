@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
 {
         public class PacienteConvenio : EntidadeBase
     {
-        [Required]
+        [Required,JsonIgnore]
         public virtual Paciente Paciente { get; set; }
         [Required]
 

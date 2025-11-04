@@ -121,6 +121,11 @@ namespace FGB.Dominio.Repositorios
         {
             throw new NotImplementedException("Implementar execução assíncrona de comando SQL e mapeamento para T1.");
         }
+        public async Task FlushAsync()
+        {
+            await _session.FlushAsync();
+        }
+
 
         public void Dispose()
         {
