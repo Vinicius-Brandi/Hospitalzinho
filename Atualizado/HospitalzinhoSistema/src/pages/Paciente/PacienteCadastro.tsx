@@ -2,14 +2,12 @@ import { Header } from "../../components/HeaderAndFooter/Header"
 import { Footer } from "../../components/HeaderAndFooter/Footer"
 import '../Prontuario/PacienteCadastro.css';
 import { PacienteGenero, PacienteEtinia, PacienteEscolaridade, PacienteTipoSanguineo} from "../../../models/paciente";
-import type { Paciente, PacienteContato, PacienteEndereco } from "../../../models/paciente";
+import type { Paciente } from "../../../models/paciente";
 import { useState } from "react";
 import { api } from "../../../services/api";
 
 export function PacienteCadastro() {
   const [paciente, setPaciente] = useState<Partial<Paciente>>({});
-  const [contatos, setContatos] = useState<Partial<PacienteContato>>({});
-  const [endereco, setEndereco] = useState<Partial<PacienteEndereco>>({});
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = event.target;
@@ -17,27 +15,6 @@ export function PacienteCadastro() {
     setPaciente((prevPaciente) => {
         return {
             ...prevPaciente,
-            [name]: value
-        };
-    })
-  }
-
-  function handleContatoChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    const { name, value } = event.target;
-
-    setContatos((prevContatos) => {
-        return {
-            ...prevContatos,
-            [name]: value
-        };
-    })
-  }
-
-  function handleEnderecoChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    const { name, value } = event.target;
-    setEndereco((prevEndereco) => {
-        return {
-            ...prevEndereco,
             [name]: value
         };
     })
@@ -63,24 +40,6 @@ export function PacienteCadastro() {
         };
 
         await api.post("/Paciente", payload);
-
-        const resposta = await api.get(`/Paciente?$filter=cpf eq '${payload.cpf}'`);
-
-        if (contatos) {
-            const contatoPayload = {
-                ...contatos,
-                pacienteId: resposta.data[0].id
-            };
-            await api.post("/PacienteContato", contatoPayload);
-        }
-
-        if (endereco) {
-            const enderecoPayload = {
-                ...endereco,
-                pacienteId: resposta.data[0].id
-            };
-            await api.post("/PacienteEndereco", enderecoPayload);
-        }
 
         alert("Paciente cadastrado com sucesso!");
         setPaciente({});
@@ -199,31 +158,31 @@ export function PacienteCadastro() {
                         <div className="address-grid">
                             <div className="form-group">
                                 <label htmlFor="cep">CEP</label>
-                                <input type="text" id="cep" name="cep" placeholder="00000-000" value={endereco.cep || ""} onChange={handleEnderecoChange} />
+                                <input type="text" id="cep" name="cep" placeholder="00000-000" value={paciente.cep || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group full-width">
                                 <label htmlFor="logradouro">Logradouro</label>
-                                <input type="text" id="logradouro" name="logradouro" value={endereco.logradouro || ""} onChange={handleEnderecoChange} />
+                                <input type="text" id="logradouro" name="logradouro" value={paciente.logradouro || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="numero">Número</label>
-                                <input type="text" id="numero" name="numero" value={endereco.numero || ""} onChange={handleEnderecoChange} />
+                                <input type="text" id="numero" name="numero" value={paciente.numero || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="complemento">Complemento</label>
-                                <input type="text" id="complemento" name="complemento" placeholder="Ex: Apto 101" value={endereco.complemento || ""} onChange={handleEnderecoChange} />
+                                <input type="text" id="complemento" name="complemento" placeholder="Ex: Apto 101" value={paciente.complemento || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="bairro">Bairro</label>
-                                <input type="text" id="bairro" name="bairro" value={endereco.bairro || ""} onChange={handleEnderecoChange} />
+                                <input type="text" id="bairro" name="bairro" value={paciente.bairro || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="cidade">Cidade</label>
-                                <input type="text" id="cidade" name="cidade" value={endereco.cidade || ""} onChange={handleEnderecoChange} />
+                                <input type="text" id="cidade" name="cidade" value={paciente.cidade || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="estado">Estado</label>
-                                <input type="text" id="estado" name="estado" value={endereco.estado || ""} onChange={handleEnderecoChange} />
+                                <input type="text" id="estado" name="estado" value={paciente.estado || ""} onChange={handleChange} />
                             </div>
                         </div>
                     </fieldset>
@@ -232,15 +191,15 @@ export function PacienteCadastro() {
                         <div className="form-grid">
                             <div className="form-group">
                                 <label htmlFor="telefoneResidencial">Telefone Residencial</label>
-                                <input type="tel" id="telefoneResidencial" name="telefoneResidencial" placeholder="(00) 0000-0000" value={contatos.telefoneResidencial || ""} onChange={handleContatoChange} />
+                                <input type="tel" id="telefoneResidencial" name="telefoneResidencial" placeholder="(00) 0000-0000" value={paciente.telefoneResidencial || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="telefoneCelular">Telefone Celular</label>
-                                <input type="tel" id="telefoneCelular" name="telefoneCelular" placeholder="(00) 00000-0000" value={contatos.telefoneCelular || ""} onChange={handleContatoChange} />
+                                <input type="tel" id="telefoneCelular" name="telefoneCelular" placeholder="(00) 00000-0000" value={paciente.telefoneCelular || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group full-width">
                                 <label htmlFor="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="exemplo@email.com" value={contatos.email || ""} onChange={handleContatoChange} />
+                                <input type="email" id="email" name="email" placeholder="exemplo@email.com" value={paciente.email || ""} onChange={handleChange} />
                             </div>
                         </div>
                     </fieldset>
