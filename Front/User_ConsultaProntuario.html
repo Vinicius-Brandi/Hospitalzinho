@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de Prontuário do Paciente</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Estilo -->
     <link rel="stylesheet" href="User_ConsultaProntuario.css">
 </head>
 <body>
@@ -18,7 +16,6 @@
     <main>
         <h1>Prontuário Eletrônico do Paciente</h1>
 
-        <!-- Seção de Pesquisa -->
         <section id="pesquisa-paciente">
             <h2>Buscar Paciente</h2>
             <form class="form-pesquisa">
@@ -30,22 +27,21 @@
             </form>
         </section>
 
-        <!-- Agrupar os resultados. Pode ficar escondida via JS -->
-        <div id="resultados-prontuario">
+        <div class="botoes-acao">
+            <button type="button" class="btn-adicionar-novo">Adicionar Registro ao Paciente</button>
+        </div>
 
-            <section class="card-prontuario" id="dados-paciente">
+        <div id="prontuario-detalhes"> <section class="card-prontuario" id="dados-paciente">
                 <div class="card-header">
-                    <h2>Dados do Paciente</h2>
+                    <h2>Dados Pessoais</h2>
                 </div>
                 <div class="card-body info-paciente">
-                    <!-- EXEMPLOS -->
                     <div><strong>Nome:</strong> Ana Maria da Silva</div>
                     <div><strong>Data de Nasc.:</strong> 15/08/1985</div>
                     <div><strong>CPF:</strong> 123.456.789-00</div>
-                    <div><strong>CNS:</strong> 700 1234 5678 9012</div>
-                    <div><strong>Mãe:</strong> Joana Pereira da Silva</div>
-                    <div><strong>Telefone:</strong> (14) 99876-5432</div>
-                    <div><strong>Endereço:</strong> Rua das Flores, 123, Centro, Marília - SP</div>
+                    <div><strong>CNS:</strong> 987.654.321.000</div>
+                    <div><strong>Telefone:</strong> (11) 98765-4321</div>
+                    <div><strong>Endereço:</strong> Rua das Flores, 123, São Paulo/SP</div>
                 </div>
             </section>
 
@@ -53,50 +49,67 @@
                 <div class="card-header">
                     <h2>Alergias Conhecidas</h2>
                 </div>
-                <div class="card-body"><!-- EXEMPLOS -->
-                    <p class="alergia-item">Penicilina</p>
-                    <p class="alergia-item">Camarão</p>
+                <div class="card-body">
+                    <ul class="lista-itens">
+                        <li><strong>Medicamentosa:</strong> Penicilina</li>
+                        <li><strong>Alimentar:</strong> Frutos do mar</li>
+                    </ul>
                 </div>
             </section>
 
-            <section class="card-prontuario" id="vacinacao">
+            <section class="card-prontuario" id="vacinas">
                 <div class="card-header">
-                    <h2>Histórico de Vacinação</h2>
+                    <h2>Vacinas Recebidas</h2>
                 </div>
-                <div class="card-body table-container">
+                <div class="card-body table-container"> 
                     <table>
                         <thead>
                             <tr>
                                 <th>Vacina</th>
                                 <th>Dose</th>
-                                <th>Data</th>
-                                <th>Unidade</th>
+                                <th>Data de Aplicação</th>
                             </tr>
                         </thead>
-                        <tbody> <!-- EXEMPLOS -->
-                            <tr>
+                        <tbody> <tr>
                                 <td>COVID-19 (Pfizer)</td>
-                                <td>3ª Dose</td>
-                                <td>20/03/2022</td>
-                                <td>UBS Nova Marília</td>
+                                <td>Dose de Reforço</td>
+                                <td>10/03/2023</td>
                             </tr>
                             <tr>
-                                <td>Febre Amarela</td>
+                                <td>Gripe (Influenza)</td>
                                 <td>Dose Única</td>
-                                <td>10/06/2019</td>
-                                <td>UBS Cascata</td>
-                            </tr>
-                            <tr>
-                                <td>Hepatite B</td>
-                                <td>3ª Dose</td>
-                                <td>05/11/2015</td>
-                                <td>UBS Santa Augusta</td>
+                                <td>15/04/2024</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
             
+            <section class="card-prontuario" id="internacoes">
+                <div class="card-header">
+                    <h2>Histórico de Internações</h2>
+                </div>
+                <div class="card-body table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data Entrada</th>
+                                <th>Data Saída</th>
+                                <th>Hospital</th>
+                                <th>Motivo</th>
+                            </tr>
+                        </thead>
+                        <tbody> <tr>
+                                <td>01/02/2022</td>
+                                <td>05/02/2022</td>
+                                <td>Hospital Santa Casa</td>
+                                <td>Apendicite</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
             <section class="card-prontuario" id="consultas">
                 <div class="card-header">
                     <h2>Histórico de Consultas</h2>
@@ -107,51 +120,13 @@
                             <tr>
                                 <th>Data</th>
                                 <th>Especialidade</th>
-                                <th>Profissional</th>
-                                <th>Unidade</th>
                                 <th>Resumo</th>
                             </tr>
                         </thead>
-                        <tbody> <!-- EXEMPLOS -->
-                            <tr>
-                                <td>10/09/2025</td>
-                                <td>Clínica Geral</td>
-                                <td>Dr. Carlos Andrade</td>
-                                <td>UBS Nova Marília</td>
-                                <td>Queixa de dor de cabeça. Aferida pressão arterial.</td>
-                            </tr>
-                            <tr>
-                                <td>02/06/2025</td>
-                                <td>Dermatologia</td>
-                                <td>Dra. Beatriz Lima</td>
-                                <td>Ambulatório de Especialidades</td>
-                                <td>Consulta de rotina.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section class="card-prontuario" id="internacoes">
-                <div class="card-header">
-                    <h2>Histórico de Internações</h2>
-                </div>
-                <div class="card-body table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Entrada</th>
-                                <th>Saída</th>
-                                <th>Hospital</th>
-                                <th>Motivo</th>
-                            </tr>
-                        </thead>
-                        <tbody> <!-- EXEMPLOS -->
-                            <tr>
-                                <td>15/01/2024</td>
-                                <td>18/01/2024</td>
-                                <td>Hospital das Clínicas</td>
-                                <td>Pneumonia Comunitária</td>
+                        <tbody> <tr>
+                                <td>15/05/2024</td>
+                                <td>Cardiologia</td>
+                                <td>Consulta de rotina. Pressão arterial controlada.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -160,7 +135,7 @@
 
             <section class="card-prontuario" id="medicamentos">
                 <div class="card-header">
-                    <h2>Medicamentos em Uso / Prescrições Recentes</h2>
+                    <h2>Medicamentos em Uso / Prescrições</h2>
                 </div>
                 <div class="card-body table-container"> 
                     <table>
@@ -168,27 +143,93 @@
                             <tr>
                                 <th>Medicamento</th>
                                 <th>Dosagem</th>
+                                <th>Frequência</th>
+                                <th>Via</th>
                                 <th>Início</th>
-                                <th>Profissional</th>
+                                <th>Término</th>
                             </tr>
                         </thead>
-                        <tbody> <!-- EXEMPLOS -->
-                            <tr>
+                        <tbody> <tr>
                                 <td>Losartana Potássica</td>
-                                <td>50mg, 1x ao dia</td>
+                                <td>50mg</td>
+                                <td>1x ao dia</td>
+                                <td>Oral</td>
                                 <td>05/04/2023</td>
-                                <td>Dr. Carlos Andrade</td>
+                                <td>Contínuo</td>
                             </tr>
                             <tr>
-                                <td>Sinvastatina</td>
-                                <td>20mg, 1x ao dia</td>
-                                <td>05/04/2023</td>
-                                <td>Dr. Carlos Andrade</td>
+                                <td>Amoxicilina</td>
+                                <td>500mg</td>
+                                <td>8 em 8 horas</td>
+                                <td>Oral</td>
+                                <td>10/10/2024</td>
+                                <td>17/10/2024</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
+
+            <section class="card-prontuario" id="exames">
+                <div class="card-header">
+                    <h2>Exames Realizados</h2>
+                </div>
+                <div class="card-body table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Exame</th>
+                                <th>Data</th>
+                                <th>Instituição (CNES)</th>
+                                <th>Nome da Instituição</th>
+                                <th>Solicitante (CRM)</th>
+                                <th>Nome do Profissional</th>
+                                <th>Resultado (Resumo)</th>
+                            </tr>
+                        </thead>
+                        <tbody> <tr>
+                                <td>Hemograma Completo</td>
+                                <td>12/05/2024</td>
+                                <td>1234567</td>
+                                <td>Clinica Yamada</td>
+                                <td>987654</td>
+                                <td>Dr. Yamada</td>
+                                <td>Leucócitos ligeiramente elevados.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card-prontuario" id="cirurgias">
+                <div class="card-header">
+                    <h2>Histórico de Cirurgias</h2>
+                </div>
+                <div class="card-body table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cirurgia</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Hospital</th>
+                                <th>Cirurgião</th>
+                                <th>Observações</th>
+                            </tr>
+                        </thead>
+                        <tbody> <tr>
+                                <td>Apendicectomia</td>
+                                <td>01/02/2022</td>
+                                <td>14:30</td>
+                                <td>Hospital Santa Casa</td>
+                                <td>Dr. Roberto Alves</td>
+                                <td>Procedimento realizado sem intercorrências.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
         </div>
         
     </main>
