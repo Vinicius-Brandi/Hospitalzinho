@@ -11,7 +11,6 @@
 		</id>
 
 		<property name="Nome" column="nome" not-null="true"/>
-		<property name="CNES" column="cnes" not-null="true"/>
 		<property name="CNPJ" column="cnpj" not-null="true"/>
 		<property name="TokenAcesso" column="token_acesso" not-null="true"/>
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />

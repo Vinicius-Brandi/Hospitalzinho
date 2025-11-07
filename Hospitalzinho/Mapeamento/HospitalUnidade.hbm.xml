@@ -11,12 +11,14 @@
 		</id>
 
 		<property name="Nome" column="nome" not-null="true"/>
+		<property name="CNES" column="cnes" not-null="true"/>
 		<property name="TipoUnidade" column="tipo_unidade" type="Int32"/>
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
 		<many-to-one name="Endereco" column="endereco_id" class="HospitalEndereco" cascade="none" not-null="false"/>
-		<many-to-one name="InstituicaoPai" column="instituicao_pai_id" class="Hospital" not-null="true"/>
+		<many-to-one name="InstituicaoPai" column="instituicao_pai_id" class="Hospital" insert="false" update="false"/>
+		<property name="InstituicaoPaiId" column="instituicao_pai_id" not-null="true"/>
 
 		<bag name="Alas" inverse="true" cascade="all-delete-orphan">
 			<key column="hospital_unidade_id"/>
