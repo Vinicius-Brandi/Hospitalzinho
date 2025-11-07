@@ -1,5 +1,6 @@
 import type { ChangeEvent } from "react";
 import type { Consulta } from "../../../models/prontuario";
+import { CadastroResponsavel } from "./CadastroResponsavel";
 
 export function CadastroConsulta({
     consulta,
@@ -23,13 +24,7 @@ export function CadastroConsulta({
                     />
                 </div>
                 
-                <div className="form-group">
-                    <label htmlFor="profissionalResponsavel">Profissional Responsável</label>
-                    <select id="profissionalResponsavel" name="profissionalResponsavel" value={consulta.profissionalResponsavel} onChange={onChange}>
-                        <option value="" disabled selected>Selecione o profissional</option>
-                        <option value="crm123">Dr. João da Silva (CRM 123)</option>
-                    </select>
-                </div>
+                <CadastroResponsavel value={consulta.profissionalResponsavel} onChange={onChange} />
 
                 <div className="form-group">
                     <label htmlFor="hospital">Hospital</label>

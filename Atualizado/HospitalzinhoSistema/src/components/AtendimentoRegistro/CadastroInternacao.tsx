@@ -1,5 +1,6 @@
 import type { ChangeEvent } from "react";
 import type { Internacao } from "../../../models/prontuario";
+import { CadastroResponsavel } from "./CadastroResponsavel";
 
 export function CadastroInternacao({
     internacao,
@@ -20,13 +21,9 @@ export function CadastroInternacao({
                     <label htmlFor="hospital">Hospital</label>
                     <input type="text" id="hospital" name="hospital" value={internacao.hospital} onChange={onChange} />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="profissionalResponsavel">Profissional Responsável</label>
-                    <select id="profissionalResponsavel" name="profissionalResponsavel" value={internacao.profissionalResponsavel} onChange={onChange}>
-                        <option value="" disabled selected>Selecione o profissional</option>
-                        <option value="crm123">Dr. João da Silva (CRM 123)</option>
-                    </select>
-                </div>
+                
+                <CadastroResponsavel value={internacao.profissionalResponsavel} onChange={onChange} />
+
                 <div className="form-group">
                     <label htmlFor="dataEntrada">Data de Entrada</label>
                     <input type="date" id="dataEntrada" name="dataEntrada" value={internacao.dataEntrada} onChange={onChange} />

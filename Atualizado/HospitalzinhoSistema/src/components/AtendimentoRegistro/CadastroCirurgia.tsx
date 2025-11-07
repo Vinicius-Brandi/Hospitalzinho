@@ -1,5 +1,6 @@
 import type { ChangeEvent } from "react";
 import type { Cirurgia } from "../../../models/prontuario";
+import { CadastroResponsavel } from "./CadastroResponsavel";
 
 export function CadastroCirurgia({
     cirurgia,
@@ -14,10 +15,7 @@ export function CadastroCirurgia({
             <div className="form-grid">
 
                 <div className="form-group">
-                    <div className="label-com-botao">
-                        <label htmlFor="nome">Nome da Cirurgia</label>
-                        <button type="button" className="btn-cadastrar-inline">Cadastrar</button>
-                    </div>
+                    <label htmlFor="nome">Nome da Cirurgia</label>
                     <input type="text" id="nome" name="nome" placeholder="Ex: Apendicectomia" value={cirurgia.nome} onChange={onChange} />
                 </div>
 
@@ -31,13 +29,7 @@ export function CadastroCirurgia({
                     <input type="text" id="sala" name="sala" placeholder="Ex: Sala 03, Bloco Cirúrgico A" value={cirurgia.sala} onChange={onChange} />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="cirurgiaoEncarregado">Cirurgião Encarregado</label>
-                    <select id="cirurgiaoEncarregado" name="cirurgiaoEncarregado" value={cirurgia.profissionalResponsavel} onChange={onChange}>
-                        <option value="" disabled selected>Selecione o profissional</option>
-                        <option value="crm123">Dr. João da Silva (CRM 123)</option>
-                    </select>
-                </div>
+                <CadastroResponsavel value={cirurgia.profissionalResponsavel} onChange={onChange} />
                 
                 <div className="form-group">
                     <label htmlFor="data">Data</label>
