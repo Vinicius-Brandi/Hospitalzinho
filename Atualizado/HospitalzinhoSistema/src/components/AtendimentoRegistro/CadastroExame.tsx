@@ -1,4 +1,13 @@
-export function CadastroExame() {
+import type { ChangeEvent } from "react";
+import type { Exame } from "../../../models/prontuario";
+
+export function CadastroExame({
+    exame,
+    onChange
+}: {
+    exame: Partial<Exame>;
+    onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
+}) {
     return (
         <fieldset id="formNovoExame" >
             <legend>Dados do Exame</legend>
@@ -8,30 +17,43 @@ export function CadastroExame() {
                         <label htmlFor="tipoExame">Tipo do Exame</label>
                         <button type="button" className="btn-cadastrar-inline">Cadastrar</button>
                     </div>
-                    <input type="text" id="tipoExame" name="tipoExame" placeholder="Ex: Hemograma Completo" />
+                    <input type="text" id="tipoExame" name="tipoExame" placeholder="Ex: Hemograma Completo" value={exame.tipoExame} onChange={onChange} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="dataExame">Data do Exame</label>
-                    <input type="date" id="dataExame" name="dataExame" />
+                    <input type="date" id="dataExame" name="dataExame" value={exame.data} onChange={onChange} />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="cnesExame">CNES da Instituição</label>
-                    <input type="text" id="cnesExame" name="cnesExame" placeholder="Onde foi realizado o exame" />
+                    <label htmlFor="hospital">Hospital</label>
+                    <input type="text" id="hospital" name="hospital" placeholder="Onde foi realizado o exame" value={exame.hospital} onChange={onChange} />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="crmProfissionalExame">CRM do Profissional</label>
-                    <input type="text" id="crmProfissionalExame" name="crmProfissionalExame" />
+                    <label htmlFor="laboratorio">Laboratório</label>
+                    <input type="text" id="laboratorio" name="laboratorio" placeholder="Onde foi realizado o exame" value={exame.laboratorio} onChange={onChange} />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="profissionalResponsavel">Profissional Responsável</label>
+                    <select id="profissionalResponsavel" name="profissionalResponsavel" value={exame.profissionalResponsavel} onChange={onChange}>
+                        <option value="" disabled selected>Selecione o profissional</option>
+                        <option value="crm123">Dr. João da Silva (CRM 123)</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="profissionalRegistro">Profissional Registro</label>
+                    <input type="text" id="profissionalRegistro" name="profissionalRegistro" value={exame.profissionalRegistro} onChange={onChange} />
                 </div>
                 
                 <div className="form-group full-width">
-                    <label htmlFor="resultadosExame">Resultados</label>
-                    <textarea id="resultadosExame" name="resultadosExame" rows={4}></textarea>
+                    <label htmlFor="resultados">Resultados</label>
+                    <textarea id="resultados" name="resultados" rows={4} value={exame.resultados} onChange={onChange}></textarea>
                 </div>
                 <div className="form-group full-width">
-                    <label htmlFor="obsExame">Observações</label>
-                    <textarea id="obsExame" name="obsExame" rows={4}></textarea>
+                    <label htmlFor="observacoes">Observações</label>
+                    <textarea id="observacoes" name="observacoes" rows={4} value={exame.observacoes} onChange={onChange}></textarea>
                 </div>
             </div>
         </fieldset>

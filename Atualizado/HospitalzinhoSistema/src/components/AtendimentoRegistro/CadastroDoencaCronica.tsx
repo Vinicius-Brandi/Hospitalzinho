@@ -1,4 +1,13 @@
-export function CadastroDoencaCronica() {
+import type { ChangeEvent } from "react";
+import type { DoencaCronica } from "../../../models/prontuario";
+
+export function CadastroDoencaCronica({
+    doencaCronica,
+    onChange
+}: {
+    doencaCronica: Partial<DoencaCronica>;
+    onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
+}) {
     return (
         <fieldset id="formNovaDoencaCronica">
             <legend>Adicionar Doença Crônica</legend>
@@ -9,12 +18,31 @@ export function CadastroDoencaCronica() {
                         <label htmlFor="doencaCronicaPesquisa">Pesquisar Doença</label>
                         <button type="button" className="btn-cadastrar-inline">Cadastrar</button>
                     </div>
-                    <input type="text" id="doencaCronicaPesquisa" name="doencaCronicaPesquisa" placeholder="Digite o nome ou CID para buscar" />
+                    <input type="text" id="doencaCronicaPesquisa" name="doencaCronicaPesquisa" placeholder="Digite o nome ou CID para buscar" value={doencaCronica.doenca} onChange={onChange} />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="dataDiagnostico">Data do Diagnóstico</label>
+                    <input type="date" id="dataDiagnostico" name="dataDiagnostico" value={doencaCronica.dataDiagnostico} onChange={onChange} />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="estagio">Estágio</label>
+                    <input type="text" id="estagio" name="estagio" value={doencaCronica.estagio} onChange={onChange} />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="emTratamento">Em Tratamento?</label>
+                    <select id="emTratamento" name="emTratamento" value={doencaCronica.emTratamento} onChange={onChange}>
+                        <option value="" disabled>Selecione</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
                 </div>
 
                 <div className="form-group full-width">
                     <label htmlFor="doencaCronicaObs">Observações</label>
-                    <textarea id="doencaCronicaObs" name="doencaCronicaObs" rows={4}></textarea>
+                    <textarea id="doencaCronicaObs" name="doencaCronicaObs" rows={4} value={doencaCronica.observacoes} onChange={onChange}></textarea>
                 </div>
 
             </div>

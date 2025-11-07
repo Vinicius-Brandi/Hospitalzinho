@@ -11,10 +11,38 @@ import { CadastroExame } from '../../components/AtendimentoRegistro/CadastroExam
 import { CadastroDoencaCronica } from '../../components/AtendimentoRegistro/CadastroDoencaCronica';
 import { CadastroMedicacao } from '../../components/AtendimentoRegistro/CadastroMedicacao';
 import { CadastroCirurgia } from '../../components/AtendimentoRegistro/CadastroCirurgia';
+import type { Alergia, Consulta, DoencaCronica, Exame, Internacao, Medicacao, Vacina } from '../../../models/prontuario';
 
 export function AtendimentoRegistro() {
     const [showModal, setShowModal] = useState(false);
-    const [tipoCadastro, setTipoCadastro] = useState('consulta');
+    const [tipoCadastro, setTipoCadastro] = useState<TipoCadastro>('consulta');
+    const [dados, setDados] = useState({
+        consulta: {} as Partial<Consulta>,
+        vacina: {} as Partial<Vacina>,
+        internacao: {} as Partial<Internacao>,
+        alergia: {} as Partial<Alergia>,
+        exame: {} as Partial<Exame>,
+        doencaCronica: {} as Partial<DoencaCronica>,
+        medicacao: {} as Partial<Medicacao>,
+        cirurgia: {} as Partial<Cirurgia>
+    });
+
+    type TipoCadastro = keyof typeof dados;
+
+    function handleChange(
+        tipo: TipoCadastro,
+        event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+        ) {
+        const { name, value } = event.target;
+        setDados(prev => ({
+            ...prev,
+            [tipo]: {
+            ...prev[tipo],
+            [name]: value
+            }
+        }));
+    }
+
 
     return (
         <>
@@ -67,7 +95,7 @@ export function AtendimentoRegistro() {
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="tipo-registro">Selecione o tipo de registro</label>
-                                        <select id="tipo-registro" name="tipo-registro" onChange={(e) => setTipoCadastro(e.target.value)}>
+                                        <select id="tipo-registro" name="tipo-registro" onChange={(e) => setTipoCadastro(e.target.value as TipoCadastro)}>
                                             <option value="consulta" selected>Nova Consulta</option>
                                             <option value="vacina">Nova Vacina</option>
                                             <option value="internacao">Nova Internação</option>
@@ -79,21 +107,21 @@ export function AtendimentoRegistro() {
                                         </select>
                                     </div>
 
-                                    {tipoCadastro === 'consulta' && <CadastroConsulta />}
+                                    {tipoCadastro === 'consulta' &&  <CadastroConsulta consulta={dados.consulta} onChange={(e) => handleChange('consulta', e)} />}
 
-                                    {tipoCadastro === 'vacina' && <CadastroVacina />}
+                                    {tipoCadastro === 'vacina' && <CadastroVacina vacina={dados.vacina} onChange={(e) => handleChange('vacina', e)} />}
 
-                                    {tipoCadastro === 'internacao' && <CadastroInternacao />}
-                                    
-                                    {tipoCadastro === 'alergia' && <CadastroAlergia />}
+                                    {tipoCadastro === 'internacao' && <CadastroInternacao internacao={dados.internacao} onChange={(e) => handleChange('internacao', e)} />}
 
-                                    {tipoCadastro === 'exame' && <CadastroExame />}
-                                    
-                                    {tipoCadastro === 'doencaCronica' && <CadastroDoencaCronica />}
+                                    {tipoCadastro === 'alergia' && <CadastroAlergia alergia={dados.alergia} onChange={(e) => handleChange('alergia', e)} />}
 
-                                    {tipoCadastro === 'medicacao' && <CadastroMedicacao />}
+                                    {tipoCadastro === 'exame' && <CadastroExame exame={dados.exame} onChange={(e) => handleChange('exame', e)} />}
 
-                                    {tipoCadastro === 'cirurgia' && <CadastroCirurgia />}
+                                    {tipoCadastro === 'doencaCronica' && <CadastroDoencaCronica doencaCronica={dados.doencaCronica} onChange={(e) => handleChange('doencaCronica', e)} />}
+
+                                    {tipoCadastro === 'medicacao' && <CadastroMedicacao medicacao={dados.medicacao} onChange={(e) => handleChange('medicacao', e)} />}
+
+                                    {tipoCadastro === 'cirurgia' && <CadastroCirurgia cirurgia={dados.cirurgia} onChange={(e) => handleChange('cirurgia', e)} />}
 
                                     <button type="submit" className="btn-salvar">Salvar Registro</button>
                                 </form>

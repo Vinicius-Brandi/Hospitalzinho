@@ -1,21 +1,69 @@
-export function CadastroConsulta() {
+import type { ChangeEvent } from "react";
+import type { Consulta } from "../../../models/prontuario";
+
+export function CadastroConsulta({
+    consulta,
+    onChange
+}: {
+    consulta: Partial<Consulta>;
+    onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
+}) {
     return (
         <fieldset id="form-nova-consulta">
             <legend>Dados da Consulta</legend>
             <div className="form-grid">
                 <div className="form-group">
-                    <label htmlFor="data-consulta">Data</label>
-                    <input type="date" id="data-consulta" name="data-consulta" />
+                    <label htmlFor="data">Data</label>
+                    <input
+                        type="date"
+                        id="data"
+                        name="data"
+                        value={consulta.data ?? ""}
+                        onChange={onChange}
+                    />
                 </div>
+                
                 <div className="form-group">
-                    <label htmlFor="especialidade">Especialidade</label>
-                    <input type="text" id="especialidade" name="especialidade" />
+                    <label htmlFor="profissionalResponsavel">Profissional Responsável</label>
+                    <select id="profissionalResponsavel" name="profissionalResponsavel" value={consulta.profissionalResponsavel} onChange={onChange}>
+                        <option value="" disabled selected>Selecione o profissional</option>
+                        <option value="crm123">Dr. João da Silva (CRM 123)</option>
+                    </select>
                 </div>
+
+                <div className="form-group">
+                    <label htmlFor="hospital">Hospital</label>
+                    <input
+                        type="text"
+                        id="hospital"
+                        name="hospital"
+                        value={consulta.hospital ?? ""}
+                        onChange={onChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="sala">Sala</label>
+                    <input
+                        type="text"
+                        id="sala"
+                        name="sala"
+                        value={consulta.sala ?? ""}
+                        onChange={onChange}
+                    />
+                </div>
+
                 <div className="form-group full-width">
-                    <label htmlFor="resumo-consulta">Resumo / Anotações</label>
-                    <textarea id="resumo-consulta" name="resumo-consulta" rows={5}></textarea>
+                    <label htmlFor="observacoes">Resumo / Anotações</label>
+                    <textarea
+                        id="observacoes"
+                        name="observacoes"
+                        rows={5}
+                        value={consulta.observacoes ?? ""}
+                        onChange={onChange}
+                    />
                 </div>
             </div>
         </fieldset>
-    )
+    );
 }
