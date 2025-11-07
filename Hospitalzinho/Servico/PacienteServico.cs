@@ -57,6 +57,7 @@ namespace Hospitalzinho.Servico
                     };
 
                     await repo.IncluiAsync(paciente);
+                    await repo.FlushAsync();
 
                     // Contato
                     if (!string.IsNullOrWhiteSpace(dto.TelefoneResidencial) ||
