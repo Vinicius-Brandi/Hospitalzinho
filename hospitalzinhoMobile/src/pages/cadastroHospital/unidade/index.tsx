@@ -15,6 +15,8 @@ export default function CadastroUnidade() {
 	const [nome, setNome] = useState('');
 	const [tipoUnidade, setTipoUnidade] = useState('');
 	const [instituicaoPaiId, setInstituicaoPaiId] = useState('');
+	// quando o usuário escolhe via modal, guardamos o objeto completo
+	const [instituicaoPaiObj, setInstituicaoPaiObj] = useState<any | null>(null);
 
 	const [showSelector, setShowSelector] = useState(false);
 	const [showCreateInstituicao, setShowCreateInstituicao] = useState(false);
@@ -38,7 +40,55 @@ export default function CadastroUnidade() {
 			return;
 		}
 
-		const payload = { nome, tipoUnidade, instituicaoPaiId, endereco: { cep, cidade, bairro, rua, numero, complemento } };
+		// Verificações pré-envio
+		if (!tipoUnidade) {
+			Alert.alert('Validação', 'Selecione o tipo de unidade.');
+			return;
+		}
+
+		// A API exige uma entidade InstituicaoPai com Nome e CNES - forçar seleção de instituição
+		if (!instituicaoPaiObj || !instituicaoPaiObj.nome || !instituicaoPaiObj.cnes) {
+			Alert.alert('Validação', 'Selecione ou crie a Instituição Pai (com Nome e CNES).');
+			return;
+		}
+
+		// Mapear valores do select para os valores do enum TipoUnidade do backend
+		const tipoEnumMap: Record<string, number> = {
+			'ubs': 0,
+			'centro-saude': 1,
+			'ambulatorio': 2,
+			'clinica': 3,
+			'hospital-esp': 4,
+			'caps': 5,
+			'hospital-geral': 6,
+			'hospital-dia': 7,
+			'upa': 8,
+			'pronto-socorro': 9,
+			'sadt': 10,
+			'farmacia': 11,
+			'vigilancia': 12,
+			'reabilitacao': 13,
+		};
+
+		const tipoParaEnviar = tipoEnumMap[tipoUnidade];
+
+		// Construir objeto da instituição pai: API espera a entidade (Hospital) e não apenas um id string
+		// Enviar apenas um objeto 'instituicaoPai' limpo: remover relações aninhadas (ex: unidades)
+		const instituicaoPaiToSend = instituicaoPaiObj ? { ...instituicaoPaiObj } : null;
+		if (instituicaoPaiToSend) {
+			// remover arrays/relacionamentos que não são necessários no POST da unidade
+			delete instituicaoPaiToSend.unidades;
+			delete instituicaoPaiToSend.profissionaisSaude;
+			delete instituicaoPaiToSend.convenios;
+			// qualquer outra propriedade complexa pode ser removida conforme necessário
+		}
+
+		const payload = {
+			nome,
+			tipoUnidade: typeof tipoParaEnviar === 'number' ? tipoParaEnviar : null,
+			instituicaoPai: instituicaoPaiToSend,
+			endereco: { cep, cidade, bairro, rua, numero, complemento }
+		};
 
 		// enviar para API
 		(async () => {
@@ -76,12 +126,14 @@ export default function CadastroUnidade() {
 	function handleSelectHospital(item: any) {
 		// depending on backend we might want id or cnpj; here we store id or cnpj if present
 		setInstituicaoPaiId(item.cnpj ?? String(item.id ?? ''));
+		setInstituicaoPaiObj(item);
 		setShowSelector(false);
 	}
 
 	function handleCreatedInstituicao(created: any) {
 		// select created
 		setInstituicaoPaiId(created.cnpj ?? String(created.id ?? ''));
+		setInstituicaoPaiObj(created);
 		setShowCreateInstituicao(false);
 		setShowSelector(false);
 	}
@@ -177,12 +229,19 @@ export default function CadastroUnidade() {
 							</TouchableOpacity>
 						)} />
 					)}
-					<View style={styles.buttonsRow}>
-						<TouchableOpacity style={[styles.button, styles.saveButton]} onPress={() => setShowCreateInstituicao(true)}>
-							<Text style={styles.buttonText}>Incluir Instituição</Text>
+					<View style={[styles.buttonsRow, {justifyContent: 'flex-start'}]}>
+						<TouchableOpacity
+							style={[styles.smallButton, styles.saveButton]}
+							onPress={() => {
+								// Fechar o seletor antes de abrir o modal de criação para evitar sobreposição
+								setShowSelector(false);
+								setShowCreateInstituicao(true);
+							}}
+						>
+							<Text style={styles.smallButtonText}>Incluir Instituição</Text>
 						</TouchableOpacity>
-						<TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={() => setShowSelector(false)}>
-							<Text style={styles.buttonText}>Fechar</Text>
+						<TouchableOpacity style={[styles.smallButton, styles.cancelButton, {marginLeft: 8}]} onPress={() => setShowSelector(false)}>
+							<Text style={styles.smallButtonText}>Fechar</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
@@ -190,11 +249,15 @@ export default function CadastroUnidade() {
 
 			{/* Modal: criar instituição (aninhado) */}
 			<Modal visible={showCreateInstituicao} animationType="slide" onRequestClose={() => setShowCreateInstituicao(false)}>
-				<View style={[styles.container]}>
-					<CadastroInstituicao onCreated={handleCreatedInstituicao} />
-					<TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={() => setShowCreateInstituicao(false)}>
-						<Text style={styles.buttonText}>Cancelar</Text>
-					</TouchableOpacity>
+				<View style={[styles.container, {padding: 16}]}> 
+					<View style={styles.card}>
+						<CadastroInstituicao onCreated={handleCreatedInstituicao} />
+					</View>
+					<View style={{alignItems: 'center', marginTop: 12}}>
+						<TouchableOpacity style={[styles.smallButton, styles.cancelButton]} onPress={() => setShowCreateInstituicao(false)}>
+							<Text style={styles.smallButtonText}>Cancelar</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 			</Modal>
 		</KeyboardAwareScrollView>
