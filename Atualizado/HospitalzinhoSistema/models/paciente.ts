@@ -59,7 +59,20 @@ export interface Paciente {
     nomePai?: string;
     cpfPai?: string;
     contatos?: PacienteContato;
-    tipoSanguineo?: PacienteTipoSanguineoType;
+
+    telefoneResidencial?: string;
+    telefoneCelular?: string;
+    email?: string;
+
+    cep?: string;
+    logradouro: string;
+    numero?: string;
+    complemento?: string;
+    bairro?: string;
+    cidade: string;
+    estado: string;
+
+    tipoSanguineo: PacienteTipoSanguineoType;
 }
 
 export interface PacienteEndereco {

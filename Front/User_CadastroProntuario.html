@@ -59,6 +59,7 @@
                                 <option value="exame">Novo Exame</option>
                                 <option value="doencaCronica">Nova Doença Crônica</option>
                                 <option value="medicacao">Nova Medicação</option>
+                                <option value="cirurgia">Nova Cirurgia</option>
                             </select>
                         </div>
                         
@@ -239,6 +240,54 @@
                                 <div class="form-group full-width">
                                     <label for="obsMedicacao">Observações</label>
                                     <textarea id="obsMedicacao" name="obsMedicacao" rows="4"></textarea>
+                                </div>
+
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="formNovaCirurgia"> <!--class="hidden"-->
+                            <legend>Dados da Cirurgia</legend>
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <div class="label-com-botao">
+                                        <label for="nomeCirurgia">Nome da Cirurgia</label>
+                                        <!--<button type="button" class="btn-cadastrar-inline">Cadastrar</button>-->
+                                    </div>
+                                    <input type="text" id="nomeCirurgia" name="nomeCirurgia" placeholder="Ex: Apendicectomia">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hospitalCirurgia">Hospital</label>
+                                    <input type="text" id="hospitalCirurgia" name="hospitalCirurgia" placeholder="Nome ou CNES da instituição">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="salaCirurgia">Sala</label>
+                                    <input type="text" id="salaCirurgia" name="salaCirurgia" placeholder="Ex: Sala 03, Bloco Cirúrgico A">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cirurgiaoEncarregado">Cirurgião Encarregado</label>
+                                    <select id="cirurgiaoEncarregado" name="cirurgiaoEncarregado">
+                                        <option value="" disabled selected>Selecione o profissional</option>
+                                        <option value="crm123">Dr. João da Silva (CRM 123)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="dataCirurgia">Data</label>
+                                    <input type="date" id="dataCirurgia" name="dataCirurgia">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="horarioCirurgia">Horário</label>
+                                    <input type="time" id="horarioCirurgia" name="horarioCirurgia">
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="obsCirurgia">Observações</label>
+                                    <textarea id="obsCirurgia" name="obsCirurgia" rows="4"></textarea>
                                 </div>
 
                             </div>

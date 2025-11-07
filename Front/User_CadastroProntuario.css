@@ -115,3 +115,41 @@ select {
 .hidden {
     display: none;
 }
+
+
+/* --- ESTILOS DE FORMULÁRIO (MOVIMOS PARA CÁ) --- */
+
+/* Container para alinhar o Label e o Botão lado a lado */
+.label-com-botao {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%;
+    
+    /* Esta margem simula a margem que um <label> normal teria */
+    margin-bottom: 0.5rem; 
+}
+
+/* Remove a margem padrão do label quando ele está dentro desse container */
+.label-com-botao label {
+    margin-bottom: 0;
+}
+
+/* Botão inline (pequeno, estilo "pesquisar") */
+.btn-cadastrar-inline {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    /* Tamanho pequeno */
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem; 
+}
+
+.btn-cadastrar-inline:hover {
+    background-color: #0056b3; 
+}

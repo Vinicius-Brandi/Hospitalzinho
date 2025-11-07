@@ -45,15 +45,6 @@ legend {
     grid-column: 1 / -1;
 }
 
-.form-group.mid-width {
-  grid-column: 1 / -2;
-}
-
-.form-group {
-    position: relative;
-}
-
-
 textarea {
     width: 100%;
     padding: 0.75rem;
@@ -120,37 +111,45 @@ select {
     cursor: pointer;
 }
 
-.sugestoes-lista {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 999;
-}
-
-.sugestao-item {
-    padding: 8px 12px;
-    cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-}
-
-.sugestao-item:hover {
-    background: #f0f0f0;
-}
-
-/* Esconde a lista de sugestões por padrão */
-#pesquisa-wrapper #sugestoes-cpf {
+/* Classe para ocultar elementos */
+.hidden {
     display: none;
 }
 
-/* Mostra a lista de sugestões apenas quando o wrapper tem foco interno */
-#pesquisa-wrapper:focus-within #sugestoes-cpf {
-    display: block;
+
+/* --- ESTILOS DE FORMULÁRIO (MOVIMOS PARA CÁ) --- */
+
+/* Container para alinhar o Label e o Botão lado a lado */
+.label-com-botao {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%;
+    
+    /* Esta margem simula a margem que um <label> normal teria */
+    margin-bottom: 0.5rem; 
+}
+
+/* Remove a margem padrão do label quando ele está dentro desse container */
+.label-com-botao label {
+    margin-bottom: 0;
+}
+
+/* Botão inline (pequeno, estilo "pesquisar") */
+.btn-cadastrar-inline {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    /* Tamanho pequeno */
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem; 
+}
+
+.btn-cadastrar-inline:hover {
+    background-color: #0056b3; 
 }

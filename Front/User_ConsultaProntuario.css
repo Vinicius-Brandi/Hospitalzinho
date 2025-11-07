@@ -21,6 +21,12 @@ h1 {
     margin-bottom: 2rem;
 }
 
+h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    color: #343a40;
+}
+
 /* Seção de Pesquisa */
 #pesquisa-paciente {
     background-color: #ffffff;
@@ -47,22 +53,20 @@ h1 {
     color: #495057;
 }
 
-.form-group input {
+input[type="text"],
+input[type="date"],
+input[type="time"] {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #ced4da;
     border-radius: 6px;
     font-size: 1rem;
-    box-sizing: border-box;
-}
-.form-group input:focus {
-    outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box; /* Garante que padding não afete a largura */
 }
 
 .btn-pesquisar {
-    padding: 0.75rem 2rem;
+    padding: 0.8rem 1.8rem;
     background-color: #007bff;
     color: white;
     border: none;
@@ -71,67 +75,88 @@ h1 {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s;
+    height: 3.1rem; /* Alinha altura com o input */
 }
 .btn-pesquisar:hover {
     background-color: #0056b3;
 }
 
-/* Cards de Informações do Prontuário */
-#resultados-prontuario {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+/* Botão de Ação (Adicionar Registro) */
+.botoes-acao {
+    text-align: right;
+    margin-bottom: 1.5rem;
 }
 
+.btn-adicionar-novo {
+    padding: 0.7rem 1.5rem;
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-adicionar-novo:hover {
+    background-color: #218838;
+}
+
+/* --- Área do Prontuário --- */
+
+/* Card Base */
 .card-prontuario {
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    overflow: hidden; /* Garante que o border-radius seja aplicado no conteúdo interno */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+    overflow: hidden; /* Garante que o card contenha o conteúdo */
 }
 
 .card-header {
-    background-color: #e9ecef;
-    padding: 0.8rem 1.5rem;
-    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
 }
-
 .card-header h2 {
-    margin: 0;
-    font-size: 1.3rem;
     color: #0056b3;
+    margin-bottom: 0;
 }
 
 .card-body {
     padding: 1.5rem;
 }
 
-/* Estilos específicos para o card de dados do paciente */
+/* Card de Dados Pessoais (Layout Específico) */
 .info-paciente {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
 }
-
 .info-paciente div {
     font-size: 1.1rem;
 }
 
-/* Card de Alergias */
-.alergia-item {
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 0.75rem;
-    border-radius: 6px;
-    border-left: 5px solid #ffc107;
-    margin: 0.5rem 0;
+/* Card de Alergias (Layout Específico) */
+.lista-itens {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.lista-itens li {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #e0e0e0;
+}
+.lista-itens li:last-child {
+    border-bottom: none;
 }
 
-
-/* Tabelas de Histórico */
+/* Estilos de Tabela (Usado em Vacinas, Internações, etc.) */
 .table-container {
+    padding: 0; /* Remove padding do card-body */
     width: 100%;
-    overflow-x: auto; /* Adiciona scroll horizontal em telas pequenas */
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
 }
 
 table {
@@ -158,57 +183,4 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
     background-color: #e9ecef;
-}
-
-.label-com-botao {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    width: 100%;
-    
-    /* * ADIÇÃO: Esta margem simula a margem que um <label> normal teria,
-     * garantindo que o <input> abaixo dele se alinhe com os outros.
-     */
-    margin-bottom: 0.5rem; 
-}
-
-.label-com-botao label {
-    margin-bottom: 0;
-}
-
-.btn-cadastrar-inline {
-    /* Estilos copiados do .btn-pesquisar */
-    background-color: #007bff; /* Azul padrão */
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    
-    /* Estilos "pequenos" para se ajustar ao lado do label */
-    padding: 0.3rem 0.8rem;
-    font-size: 0.85rem; 
-}
-
-/* Hover copiado do .btn-pesquisar */
-.btn-cadastrar-inline:hover {
-    background-color: #0056b3; 
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    main {
-        padding: 1rem;
-        margin: 1rem auto;
-    }
-    
-    .form-pesquisa {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .btn-pesquisar {
-        width: 100%;
-    }
 }
