@@ -1,7 +1,6 @@
 import './PacienteCadastro.css'
 import { Header } from "../../components/HeaderAndFooter/Header"
 import { Footer } from "../../components/HeaderAndFooter/Footer"
-import { Modal } from '../../components/Modal'
 import { useState } from 'react';
 import { CadastroConsulta } from '../../components/AtendimentoRegistro/CadastroConsulta';
 import { CadastroVacina } from '../../components/AtendimentoRegistro/CadastroVacina';
@@ -14,7 +13,6 @@ import { CadastroCirurgia } from '../../components/AtendimentoRegistro/CadastroC
 import type { Alergia, Cirurgia, Consulta, DoencaCronica, Exame, Internacao, Medicacao, Vacina } from '../../../models/prontuario';
 
 export function AtendimentoRegistro() {
-    const [showModal, setShowModal] = useState(false);
     const [tipoCadastro, setTipoCadastro] = useState<TipoCadastro>('consulta');
     const [dados, setDados] = useState({
         consulta: {} as Partial<Consulta>,
@@ -48,21 +46,6 @@ export function AtendimentoRegistro() {
         <>
             <Header />
                 <main>
-                    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                        <h1>Cadastro de Tipo de Exame</h1>
-
-                        <form className="formulario">
-                            <label>Nome</label>
-                            <input type="text" required />
-
-                            <label>Descrição</label>
-                            <textarea rows={3}></textarea>
-
-                            <div className="botoes-form">
-                                <button type="submit" className="btn-editar">Salvar</button>
-                            </div>
-                        </form>
-                    </Modal>
                     <h1>Registro de Atendimento e Prontuário</h1>
 
                     <section id="pesquisa-paciente">
