@@ -1,17 +1,17 @@
-INSERT INTO hospital (nome, cnes, cnpj, token_acesso) VALUES
-('Hospitalzinho Central', '1234567', '12.345.678/0001-90', 'token123456'),
-('Hospitalzinho Norte', '2345678', '23.456.789/0001-01', 'token234567'),
-('Hospitalzinho Sul', '3456789', '34.567.890/0001-12', 'token345678');
+INSERT INTO hospital (nome, cnpj, token_acesso) VALUES
+('Hospitalzinho Central', '12.345.678/0001-90', 'token123456'),
+('Hospitalzinho Norte', '23.456.789/0001-01', 'token234567'),
+('Hospitalzinho Sul', '34.567.890/0001-12', 'token345678');
 
 INSERT INTO hospital_endereco (cep, cidade, bairro, rua, numero, complemento) VALUES
 ('01000-000', 'São Paulo', 'Centro', 'Av. Paulista', '1000', 'Prédio Principal'),
 ('01100-000', 'São Paulo', 'Zona Norte', 'Rua das Flores', '200', 'Bloco A'),
 ('01200-000', 'São Paulo', 'Zona Sul', 'Av. Santo Amaro', '300', 'Prédio B');
 
-INSERT INTO hospital_unidade (nome, tipo_unidade, endereco_id, instituicao_pai_id) VALUES
-('Unidade Central', 1, 1, 1),
-('Unidade Norte', 2, 2, 2),
-('Unidade Sul', 3, 3, 3);
+INSERT INTO hospital_unidade (nome, cnes, tipo_unidade, endereco_id, instituicao_pai_id) VALUES
+('Unidade Central','1234567', 1, 1, 1),
+('Unidade Norte','2345678', 2, 2, 2),
+('Unidade Sul','3456789', 3, 3, 3);
 
 -- ==========================
 -- Pacientes (somente NOT NULL)

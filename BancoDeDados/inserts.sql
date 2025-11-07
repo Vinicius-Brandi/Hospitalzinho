@@ -5,9 +5,20 @@
 BEGIN;
 
 -- HOSPITAL / ENDEREÇO / UNIDADE
-INSERT INTO hospital (id, nome, cnes, cnpj, token_acesso) VALUES (nextval('seq_hospital'), 'Hospital Infantil Exemplo', '1234567', '12.345.678/0001-99', 'token-exemplo-123');
-INSERT INTO hospital_endereco (id, cep, cidade, bairro, rua, numero, complemento) VALUES (nextval('seq_hospital_endereco'), '12345-678', 'Cidade Exemplo', 'Bairro Exemplo', 'Rua A', '100', 'Próximo ao parque');
-INSERT INTO hospital_unidade (id, nome, tipo_unidade, endereco_id, instituicao_pai_id) VALUES (nextval('seq_hospital_unidade'), 'Unidade Principal', 1, 1, 1);
+INSERT INTO hospital (nome, cnpj, token_acesso) VALUES
+('Hospitalzinho Central', '12.345.678/0001-90', 'token123456'),
+('Hospitalzinho Norte', '23.456.789/0001-01', 'token234567'),
+('Hospitalzinho Sul', '34.567.890/0001-12', 'token345678');
+
+INSERT INTO hospital_endereco (cep, cidade, bairro, rua, numero, complemento) VALUES
+('01000-000', 'São Paulo', 'Centro', 'Av. Paulista', '1000', 'Prédio Principal'),
+('01100-000', 'São Paulo', 'Zona Norte', 'Rua das Flores', '200', 'Bloco A'),
+('01200-000', 'São Paulo', 'Zona Sul', 'Av. Santo Amaro', '300', 'Prédio B');
+
+INSERT INTO hospital_unidade (nome, cnes, tipo_unidade, endereco_id, instituicao_pai_id) VALUES
+('Unidade Central','1234567', 1, 1, 1),
+('Unidade Norte','2345678', 2, 2, 2),
+('Unidade Sul','3456789', 3, 3, 3);
 
 -- ESTRUTURA FÍSICA: ALA / QUARTO / SALA
 INSERT INTO ala (id, nome, hospital_unidade_id) VALUES (nextval('seq_ala'), 'Ala Pediatria', 1);
@@ -20,7 +31,7 @@ INSERT INTO profissional_saude (id, nome, registro_profissional, especialidade_i
 
 -- PACIENTE / PRONTUÁRIO / CONTATOS / ENDEREÇOS / CONVÊNIOS
 INSERT INTO paciente (id, nome, cns, cpf, data_nascimento, nome_pai, nome_mae, cpf_pai, cpf_mae, ativo, sexo, nacionalidade, raca, naturalidade, escolaridade) VALUES (nextval('seq_paciente'), 'Maria da Silva', '987654321', '123.456.789-00', '2015-06-01', 'Carlos Silva', 'Ana Silva', '111.111.111-11', '222.222.222-22', true, 2, 'Brasileira', 1, 'Cidade Exemplo', 3);
-INSERT INTO paciente_prontuario (id, paciente_id, tipo_sangue) VALUES (nextval('seq_prontuario'), 1, 2);
+INSERT INTO paciente_prontuario (id, paciente_id, tipo_sangue) VALUES (nextval('seq_prontuario'), 3, 2);
 INSERT INTO paciente_contato (id, paciente_id, telefone_residencial, telefone_celular, email) VALUES (nextval('seq_paciente_contato'), 1, '(11) 3333-4444', '(11) 99999-0000', 'maria.exemplo@email.com');
 INSERT INTO paciente_endereco (id, paciente_id, logradouro, numero, complemento, bairro, cidade, estado, cep) VALUES (nextval('seq_paciente_endereco'), 1, 'Rua das Flores', '200', 'Casa', 'Centro', 'Cidade Exemplo', 'SP', '12345-000');
 
@@ -36,105 +47,9 @@ INSERT INTO paciente_consulta (id, prontuario_id, data_consulta, profissional_id
 INSERT INTO paciente_cirurgia (id, prontuario_id, nome, data_cirurgia, profissional_responsavel_id, sala_id, hospital_unidade_id, observacoes) VALUES (nextval('seq_cirurgia'), 1, 'Apendicectomia', now(), 1, 1, 1, 'Sem intercorrências');
 INSERT INTO paciente_internacao (id, prontuario_id, data_internacao, data_alta, quarto_id, motivo, profissional_responsavel_id, observacoes, hospital_unidade_id) VALUES (nextval('seq_internacao'), 1, now(), now() + interval '3 days', 1, 'Observação', 1, 'Paciente em observação', 1);
 
--- DOENÇAS CRÔNICAS / ALERGIAS
-INSERT INTO doenca_cronica_modelo (id, nome, cid, descricao) VALUES (nextval('seq_doenca_modelo'), 'Asma', 'J45', 'Asma brônquica');
-INSERT INTO paciente_doenca_cronica (id, prontuario_id, doenca_modelo_id, data_diagnostico, estagio, observacoes, em_tratamento) VALUES (nextval('seq_paciente_doenca'), 1, 1, '2020-01-01', 'Leve', 'Controlada com medicação', true);
-INSERT INTO alergia (id, prontuario_id, nome, tipo) VALUES (nextval('seq_alergia'), 1, 'Penicilina', 1);
-
--- MEDICAMENTOS / MODELOS
-INSERT INTO medicamento_modelo (id, nome, principio_ativo, fabricante, forma_farmaceutica, dosagem, indicacoes, contra_indicacoes) VALUES (nextval('seq_medicamento_modelo'), 'Xarope Exemplo', 'Paracetamol', 'Farmacêutica X', 'Xarope', '10mg/mL', 'Dor e febre', 'Nenhuma');
-INSERT INTO medicamento (id, modelo_id, lote, data_fabricacao, data_validade, quantidade_disponivel, hospital_unidade_id) VALUES (nextval('seq_medicamento'), 1, 'L001', '2024-01-01', '2026-01-01', 100, 1);
-
--- RECEITAS / ITENS / PACIENTE_MEDICACAO
-INSERT INTO receita (id, paciente_id, profissional_id, data, hospital_unidade_id) VALUES (nextval('seq_receita'), 1, 1, now(), 1);
-INSERT INTO item_receita (id, receita_id, medicamento_modelo_id, quantidade, posologia) VALUES (nextval('seq_item_receita'), 1, 1, 1, '1 colher a cada 8 horas');
-INSERT INTO paciente_medicacao (id, prontuario_id, medicamento_modelo_id, dosagem_prescrita, frequencia, via_administracao, observacoes, data_inicio) VALUES (nextval('seq_paciente_medicacao'), 1, 1, '5mL', '8h', 'Oral', 'Uso contínuo', now());
-
--- VACINAS / MODELO / VACINAÇÃO
-INSERT INTO vacina_modelo (id, nome, fabricante, tipo, indicacao, numero_doses) VALUES (nextval('seq_vacina_modelo'), 'Vacina Exemplo', 'Fabricante Y', 'Viral', 'Rotina', 2);
-INSERT INTO vacina (id, vacina_modelo_id, lote, data_producao, data_validade, quantidade_disponivel, hospital_unidade_id) VALUES (nextval('seq_vacina'), 1, 'V001', '2024-01-01', '2026-01-01', 50, 1);
-INSERT INTO paciente_vacinacao (id, prontuario_id, vacina_id, profissional_responsavel_id, data_aplicacao, dose_numero, observacoes, hospital_unidade_id) VALUES (nextval('seq_paciente_vacinacao'), 1, 1, 1, now(), 1, 'Aplicada sem reação', 1);
-
--- Adicionando mais dados de exemplo (múltiplos registros) para testes
-
--- Hospitais adicionais
-INSERT INTO hospital (id, nome, cnes, cnpj, token_acesso) VALUES (nextval('seq_hospital'), 'Hospital Sul Exemplo', '7654321', '98.765.432/0001-88', 'token-sul-456');
-INSERT INTO hospital (id, nome, cnes, cnpj, token_acesso) VALUES (nextval('seq_hospital'), 'Hospital Norte Exemplo', '1112223', '11.222.333/0001-44', 'token-norte-789');
-
--- Endereços adicionais
-INSERT INTO hospital_endereco (id, cep, cidade, bairro, rua, numero, complemento) VALUES (nextval('seq_hospital_endereco'), '23456-789', 'Cidade Dois', 'Bairro Dois', 'Avenida B', '500', 'Prédio 2');
-INSERT INTO hospital_endereco (id, cep, cidade, bairro, rua, numero, complemento) VALUES (nextval('seq_hospital_endereco'), '34567-890', 'Cidade Três', 'Bairro Três', 'Rua C', '10', 'Anexo');
-
--- Unidades adicionais (assumindo instituicao_pai_id já existe: 1,2,3 conforme inserts acima)
-INSERT INTO hospital_unidade (id, nome, tipo_unidade, endereco_id, instituicao_pai_id) VALUES (nextval('seq_hospital_unidade'), 'Unidade Sul', 2, 2, 2);
-INSERT INTO hospital_unidade (id, nome, tipo_unidade, endereco_id, instituicao_pai_id) VALUES (nextval('seq_hospital_unidade'), 'Unidade Norte', 1, 3, 3);
-
--- Aumentando alas, quartos e salas
-INSERT INTO ala (id, nome, hospital_unidade_id) VALUES (nextval('seq_ala'), 'Ala Neonatal', 1);
-INSERT INTO ala (id, nome, hospital_unidade_id) VALUES (nextval('seq_ala'), 'Ala Cirúrgica', 2);
-
-INSERT INTO quarto (id, numero, ala_id, tipo, capacidade) VALUES (nextval('seq_quarto'), '102', 1, 1, 1);
-INSERT INTO quarto (id, numero, ala_id, tipo, capacidade) VALUES (nextval('seq_quarto'), '201', 2, 2, 3);
-
-INSERT INTO sala (id, numero, ala_id, tipo) VALUES (nextval('seq_sala'), 'S2', 1, 1);
-INSERT INTO sala (id, numero, ala_id, tipo) VALUES (nextval('seq_sala'), 'S3', 2, 2);
-
--- Especialidades e profissionais adicionais
-INSERT INTO especialidade (id, nome) VALUES (nextval('seq_especialidade'), 'Cirurgia Pediátrica');
-INSERT INTO especialidade (id, nome) VALUES (nextval('seq_especialidade'), 'Neonatologia');
-
-INSERT INTO profissional_saude (id, nome, registro_profissional, especialidade_id, hospital_unidade_id) VALUES (nextval('seq_profissional'), 'Dra. Ana Pereira', 'CRM54321', 2, 1);
-INSERT INTO profissional_saude (id, nome, registro_profissional, especialidade_id, hospital_unidade_id) VALUES (nextval('seq_profissional'), 'Dr. Pedro Alves', 'CRM67890', 3, 2);
-
--- Pacientes adicionais
-INSERT INTO paciente (id, nome, cns, cpf, data_nascimento, nome_pai, nome_mae, cpf_pai, cpf_mae, ativo, sexo, nacionalidade, raca, naturalidade, escolaridade) VALUES (nextval('seq_paciente'), 'João Santos', '123123123', '222.333.444-55', 'Luiz Santos', 'Mariana Santos', '333.333.333-33', '444.444.444-44', true, 1, 'Brasileiro', 2, 'Cidade Dois', 2);
-INSERT INTO paciente (id, nome, cns, cpf, data_nascimento, nome_pai, nome_mae, cpf_pai, cpf_mae, ativo, sexo, nacionalidade, raca, naturalidade, escolaridade) VALUES (nextval('seq_paciente'), 'Lucas Oliveira', '555666777', '555.666.777-88', 'Ricardo Oliveira', 'Paula Oliveira', '555.555.555-55', '666.666.666-66', true, 1, 'Brasileiro', 1, 'Cidade Três', 2);
-
--- Prontuários para novos pacientes
-INSERT INTO paciente_prontuario (id, paciente_id, tipo_sangue) VALUES (nextval('seq_prontuario'), 2, 3);
-INSERT INTO paciente_prontuario (id, paciente_id, tipo_sangue) VALUES (nextval('seq_prontuario'), 3, 1);
-
--- Contatos e endereços para novos pacientes
-INSERT INTO paciente_contato (id, paciente_id, telefone_residencial, telefone_celular, email) VALUES (nextval('seq_paciente_contato'), 2, '(21) 2222-3333', '(21) 98888-7777', 'joao.santos@email.com');
-INSERT INTO paciente_endereco (id, paciente_id, logradouro, numero, complemento, bairro, cidade, estado, cep) VALUES (nextval('seq_paciente_endereco'), 2, 'Rua B', '50', 'Apto 101', 'Bairro B', 'Cidade Dois', 'RJ', '23456-000');
-
-INSERT INTO paciente_contato (id, paciente_id, telefone_residencial, telefone_celular, email) VALUES (nextval('seq_paciente_contato'), 3, NULL, '(31) 97777-6666', 'lucas.oliveira@email.com');
-INSERT INTO paciente_endereco (id, paciente_id, logradouro, numero, complemento, bairro, cidade, estado, cep) VALUES (nextval('seq_paciente_endereco'), 3, 'Avenida C', '300', NULL, 'Bairro C', 'Cidade Três', 'MG', '34567-000');
-
--- Convênios adicionais
-INSERT INTO convenio (id, nome, cnpj, registro_ans) VALUES (nextval('seq_convenio'), 'Plano Saúde A', '12.345.678/0001-00', 'ANS-00001');
-INSERT INTO paciente_convenio (id, paciente_id, convenio_id, numero_carteira, validade, ativo) VALUES (nextval('seq_paciente_convenio'), 2, 2, 'ABC123', '2027-01-01', true);
-
--- Exames adicionais
-INSERT INTO exame_tipo (id, nome, descricao) VALUES (nextval('seq_exame_tipo'), 'Raio-X', 'Imagem radiológica');
-INSERT INTO paciente_exame (id, prontuario_id, data_exame, tipo_exame_id, laboratorio, resultados, observacoes, profissional_id, hospital_unidade_id) VALUES (nextval('seq_paciente_exame'), 2, now(), 2, 'Lab Dois', 'Normal', 'Sem observações', 2, 1);
-
--- Consultas e procedimentos adicionais
-INSERT INTO paciente_consulta (id, prontuario_id, data_consulta, profissional_id, observacoes, sala_id, hospital_unidade_id) VALUES (nextval('seq_consulta'), 2, now() - interval '7 days', 2, 'Retorno pós-operatório', 2, 2);
-INSERT INTO paciente_consulta (id, prontuario_id, data_consulta, profissional_id, observacoes, sala_id, hospital_unidade_id) VALUES (nextval('seq_consulta'), 3, now() - interval '1 days', 1, 'Primeira consulta', 1, 1);
-
-INSERT INTO paciente_cirurgia (id, prontuario_id, nome, data_cirurgia, profissional_responsavel_id, sala_id, hospital_unidade_id, observacoes) VALUES (nextval('seq_cirurgia'), 2, 'Correção Hérnia', now() - interval '10 days', 2, 2, 2, 'Sem intercorrências');
-
-INSERT INTO paciente_internacao (id, prontuario_id, data_internacao, data_alta, quarto_id, motivo, profissional_responsavel_id, observacoes, hospital_unidade_id) VALUES (nextval('seq_internacao'), 2, now() - interval '12 days', now() - interval '9 days', 2, 'Pós-operatório', 2, 'Alta estável', 2);
-
--- Doenças e alergias adicionais
-INSERT INTO doenca_cronica_modelo (id, nome, cid, descricao) VALUES (nextval('seq_doenca_modelo'), 'Diabetes Tipo 1', 'E10', 'Diabetes mellitus tipo 1');
-INSERT INTO paciente_doenca_cronica (id, prontuario_id, doenca_modelo_id, data_diagnostico, estagio, observacoes, em_tratamento) VALUES (nextval('seq_paciente_doenca'), 2, 3, '2018-05-01', 'Moderado', 'Uso de insulina', true);
-INSERT INTO alergia (id, prontuario_id, nome, tipo) VALUES (nextval('seq_alergia'), 3, 'Latex', 2);
-
--- Medicamentos e estoques adicionais
-INSERT INTO medicamento_modelo (id, nome, principio_ativo, fabricante, forma_farmaceutica, dosagem, indicacoes, contra_indicacoes) VALUES (nextval('seq_medicamento_modelo'), 'Dipirona', 'Metamizol', 'Lab Y', 'Comprimido', '500mg', 'Dor', 'Hipersensibilidade');
-INSERT INTO medicamento (id, modelo_id, lote, data_fabricacao, data_validade, quantidade_disponivel, hospital_unidade_id) VALUES (nextval('seq_medicamento'), 2, 'L002', '2023-06-01', '2025-06-01', 200, 1);
-
--- Receitas e paciente_medicacao adicionais
-INSERT INTO receita (id, paciente_id, profissional_id, data, hospital_unidade_id) VALUES (nextval('seq_receita'), 2, 2, now() - interval '11 days', 2);
-INSERT INTO item_receita (id, receita_id, medicamento_modelo_id, quantidade, posologia) VALUES (nextval('seq_item_receita'), 2, 2, 20, '1 comprimido a cada 8 horas');
-INSERT INTO paciente_medicacao (id, prontuario_id, medicamento_modelo_id, dosagem_prescrita, frequencia, via_administracao, observacoes, data_inicio, data_fim) VALUES (nextval('seq_paciente_medicacao'), 2, 2, '500mg', '8h', 'Oral', 'Durante 20 dias', now() - interval '11 days', now() + interval '9 days');
-
--- Vacinas adicionais
-INSERT INTO vacina_modelo (id, nome, fabricante, tipo, indicacao, numero_doses) VALUES (nextval('seq_vacina_modelo'), 'Vacina B', 'Lab Z', 'Bacteriana', 'Rotina', 1);
-INSERT INTO vacina (id, vacina_modelo_id, lote, data_producao, data_validade, quantidade_disponivel, hospital_unidade_id) VALUES (nextval('seq_vacina'), 2, 'V002', '2023-02-01', '2025-02-01', 100, 2);
-INSERT INTO paciente_vacinacao (id, prontuario_id, vacina_id, profissional_responsavel_id, data_aplicacao, dose_numero, observacoes, hospital_unidade_id) VALUES (nextval('seq_paciente_vacinacao'), 2, 2, 2, now() - interval '30 days', 1, 'Aplicada', 2);
+-- EXAMES (tipos) e PacienteExame
+INSERT INTO exame_tipo (id, nome, descricao) VALUES (nextval('seq_exame_tipo'), 'Hemograma', 'Exame completo de sangue');
+INSERT INTO paciente_exame (id, prontuario_id, data_exame, tipo_exame_id, laboratorio, resultados, observacoes, profissional_id, hospital_unidade_id) VALUES (nextval('seq_paciente_exame'), 1, now(), 1, 'Laboratório ABC', 'Result OK', 'Sem observações', 1, 1);
 
 -- *******************************************
 -- Inserções em massa para testes (generate_series)
@@ -148,8 +63,8 @@ SELECT nextval('seq_paciente'), 'Paciente Teste ' || i, 'CNS' || i, LPAD(i::text
 FROM generate_series(100,599) AS s(i);
 
 -- Criar prontuários para os pacientes sem prontuário
-INSERT INTO paciente_prontuario (id, paciente_id, tipo_sangue, data_abertura, ultima_atualizacao)
-SELECT nextval('seq_prontuario'), p.id, (floor(random()*4)+1)::int, now() - ((floor(random()*365))::int || ' days')::interval, now()
+INSERT INTO paciente_prontuario (id, paciente_id, tipo_sangue)
+SELECT nextval('seq_prontuario'), p.id, (floor(random()*4)+1)::int
 FROM paciente p
 LEFT JOIN paciente_prontuario pr ON pr.paciente_id = p.id
 WHERE pr.id IS NULL;
@@ -229,6 +144,15 @@ INSERT INTO alergia (id, prontuario_id, nome, tipo, data_cadastro, data_atualiza
 SELECT nextval('seq_alergia'), (SELECT id FROM paciente_prontuario ORDER BY random() LIMIT 1), 'Alergia ' || i, (floor(random()*3)+1), now(), now()
 FROM generate_series(1,200) AS s(i);
 
+INSERT INTO paciente_alergia (id, prontuario_id, alergia_id, observacao)
+SELECT nextval('seq_paciente_alergia'),
+       (SELECT id FROM paciente_prontuario ORDER BY random() LIMIT 1),
+       (SELECT id FROM alergia ORDER BY random() LIMIT 1),
+       'OBSERVACAO PACIENTE ALERGIA' || i
+FROM generate_series(1,300) AS s(i);
+
+
+
 -- Medicamento_modelo em massa
 INSERT INTO medicamento_modelo (id, nome, principio_ativo, fabricante, forma_farmaceutica, dosagem, indicacoes, contra_indicacoes, data_cadastro, data_atualizacao)
 SELECT nextval('seq_medicamento_modelo'), 'Medicamento ' || i, 'Ativo ' || i, 'Lab ' || (floor(random()*10)+1), 'Forma ' || (floor(random()*4)+1), 'Dosagem ' || (floor(random()*500)+1) || 'mg', 'Indicação ' || i, 'Contra ' || i, now(), now()
@@ -258,13 +182,38 @@ SELECT nextval('seq_paciente_medicacao'), (SELECT id FROM paciente_prontuario OR
 FROM generate_series(1,200) AS s(i);
 
 -- Vacinas em massa
-INSERT INTO vacina_modelo (id, nome, fabricante, tipo, indicacao, numero_doses, intervalo_entre_doses, data_cadastro, data_atualizacao)
-SELECT nextval('seq_vacina_modelo'), 'Vacina Modelo ' || i, 'Lab ' || (floor(random()*10)+1), 'Tipo ' || (floor(random()*3)+1), 'Indicação ' || i, (floor(random()*3)+1), '30 days'::interval, now(), now()
+INSERT INTO vacina_modelo (
+    id, nome, fabricante, tipo, indicacao, numero_doses, intervalo_entre_doses, data_cadastro, data_atualizacao
+)
+SELECT nextval('seq_vacina_modelo'),
+       'Vacina Modelo ' || i,
+       'Lab ' || (floor(random()*10)+1),
+       'Tipo ' || (floor(random()*3)+1),
+       'Indicação ' || i,
+       (floor(random()*3)+1),
+       (floor(random()*60)+15), -- número de dias entre doses (ex: 15 a 75)
+       now(),
+       now()
 FROM generate_series(1,50) AS s(i);
 
-INSERT INTO vacina (id, vacina_modelo_id, lote, data_producao, data_validade, quantidade_disponivel, hospital_unidade_id, data_cadastro, data_atualizacao)
-SELECT nextval('seq_vacina'), vm.id, 'VL' || LPAD((100+i)::text,4,'0'), now() - ((floor(random()*400))::int || ' days')::interval, now() + ((floor(random()*800))::int || ' days')::interval, (floor(random()*200)+1)::int, (SELECT id FROM hospital_unidade ORDER BY random() LIMIT 1), now(), now()
-FROM (SELECT id FROM vacina_modelo ORDER BY id LIMIT 50) vm;
+
+INSERT INTO vacina (
+    id, vacina_modelo_id, lote, data_producao, data_validade,
+    quantidade_disponivel, hospital_unidade_id, data_cadastro, data_atualizacao
+)
+SELECT 
+    nextval('seq_vacina'),
+    vm.id,
+    'VL' || LPAD((100 + i)::text, 4, '0'),
+    now() - ((floor(random()*400))::int || ' days')::interval,
+    now() + ((floor(random()*800))::int || ' days')::interval,
+    (floor(random()*200)+1)::int,
+    (SELECT id FROM hospital_unidade ORDER BY random() LIMIT 1),
+    now(),
+    now()
+FROM 
+    generate_series(1,50) AS s(i),   -- <== aqui o "i" é criado
+    (SELECT id FROM vacina_modelo ORDER BY id LIMIT 50) vm;
 
 -- Registros de vacinação em massa
 INSERT INTO paciente_vacinacao (id, prontuario_id, vacina_id, profissional_responsavel_id, data_aplicacao, dose_numero, observacoes, hospital_unidade_id, data_cadastro, data_atualizacao)
@@ -272,3 +221,4 @@ SELECT nextval('seq_paciente_vacinacao'), (SELECT id FROM paciente_prontuario OR
 FROM generate_series(1,500) AS s(i);
 
 COMMIT;
+-- Fim dos inserts de exemplo para o banco Hospitalzinho

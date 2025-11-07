@@ -44,9 +44,8 @@ CREATE SEQUENCE seq_paciente_alergia START 1;
 -- ========================
 CREATE TABLE hospital (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_hospital'),
-    nome VARCHAR(255) NOT NULL,
-    cnes VARCHAR(50) NOT NULL,
-    cnpj VARCHAR(20) NOT NULL,
+    nome VARCHAR(255) NOT null UNIQUE,
+    cnpj VARCHAR(20) NOT null UNIQUE,
     token_acesso VARCHAR(255) NOT NULL,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
@@ -66,7 +65,8 @@ CREATE TABLE hospital_endereco (
 
 CREATE TABLE hospital_unidade (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_hospital_unidade'),
-    nome VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT null,
+    cnes VARCHAR(50) NOT null UNIQUE,
     tipo_unidade INTEGER NOT NULL,
     endereco_id BIGINT REFERENCES hospital_endereco(id) ON DELETE SET NULL,
     instituicao_pai_id BIGINT NOT NULL REFERENCES hospital(id) ON DELETE CASCADE,
@@ -109,7 +109,7 @@ CREATE TABLE sala (
 -- ========================
 CREATE TABLE especialidade (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_especialidade'),
-    nome VARCHAR(200) NOT NULL,
+    nome VARCHAR(200) NOT NULL UNIQUE,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
@@ -117,7 +117,7 @@ CREATE TABLE especialidade (
 CREATE TABLE profissional_saude (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_profissional'),
     nome VARCHAR(200) NOT NULL,
-    registro_profissional VARCHAR(50) NOT NULL,
+    registro_profissional VARCHAR(50) NOT null UNIQUE,
     especialidade_id BIGINT NOT NULL REFERENCES especialidade(id) ON DELETE RESTRICT,
     hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE RESTRICT,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
@@ -130,8 +130,8 @@ CREATE TABLE profissional_saude (
 CREATE TABLE paciente (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_paciente'),
     nome VARCHAR(255) NOT NULL,
-    cns VARCHAR(20) NOT NULL,
-    cpf VARCHAR(20) NOT NULL,
+    cns VARCHAR(20) NOT null UNIQUE,
+    cpf VARCHAR(20) NOT null UNIQUE,
     data_nascimento DATE,
     nome_pai VARCHAR(255),
     nome_mae VARCHAR(255),
@@ -174,7 +174,7 @@ CREATE TABLE paciente_endereco (
     bairro VARCHAR(100),
     cidade VARCHAR(100),
     estado VARCHAR(50),
-    cep VARCHAR(50),
+    cep VARCHAR(20),
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
@@ -182,8 +182,8 @@ CREATE TABLE paciente_endereco (
 CREATE TABLE convenio (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_convenio'),
     nome VARCHAR(255) NOT NULL,
-    cnpj VARCHAR(20),
-    registro_ans VARCHAR(50) NOT NULL,
+    cnpj VARCHAR(20) UNIQUE,
+    registro_ans VARCHAR(50) NOT null UNIQUE,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
@@ -192,7 +192,7 @@ CREATE TABLE paciente_convenio (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_paciente_convenio'),
     paciente_id BIGINT NOT NULL REFERENCES paciente(id) ON DELETE CASCADE,
     convenio_id BIGINT NOT NULL REFERENCES convenio(id) ON DELETE CASCADE,
-    numero_carteira VARCHAR(100) NOT NULL,
+    numero_carteira VARCHAR(100) NOT null UNIQUE,
     validade DATE,
     ativo BOOLEAN DEFAULT TRUE,
     UNIQUE (paciente_id, convenio_id),
@@ -212,7 +212,7 @@ CREATE TABLE hospital_unidade_convenio (
 -- ========================
 CREATE TABLE exame_tipo (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_exame_tipo'),
-    nome VARCHAR(200) NOT NULL,
+    nome VARCHAR(200) NOT null UNIQUE,
     descricao TEXT,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
@@ -273,6 +273,7 @@ CREATE TABLE paciente_internacao (
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
+
 
 -- ========================
 -- DOENÇAS CRÔNICAS / ALERGIAS / PACIENTE_ALERGIA 
