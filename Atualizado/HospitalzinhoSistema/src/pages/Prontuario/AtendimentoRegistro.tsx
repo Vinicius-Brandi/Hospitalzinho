@@ -11,7 +11,7 @@ import { CadastroExame } from '../../components/AtendimentoRegistro/CadastroExam
 import { CadastroDoencaCronica } from '../../components/AtendimentoRegistro/CadastroDoencaCronica';
 import { CadastroMedicacao } from '../../components/AtendimentoRegistro/CadastroMedicacao';
 import { CadastroCirurgia } from '../../components/AtendimentoRegistro/CadastroCirurgia';
-import type { Alergia, Consulta, DoencaCronica, Exame, Internacao, Medicacao, Vacina } from '../../../models/prontuario';
+import type { Alergia, Cirurgia, Consulta, DoencaCronica, Exame, Internacao, Medicacao, Vacina } from '../../../models/prontuario';
 
 export function AtendimentoRegistro() {
     const [showModal, setShowModal] = useState(false);
