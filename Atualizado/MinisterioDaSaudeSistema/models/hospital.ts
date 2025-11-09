@@ -22,3 +22,20 @@ export interface Hospital {
     cnpj: string;
     tokenAcesso: string;
 }
+
+export interface HospitalUnidadeEndereco {
+    cep: string;
+    cidade: string;
+    bairro: string;
+    rua: string;
+    numero: string;
+    complemento: string;
+}
+
+export interface HospitalUnidade {
+    nome: string;
+    CNES: string;
+    tipoUnidade: TipoUnidadeType;
+    endereco: HospitalUnidadeEndereco;
+    instituicaoPaiId: string;
+}
