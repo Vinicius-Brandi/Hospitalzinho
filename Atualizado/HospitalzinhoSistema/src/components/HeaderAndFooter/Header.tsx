@@ -6,7 +6,7 @@ export function Header(){
         <>
             <header>
                 <a href="index.html" title="Voltar para a página inicial">
-                    <img src="https://placehold.co/200x60/0056b3/white?text=LOGO" alt="Logotipo do Sistema" />
+                    <img src="https://placehold.co/200x60/0056b3/white?text=Hospital 1" alt="Logotipo do Sistema" />
                 </a>
                 
                 <nav>
