@@ -15,8 +15,11 @@
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
-		<many-to-one name="Especialidade" column="especialidade_id" class="Especialidade" not-null="true"/>
-		<many-to-one name="Hospital" column="hospital_unidade_id" class="HospitalUnidade" not-null="true"/>
+		<many-to-one name="Especialidade" column="especialidade_id" class="Especialidade" not-null="true" insert="false" update="false"/>
+		<property name="EspecialidadeId" column="especialidade_id" not-null="true"/>
+		
+		<many-to-one name="Hospital" column="hospital_unidade_id" class="HospitalUnidade" not-null="true" insert="false" update="false"/>
+		<property name="HospitalId" column="hospital_unidade_id" not-null="true"/>
 
 		<bag name="Consultas" inverse="true" cascade="none">
 			<key column="profissional_id"/>

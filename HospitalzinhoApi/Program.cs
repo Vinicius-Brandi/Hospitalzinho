@@ -80,6 +80,7 @@ builder.Services.AddTransient<PacienteExameServico>();
 builder.Services.AddTransient<PacienteInternacaoServico>();
 builder.Services.AddTransient<PacienteMedicacaoServico>();
 builder.Services.AddTransient<PacienteProntuarioServico>();
+builder.Services.AddTransient<PacienteVacinacaoServico>();
 
 // Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();

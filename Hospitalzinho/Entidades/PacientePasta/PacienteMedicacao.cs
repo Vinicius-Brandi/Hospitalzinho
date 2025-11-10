@@ -1,13 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
-using FGB.Entidades;
+﻿using FGB.Entidades;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Hospitalzinho.Entidades
 {
     public class PacienteMedicacao : EntidadeBase
     {
         [Required]
+        public virtual long ProntuarioId { get; set; }
+        [JsonIgnore]
         public virtual PacienteProntuario Prontuario { get; set; }
         [Required]
+        public virtual long ModeloId { get; set; }
+        [JsonIgnore]
         public virtual MedicamentoModelo Modelo { get; set; } // Tipo do remédio prescrito
         public virtual string? DosagemPrescrita { get; set; } // Ex: "1 comprimido 2x ao dia"
         public virtual string? Frequencia { get; set; } // Ex: "12 em 12 horas"

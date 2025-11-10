@@ -11,8 +11,11 @@
 			</generator>
 		</id>
 
-		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" not-null="true" />
-		<many-to-one name="Modelo" class="MedicamentoModelo" column="medicamento_modelo_id" not-null="true" />
+		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" insert="false" update="false"/>
+		<property name="ProntuarioId" column="prontuario_id" not-null="true"/>
+		
+		<many-to-one name="Modelo" class="MedicamentoModelo" column="medicamento_modelo_id" insert="false" update="false"/>
+		<property name="ModeloId" column="medicamento_modelo_id" not-null="true"/>
 
 		<property name="DosagemPrescrita" column="dosagem_prescrita" type="string" />
 		<property name="Frequencia" column="frequencia" type="string" />

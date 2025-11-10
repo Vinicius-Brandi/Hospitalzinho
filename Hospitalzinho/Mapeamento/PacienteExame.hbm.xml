@@ -13,10 +13,17 @@
 		</id>
 
 		<!-- Relacionamentos obrigatórios -->
-		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" not-null="true" />
-		<many-to-one name="tipoExame" class="Exame" column="tipo_exame_id" not-null="true" />
-		<many-to-one name="ProfResponsavel" class="ProfissionalSaude" column="profissional_id" not-null="true" />
-		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" not-null="true" />
+		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" insert="false" update="false"/>
+		<property name="ProntuarioId" column="prontuario_id" not-null="true"/>
+		
+		<many-to-one name="TipoExame" class="Exame" column="tipo_exame_id" insert="false" update="false"/>
+		<property name="TipoExameId" column="tipo_exame_id" not-null="true"/>
+		
+		<many-to-one name="ProfResponsavel" class="ProfissionalSaude" column="profissional_id" insert="false" update="false"/>
+		<property name="ProfResponsavelId" column="profissional_id" not-null="true"/>
+		
+		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" insert="false" update="false"/>
+		<property name="HospitalId" column="hospital_unidade_id" not-null="true" />
 
 		<!-- Propriedades -->
 		<property name="DataExame" column="data_exame" type="datetime" />

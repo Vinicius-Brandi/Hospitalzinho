@@ -13,10 +13,17 @@
 		</id>
 
 		<!-- Relacionamentos obrigatórios -->
-		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" not-null="true" />
-		<many-to-one name="Quarto" class="Quarto" column="quarto_id" not-null="true" />
-		<many-to-one name="ProfResponsavel" class="ProfissionalSaude" column="profissional_responsavel_id" not-null="true" />
-		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" not-null="true" />
+		<many-to-one name="Quarto" class="Quarto" column="quarto_id" not-null="true" insert="false" update="false"/>
+		<property name="QuartoId" column="quarto_id" not-null="true"/>
+		
+		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" insert="false" update="false"/>
+		<property name="ProntuarioId" column="prontuario_id" not-null="true"/>
+
+		<many-to-one name="ProfResponsavel" class="ProfissionalSaude" column="profissional_responsavel_id" insert="false" update="false"/>
+		<property name="ProfResponsavelId" column="profissional_responsavel_id" not-null="true"/>
+
+		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" insert="false" update="false"/>
+		<property name="HospitalId" column="hospital_unidade_id" not-null="true" />
 
 		<!-- Propriedades -->
 		<property name="DataInternacao" column="data_internacao" type="datetime" />

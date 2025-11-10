@@ -14,6 +14,6 @@ namespace Hospitalzinho.Entidades
         public virtual int? NumeroDoses { get; set; } // Total de doses previstas
         public virtual long IntervaloEntreDoses { get; set; } // Intervalo sugerido entre doses
         [JsonIgnore]
-        public virtual List<Vacina> Vacinas { get; set; } = new List<Vacina>(); // Vacinas físicas produzidas a partir desse modelo
+        public virtual IList<Vacina> Vacinas { get; set; } = new List<Vacina>(); // Vacinas físicas produzidas a partir desse modelo
     }
 }

@@ -11,10 +11,17 @@
 			</generator>
 		</id>
 
-		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" not-null="true" />
-		<many-to-one name="Vacina" class="Vacina" column="vacina_id" not-null="true" />
-		<many-to-one name="ProfResponsavel" class="ProfissionalSaude" column="profissional_responsavel_id" not-null="true" />
-		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" not-null="true" />
+		<many-to-one name="Vacina" class="Vacina" column="vacina_id" not-null="true" insert="false" update="false"/>
+		<property name="VacinaId" column="vacina_id" not-null="true"/>
+		
+		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" insert="false" update="false"/>
+		<property name="ProntuarioId" column="prontuario_id" not-null="true"/>
+
+		<many-to-one name="ProfResponsavel" class="ProfissionalSaude" column="profissional_responsavel_id" insert="false" update="false"/>
+		<property name="ProfResponsavelId" column="profissional_responsavel_id" not-null="true"/>
+
+		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" insert="false" update="false"/>
+		<property name="HospitalId" column="hospital_unidade_id" not-null="true" />
 
 		<property name="DataAplicacao" column="data_aplicacao" type="datetime" />
 		<property name="DoseNumero" column="dose_numero" type="int" />
