@@ -13,8 +13,11 @@
 		</id>
 
 		<!-- FK -->
-		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" not-null="true" cascade="none"/>
-		<many-to-one name="Alergia" class="Alergia" column="alergia_id" not-null="true" cascade="none"/>
+		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" insert="false" update="false"/>
+		<property name="ProntuarioId" column="prontuario_id" not-null="true"/>
+		
+		<many-to-one name="Alergia" class="Alergia" column="alergia_id" not-null="true" cascade="none" insert="false" update="false"/>
+		<property name="AlergiaId" column="alergia_id" not-null="true"/>
 
 		<!-- Campo livre -->
 		<property name="Observacao" column="observacao" length="255"/>

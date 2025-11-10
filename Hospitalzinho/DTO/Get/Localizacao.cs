@@ -1,5 +1,6 @@
 ﻿using FGB.Entidades;
 using Hospitalzinho.Entidades;
+using System.Text.Json.Serialization;
 
 namespace Hospitalzinho.DTO.Get
 {
@@ -14,7 +15,7 @@ namespace Hospitalzinho.DTO.Get
     public class QuartoDto : EntidadeBase
     {
         public string Numero { get; set; }
-        public AlaDto Ala { get; set; }
+        public long AlaId { get; set; }
         public TipoQuarto Tipo { get; set; }
         public int Capacidade { get; set; }
         public List<InternacaoDto> Internacoes { get; set; } = new();

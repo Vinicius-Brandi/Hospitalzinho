@@ -11,14 +11,18 @@
 			</generator>
 		</id>
 
-		<many-to-one name="Modelo" class="MedicamentoModelo" column="modelo_id" not-null="true" />
+		<many-to-one name="Modelo" class="MedicamentoModelo" column="modelo_id" not-null="true" insert="false" update="false"/>
+		<property name="ModeloId" column="modelo_id" not-null="true" />
+		
 		<property name="Lote" column="lote" type="string" />
 		<property name="DataFabricacao" column="data_fabricacao" type="datetime" />
 		<property name="DataValidade" column="data_validade" type="datetime" />
 		<property name="QuantidadeDisponivel" column="quantidade_disponivel" type="int" />
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
-		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" not-null="true" />
+		
+		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" not-null="true" insert="false" update="false"/>
+		<property name="HospitalId" column="hospital_unidade_id" not-null="true" />
 
 	</class>
 </hibernate-mapping>

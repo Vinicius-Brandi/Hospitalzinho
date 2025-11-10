@@ -15,7 +15,8 @@
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
-		<many-to-one name="Ala" class="Ala" column="ala_id" not-null="true" />
+		<many-to-one name="Ala" class="Ala" column="ala_id" not-null="true" insert="false" update="false"/>
+		<property name="AlaId" column="ala_id" not-null="true" />
 
 		<!-- Internações vêm da tabela paciente_internacao -->
 		<bag name="Internacoes" table="paciente_internacao" inverse="true" cascade="all-delete-orphan">

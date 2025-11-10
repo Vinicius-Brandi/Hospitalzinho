@@ -13,8 +13,10 @@
 		</id>
 
 		<!-- Relacionamentos obrigatórios -->
-		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" not-null="true" />
-		<many-to-one name="Modelo" class="DoencaCronicaModelo" column="doenca_modelo_id" not-null="true" />
+		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" insert="false" update="false"/>
+		<property name="ProntuarioId" column="prontuario_id" not-null="true"/>
+		<many-to-one name="Modelo" class="DoencaCronicaModelo" column="doenca_modelo_id" not-null="true"  insert="false" update="false"/>
+		<property name="ModeloId" column="doenca_modelo_id" not-null="true"/>
 
 		<!-- Propriedades -->
 		<property name="DataDiagnostico" column="data_diagnostico" type="DateTime" />
