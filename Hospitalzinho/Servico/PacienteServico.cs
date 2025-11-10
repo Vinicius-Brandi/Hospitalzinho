@@ -31,10 +31,15 @@ namespace Hospitalzinho.Servico
 
                     // Verifica duplicidade de CPF ou CNS
                     var pacienteExistente = consulta.Consulta<Paciente>()
-                        .FirstOrDefault(p => p.Cpf == dto.Cpf || p.CNS == dto.CNS);
+                        .FirstOrDefault(p => p.Cpf == dto.Cpf);
 
                     if (pacienteExistente != null)
-                        throw new InvalidOperationException("Já existe um paciente com o mesmo CPF ou CNS.");
+                        throw new InvalidOperationException("Já existe um paciente com o mesmo CPF.");
+                    if (pacienteExistente == null)
+                        pacienteExistente = consulta.Consulta<Paciente>()
+                        .FirstOrDefault(p => p.CNS == dto.CNS);
+                    if (pacienteExistente != null)
+                        throw new InvalidOperationException("Já existe um paciente com o mesmo CNS.");
 
                     // Cria o paciente principal
                     var paciente = new Paciente
