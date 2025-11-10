@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Footer } from "../components/HeaderAndFooter/Footer"
 import { Header } from "../components/HeaderAndFooter/Header"
-import type { Hospital, HospitalUnidade, HospitalUnidadeEndereco } from "../../models/hospital";
+import { TipoUnidade, type Hospital, type HospitalUnidade } from "../../models/hospital";
 import "./HospitalCadastro.css"
 import { api } from "../../services/api";
 
@@ -57,6 +57,11 @@ export default function HospitalCadastro() {
                 });
 
                 hospitalUnidade.instituicaoPaiId = hospitalPai.data[0].id;
+                if (typeof hospitalUnidade.tipoUnidade === "string") {
+                    hospitalUnidade.tipoUnidade =
+                        TipoUnidade[hospitalUnidade.tipoUnidade as keyof typeof TipoUnidade];
+                }
+
                 console.log(hospitalPai.data);
                 await api.post("/HospitalUnidade/cadastro", hospitalUnidade);
                 alert("Unidade cadastrada com sucesso!");

@@ -17,6 +17,29 @@ export const TipoUnidade = {
 
 export type TipoUnidadeType = typeof TipoUnidade[keyof typeof TipoUnidade];
 
+interface TipoUnidadeOption {
+  id: string;
+  label: string;
+  value: TipoUnidadeType;
+}
+
+export const tipoUnidadeOptions: TipoUnidadeOption[] = [
+  { id: "tipo-ubs", label: "Unidade Básica de Saúde (UBS) / Posto de Saúde", value: TipoUnidade.UnidadeBasicaDeSaude },
+  { id: "tipo-centro-saude", label: "Centro de Saúde", value: TipoUnidade.CentroDeSaude },
+  { id: "tipo-ambulatorio", label: "Ambulatório de Especialidade / Policlínica", value: TipoUnidade.AmbulatorioDeEspecialidade },
+  { id: "tipo-clinica", label: "Clínica Especializada", value: TipoUnidade.ClinicaEspecializada },
+  { id: "tipo-hospital-esp", label: "Hospital Especializado", value: TipoUnidade.HospitalEspecializado },
+  { id: "tipo-caps", label: "Centro de Atenção Psicossocial (CAPS)", value: TipoUnidade.CentroDeAtencaoPsicossocial },
+  { id: "tipo-hospital-geral", label: "Hospital Geral", value: TipoUnidade.HospitalGeral },
+  { id: "tipo-hospital-dia", label: "Hospital-Dia", value: TipoUnidade.HospitalDia },
+  { id: "tipo-upa", label: "Unidade de Pronto Atendimento (UPA)", value: TipoUnidade.UnidadeDeProntoAtendimento },
+  { id: "tipo-pronto-socorro", label: "Pronto-Socorro", value: TipoUnidade.ProntoSocorro },
+  { id: "tipo-sadt", label: "Serviços de Apoio Diagnóstico e Terapêutico (SADT)", value: TipoUnidade.ServicosDeApoioDiagnosticoETerapia },
+  { id: "tipo-farmacia", label: "Farmácia", value: TipoUnidade.Farmacia },
+  { id: "tipo-vigilancia", label: "Vigilância Sanitária e Epidemiológica", value: TipoUnidade.VigilanciaSanitariaEpidemiologica },
+  { id: "tipo-reabilitacao", label: "Centro de Reabilitação", value: TipoUnidade.CentroDeReabilitacao },
+];
+
 export interface Hospital {
     nome: string;
     cnpj: string;

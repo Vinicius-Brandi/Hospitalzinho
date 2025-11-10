@@ -36,3 +36,23 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
+main {
+    margin: 2rem 300px;
+    padding: 2rem;
+}
+
+h1, h2 {
+    color: #b30000;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 2.2rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+}

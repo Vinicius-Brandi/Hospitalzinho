@@ -9,27 +9,9 @@ body {
 }
 
 main {
-    margin: 2rem 300px;
-    padding: 2rem;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-h1, h2 {
-    color: #b30000;
-    border-bottom: 2px solid #e9ecef;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-h1 {
-    font-size: 2.2rem;
-}
-
-h2 {
-    font-size: 1.8rem;
-    margin-top: 2.5rem;
 }
 
 /* Estilos do Formulário de Cadastro */
@@ -48,13 +30,6 @@ fieldset {
     border-radius: 8px;
     padding: 1.5rem;
     margin: 0;
-}
-
-legend {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #b30000;
-    padding: 0 0.5rem;
 }
 
 /* Grid para organizar os campos do formulário */
@@ -98,47 +73,8 @@ input[type="email"]:focus,
 input[type="tel"]:focus,
 select:focus {
     outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-/* Botões de Ação */
-.botoes-form {
-    display: flex;
-    justify-content: flex-end; /* Alinha os botões à direita */
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-button {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.btn-salvar {
-    background-color: #28a745; /* Verde para salvar */
-    color: white;
-}
-.btn-salvar:hover {
-    background-color: #218838;
-}
-
-.btn-cancelar {
-    background-color: #6c757d; /* Cinza para cancelar */
-    color: white;
-}
-.btn-cancelar:hover {
-    background-color: #5a6268;
+    border-color: #ff8080;
+    box-shadow: 0 0 0 0.2rem rgba(255, 128, 128, 0.25);
 }
 
 /* Responsividade */
