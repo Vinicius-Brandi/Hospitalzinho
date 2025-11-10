@@ -58,7 +58,7 @@ export default function HospitalCadastro() {
 
                 hospitalUnidade.instituicaoPaiId = hospitalPai.data[0].id;
                 console.log(hospitalPai.data);
-                await api.post("/HospitalUnidade", hospitalUnidade);
+                await api.post("/HospitalUnidade/cadastro", hospitalUnidade);
                 alert("Unidade cadastrada com sucesso!");
             } catch (error) {
                 console.error("Erro ao cadastrar unidade:", error);
@@ -129,7 +129,7 @@ export default function HospitalCadastro() {
                                         </div>
                                         <div className="form-group full-width">
                                             <label htmlFor="tipo-unidade-cadastro">Tipo de Unidade</label>
-                                            <select id="tipo-unidade-cadastro" name="tipoUnidade" required onChange={handleInputChange} value={hospitalUnidade.tipoUnidade || "UnidadeBasicaDeSaude"}>
+                                            <select id="tipo-unidade-cadastro" name="tipoUnidade" required onChange={handleInputChange} value={hospitalUnidade.tipoUnidade || ""}>
                                                 <option value="" >Selecione o tipo</option>
                                                 <option value="UnidadeBasicaDeSaude">Unidade Básica de Saúde (UBS) / Posto de Saúde</option>
                                                 <option value="CentroDeSaude">Centro de Saúde</option>
@@ -161,7 +161,7 @@ export default function HospitalCadastro() {
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="cidade">Cidade:</label>
-                                            <select id="cidade" name="endereco.cidade" required onChange={handleInputChange} value={hospitalUnidade.endereco?.cidade || "marilia"}>
+                                            <select id="cidade" name="endereco.cidade" required onChange={handleInputChange} value={hospitalUnidade.endereco?.cidade || ""}>
                                                 <option value="" disabled>Selecione a cidade/distrito</option>
                                                 <option value="marilia">Marília</option>
                                                 <option value="amadeu-amaral">Amadeu Amaral</option>
