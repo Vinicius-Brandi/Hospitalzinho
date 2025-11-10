@@ -36,10 +36,11 @@ export function PacienteCadastro() {
                 : undefined,
             sexo: paciente.sexo ? Number(paciente.sexo) : undefined,
             raca: paciente.raca ? Number(paciente.raca) : undefined,
+            tipoSanguineo: paciente.tipoSanguineo ? Number(paciente.tipoSanguineo) : undefined,
             escolaridade: paciente.escolaridade ? Number(paciente.escolaridade) : undefined,
         };
 
-        await api.post("/Paciente", payload);
+        await api.post("/Paciente/cadastro", payload);
 
         alert("Paciente cadastrado com sucesso!");
         setPaciente({});
