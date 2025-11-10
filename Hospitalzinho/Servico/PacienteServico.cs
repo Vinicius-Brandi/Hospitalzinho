@@ -29,13 +29,14 @@ namespace Hospitalzinho.Servico
                 {
                     var consulta = _repositorioSessao.GetRepositorioConsulta();
 
-                    // Verifica duplicidade CPF ou CNS
+                    // Verifica duplicidade de CPF ou CNS
                     var pacienteExistente = consulta.Consulta<Paciente>()
                         .FirstOrDefault(p => p.Cpf == dto.Cpf || p.CNS == dto.CNS);
 
                     if (pacienteExistente != null)
                         throw new InvalidOperationException("Já existe um paciente com o mesmo CPF ou CNS.");
 
+                    // Cria o paciente principal
                     var paciente = new Paciente
                     {
                         Nome = dto.Nome,
@@ -57,7 +58,7 @@ namespace Hospitalzinho.Servico
                     };
 
                     await repo.IncluiAsync(paciente);
-                    await repo.FlushAsync();
+                    await repo.FlushAsync(); // garante que o ID seja gerado
 
                     // Contato
                     if (!string.IsNullOrWhiteSpace(dto.TelefoneResidencial) ||
@@ -74,6 +75,7 @@ namespace Hospitalzinho.Servico
                             CriadoEm = DateTime.Now,
                             UltimaAlteracao = DateTime.Now
                         };
+
                         await repo.IncluiAsync(contato);
                         paciente.Contatos.Add(contato);
                     }
@@ -93,6 +95,7 @@ namespace Hospitalzinho.Servico
                         CriadoEm = DateTime.Now,
                         UltimaAlteracao = DateTime.Now
                     };
+
                     await repo.IncluiAsync(endereco);
                     paciente.Enderecos.Add(endereco);
 
@@ -104,6 +107,7 @@ namespace Hospitalzinho.Servico
                         CriadoEm = DateTime.Now,
                         UltimaAlteracao = DateTime.Now
                     };
+
                     await repo.IncluiAsync(prontuario);
                     paciente.Prontuario = prontuario;
 
@@ -111,7 +115,7 @@ namespace Hospitalzinho.Servico
                     {
                         await repo.FlushAsync();
                     }
-                    catch (GenericADOException ex) when (ex.InnerException.Message.Contains("duplicate"))
+                    catch (GenericADOException ex) when (ex.InnerException?.Message.Contains("duplicate") == true)
                     {
                         throw new InvalidOperationException("Já existe um paciente com o mesmo CPF ou CNS.");
                     }

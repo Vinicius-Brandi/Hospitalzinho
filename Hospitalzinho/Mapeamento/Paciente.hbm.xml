@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Hospitalzinho"
                    namespace="Hospitalzinho.Entidades">
@@ -11,43 +11,45 @@
 			</generator>
 		</id>
 
-		<property name="Nome" column="nome" not-null="true" />
-		<property name="CNS" column="cns" not-null="true" />
-		<property name="Cpf" column="cpf" not-null="true"/>
-		<property name="DataNascimento" column="data_nascimento" />
-		<property name="NomePai" column="nome_pai" />
-		<property name="NomeMae" column="nome_mae" />
-		<property name="CpfPai" column="cpf_pai" />
-		<property name="CpfMae" column="cpf_mae" />
-		<property name="Ativo" column="ativo" not-null="true" />
+		<property name="Nome" column="nome" type="string" not-null="true" />
+		<property name="CNS" column="cns" type="string" not-null="true" unique="true" />
+		<property name="Cpf" column="cpf" type="string" not-null="true" unique="true" />
 
-		<!-- Enums mapeados como Int32 -->
-		<property name="Sexo" column="sexo" type="Int32" not-null="false"/>
-		<property name="Raca" column="raca" type="Int32" not-null="false"/>
-		<property name="Escolaridade" column="escolaridade" type="Int32" not-null="false"/>
+		<property name="DataNascimento" column="data_nascimento" type="DateTime" not-null="false" />
 
+		<property name="NomePai" column="nome_pai" type="string" not-null="false" />
+		<property name="NomeMae" column="nome_mae" type="string" not-null="false" />
+		<property name="CpfPai" column="cpf_pai" type="string" not-null="false" />
+		<property name="CpfMae" column="cpf_mae" type="string" not-null="false" />
 
-		<property name="Nacionalidade" column="nacionalidade" />
-		<property name="Naturalidade" column="naturalidade" />
+		<property name="Ativo" column="ativo" type="Boolean" not-null="true" />
 
-		<property name="CriadoEm" column="data_cadastro" not-null="true" />
-		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
+		<!-- Enums mapeados como inteiros -->
+		<property name="Sexo" column="sexo" not-null="false" />
+		<property name="Raca" column="raca"  not-null="false" />
+		<property name="Escolaridade" column="escolaridade" not-null="false" />
+
+		<property name="Nacionalidade" column="nacionalidade" type="string" not-null="false" />
+		<property name="Naturalidade" column="naturalidade" type="string" not-null="false" />
+
+		<property name="CriadoEm" column="data_cadastro" type="DateTime" not-null="true" />
+		<property name="UltimaAlteracao" column="data_atualizacao" type="DateTime" not-null="true" />
 
 		<one-to-one name="Prontuario" class="PacienteProntuario" property-ref="Paciente" cascade="all" />
 
 		<bag name="Contatos" cascade="all-delete-orphan" inverse="true">
-			<key column="paciente_id"/>
-			<one-to-many class="PacienteContato"/>
+			<key column="paciente_id" />
+			<one-to-many class="PacienteContato" />
 		</bag>
 
 		<bag name="Enderecos" cascade="all-delete-orphan" inverse="true">
-			<key column="paciente_id"/>
-			<one-to-many class="PacienteEndereco"/>
+			<key column="paciente_id" />
+			<one-to-many class="PacienteEndereco" />
 		</bag>
 
 		<bag name="Convenios" cascade="all-delete-orphan" inverse="true">
-			<key column="paciente_id"/>
-			<one-to-many class="PacienteConvenio"/>
+			<key column="paciente_id" />
+			<one-to-many class="PacienteConvenio" />
 		</bag>
 
 	</class>
