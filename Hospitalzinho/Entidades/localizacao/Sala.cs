@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 using FGB.Entidades;
 namespace Hospitalzinho.Entidades
 {
@@ -11,6 +11,7 @@ namespace Hospitalzinho.Entidades
         public virtual Ala Ala { get; set; } // Ala/setor da sala
         [Required]
         public virtual TipoSala Tipo { get; set; } // Ex: "Consultório", "Sala de Exames", "Sala de Procedimentos"
+        [JsonIgnore]
 
         public virtual IList<PacienteConsulta> Consultas { get; set; } = new List<PacienteConsulta>();
     }

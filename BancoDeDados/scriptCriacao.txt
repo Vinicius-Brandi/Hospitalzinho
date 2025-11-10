@@ -12,6 +12,7 @@ CREATE SEQUENCE seq_hospital_endereco START 1;
 CREATE SEQUENCE seq_hospital_unidade START 1;
 CREATE SEQUENCE seq_ala START 1;
 CREATE SEQUENCE seq_quarto START 1;
+CREATE SEQUENCE seq_leito START 1;
 CREATE SEQUENCE seq_sala START 1;
 CREATE SEQUENCE seq_especialidade START 1;
 CREATE SEQUENCE seq_profissional START 1;
@@ -75,7 +76,7 @@ CREATE TABLE hospital_unidade (
 );
 
 -- ========================
--- ESTRUTURA FÍSICA: ALA / QUARTO / SALA
+-- ESTRUTURA FÍSICA: ALA / QUARTO / SALA / LEITO
 -- ========================
 CREATE TABLE ala (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_ala'),
@@ -91,6 +92,15 @@ CREATE TABLE quarto (
     ala_id BIGINT NOT NULL REFERENCES ala(id) ON DELETE CASCADE,
     tipo INTEGER NOT NULL,
     capacidade INTEGER NOT NULL,
+    data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
+);
+
+CREATE TABLE leito (
+    id BIGINT PRIMARY KEY DEFAULT nextval('seq_leito'),
+    numero VARCHAR(50),
+    quarto_id BIGINT NOT NULL REFERENCES quarto(id) ON DELETE CASCADE,
+    ocupado BOOLEAN DEFAULT TRUE,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
@@ -266,6 +276,7 @@ CREATE TABLE paciente_internacao (
     data_internacao TIMESTAMP WITHOUT TIME ZONE,
     data_alta TIMESTAMP WITHOUT TIME ZONE,
     quarto_id BIGINT NOT NULL REFERENCES quarto(id) ON DELETE RESTRICT,
+    leito_id BIGINT NOT NULL REFERENCES leito(id) ON DELETE RESTRICT,
     motivo TEXT,
     profissional_responsavel_id BIGINT NOT NULL REFERENCES profissional_saude(id) ON DELETE RESTRICT,
     observacoes TEXT,

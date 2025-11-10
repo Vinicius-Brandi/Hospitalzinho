@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 using FGB.Entidades;
 namespace Hospitalzinho.Entidades
 {
@@ -13,6 +13,9 @@ namespace Hospitalzinho.Entidades
         public virtual TipoQuarto Tipo { get; set; } // Enum: Enfermaria, UTI, Isolamento
         [Required]
         public virtual int Capacidade { get; set; } // Quantas camas
+        [JsonIgnore]
         public virtual IList<PacienteInternacao> Internacoes { get; set; } = new List<PacienteInternacao>();
+        [JsonIgnore]
+        public virtual IList<Leito> Leitos { get; set; } = new List<Leito>();
     }
 }

@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Hospitalzinho"
                    namespace="Hospitalzinho.Entidades">
 
@@ -18,9 +17,17 @@
 
 		<many-to-one name="Ala" class="Ala" column="ala_id" not-null="true" />
 
-		<bag name="Internacoes" inverse="true" cascade="all-delete-orphan">
+		<!-- Internações vêm da tabela paciente_internacao -->
+		<bag name="Internacoes" table="paciente_internacao" inverse="true" cascade="all-delete-orphan">
 			<key column="quarto_id"/>
 			<one-to-many class="PacienteInternacao"/>
 		</bag>
+
+		<!-- Leitos vêm da tabela leito -->
+		<bag name="Leitos" table="leito" inverse="true" cascade="all-delete-orphan">
+			<key column="quarto_id" />
+			<one-to-many class="Leito" />
+		</bag>
+
 	</class>
 </hibernate-mapping>

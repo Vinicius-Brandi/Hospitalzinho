@@ -15,7 +15,11 @@ namespace Hospitalzinho.Entidades
         [Required]
         public virtual long QuartoId { get; set; }
         [JsonIgnore]
-        public virtual Quarto Quarto { get; set; } // Ex: "101A"
+        public virtual Quarto Quarto { get; set; }
+        [Required]
+        public virtual long LeitoId { get; set; }
+        [JsonIgnore]
+        public virtual Leito Leito { get; set; }
         public virtual string? Motivo { get; set; }
         [Required]
         public virtual long ProfResponsavelId { get; set; }

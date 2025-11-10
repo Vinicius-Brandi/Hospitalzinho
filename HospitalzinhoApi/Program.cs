@@ -67,6 +67,7 @@ builder.Services.AddTransient<ProfissionalSaudeServico>();
 builder.Services.AddTransient<ReceitaServico>();
 builder.Services.AddTransient<AlaServico>();
 builder.Services.AddTransient<QuartoServico>();
+builder.Services.AddTransient<LeitoServico>();
 builder.Services.AddTransient<SalaServico>();
 builder.Services.AddTransient<MedicamentoServico>();
 builder.Services.AddTransient<MedicamentoModeloServico>();

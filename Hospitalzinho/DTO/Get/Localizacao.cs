@@ -18,6 +18,7 @@ namespace Hospitalzinho.DTO.Get
         public TipoQuarto Tipo { get; set; }
         public int Capacidade { get; set; }
         public List<InternacaoDto> Internacoes { get; set; } = new();
+        public List<Leito> Leitos { get; set; } = new();
     }
 
     public class SalaDto : EntidadeBase
@@ -26,5 +27,11 @@ namespace Hospitalzinho.DTO.Get
         public AlaDto Ala { get; set; }
         public TipoSala Tipo { get; set; }
         public List<ConsultaDto> Consultas { get; set; } = new();
+    }
+
+    public class LeitoDto : EntidadeBase
+    {
+        public string Numero { get; set; }
+        public bool ocupado { get; set; }
     }
 }

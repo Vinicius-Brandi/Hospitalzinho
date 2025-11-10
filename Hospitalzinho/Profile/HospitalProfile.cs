@@ -26,7 +26,9 @@ namespace Hospitalzinho.Profiles
 
             // Quarto
             CreateMap<Quarto, QuartoDto>()
-                .ForMember(dest => dest.Internacoes, opt => opt.MapFrom(src => src.Internacoes));
+                .ForMember(dest => dest.Internacoes, opt => opt.MapFrom(src => src.Internacoes))
+                .ForMember(dest => dest.Leitos, opt => opt.MapFrom(src => src.Leitos));
+
 
             // Sala
             CreateMap<Sala, SalaDto>()

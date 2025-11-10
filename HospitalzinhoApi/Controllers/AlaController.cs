@@ -35,6 +35,7 @@ namespace HospitalzinhoApi.Controllers
                 foreach (var quarto in ala.Quartos)
                 {
                     NHibernateUtil.Initialize(quarto.Internacoes);
+                    NHibernateUtil.Initialize(quarto.Leitos);
                 }
 
                 foreach (var sala in ala.Salas)
