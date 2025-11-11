@@ -1,12 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using FGB.Dominio.Atributos;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
 {
     public class MedicamentoModelo : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual string Nome { get; set; } // Ex: "Losartana 50mg"
         public virtual string? PrincipioAtivo { get; set; } // Ex: "Losartana Potássica"
         public virtual string? Fabricante { get; set; }

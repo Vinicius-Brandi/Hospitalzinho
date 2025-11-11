@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
+using FGB.Dominio.Atributos;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
 {
     public class Hospital : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual string Nome { get; set; }
-        [Required]
+        [Obrigar]
         public virtual string CNPJ { get; set; }
         [JsonIgnore]
         public virtual IList<HospitalUnidade> Unidades { get; set; } = new List<HospitalUnidade>();
-        [Required]
+        [Obrigar]
         public virtual string TokenAcesso { get; set; } = Guid.NewGuid().ToString();
     }
 }

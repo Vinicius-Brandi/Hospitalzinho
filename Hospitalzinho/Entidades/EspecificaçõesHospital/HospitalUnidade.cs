@@ -1,24 +1,26 @@
 ﻿using Hospitalzinho.Enum;
-using System.ComponentModel.DataAnnotations;
 using FGB.Entidades;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using FGB.Dominio.Atributos;
 
 namespace Hospitalzinho.Entidades
 {
     public class HospitalUnidade : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual string Nome { get; set; }
-        [Required]
+        [Obrigar]
         public virtual string CNES { get; set; } // Código Nacional de Estabelecimentos de Saúde
 
-        [Required]
+        [Obrigar]
         public virtual TipoUnidade TipoUnidade { get; set; }
         [JsonIgnore]
         public virtual Hospital InstituicaoPai { get; set; }
-        [Required]
+        [Obrigar]
         public virtual long InstituicaoPaiId { get; set; }
+        [Obrigar]
+        public virtual long EnderecoId { get; set; }
+        [JsonIgnore]
         public virtual HospitalEndereco Endereco { get; set; }
 
         //LISTAS 

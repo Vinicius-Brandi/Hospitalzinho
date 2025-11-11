@@ -1,13 +1,13 @@
-﻿using FGB.Entidades;
-using System.ComponentModel.DataAnnotations;
+﻿using FGB.Dominio.Atributos;
+using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
 {
     public class Alergia : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual string Nome { get; set; }
-        [Required]
+        [Obrigar]
         public virtual TipoAlergia Tipo { get; set; }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using FGB.Dominio.Atributos;
 using FGB.Entidades;
 namespace Hospitalzinho.Entidades
 {
@@ -8,11 +8,11 @@ namespace Hospitalzinho.Entidades
         public virtual DateTime Data { get; set; }
 
         // FK - Paciente e Profissional que prescreveu
-        [Required]
+        [Obrigar]
         public virtual long PacienteId { get; set; }
         [JsonIgnore]
         public virtual Paciente Paciente { get; set; }
-        [Required]
+        [Obrigar]
         public virtual long ProfissionalId { get; set; }
         [JsonIgnore]
         public virtual ProfissionalSaude Profissional { get; set; }

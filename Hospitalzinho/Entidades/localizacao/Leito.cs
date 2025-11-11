@@ -1,15 +1,15 @@
-﻿using FGB.Entidades;
-using System.ComponentModel.DataAnnotations;
+﻿using FGB.Dominio.Atributos;
+using FGB.Entidades;
 using System.Text.Json.Serialization;
 
 namespace Hospitalzinho.Entidades
 {
     public class Leito : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual string Numero { get; set; } // Ex: "101A", "202B"
         public virtual bool Ocupado { get; set; } = false;
-        [Required]
+        [Obrigar]
         public virtual long QuartoId { get; set; }
         [JsonIgnore]
         public virtual Quarto Quarto { get; set; }

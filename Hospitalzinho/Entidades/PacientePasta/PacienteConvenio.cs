@@ -1,20 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using FGB.Dominio.Atributos;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
 {
         public class PacienteConvenio : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual long PacienteId { get; set; }
         [JsonIgnore]
         public virtual Paciente Paciente { get; set; }
-        [Required]
+        [Obrigar]
         public virtual long ConvenioId { get; set; }
         [JsonIgnore]
         public virtual Convenio Convenio { get; set; }
-        [Required]
+        [Obrigar]
         public virtual string NumeroCarteirinha { get; set; }
         public virtual DateTime? Validade { get; set; }
         public virtual bool Ativo { get; set; } = true;

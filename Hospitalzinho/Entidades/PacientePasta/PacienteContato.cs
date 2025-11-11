@@ -1,17 +1,12 @@
-﻿using FGB.Entidades;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
+﻿using FGB.Dominio.Atributos;
+using FGB.Entidades;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Hospitalzinho.Entidades
 {
     public class PacienteContato : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual long PacienteId { get; set; }
         [JsonIgnore]
         public virtual Paciente Paciente { get; set; }

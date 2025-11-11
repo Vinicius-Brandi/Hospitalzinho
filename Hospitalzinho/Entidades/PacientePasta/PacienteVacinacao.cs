@@ -1,21 +1,21 @@
-﻿using FGB.Entidades;
-using System.ComponentModel.DataAnnotations;
+﻿using FGB.Dominio.Atributos;
+using FGB.Entidades;
 using System.Text.Json.Serialization;
 
 namespace Hospitalzinho.Entidades
 {
     public class PacienteVacinacao : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual long ProntuarioId { get; set; }
         [JsonIgnore]
         public virtual PacienteProntuario Prontuario { get; set; }
-        [Required]
+        [Obrigar]
         public virtual long VacinaId { get; set; }
         [JsonIgnore]
         public virtual Vacina Vacina { get; set; }
 
-        [Required]
+        [Obrigar]
         public virtual long ProfResponsavelId { get; set; }
         [JsonIgnore]
         public virtual ProfissionalSaude ProfResponsavel { get; set; }
@@ -24,7 +24,7 @@ namespace Hospitalzinho.Entidades
         public virtual int DoseNumero { get; set; }
         public virtual string? Observacoes { get; set; }
 
-        [Required]
+        [Obrigar]
         public virtual long HospitalId { get; set; }
         [JsonIgnore]
         public virtual HospitalUnidade Hospital { get; set; }

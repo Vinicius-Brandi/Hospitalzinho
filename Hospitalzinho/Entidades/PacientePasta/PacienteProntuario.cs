@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using FGB.Dominio.Atributos;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
 {
     public class PacienteProntuario : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual Paciente Paciente { get; set; }
-        [Required]
+        [Obrigar]
         public virtual TipoSanguineo TipoSangue { get; set; }
         [JsonIgnore]
         public virtual IList<PacienteAlergia> Alergias { get; set; } = new List<PacienteAlergia>();

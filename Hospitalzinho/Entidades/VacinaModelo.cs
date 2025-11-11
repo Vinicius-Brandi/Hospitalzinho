@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using FGB.Dominio.Atributos;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
 {
     public class VacinaModelo : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual string Nome { get; set; } // Nome da vacina, ex: "Covid-19 Pfizer"
         public virtual string Fabricante { get; set; } // Ex: "Pfizer"
         public virtual string Tipo { get; set; } // Ex: "RNA mensageiro", "Inativada"

@@ -1,24 +1,23 @@
-﻿using FGB.Entidades;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using FGB.Dominio.Atributos;
+using FGB.Entidades;
 using System.Text.Json.Serialization;
 
 namespace Hospitalzinho.Entidades
 {
     public class ProfissionalSaude : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual string Nome { get; set; } = null!;
 
-        [Required]
+        [Obrigar]
         public virtual string RegistroProfissional { get; set; } // CRM, COREN etc.
 
         // FK
-        [Required]
+        [Obrigar]
         public virtual long EspecialidadeId { get; set; }
         [JsonIgnore]
         public virtual Especialidade Especialidade { get; set; } = null!;
-        [Required]
+        [Obrigar]
         public virtual long HospitalId { get; set; }
         [JsonIgnore]
         public virtual HospitalUnidade Hospital { get; set; } = null!;

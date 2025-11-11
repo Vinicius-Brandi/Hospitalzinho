@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Hospitalzinho.Enum;
+﻿using Hospitalzinho.Enum;
 using FGB.Entidades;
 using System.Text.Json.Serialization;
+using FGB.Dominio.Atributos;
 
 namespace Hospitalzinho.Entidades
 {
     public class Paciente : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public virtual string Nome { get; set; }
-        [Required]
+        [Obrigar]
         public virtual string CNS { get; set; } // Cartão Nacional de Saúde
-        [Required]
+        [Obrigar]
         public virtual string Cpf { get; set; }
         public virtual DateTime DataNascimento { get; set; }
         public virtual string? NomePai { get; set; }

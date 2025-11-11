@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using FGB.Dominio.Atributos;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
@@ -10,11 +10,11 @@ namespace Hospitalzinho.Entidades
         public virtual DateTime? DataProducao { get; set; }
         public virtual DateTime? DataValidade { get; set; }
         public virtual int QuantidadeDisponivel { get; set; } // Quantidade disponível no estoque
-        [Required]
+        [Obrigar]
         public virtual long VacinaModeloId { get; set; }
         [JsonIgnore]
         public virtual VacinaModelo VacinaModelo { get; set; } // Referência ao modelo
-        [Required]
+        [Obrigar]
         public virtual long HospitalId { get; set; }
         [JsonIgnore]
         public virtual HospitalUnidade Hospital { get; set; }
