@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using FGB.Dominio.Atributos;
 using FGB.Entidades;
 namespace Hospitalzinho.Entidades
