@@ -15,7 +15,11 @@
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
-		<many-to-one name="Receita" column="receita_id" class="Receita" not-null="true"/>
-		<many-to-one name="Modelo" column="medicamento_modelo_id" class="MedicamentoModelo" not-null="false"/>
+		<many-to-one name="Receita" column="receita_id" class="Receita" insert="false" update="false"/>
+		<property name="ReceitaId" column="receita_id" not-null="true"/>
+
+		<many-to-one name="Modelo" column="medicamento_modelo_id" class="MedicamentoModelo" insert="false" update="false"/>
+		<property name="ModeloId" column="medicamento_modelo_id" not-null="true"/>
+		
 	</class>
 </hibernate-mapping>

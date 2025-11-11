@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
-
+using System.Text.Json.Serialization;
 using FGB.Entidades;
 namespace Hospitalzinho.Entidades
 {
@@ -10,12 +9,18 @@ namespace Hospitalzinho.Entidades
 
         // FK - Paciente e Profissional que prescreveu
         [Required]
+        public virtual long PacienteId { get; set; }
+        [JsonIgnore]
         public virtual Paciente Paciente { get; set; }
         [Required]
+        public virtual long ProfissionalId { get; set; }
+        [JsonIgnore]
         public virtual ProfissionalSaude Profissional { get; set; }
-
-        // Relacionamentos
-        public virtual IList<ItemReceita> Itens { get; set; } = new List<ItemReceita>();
+        public virtual long? HospitalId { get; set; }
+        [JsonIgnore]
         public virtual HospitalUnidade? Hospital { get; set; }
+        // Relacionamentos
+        [JsonIgnore]
+        public virtual IList<ItemReceita> Itens { get; set; } = new List<ItemReceita>();
     }
 }

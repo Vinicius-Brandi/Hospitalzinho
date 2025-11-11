@@ -23,9 +23,14 @@
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
 		<!-- Relacionamentos obrigatórios -->
-		<many-to-one name="ProfResponsavel" class="ProfissionalSaude" column="profissional_responsavel_id" not-null="true" />
-		<many-to-one name="Sala" class="Sala" column="sala_id" not-null="true" />
-		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" not-null="true" />
+		<many-to-one name="ProfResponsavel" class="ProfissionalSaude" column="profissional_responsavel_id" insert="false" update="false"/>
+		<property name="ProfResponsavelId" column="profissional_responsavel_id" not-null="true"/>
+		
+		<many-to-one name="Sala" class="Sala" column="sala_id" insert="false" update="false"/>
+		<property name="SalaId" column="sala_id" not-null="true"/>
+		
+		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" insert="false" update="false"/>
+		<property name="HospitalId" column="hospital_unidade_id" not-null="true"/>
 
 	</class>
 </hibernate-mapping>

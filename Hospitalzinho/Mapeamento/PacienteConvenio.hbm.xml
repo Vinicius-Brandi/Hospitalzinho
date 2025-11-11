@@ -11,8 +11,11 @@
 			</generator>
 		</id>
 
-		<many-to-one name="Paciente" class="Paciente" column="paciente_id" not-null="true" unique-key="UK_PacienteConvenio"/>
-		<many-to-one name="Convenio" class="Convenio" column="convenio_id" not-null="true" unique-key="UK_PacienteConvenio"/>
+		<many-to-one name="Paciente" column="paciente_id" class="Paciente" insert="false" update="false"/>
+		<property name="PacienteId" column="paciente_id" not-null="true"/>
+		
+		<many-to-one name="Convenio" class="Convenio" column="convenio_id" insert="false" update="false"/>
+		<property name="ConvenioId" column="convenio_id" not-null="true"/>
 
 		<property name="NumeroCarteirinha" column="numero_carteira" not-null="true" />
 		<property name="Validade" column="validade" type="DateTime" />

@@ -14,7 +14,8 @@
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
-		<many-to-one name="Hospital" class="HospitalUnidade" column="hospital_unidade_id" not-null="true" />
+		<many-to-one name="Hospital" column="hospital_unidade_id" class="HospitalUnidade" insert="false" update="false"/>
+		<property name="HospitalId" column="hospital_unidade_id" not-null="false"/>
 
 		<bag name="Salas" inverse="true" cascade="all-delete-orphan">
 			<key column="ala_id"/>

@@ -14,9 +14,14 @@
         <property name="CriadoEm" column="data_cadastro" not-null="true" />
         <property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
-        <many-to-one name="Paciente" column="paciente_id" class="Paciente" not-null="true"/>
-        <many-to-one name="Profissional" column="profissional_id" class="ProfissionalSaude" not-null="true"/>
-        <many-to-one name="Hospital" column="hospital_unidade_id" class="HospitalUnidade" not-null="false"/>
+        <many-to-one name="Paciente" column="paciente_id" class="Paciente" insert="false" update="false"/>
+		<property name="PacienteId" column="paciente_id" not-null="true"/>
+		
+        <many-to-one name="Profissional" column="profissional_id" class="ProfissionalSaude" insert="false" update="false"/>
+		<property name="ProfissionalId" column="profissional_id" not-null="true"/>
+		
+        <many-to-one name="Hospital" column="hospital_unidade_id" class="HospitalUnidade" insert="false" update="false"/>
+		<property name="HospitalId" column="hospital_unidade_id" not-null="false"/>
 
         <bag name="Itens" inverse="true" cascade="all-delete-orphan">
             <key column="receita_id"/>

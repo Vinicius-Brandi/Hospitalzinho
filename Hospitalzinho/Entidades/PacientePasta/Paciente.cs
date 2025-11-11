@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Hospitalzinho.Enum;
 using FGB.Entidades;
+using System.Text.Json.Serialization;
 
 namespace Hospitalzinho.Entidades
 {
@@ -25,10 +26,13 @@ namespace Hospitalzinho.Entidades
         public virtual RacaPaciente? Raca { get; set; }
         public virtual string? Naturalidade { get; set; }
         public virtual EscolaridadePaciente? Escolaridade { get; set; }
+        [JsonIgnore]
         public virtual IList<PacienteContato> Contatos { get; set; } = new List<PacienteContato>();
+        [JsonIgnore]
         public virtual IList<PacienteEndereco> Enderecos { get; set; } = new List<PacienteEndereco>();
+        [JsonIgnore]
         public virtual IList<PacienteConvenio> Convenios { get; set; } = new List<PacienteConvenio>();
-
+        [JsonIgnore]
         public virtual PacienteProntuario? Prontuario { get; set; }
     }
 }

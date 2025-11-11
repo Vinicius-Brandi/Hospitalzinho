@@ -15,7 +15,8 @@
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
-		<many-to-one name="Ala" class="Ala" column="ala_id" not-null="true" />
+		<many-to-one name="Ala" class="Ala" column="ala_id" insert="false" update="false"/>
+		<property name="AlaId" column="ala_id" not-null="true" />
 
 		<bag name="Consultas" inverse="true" cascade="all-delete-orphan">
 			<key column="sala_id"/>

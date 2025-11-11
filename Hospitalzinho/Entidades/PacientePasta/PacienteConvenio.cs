@@ -6,10 +6,13 @@ namespace Hospitalzinho.Entidades
 {
         public class PacienteConvenio : EntidadeBase
     {
-        [Required,JsonIgnore]
+        [Required]
+        public virtual long PacienteId { get; set; }
+        [JsonIgnore]
         public virtual Paciente Paciente { get; set; }
         [Required]
-
+        public virtual long ConvenioId { get; set; }
+        [JsonIgnore]
         public virtual Convenio Convenio { get; set; }
         [Required]
         public virtual string NumeroCarteirinha { get; set; }

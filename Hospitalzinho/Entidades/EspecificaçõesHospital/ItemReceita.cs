@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
@@ -9,10 +10,15 @@ namespace Hospitalzinho.Entidades
         public virtual string? Posologia { get; set; } // Ex: "1 comprimido a cada 12h"
 
         // FK - Receita
+        [Required]
+        public virtual long ReceitaId { get; set; }
+        [JsonIgnore]
         public virtual Receita? Receita { get; set; }
 
         // FK - MedicamentoModelo (não lote específico)
-
-        public virtual MedicamentoModelo Modelo { get; set; }
+        [Required]
+        public virtual long ModeloId { get; set; }
+        [JsonIgnore]
+        public virtual MedicamentoModelo? Modelo { get; set; }
     }
 }

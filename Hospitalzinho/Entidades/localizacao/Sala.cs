@@ -8,6 +8,8 @@ namespace Hospitalzinho.Entidades
         [Required]
         public virtual string Numero { get; set; } // Ex: "Consultório 12", "Sala 305"
         [Required]
+        public virtual long AlaId { get; set; }
+        [JsonIgnore]
         public virtual Ala Ala { get; set; } // Ala/setor da sala
         [Required]
         public virtual TipoSala Tipo { get; set; } // Ex: "Consultório", "Sala de Exames", "Sala de Procedimentos"
