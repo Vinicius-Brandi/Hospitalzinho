@@ -3,21 +3,25 @@ import debounce from "lodash.debounce";
 import './InputSugestion.css'
 import { api } from "../../services/api";
 
+interface Sugestao {
+    id: string;
+    nome: string;
+}
+
 export default function InputSugestion({ placeholder, tipoDado }: { placeholder: string, tipoDado: string }) {
     const [valor, setValor] = useState("");
-    const [sugestoes, setSugestoes] = useState<string[]>([]);
+    const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
     const selecionandoRef = useRef(false);
 
     const buscarSugestoes = debounce(async (texto: string) => {
         try {
-            const response = await api.get(`/${tipoDado}?$filter=contains(tolower(nome), tolower('${texto}'))`);
-            console.log(response.data);
+            const response = await api.get(`/${tipoDado}?$filter=startswith(tolower(nome), tolower('${texto}'))`);
+            const data = response.data;
+            const filtrados = data.filter((e: Sugestao) => e.nome.toLowerCase().includes(texto.toLowerCase()));
+            setSugestoes(filtrados);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
         }
-        const exemplos = ["Hospital Central", "Hospital Regional", "Hospital da Criança"];
-        const filtrados = exemplos.filter((e) => e.toLowerCase().includes(texto.toLowerCase()));
-        setSugestoes(filtrados);
     }, 500);
 
     useEffect(() => {
@@ -51,8 +55,8 @@ export default function InputSugestion({ placeholder, tipoDado }: { placeholder:
             {sugestoes.length > 0 && (
                 <ul className="sugestoes-lista">
                     {sugestoes.map((s, i) => (
-                        <li key={i} onClick={() => handleSelect(s)}>
-                            {s}
+                        <li key={i} onClick={() => handleSelect(s.nome)}>
+                            {s.nome}
                         </li>
                     ))}
                 </ul>

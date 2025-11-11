@@ -2,6 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import type { DoencaCronica, TipoDoencaCronica } from "../../../models/prontuario";
 import { Modal } from "../Modal";
 import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
+import InputSugestion from "../InputSugestion";
 
 export function CadastroDoencaCronica({
     doencaCronica,
@@ -39,7 +40,7 @@ export function CadastroDoencaCronica({
                             <label htmlFor="doencaCronicaPesquisa">Pesquisar Doença</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <input type="text" id="doencaCronicaPesquisa" name="doencaCronicaPesquisa" placeholder="Digite o nome ou CID para buscar" value={doencaCronica.doenca} onChange={onChange} />
+                        <InputSugestion placeholder="Digite o nome para buscar" tipoDado="DoencaCronicaModelo"/>
                     </div>
 
                     <div className="form-group">
