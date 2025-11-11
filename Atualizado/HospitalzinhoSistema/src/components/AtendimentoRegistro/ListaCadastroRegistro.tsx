@@ -17,6 +17,7 @@ export function ListaCadastroRegistro<T>({
     const [showModal, setShowModal] = useState(false);
     const [cadastroDado, setCadastroDado] = useState<Partial<T>>({});
     const [isLoading, setIsLoading] = useState(false);
+    const [tipoOperacao, setTipoOperacao] = useState<"Post" | "Put">("Post");
 
     async function carregarDados() {
         try {
@@ -44,15 +45,42 @@ export function ListaCadastroRegistro<T>({
         }
     }
 
-    async function onSubmitCadastroDado() {
-        try {
-            await api.post(`/${tipoDado}`, cadastroDado);
-            setCadastroDado({});
-            setShowModal(false);
-            await carregarDados();
-        } catch (error) {
-            console.error(`Erro ao cadastrar ${tipoDado}:`, error);
-            alert(`Erro ao cadastrar ${tipoDado}. Tente novamente.`);
+    function fecharModal() {
+        setShowModal(false);
+        setTipoOperacao("Post");
+        setCadastroDado({});
+    }
+
+    async function onEditar(item: T) {
+        setShowModal(true);
+        setCadastroDado({
+            ...item,
+        });
+        setTipoOperacao("Put");
+    }
+
+    async function onSubmitCadastroDado({ tipo }: { tipo: string }) {
+        if (tipo === "Post") {
+            try {
+                await api.post(`/${tipoDado}`, cadastroDado);
+                setCadastroDado({});
+                setShowModal(false);
+                await carregarDados();
+            } catch (error) {
+                console.error(`Erro ao cadastrar ${tipoDado}:`, error);
+                alert(`Erro ao cadastrar ${tipoDado}. Tente novamente.`);
+            }
+        } else if (tipo === "Put") {
+            try {
+                await api.put(`/${tipoDado}/${(cadastroDado as any).id}`, cadastroDado);
+                setCadastroDado({});
+                setShowModal(false);
+                setTipoOperacao("Post");
+                await carregarDados();
+            } catch (error) {
+                console.error(`Erro ao editar ${tipoDado}:`, error);
+                alert(`Erro ao editar ${tipoDado}. Tente novamente.`);
+            }
         }
     }
 
@@ -67,7 +95,7 @@ export function ListaCadastroRegistro<T>({
 
     return (
         <>
-            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+            <Modal isOpen={showModal} onClose={() => fecharModal()}>
                 <h1>Cadastro de {tipoDado}</h1>
 
                 {tipoDado === "Exame" && (
@@ -105,7 +133,7 @@ export function ListaCadastroRegistro<T>({
                 )}
 
                 {tipoDado === "Profissional" && (
-                    <form className="formulario">
+                    <>
                         <label>Nome</label>
                         <input type="text" required />
 
@@ -121,13 +149,13 @@ export function ListaCadastroRegistro<T>({
                         <div className="botoes-form">
                             <button type="submit" className="btn-editar">Salvar</button>
                         </div>
-                    </form>
+                    </>
                 )}
                 <div className="botoes-form">
                     <button
                         type="button"
                         className="btn-editar"
-                        onClick={onSubmitCadastroDado}
+                        onClick={() => onSubmitCadastroDado({ tipo: tipoOperacao })}
                     >
                         Salvar
                     </button>
@@ -143,7 +171,11 @@ export function ListaCadastroRegistro<T>({
                     dados.map((item, index) => (
                         <div className="paciente-card" key={index}>
                             {renderItem(item, index)}
-                            <button type="button" className="btn-editar">
+                            <button
+                                type="button"
+                                className="btn-editar"
+                                onClick={() => onEditar(item)}
+                            >
                                 Editar
                             </button>
                             <button
