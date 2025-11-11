@@ -34,7 +34,12 @@ export interface Alergia {
     descricao: string;
 }
 
-export interface Exame {
+export interface TipoExame {
+    nome: string;
+    descricao: string;
+}
+
+export interface PacienteExame {
     pacienteId: string;
     data: string;
     tipoExame: string;

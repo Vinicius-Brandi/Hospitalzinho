@@ -1,34 +1,50 @@
 import { useState, type ChangeEvent } from "react";
-import type { Exame } from "../../../models/prontuario";
+import type { PacienteExame, TipoExame } from "../../../models/prontuario";
 import { Modal } from "../Modal";
 import { CadastroResponsavel } from "./CadastroResponsavel";
+import { api } from "../../../services/api";
 
 export function CadastroExame({
     exame,
     onChange
 }: {
-    exame: Partial<Exame>;
+    exame: Partial<PacienteExame>;
     onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
     const [showModal, setShowModal] = useState(false);
-    
-    return (
-        <>  
+    const [tipoExame, setTipoExame] = useState<Partial<TipoExame>>({});
 
+    function handleTipoExameChange(event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) {
+        const { name, value } = event.target;
+        setTipoExame(prev => ({ ...prev, [name]: value }));
+    }
+
+    async function handleSubmitTipoExame() {
+        try {
+            await api.post("/Exame", tipoExame);
+            alert("Tipo de exame cadastrado com sucesso!");
+            setTipoExame({});
+            setShowModal(false);
+        } catch (error) {
+            console.error("Erro ao cadastrar tipo de exame:", error);
+            alert("Erro ao cadastrar tipo de exame. Tente novamente.");
+        }
+    }
+
+    return (
+        <>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                 <h1>Cadastro de Tipo de Exame</h1>
 
-                <form className="formulario">
-                    <label>Nome</label>
-                    <input type="text" required />
+                <label>Nome</label>
+                <input type="text" required onChange={handleTipoExameChange} name="nome" value={tipoExame.nome ?? ""} />
 
-                    <label>Descrição</label>
-                    <textarea rows={3}></textarea>
+                <label>Descrição</label>
+                <textarea rows={3} onChange={handleTipoExameChange} name="descricao" value={tipoExame.descricao ?? ""}></textarea>
 
-                    <div className="botoes-form">
-                        <button type="submit" className="btn-editar">Salvar</button>
-                    </div>
-                </form>
+                <div className="botoes-form">
+                    <button type="button" className="btn-editar" onClick={handleSubmitTipoExame}>Salvar</button>
+                </div>
             </Modal>
 
             <fieldset id="formNovoExame" >
@@ -62,7 +78,7 @@ export function CadastroExame({
                         <label htmlFor="profissionalRegistro">Profissional Registro</label>
                         <input type="text" id="profissionalRegistro" name="profissionalRegistro" value={exame.profissionalRegistro} onChange={onChange} />
                     </div>
-                    
+
                     <div className="form-group full-width">
                         <label htmlFor="resultados">Resultados</label>
                         <textarea id="resultados" name="resultados" rows={4} value={exame.resultados} onChange={onChange}></textarea>

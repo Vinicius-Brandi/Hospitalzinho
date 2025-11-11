@@ -10,7 +10,7 @@ import { CadastroExame } from '../../components/AtendimentoRegistro/CadastroExam
 import { CadastroDoencaCronica } from '../../components/AtendimentoRegistro/CadastroDoencaCronica';
 import { CadastroMedicacao } from '../../components/AtendimentoRegistro/CadastroMedicacao';
 import { CadastroCirurgia } from '../../components/AtendimentoRegistro/CadastroCirurgia';
-import type { Alergia, Cirurgia, Consulta, DoencaCronica, Exame, Internacao, Medicacao, Vacina } from '../../../models/prontuario';
+import type { Alergia, Cirurgia, Consulta, DoencaCronica, PacienteExame, Internacao, Medicacao, Vacina } from '../../../models/prontuario';
 
 export function AtendimentoRegistro() {
     const [tipoCadastro, setTipoCadastro] = useState<TipoCadastro>('consulta');
@@ -19,7 +19,7 @@ export function AtendimentoRegistro() {
         vacina: {} as Partial<Vacina>,
         internacao: {} as Partial<Internacao>,
         alergia: {} as Partial<Alergia>,
-        exame: {} as Partial<Exame>,
+        exame: {} as Partial<PacienteExame>,
         doencaCronica: {} as Partial<DoencaCronica>,
         medicacao: {} as Partial<Medicacao>,
         cirurgia: {} as Partial<Cirurgia>
@@ -79,7 +79,7 @@ export function AtendimentoRegistro() {
                                     <div className="form-group">
                                         <label htmlFor="tipo-registro">Selecione o tipo de registro</label>
                                         <select id="tipo-registro" name="tipo-registro" onChange={(e) => setTipoCadastro(e.target.value as TipoCadastro)}>
-                                            <option value="consulta" selected>Nova Consulta</option>
+                                            <option value="consulta">Nova Consulta</option>
                                             <option value="vacina">Nova Vacina</option>
                                             <option value="internacao">Nova Internação</option>
                                             <option value="alergia">Nova Alergia</option>

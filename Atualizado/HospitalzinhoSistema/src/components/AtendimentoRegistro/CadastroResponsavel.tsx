@@ -34,7 +34,7 @@ export function CadastroResponsavel({ value, onChange }: { value: string | undef
                     <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                 </div>
                 <select id="cirurgiaoEncarregado" name="cirurgiaoEncarregado" value={value} onChange={onChange}>
-                    <option value="" disabled selected>Selecione o profissional</option>
+                    <option value="" disabled>Selecione o profissional</option>
                     <option value="crm123">Dr. João da Silva (CRM 123)</option>
                 </select>
             </div>
