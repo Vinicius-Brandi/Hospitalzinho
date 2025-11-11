@@ -2,7 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import type { PacienteExame, TipoExame } from "../../../models/prontuario";
 import { Modal } from "../Modal";
 import { CadastroResponsavel } from "./CadastroResponsavel";
-import { api } from "../../../services/api";
+import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
 
 export function CadastroExame({
     exame,
@@ -12,39 +12,23 @@ export function CadastroExame({
     onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
     const [showModal, setShowModal] = useState(false);
-    const [tipoExame, setTipoExame] = useState<Partial<TipoExame>>({});
-
-    function handleTipoExameChange(event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) {
-        const { name, value } = event.target;
-        setTipoExame(prev => ({ ...prev, [name]: value }));
-    }
-
-    async function handleSubmitTipoExame() {
-        try {
-            await api.post("/Exame", tipoExame);
-            alert("Tipo de exame cadastrado com sucesso!");
-            setTipoExame({});
-            setShowModal(false);
-        } catch (error) {
-            console.error("Erro ao cadastrar tipo de exame:", error);
-            alert("Erro ao cadastrar tipo de exame. Tente novamente.");
-        }
-    }
 
     return (
         <>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                <h1>Cadastro de Tipo de Exame</h1>
+                <ListaCadastroRegistro<TipoExame>
+                    tipoDado="Exame"
+                    titulo="Lista de tipos de Exames"
+                    renderItem={(exame) => (
+                        <>
+                            <div className="paciente-info">
+                                <h3>{exame.nome}</h3>
+                                <p>{exame.descricao}</p>
+                            </div>
 
-                <label>Nome</label>
-                <input type="text" required onChange={handleTipoExameChange} name="nome" value={tipoExame.nome ?? ""} />
-
-                <label>Descrição</label>
-                <textarea rows={3} onChange={handleTipoExameChange} name="descricao" value={tipoExame.descricao ?? ""}></textarea>
-
-                <div className="botoes-form">
-                    <button type="button" className="btn-editar" onClick={handleSubmitTipoExame}>Salvar</button>
-                </div>
+                        </>
+                    )}
+                />
             </Modal>
 
             <fieldset id="formNovoExame" >

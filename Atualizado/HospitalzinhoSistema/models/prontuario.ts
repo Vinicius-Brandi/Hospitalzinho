@@ -35,6 +35,7 @@ export interface Alergia {
 }
 
 export interface TipoExame {
+    id?: string;
     nome: string;
     descricao: string;
 }
@@ -58,6 +59,13 @@ export interface DoencaCronica {
     estagio: string;
     observacoes: string;
     emTratamento: string;
+}
+
+export interface TipoDoencaCronica {
+    id?: string;
+    nome: string;
+    cid: string;
+    descricao: string;
 }
 
 export interface Medicacao {

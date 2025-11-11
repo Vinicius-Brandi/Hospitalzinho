@@ -17,6 +17,8 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   position: relative;
   animation: slideDown 0.3s ease-out;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .fechar {

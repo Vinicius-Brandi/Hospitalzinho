@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent } from "react";
-import type { DoencaCronica } from "../../../models/prontuario";
+import type { DoencaCronica, TipoDoencaCronica } from "../../../models/prontuario";
 import { Modal } from "../Modal";
+import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
 
 export function CadastroDoencaCronica({
     doencaCronica,
@@ -14,28 +15,25 @@ export function CadastroDoencaCronica({
     return (
         <>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                <h1>Cadastro de Doença Crônica</h1>
+                <ListaCadastroRegistro<TipoDoencaCronica>
+                    tipoDado="DoencaCronicaModelo"
+                    titulo="Lista de tipos de Doença Crônica"
+                    renderItem={(doencaCronica) => (
+                        <>
+                            <div className="paciente-info">
+                                <h3>{doencaCronica.nome}</h3>
+                                <p>{doencaCronica.descricao}</p>
+                            </div>
 
-                <form className="formulario">
-                    <label>Nome</label>
-                    <input type="text" required />
-
-                    <label>CID</label>
-                    <input type="text" required />
-
-                    <label>Descrição</label>
-                    <textarea rows={4}></textarea>
-
-                    <div className="botoes-form">
-                        <button type="submit" className="btn-editar">Salvar</button>
-                    </div>
-                </form>
+                        </>
+                    )}
+                />
             </Modal>
 
             <fieldset id="formNovaDoencaCronica">
                 <legend>Adicionar Doença Crônica</legend>
                 <div className="form-grid">
-                    
+
                     <div className="form-group full-width">
                         <div className="label-com-botao">
                             <label htmlFor="doencaCronicaPesquisa">Pesquisar Doença</label>
