@@ -3,6 +3,7 @@ import type { PacienteExame, TipoExame } from "../../../models/prontuario";
 import { Modal } from "../Modal";
 import { CadastroResponsavel } from "./CadastroResponsavel";
 import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
+import InputSugestion from "../InputSugestion";
 
 export function CadastroExame({
     exame,
@@ -39,7 +40,7 @@ export function CadastroExame({
                             <label htmlFor="tipoExame">Tipo do Exame</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <input type="text" id="tipoExame" name="tipoExame" placeholder="Ex: Hemograma Completo" value={exame.tipoExame} onChange={onChange} />
+                        <InputSugestion placeholder="Ex: Hemograma Completo"/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="dataExame">Data do Exame</label>
