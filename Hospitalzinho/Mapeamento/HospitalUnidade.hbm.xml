@@ -16,8 +16,7 @@
 		<property name="CriadoEm" column="data_cadastro" not-null="true" />
 		<property name="UltimaAlteracao" column="data_atualizacao" not-null="true" />
 
-		<many-to-one name="Endereco" column="endereco_id" class="HospitalEndereco" cascade="none" insert="false" update="false"/>
-		<property name="EnderecoId" column="endereco_id" not-null="true"/>
+		<many-to-one name="Endereco" column="endereco_id" class="HospitalEndereco" cascade="none"/>
 		
 		<many-to-one name="InstituicaoPai" column="instituicao_pai_id" class="Hospital" insert="false" update="false"/>
 		<property name="InstituicaoPaiId" column="instituicao_pai_id" not-null="true"/>
