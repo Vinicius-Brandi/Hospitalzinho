@@ -18,7 +18,6 @@ export function CadastroResponsavel({ value, onChange }: { value: string | undef
                         <>
                             <div className="paciente-info">
                                 <h3>{profissional.nome}</h3>
-                                <p>{profissional.especialidade}</p>
                             </div>
 
                         </>
