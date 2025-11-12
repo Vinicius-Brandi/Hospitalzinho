@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using FGB.IRepositorios;
+using System.Linq;
 using NHibernate;
 
 namespace FGB.Dominio.Atributos
@@ -8,8 +8,11 @@ namespace FGB.Dominio.Atributos
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ObrigarAttribute : RequiredAttribute
     {
-        public ObrigarAttribute()
+        private readonly Type? _tipoRelacionado;
+
+        public ObrigarAttribute(Type? tipoRelacionado = null)
         {
+            _tipoRelacionado = tipoRelacionado;
             ErrorMessage = "{0} deve ser informado.";
         }
 
@@ -24,34 +27,39 @@ namespace FGB.Dominio.Atributos
             if (value is long id && id <= 0)
                 return CriarErro(validationContext);
 
-            // se for ID, validar existência no banco
+            // valida existência no banco
             if (value is long longId)
             {
-                string nomePropriedade = validationContext.MemberName ?? string.Empty;
-                if (nomePropriedade.EndsWith("Id", StringComparison.OrdinalIgnoreCase))
+                var session = (ISession?)validationContext.GetService(typeof(ISession));
+                if (session == null)
+                    return ValidationResult.Success;
+
+                Type? tipo = _tipoRelacionado;
+
+                // tenta deduzir se não foi informado
+                if (tipo == null)
                 {
-                    var session = (ISession?)validationContext.GetService(typeof(ISession));
-                    if (session != null)
+                    string nomePropriedade = validationContext.MemberName ?? string.Empty;
+                    if (nomePropriedade.EndsWith("Id", StringComparison.OrdinalIgnoreCase))
                     {
-                        // tenta deduzir tipo pelo nome da propriedade (ex: HospitalId → HospitalUnidade)
                         string nomeEntidade = nomePropriedade[..^2]; // remove "Id"
 
-                        var tipoRelacionado = session.SessionFactory
+                        tipo = session.SessionFactory
                             .GetAllClassMetadata()
                             .Select(kv => kv.Value)
                             .Select(md => md.MappedClass)
                             .FirstOrDefault(t =>
                                 t.Name.Equals(nomeEntidade, StringComparison.OrdinalIgnoreCase) ||
                                 t.Name.EndsWith(nomeEntidade, StringComparison.OrdinalIgnoreCase));
-
-
-                        if (tipoRelacionado != null)
-                        {
-                            var entidade = session.Get(tipoRelacionado, longId);
-                            if (entidade == null)
-                                return new ValidationResult($"{NomeFormatado(tipoRelacionado.Name)} com ID {longId} não encontrado.");
-                        }
                     }
+                }
+
+                // se conseguiu determinar o tipo, valida a existência
+                if (tipo != null)
+                {
+                    var entidade = session.Get(tipo, longId);
+                    if (entidade == null)
+                        return new ValidationResult($"{NomeFormatado(tipo.Name)} com ID {longId} não encontrado.");
                 }
             }
 

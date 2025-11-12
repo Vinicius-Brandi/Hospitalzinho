@@ -13,11 +13,11 @@ namespace Hospitalzinho.Entidades
         public virtual string RegistroProfissional { get; set; } // CRM, COREN etc.
 
         // FK
-        [Obrigar]
+        [Obrigar(typeof(Especialidade))]
         public virtual long EspecialidadeId { get; set; }
         [JsonIgnore]
         public virtual Especialidade Especialidade { get; set; } = null!;
-        [Obrigar]
+        [Obrigar(typeof(HospitalUnidade))]
         public virtual long HospitalId { get; set; }
         [JsonIgnore]
         public virtual HospitalUnidade Hospital { get; set; } = null!;
