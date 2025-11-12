@@ -151,7 +151,32 @@ export function ListaCadastroRegistro<T>({
                 {tipoDado === "Especialidade" && (
                     <>
                         <label>Nome</label>
-                        <input type="text" required />
+                        <input type="text" value={(cadastroDado as any).nome ?? ""} onChange={handleCadastroDadoChange} name="nome" />
+                    </>
+                )}
+
+                {tipoDado === "MedicamentoModelo" && (
+                    <>
+                        <label>Nome</label>
+                        <input type="text" value={(cadastroDado as any).nome ?? ""} onChange={handleCadastroDadoChange} name="nome" />
+
+                        <label>Princípio Ativo</label>
+                        <input type="text" value={(cadastroDado as any).principioAtivo ?? ""} onChange={handleCadastroDadoChange} name="principioAtivo" />
+
+                        <label>Fabricante</label>
+                        <input type="text" value={(cadastroDado as any).fabricante ?? ""} onChange={handleCadastroDadoChange} name="fabricante" />
+
+                        <label>Forma Farmacêutica</label>
+                        <input type="text" value={(cadastroDado as any).formaFarmaceutica ?? ""} onChange={handleCadastroDadoChange} name="formaFarmaceutica" />
+
+                        <label>Dosagem</label>
+                        <input type="text" value={(cadastroDado as any).dosagem ?? ""} onChange={handleCadastroDadoChange} name="dosagem" />
+
+                        <label>Indicações</label>
+                        <textarea rows={3} value={(cadastroDado as any).indicacoes ?? ""} onChange={handleCadastroDadoChange} name="indicacoes"></textarea>
+
+                        <label>Contraindicações</label>
+                        <textarea rows={3} value={(cadastroDado as any).contraIndicacoes ?? ""} onChange={handleCadastroDadoChange} name="contraIndicacoes"></textarea>
                     </>
                 )}
 

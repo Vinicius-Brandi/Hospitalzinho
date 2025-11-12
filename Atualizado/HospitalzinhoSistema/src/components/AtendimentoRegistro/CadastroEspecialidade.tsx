@@ -5,7 +5,6 @@ import type { Especialidade } from "../../../models/hospital";
 
 export function CadastroEspecialidade({abrirModal, setCloseModal} : {abrirModal: boolean, setCloseModal: (teste: boolean) => void}) {
     const [showModal, setShowModal] = useState(false);
-    const [especialidade, setEspecialidade] = useState<Especialidade | null>(null);
 
     useEffect(() => {
         setShowModal(abrirModal);
@@ -26,6 +25,5 @@ export function CadastroEspecialidade({abrirModal, setCloseModal} : {abrirModal:
                 )}
             />
         </Modal>
-
     )
 }

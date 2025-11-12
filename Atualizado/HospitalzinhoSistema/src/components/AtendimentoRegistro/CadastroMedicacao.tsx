@@ -1,6 +1,8 @@
 import { useState, type ChangeEvent } from "react";
-import type { Medicacao } from "../../../models/prontuario";
+import type { Medicacao, MedicamentoModelo } from "../../../models/prontuario";
 import { Modal } from "../Modal";
+import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
+import InputSugestion from "../InputSugestion";
 
 export function CadastroMedicacao({
     medicacao,
@@ -10,38 +12,21 @@ export function CadastroMedicacao({
     onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
     const [showModal, setShowModal] = useState(false);
-    
+
     return (
         <>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                <h1>Cadastro de Medicação</h1>
-
-                <form className="formulario">
-                    <label>Nome</label>
-                    <input type="text" required />
-
-                    <label>Princípio Ativo</label>
-                    <input type="text" />
-
-                    <label>Fabricante</label>
-                    <input type="text" />
-
-                    <label>Forma Farmacêutica</label>
-                    <input type="text" />
-
-                    <label>Dosagem</label>
-                    <input type="text" />
-
-                    <label>Indicações</label>
-                    <textarea rows={3}></textarea>
-
-                    <label>Contraindicações</label>
-                    <textarea rows={3}></textarea>
-
-                    <div className="botoes-form">
-                        <button type="submit" className="btn-editar">Salvar</button>
-                    </div>
-                </form>
+                <ListaCadastroRegistro<MedicamentoModelo>
+                    tipoDado="MedicamentoModelo"
+                    titulo="Lista de tipos de Medicamento Modelo"
+                    renderItem={(doencaCronica) => (
+                        <>
+                            <div className="paciente-info">
+                                <h3>{doencaCronica.nome}</h3>
+                            </div>
+                        </>
+                    )}
+                />
             </Modal>
 
             <fieldset id="formNovaMedicacao">
@@ -53,7 +38,7 @@ export function CadastroMedicacao({
                             <label htmlFor="medicamento">Medicamento</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <input type="text" id="medicamento" name="medicamento" placeholder="Ex: Paracetamol" value={medicacao.medicamento} onChange={onChange} />
+                        <InputSugestion placeholder="Digite o nome para buscar" tipoDado="MedicamentoModelo" nameInput="medicamento" />
                     </div>
 
                     <div className="form-group">

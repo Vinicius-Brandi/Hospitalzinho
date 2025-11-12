@@ -1,24 +1,10 @@
 import { useState } from "react";
 import InputSugestion from "../InputSugestion";
-import { Modal } from "../Modal";
-import { api } from "../../../services/api";
-import type { Especialidade, ProfissionalResponsavel } from "../../../models/hospital";
+import type { ProfissionalResponsavel } from "../../../models/hospital";
 import { CadastroEspecialidade } from "./CadastroEspecialidade";
 
 export default function CadastroProfissional({profissional, onChangeLista} : {profissional: Partial<ProfissionalResponsavel>, onChangeLista: (event: React.ChangeEvent<HTMLInputElement>) => void}) {
     const [showModal, setShowModal] = useState(false);
-    const [especialidade, setEspecialidade] = useState<Partial<Especialidade>>({});
-
-    async function onSubmit() {
-        await api.post("/Especialidade", especialidade);
-    }
-
-    function onChange(event: React.ChangeEvent<HTMLInputElement>){
-        setEspecialidade({
-            ...especialidade,
-            [event.target.name]: event.target.value
-        });
-    }
 
     return (
         <>

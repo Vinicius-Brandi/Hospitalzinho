@@ -11,11 +11,11 @@ export interface Vacina {
     pacienteId: string;
     vacina: string;
     profissionalResponsavel: string;
-    profRegistro : string;
+    profRegistro: string;
     dataAplicacao: string;
     dose: string;
     observacoes: string;
-    hospital : string;
+    hospital: string;
 }
 
 export interface Internacao {
@@ -79,13 +79,23 @@ export interface Medicacao {
     obsMedicacao: string;
 }
 
+export interface MedicamentoModelo {
+    nome: string;
+    principioAtivo: string;
+    fabricante: string;
+    formaFarmaceutica: string;
+    dosagem: string;
+    indicacoes: string;
+    contraIndicacoes: string;
+}
+
 export interface Cirurgia {
     pacienteId: string;
-    nome : string;
-    data : string;
-    profissionalResponsavel : string;
-    profRegistro : string;
-    sala : string;
-    hospital : string;
-    observacoes : string;
+    nome: string;
+    data: string;
+    profissionalResponsavel: string;
+    profRegistro: string;
+    sala: string;
+    hospital: string;
+    observacoes: string;
 }

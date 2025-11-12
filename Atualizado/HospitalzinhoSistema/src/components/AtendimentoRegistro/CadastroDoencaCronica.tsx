@@ -40,7 +40,7 @@ export function CadastroDoencaCronica({
                             <label htmlFor="doencaCronicaPesquisa">Pesquisar Doença</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Digite o nome para buscar" tipoDado="DoencaCronicaModelo"/>
+                        <InputSugestion placeholder="Digite o nome para buscar" tipoDado="DoencaCronicaModelo" nameInput="doencaCronicaPesquisa"/>
                     </div>
 
                     <div className="form-group">

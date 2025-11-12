@@ -81,21 +81,20 @@ export function AtendimentoRegistro() {
                                     </select>
                                 </div>
 
-                                {/*{tipoCadastro === 'consulta' &&  <CadastroConsulta consulta={dados.consulta} onChange={(e) => handleChange('consulta', e)} />}
+                                {tipoCadastro === 'consulta' &&  <CadastroConsulta consulta={dado as Partial<Consulta>} onChange={onChange} />}
 
-                                    {tipoCadastro === 'vacina' && <CadastroVacina vacina={dados.vacina} onChange={(e) => handleChange('vacina', e)} />}
+                                    {/*{tipoCadastro === 'vacina' && <CadastroVacina vacina={dado as Partial<Vacina>} onChange={onChange} />}
 
-                                    {tipoCadastro === 'internacao' && <CadastroInternacao internacao={dados.internacao} onChange={(e) => handleChange('internacao', e)} />}
+                                    {tipoCadastro === 'internacao' && <CadastroInternacao internacao={dado as Partial<Internacao>} onChange={onChange} />}
 
-                                    {tipoCadastro === 'alergia' && <CadastroAlergia alergia={dados.alergia} onChange={(e) => handleChange('alergia', e)} />} */}
-
+                                    {tipoCadastro === 'alergia' && <CadastroAlergia alergia={dado as Partial<Alergia>} onChange={onChange} />} */}
                                 {tipoCadastro === 'exame' && <CadastroExame exame={dado as Partial<PacienteExame>} onChange={onChange} />}
 
-                                {/* {tipoCadastro === 'doencaCronica' && <CadastroDoencaCronica doencaCronica={dados.doencaCronica} onChange={(e) => handleChange('doencaCronica', e)} />}
+                                {tipoCadastro === 'doencaCronica' && <CadastroDoencaCronica doencaCronica={dado as Partial<DoencaCronica>} onChange={onChange} />}
 
-                                    {tipoCadastro === 'medicacao' && <CadastroMedicacao medicacao={dados.medicacao} onChange={(e) => handleChange('medicacao', e)} />}
+                                {tipoCadastro === 'medicacao' && <CadastroMedicacao medicacao={dado as Partial<Medicacao>} onChange={onChange} />}
 
-                                    {tipoCadastro === 'cirurgia' && <CadastroCirurgia cirurgia={dados.cirurgia} onChange={(e) => handleChange('cirurgia', e)} />} */}
+                                    {/* {tipoCadastro === 'cirurgia' && <CadastroCirurgia cirurgia={dado as Partial<Cirurgia>} onChange={onChange} />} */}
 
                                 <button type="button" className="btn-salvar" onClick={HandleSubmit}>Salvar Registro</button>
                             </form>
