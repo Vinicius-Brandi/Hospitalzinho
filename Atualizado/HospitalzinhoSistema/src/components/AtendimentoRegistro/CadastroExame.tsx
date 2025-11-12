@@ -5,15 +5,8 @@ import { CadastroResponsavel } from "./CadastroResponsavel";
 import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
 import InputSugestion from "../InputSugestion";
 
-export function CadastroExame({
-    exame,
-    onChange
-}: {
-    exame: Partial<PacienteExame>;
-    onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
-}) {
+export function CadastroExame({exame, onChange} : {exame : Partial<PacienteExame>, onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;}) {
     const [showModal, setShowModal] = useState(false);
-
     return (
         <>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -57,12 +50,7 @@ export function CadastroExame({
                         <input type="text" id="laboratorio" name="laboratorio" placeholder="Onde foi realizado o exame" value={exame.laboratorio} onChange={onChange} />
                     </div>
 
-                    <CadastroResponsavel value={exame.profissionalResponsavel} onChange={onChange} />
-
-                    <div className="form-group">
-                        <label htmlFor="profissionalRegistro">Profissional Registro</label>
-                        <input type="text" id="profissionalRegistro" name="profissionalRegistro" value={exame.profissionalRegistro} onChange={onChange} />
-                    </div>
+                    <CadastroResponsavel value={exame.profissionalResponsavelId} onChange={onChange} />
 
                     <div className="form-group full-width">
                         <label htmlFor="resultados">Resultados</label>

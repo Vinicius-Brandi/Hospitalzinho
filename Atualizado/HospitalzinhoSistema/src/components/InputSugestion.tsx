@@ -8,7 +8,7 @@ interface Sugestao {
     nome: string;
 }
 
-export default function InputSugestion({ placeholder, tipoDado }: { placeholder: string, tipoDado: string }) {
+export default function InputSugestion({ placeholder, tipoDado, setValorTeste}: { placeholder: string, tipoDado: string, setValorTeste?: (valor: React.ChangeEvent<HTMLInputElement>) => void }) {
     const [valor, setValor] = useState("");
     const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
     const selecionandoRef = useRef(false);
@@ -50,7 +50,7 @@ export default function InputSugestion({ placeholder, tipoDado }: { placeholder:
 
     return (
         <div className="input-sugestion-container">
-            <input type="text" placeholder={placeholder} value={valor} onChange={(e) => setValor(e.target.value)} />
+            <input type="text" placeholder={placeholder} value={valor} onChange={(e) => setValorTeste?.(e)} />
 
             {sugestoes.length > 0 && (
                 <ul className="sugestoes-lista">

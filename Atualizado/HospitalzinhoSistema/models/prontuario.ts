@@ -47,8 +47,8 @@ export interface PacienteExame {
     laboratorio: string;
     resultados: string;
     observacoes: string;
-    profissionalResponsavel: string;
-    profissionalRegistro: string;
+    prontuarioId: string;
+    profissionalResponsavelId: string;
     hospital: string;
 }
 

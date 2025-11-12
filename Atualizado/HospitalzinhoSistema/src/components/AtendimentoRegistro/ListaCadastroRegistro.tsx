@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { Modal } from "../Modal";
+import InputSugestion from "../InputSugestion";
+import CadastroProfissional from "./CadastroProfissional";
+import type { ProfissionalResponsavel } from "../../../models/hospital";
 
 interface ListaCadastroRegistroProps<T> {
     tipoDado: string;
@@ -60,6 +63,20 @@ export function ListaCadastroRegistro<T>({
     }
 
     async function onSubmitCadastroDado({ tipo }: { tipo: string }) {
+        if (tipoDado === "ProfissionalSaude") {
+            const profissionalData = cadastroDado as Partial<ProfissionalResponsavel>;
+
+            const nomeEspecialidade = (profissionalData.especialidade as any)?.nome ?? profissionalData.especialidade;
+            const nomeUnidade = (profissionalData.hospitalUnidadeId as any)?.nome ?? profissionalData.hospitalUnidadeId;
+
+            const especialidade = (await api.get(`/Especialidade?$filter=tolower(nome) eq tolower('${nomeEspecialidade}')`)).data;
+            const hospitalUnidadeId = (await api.get(`/HospitalUnidade?$filter=tolower(nome) eq tolower('${nomeUnidade}')`)).data;
+
+            console.log(especialidade);
+            console.log(hospitalUnidadeId);
+        }
+
+
         if (tipo === "Post") {
             try {
                 await api.post(`/${tipoDado}`, cadastroDado);
@@ -132,25 +149,17 @@ export function ListaCadastroRegistro<T>({
                     </>
                 )}
 
-                {tipoDado === "Profissional" && (
+                {tipoDado === "ProfissionalSaude" && (
+                    <CadastroProfissional profissional={cadastroDado as any} onChangeLista={handleCadastroDadoChange} />
+                )}
+
+                {tipoDado === "Especialidade" && (
                     <>
                         <label>Nome</label>
                         <input type="text" required />
-
-                        <label>Registro Profissional</label>
-                        <input type="text" required />
-
-                        <label>Especialidade</label>
-                        <input type="text" required />
-
-                        <label>Hospital / Unidade</label>
-                        <input type="text" required />
-
-                        <div className="botoes-form">
-                            <button type="submit" className="btn-editar">Salvar</button>
-                        </div>
                     </>
                 )}
+
                 <div className="botoes-form">
                     <button
                         type="button"
