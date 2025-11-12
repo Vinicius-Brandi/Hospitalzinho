@@ -24,7 +24,7 @@ export function CadastroConsulta({
                     />
                 </div>
                 
-                <CadastroResponsavel value={consulta.profissionalResponsavel} onChange={onChange} />
+                <CadastroResponsavel value={consulta.profissionalResponsavel ?? ""} onChange={onChange} />
 
                 <div className="form-group">
                     <label htmlFor="hospital">Hospital</label>

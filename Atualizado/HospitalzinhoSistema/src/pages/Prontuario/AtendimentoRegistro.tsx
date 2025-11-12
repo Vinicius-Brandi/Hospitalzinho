@@ -19,10 +19,18 @@ export function AtendimentoRegistro() {
 
     function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
-        setDado((prev) => ({
-            ...prev,
-            [name]: value ?? "",
-        }));
+
+        setDado(prev => {
+            const novo = { ...prev };
+
+            if (value === "" || value === null) {
+                delete novo[name];
+            } else {
+                novo[name] = value;
+            }
+
+            return novo;
+        });
     }
 
     useEffect(() => {
@@ -30,11 +38,37 @@ export function AtendimentoRegistro() {
     }, [tipoCadastro]);
 
     async function HandleSubmit() {
-        if (tipoCadastro === 'exame') {
-            const novoDado = dado as PacienteExame;
+        console.log(dado);
+        let novoDado = {};
 
-            await api.post('/ProntuarioExame', novoDado);
+        switch(tipoCadastro) {
+            case 'Consulta':
+                novoDado = dado as Consulta;
+                break;
+            case 'Vacina':
+                novoDado = dado as Vacina;
+                break;
+            case 'Exame':
+                novoDado = dado as PacienteExame;
+                break;
+            case 'Internacao':
+                novoDado = dado as Internacao;
+                break;
+            case 'Alergia':
+                novoDado = dado as Alergia;
+                break;
+            case 'DoencaCronica':
+                novoDado = dado as DoencaCronica;
+                break;
+            case 'Medicacao':
+                novoDado = dado as Medicacao;
+                break;
+            case 'Cirurgia':
+                novoDado = dado as Cirurgia;
+                break;
         }
+
+        await api.post(`/Paciente${tipoCadastro}`, novoDado);
     }
 
     return (
@@ -74,32 +108,32 @@ export function AtendimentoRegistro() {
                                 <div className="form-group">
                                     <label htmlFor="tipo-registro">Selecione o tipo de registro</label>
                                     <select id="tipo-registro" name="tipo-registro" onChange={(e) => setTipoCadastro(e.target.value)}>
-                                        <option value="consulta">Nova Consulta</option>
-                                        <option value="vacina">Nova Vacina</option>
-                                        <option value="internacao">Nova Internação</option>
-                                        <option value="alergia">Nova Alergia</option>
-                                        <option value="exame">Novo Exame</option>
-                                        <option value="doencaCronica">Nova Doença Crônica</option>
-                                        <option value="medicacao">Nova Medicação</option>
-                                        <option value="cirurgia">Nova Cirurgia</option>
+                                        <option value="Consulta">Nova Consulta</option>
+                                        <option value="Vacina">Nova Vacina</option>
+                                        <option value="Internacao">Nova Internação</option>
+                                        <option value="Alergia">Nova Alergia</option>
+                                        <option value="Exame">Novo Exame</option>
+                                        <option value="DoencaCronica">Nova Doença Crônica</option>
+                                        <option value="Medicacao">Nova Medicação</option>
+                                        <option value="Cirurgia">Nova Cirurgia</option>
                                     </select>
                                 </div>
 
-                                {tipoCadastro === 'consulta' && <CadastroConsulta consulta={dado as Partial<Consulta>} onChange={onChange} />}
+                                {tipoCadastro === 'Consulta' && <CadastroConsulta consulta={dado as Partial<Consulta>} onChange={onChange} />}
 
-                                {tipoCadastro === 'vacina' && <CadastroVacina vacina={dado as Partial<Vacina>} onChange={onChange} />}
+                                {tipoCadastro === 'Vacina' && <CadastroVacina vacina={dado as Partial<Vacina>} onChange={onChange} />}
 
-                                {tipoCadastro === 'internacao' && <CadastroInternacao internacao={dado as Partial<Internacao>} onChange={onChange} />}
+                                {tipoCadastro === 'Internacao' && <CadastroInternacao internacao={dado as Partial<Internacao>} onChange={onChange} />}
 
-                                {tipoCadastro === 'alergia' && <CadastroAlergia alergia={dado as Partial<Alergia>} onChange={onChange} />}
+                                {tipoCadastro === 'Alergia' && <CadastroAlergia alergia={dado as Partial<Alergia>} onChange={onChange} />}
 
-                                {tipoCadastro === 'exame' && <CadastroExame exame={dado as Partial<PacienteExame>} onChange={onChange} />}
+                                {tipoCadastro === 'Exame' && <CadastroExame exame={dado as Partial<PacienteExame>} onChange={onChange} />}
 
-                                {tipoCadastro === 'doencaCronica' && <CadastroDoencaCronica doencaCronica={dado as Partial<DoencaCronica>} onChange={onChange} />}
+                                {tipoCadastro === 'DoencaCronica' && <CadastroDoencaCronica doencaCronica={dado as Partial<DoencaCronica>} onChange={onChange} />}
 
-                                {tipoCadastro === 'medicacao' && <CadastroMedicacao medicacao={dado as Partial<Medicacao>} onChange={onChange} />}
+                                {tipoCadastro === 'Medicacao' && <CadastroMedicacao medicacao={dado as Partial<Medicacao>} onChange={onChange} />}
 
-                                {tipoCadastro === 'cirurgia' && <CadastroCirurgia cirurgia={dado as Partial<Cirurgia>} onChange={onChange} />}
+                                {tipoCadastro === 'Cirurgia' && <CadastroCirurgia cirurgia={dado as Partial<Cirurgia>} onChange={onChange} />}
 
                                 <button type="button" className="btn-salvar" onClick={HandleSubmit}>Salvar Registro</button>
                             </form>

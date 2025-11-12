@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { Modal } from "../Modal";
-import InputSugestion from "../InputSugestion";
 import CadastroProfissional from "./CadastroProfissional";
-import type { ProfissionalResponsavel } from "../../../models/hospital";
 
 interface ListaCadastroRegistroProps<T> {
     tipoDado: string;
