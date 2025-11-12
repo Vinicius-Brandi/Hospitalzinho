@@ -7,7 +7,7 @@ namespace Hospitalzinho.Entidades
     {
         [Obrigar]
         public virtual string Numero { get; set; } // Ex: "101A"
-        [Obrigar]
+        [Obrigar(typeof(Ala))]
         public virtual long AlaId { get; set; }
         [JsonIgnore]
         public virtual Ala Ala { get; set; } // Ala onde o quarto está localizado

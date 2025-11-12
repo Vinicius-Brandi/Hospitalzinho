@@ -6,7 +6,7 @@ namespace Hospitalzinho.Entidades
 {
     public class Medicamento : EntidadeBase
     {
-        [Obrigar]
+        [Obrigar(typeof(MedicamentoModelo))]
         public virtual long ModeloId { get; set; }
         [JsonIgnore]
         public virtual MedicamentoModelo Modelo { get; set; }
@@ -15,7 +15,7 @@ namespace Hospitalzinho.Entidades
         public virtual DateTime? DataValidade { get; set; }
         [Obrigar]
         public virtual int QuantidadeDisponivel { get; set; } // Quantidade em estoque
-        [Obrigar]
+        [Obrigar(typeof(HospitalUnidade))]
         public virtual long? HospitalId { get; set; }
         [JsonIgnore]
         public virtual HospitalUnidade Hospital { get; set; }

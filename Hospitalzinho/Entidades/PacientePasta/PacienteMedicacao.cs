@@ -6,11 +6,11 @@ namespace Hospitalzinho.Entidades
 {
     public class PacienteMedicacao : EntidadeBase
     {
-        [Obrigar]
+        [Obrigar(typeof(PacienteProntuario))]
         public virtual long ProntuarioId { get; set; }
         [JsonIgnore]
         public virtual PacienteProntuario Prontuario { get; set; }
-        [Obrigar]
+        [Obrigar(typeof(MedicamentoModelo))]
         public virtual long ModeloId { get; set; }
         [JsonIgnore]
         public virtual MedicamentoModelo Modelo { get; set; } // Tipo do remédio prescrito

@@ -8,11 +8,11 @@ namespace Hospitalzinho.Entidades
         public virtual DateTime Data { get; set; }
 
         // FK - Paciente e Profissional que prescreveu
-        [Obrigar]
+        [Obrigar(typeof(Paciente))]
         public virtual long PacienteId { get; set; }
         [JsonIgnore]
         public virtual Paciente Paciente { get; set; }
-        [Obrigar]
+        [Obrigar(typeof(ProfissionalSaude))]
         public virtual long ProfissionalId { get; set; }
         [JsonIgnore]
         public virtual ProfissionalSaude Profissional { get; set; }
