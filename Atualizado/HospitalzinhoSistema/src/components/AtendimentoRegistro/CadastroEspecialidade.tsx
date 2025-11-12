@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "../Modal";
 import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
 import type { Especialidade } from "../../../models/hospital";
 
-export function CadastroEspecialidae() {
+export function CadastroEspecialidade({abrirModal, setCloseModal} : {abrirModal: boolean, setCloseModal: (teste: boolean) => void}) {
     const [showModal, setShowModal] = useState(false);
     const [especialidade, setEspecialidade] = useState<Especialidade | null>(null);
 
+    useEffect(() => {
+        setShowModal(abrirModal);
+    }, [abrirModal]);
+
     return (
-        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <Modal isOpen={showModal} onClose={() => setCloseModal(false)}>
             <ListaCadastroRegistro<Especialidade>
                 tipoDado="Especialidade"
                 titulo="Lista de Especialidades"

@@ -63,7 +63,7 @@ export function ListaCadastroRegistro<T>({
     }
 
     async function onSubmitCadastroDado({ tipo }: { tipo: string }) {
-        let dadoFinal = { ...cadastroDado }; // copia do estado atual
+        let dadoFinal = { ...cadastroDado };
 
         if (tipoDado === "ProfissionalSaude") {
             const especialidadeResponse = await api.get(`/Especialidade?$filter=tolower(nome) eq tolower('${(cadastroDado as any).especialidadeId}')`);

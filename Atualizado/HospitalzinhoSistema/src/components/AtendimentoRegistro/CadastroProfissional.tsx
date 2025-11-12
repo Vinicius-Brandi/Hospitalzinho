@@ -3,6 +3,7 @@ import InputSugestion from "../InputSugestion";
 import { Modal } from "../Modal";
 import { api } from "../../../services/api";
 import type { Especialidade, ProfissionalResponsavel } from "../../../models/hospital";
+import { CadastroEspecialidade } from "./CadastroEspecialidade";
 
 export default function CadastroProfissional({profissional, onChangeLista} : {profissional: Partial<ProfissionalResponsavel>, onChangeLista: (event: React.ChangeEvent<HTMLInputElement>) => void}) {
     const [showModal, setShowModal] = useState(false);
@@ -21,20 +22,7 @@ export default function CadastroProfissional({profissional, onChangeLista} : {pr
 
     return (
         <>
-            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                <label>Nome</label>
-                <input type="text" name="nome" value={especialidade.nome} onChange={onChange} />
-
-                <div className="botoes-form">
-                    <button
-                        type="button"
-                        className="btn-editar"
-                        onClick={() => onSubmit()}
-                    >
-                        Salvar
-                    </button>
-                </div>
-            </Modal>
+            <CadastroEspecialidade abrirModal={showModal} setCloseModal={() => setShowModal(false)}/>
 
             <label>Nome</label>
             <input type="text" required name="nome" value={profissional.nome} onChange={onChangeLista} />
