@@ -1,7 +1,7 @@
 import './PacienteCadastro.css'
 import { Header } from "../../components/HeaderAndFooter/Header"
 import { Footer } from "../../components/HeaderAndFooter/Footer"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CadastroConsulta } from '../../components/AtendimentoRegistro/CadastroConsulta';
 import { CadastroVacina } from '../../components/AtendimentoRegistro/CadastroVacina';
 import { CadastroInternacao } from '../../components/AtendimentoRegistro/CadastroInternacao';
@@ -24,6 +24,10 @@ export function AtendimentoRegistro() {
             [name]: value ?? "",
         }));
     }
+
+    useEffect(() => {
+        setDado({});
+    }, [tipoCadastro]);
 
     async function HandleSubmit() {
         if (tipoCadastro === 'exame') {
@@ -81,20 +85,21 @@ export function AtendimentoRegistro() {
                                     </select>
                                 </div>
 
-                                {tipoCadastro === 'consulta' &&  <CadastroConsulta consulta={dado as Partial<Consulta>} onChange={onChange} />}
+                                {tipoCadastro === 'consulta' && <CadastroConsulta consulta={dado as Partial<Consulta>} onChange={onChange} />}
 
-                                    {/*{tipoCadastro === 'vacina' && <CadastroVacina vacina={dado as Partial<Vacina>} onChange={onChange} />}
+                                {tipoCadastro === 'vacina' && <CadastroVacina vacina={dado as Partial<Vacina>} onChange={onChange} />}
 
-                                    {tipoCadastro === 'internacao' && <CadastroInternacao internacao={dado as Partial<Internacao>} onChange={onChange} />}
+                                {tipoCadastro === 'internacao' && <CadastroInternacao internacao={dado as Partial<Internacao>} onChange={onChange} />}
 
-                                    {tipoCadastro === 'alergia' && <CadastroAlergia alergia={dado as Partial<Alergia>} onChange={onChange} />} */}
+                                {tipoCadastro === 'alergia' && <CadastroAlergia alergia={dado as Partial<Alergia>} onChange={onChange} />}
+
                                 {tipoCadastro === 'exame' && <CadastroExame exame={dado as Partial<PacienteExame>} onChange={onChange} />}
 
                                 {tipoCadastro === 'doencaCronica' && <CadastroDoencaCronica doencaCronica={dado as Partial<DoencaCronica>} onChange={onChange} />}
 
                                 {tipoCadastro === 'medicacao' && <CadastroMedicacao medicacao={dado as Partial<Medicacao>} onChange={onChange} />}
 
-                                    {/* {tipoCadastro === 'cirurgia' && <CadastroCirurgia cirurgia={dado as Partial<Cirurgia>} onChange={onChange} />} */}
+                                {tipoCadastro === 'cirurgia' && <CadastroCirurgia cirurgia={dado as Partial<Cirurgia>} onChange={onChange} />}
 
                                 <button type="button" className="btn-salvar" onClick={HandleSubmit}>Salvar Registro</button>
                             </form>

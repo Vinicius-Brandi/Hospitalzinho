@@ -2,10 +2,11 @@ import { useState, type ChangeEvent } from "react";
 import { Modal } from "../Modal";
 import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
 import type { ProfissionalResponsavel } from "../../../models/hospital";
+import InputSugestion from "../InputSugestion";
 
 export function CadastroResponsavel({ value, onChange }: { value: string | undefined; onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void; }) {
     const [showModal, setShowModal] = useState(false);
-    const [profissional, setProfissional] = useState<ProfissionalResponsavel | null>(null);
+    const [profissional, setProfissional] = useState<Partial<ProfissionalResponsavel>>({});
 
     return (
         <>
@@ -30,11 +31,7 @@ export function CadastroResponsavel({ value, onChange }: { value: string | undef
                     <label htmlFor="profissionalResponsavel">Profissional Responsável</label>
                     <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                 </div>
-                <select id="profissionalResponsavel" name="profissionalResponsavel" value={value ?? ""} onChange={onChange}>
-                    <option value="" disabled>Selecione o profissional</option>
-                    <option value="crm123">Dr. João da Silva (CRM 123)</option>
-                    <option value="teste">Dr. Teste (CRM 131232132123)</option>
-                </select>
+                <InputSugestion placeholder="Digite o nome do profissional" tipoDado="ProfissionalSaude" nameInput="profissionalResponsavel" setValorTeste={onChange}/>
             </div>
         </>
     )
