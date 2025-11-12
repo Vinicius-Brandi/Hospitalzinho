@@ -19,8 +19,6 @@ namespace Hospitalzinho.Entidades
         [Obrigar]
         public virtual long InstituicaoPaiId { get; set; }
         [Obrigar]
-        public virtual long EnderecoId { get; set; }
-        [JsonIgnore]
         public virtual HospitalEndereco Endereco { get; set; }
 
         //LISTAS 
