@@ -33,7 +33,7 @@ export function CadastroExame({exame, onChange} : {exame : Partial<PacienteExame
                             <label htmlFor="tipoExame">Tipo do Exame</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Ex: Hemograma Completo" tipoDado="Exame"/>
+                        <InputSugestion placeholder="Ex: Hemograma Completo" nameInput="tipoExame" tipoDado="Exame"/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="dataExame">Data do Exame</label>

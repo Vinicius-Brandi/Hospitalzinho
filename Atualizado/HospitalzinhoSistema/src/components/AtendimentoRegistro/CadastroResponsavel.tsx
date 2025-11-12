@@ -1,16 +1,16 @@
 import { useState, type ChangeEvent } from "react";
 import { Modal } from "../Modal";
 import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
-import type { profissionalResponsavel } from "../../../models/hospital";
+import type { ProfissionalResponsavel } from "../../../models/hospital";
 
 export function CadastroResponsavel({ value, onChange }: { value: string | undefined; onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void; }) {
     const [showModal, setShowModal] = useState(false);
-    const [profissional, setProfissional] = useState<profissionalResponsavel | null>(null);
+    const [profissional, setProfissional] = useState<ProfissionalResponsavel | null>(null);
 
     return (
         <>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                <ListaCadastroRegistro<profissionalResponsavel>
+                <ListaCadastroRegistro<ProfissionalResponsavel>
                     tipoDado="ProfissionalSaude"
                     titulo="Lista de Profissionais"
                     renderItem={(profissional) => (

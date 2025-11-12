@@ -2,7 +2,7 @@ export interface ProfissionalResponsavel {
     nome: string;
     registroProfissional: string;
     especialidade: string;
-    hospitalUnidadeId: string;
+    hospitalId: string;
 }
 
 export interface Especialidade {

@@ -23,8 +23,8 @@ namespace Hospitalzinho.Entidades
         public virtual long ProfResponsavelId { get; set; }
         [JsonIgnore]
         public virtual ProfissionalSaude ProfResponsavel { get; set; }
-        [Obrigar]
-        public virtual long HospitalId { get; set; }
+        [Obrigar]   
+        public virtual long HospitalId { get; set; }    
         [JsonIgnore]
         public virtual HospitalUnidade Hospital { get; set; }
     }

@@ -63,41 +63,36 @@ export function ListaCadastroRegistro<T>({
     }
 
     async function onSubmitCadastroDado({ tipo }: { tipo: string }) {
+        let dadoFinal = { ...cadastroDado }; // copia do estado atual
+
         if (tipoDado === "ProfissionalSaude") {
-            const profissionalData = cadastroDado as Partial<ProfissionalResponsavel>;
+            const especialidadeResponse = await api.get(`/Especialidade?$filter=tolower(nome) eq tolower('${(cadastroDado as any).especialidadeId}')`);
+            const hospitalResponse = await api.get(`/HospitalUnidade?$filter=tolower(nome) eq tolower('${(cadastroDado as any).hospitalId}')`);
 
-            const nomeEspecialidade = (profissionalData.especialidade as any)?.nome ?? profissionalData.especialidade;
-            const nomeUnidade = (profissionalData.hospitalUnidadeId as any)?.nome ?? profissionalData.hospitalUnidadeId;
+            const especialidade = especialidadeResponse.data.value ?? especialidadeResponse.data ?? [];
+            const hospital = hospitalResponse.data.value ?? hospitalResponse.data ?? [];
 
-            const especialidade = (await api.get(`/Especialidade?$filter=tolower(nome) eq tolower('${nomeEspecialidade}')`)).data;
-            const hospitalUnidadeId = (await api.get(`/HospitalUnidade?$filter=tolower(nome) eq tolower('${nomeUnidade}')`)).data;
-
-            console.log(especialidade);
-            console.log(hospitalUnidadeId);
+            dadoFinal = {
+                ...dadoFinal,
+                especialidadeId: especialidade[0]?.id,
+                hospitalId: hospital[0]?.id,
+            };
         }
 
+        try {
+            if (tipo === "Post") {
+                await api.post(`/${tipoDado}`, dadoFinal);
+            } else {
+                await api.put(`/${tipoDado}/${(cadastroDado as any).id}`, dadoFinal);
+            }
 
-        if (tipo === "Post") {
-            try {
-                await api.post(`/${tipoDado}`, cadastroDado);
-                setCadastroDado({});
-                setShowModal(false);
-                await carregarDados();
-            } catch (error) {
-                console.error(`Erro ao cadastrar ${tipoDado}:`, error);
-                alert(`Erro ao cadastrar ${tipoDado}. Tente novamente.`);
-            }
-        } else if (tipo === "Put") {
-            try {
-                await api.put(`/${tipoDado}/${(cadastroDado as any).id}`, cadastroDado);
-                setCadastroDado({});
-                setShowModal(false);
-                setTipoOperacao("Post");
-                await carregarDados();
-            } catch (error) {
-                console.error(`Erro ao editar ${tipoDado}:`, error);
-                alert(`Erro ao editar ${tipoDado}. Tente novamente.`);
-            }
+            setCadastroDado({});
+            setShowModal(false);
+            setTipoOperacao("Post");
+            await carregarDados();
+        } catch (error) {
+            console.error(`Erro ao ${tipo === "Post" ? "cadastrar" : "editar"} ${tipoDado}:`, error);
+            alert(`Erro ao ${tipo === "Post" ? "cadastrar" : "editar"} ${tipoDado}. Tente novamente.`);
         }
     }
 

@@ -8,7 +8,7 @@ interface Sugestao {
     nome: string;
 }
 
-export default function InputSugestion({ placeholder, tipoDado, setValorTeste}: { placeholder: string, tipoDado: string, setValorTeste?: (valor: React.ChangeEvent<HTMLInputElement>) => void }) {
+export default function InputSugestion({ placeholder, tipoDado, nameInput, setValorTeste}: { placeholder: string, tipoDado: string, nameInput: string, setValorTeste?: (valor: React.ChangeEvent<HTMLInputElement>) => void }) {
     const [valor, setValor] = useState("");
     const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
     const selecionandoRef = useRef(false);
@@ -23,6 +23,11 @@ export default function InputSugestion({ placeholder, tipoDado, setValorTeste}: 
             console.error("Erro ao buscar dados:", error);
         }
     }, 500);
+
+    function setarValor(e : React.ChangeEvent<HTMLInputElement>) {
+        setValor(e.target.value);
+        setValorTeste?.(e);
+    }
 
     useEffect(() => {
         if (selecionandoRef.current) {
@@ -45,12 +50,13 @@ export default function InputSugestion({ placeholder, tipoDado, setValorTeste}: 
     const handleSelect = (sugestao: string) => {
         selecionandoRef.current = true;
         setValor(sugestao);
+        setValorTeste?.({ target: { name: nameInput, value: sugestao } } as React.ChangeEvent<HTMLInputElement>);
         setSugestoes([]);
     };
 
     return (
         <div className="input-sugestion-container">
-            <input type="text" placeholder={placeholder} value={valor} onChange={(e) => setValorTeste?.(e)} />
+            <input type="text" placeholder={placeholder} name={nameInput} value={valor} onChange={(e) => setarValor(e)} />
 
             {sugestoes.length > 0 && (
                 <ul className="sugestoes-lista">
