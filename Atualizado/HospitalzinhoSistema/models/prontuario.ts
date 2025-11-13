@@ -1,3 +1,15 @@
+export type MapTiposCadastro = {
+    Consulta: Consulta;
+    Vacina: Vacina;
+    Exame: PacienteExame;
+    Internacao: Internacao;
+    Alergia: Alergia;
+    DoencaCronica: DoencaCronica;
+    Medicacao: Medicacao;
+    Cirurgia: Cirurgia;
+};
+
+
 export interface Consulta {
     pacienteId: string;
     data: string;

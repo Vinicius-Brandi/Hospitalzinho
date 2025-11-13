@@ -10,11 +10,11 @@ import { CadastroExame } from '../../components/AtendimentoRegistro/CadastroExam
 import { CadastroDoencaCronica } from '../../components/AtendimentoRegistro/CadastroDoencaCronica';
 import { CadastroMedicacao } from '../../components/AtendimentoRegistro/CadastroMedicacao';
 import { CadastroCirurgia } from '../../components/AtendimentoRegistro/CadastroCirurgia';
-import type { Alergia, Cirurgia, Consulta, DoencaCronica, PacienteExame, Internacao, Medicacao, Vacina } from '../../../models/prontuario';
+import type { Alergia, Cirurgia, Consulta, DoencaCronica, PacienteExame, Internacao, Medicacao, Vacina, MapTiposCadastro } from '../../../models/prontuario';
 import { api } from '../../../services/api';
 
 export function AtendimentoRegistro() {
-    const [tipoCadastro, setTipoCadastro] = useState('consulta');
+    const [tipoCadastro, setTipoCadastro] = useState<keyof MapTiposCadastro>('Consulta');
     const [dado, setDado] = useState<Record<string, any>>({});
 
     function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
@@ -38,38 +38,18 @@ export function AtendimentoRegistro() {
     }, [tipoCadastro]);
 
     async function HandleSubmit() {
-        console.log(dado);
-        let novoDado = {};
+        const novoDado: MapTiposCadastro[typeof tipoCadastro] = dado as MapTiposCadastro[typeof tipoCadastro];
 
-        switch(tipoCadastro) {
-            case 'Consulta':
-                novoDado = dado as Consulta;
-                break;
-            case 'Vacina':
-                novoDado = dado as Vacina;
-                break;
-            case 'Exame':
-                novoDado = dado as PacienteExame;
-                break;
-            case 'Internacao':
-                novoDado = dado as Internacao;
-                break;
-            case 'Alergia':
-                novoDado = dado as Alergia;
-                break;
-            case 'DoencaCronica':
-                novoDado = dado as DoencaCronica;
-                break;
-            case 'Medicacao':
-                novoDado = dado as Medicacao;
-                break;
-            case 'Cirurgia':
-                novoDado = dado as Cirurgia;
-                break;
+        console.log(novoDado);
+
+        if ("hospital" in novoDado) {
+            console.log(novoDado.hospital);
         }
+
 
         await api.post(`/Paciente${tipoCadastro}`, novoDado);
     }
+
 
     return (
         <>
