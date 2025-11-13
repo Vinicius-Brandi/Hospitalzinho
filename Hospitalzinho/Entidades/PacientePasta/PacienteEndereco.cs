@@ -6,7 +6,7 @@ namespace Hospitalzinho.Entidades
 {
     public class PacienteEndereco : EntidadeBase
     {
-        [Obrigar]
+        [Obrigar(typeof(Paciente))]
         public virtual long PacienteId { get; set; }
         [JsonIgnore]
         public virtual Paciente Paciente { get; set; }

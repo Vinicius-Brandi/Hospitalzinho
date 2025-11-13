@@ -10,11 +10,11 @@ namespace Hospitalzinho.Entidades
         public virtual DateTime? DataProducao { get; set; }
         public virtual DateTime? DataValidade { get; set; }
         public virtual int QuantidadeDisponivel { get; set; } // Quantidade disponível no estoque
-        [Obrigar]
+        [Obrigar(typeof(VacinaModelo))]
         public virtual long VacinaModeloId { get; set; }
         [JsonIgnore]
         public virtual VacinaModelo VacinaModelo { get; set; } // Referência ao modelo
-        [Obrigar]
+        [Obrigar(typeof(HospitalUnidade))]
         public virtual long HospitalId { get; set; }
         [JsonIgnore]
         public virtual HospitalUnidade Hospital { get; set; }

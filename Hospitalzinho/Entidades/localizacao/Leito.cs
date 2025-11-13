@@ -9,7 +9,7 @@ namespace Hospitalzinho.Entidades
         [Obrigar]
         public virtual string Numero { get; set; } // Ex: "101A", "202B"
         public virtual bool Ocupado { get; set; } = false;
-        [Obrigar]
+        [Obrigar(typeof(Quarto))]
         public virtual long QuartoId { get; set; }
         [JsonIgnore]
         public virtual Quarto Quarto { get; set; }

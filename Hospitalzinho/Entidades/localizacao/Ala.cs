@@ -12,7 +12,7 @@ namespace Hospitalzinho.Entidades
         public virtual IList<Quarto> Quartos { get; set; } = new List<Quarto>();
         [JsonIgnore]
         public virtual IList<Sala> Salas { get; set; } = new List<Sala>();
-        [Obrigar]
+        [Obrigar(typeof(HospitalUnidade))]
         public virtual long HospitalId { get; set; }
         [JsonIgnore]
         public virtual HospitalUnidade Hospital { get; set; }

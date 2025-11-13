@@ -16,7 +16,7 @@ namespace Hospitalzinho.Entidades
         public virtual TipoUnidade TipoUnidade { get; set; }
         [JsonIgnore]
         public virtual Hospital InstituicaoPai { get; set; }
-        [Obrigar]
+        [Obrigar(typeof(Hospital))] 
         public virtual long InstituicaoPaiId { get; set; }
         [Obrigar]
         public virtual HospitalEndereco Endereco { get; set; }

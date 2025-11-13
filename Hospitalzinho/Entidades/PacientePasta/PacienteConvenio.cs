@@ -4,13 +4,13 @@ using FGB.Entidades;
 
 namespace Hospitalzinho.Entidades
 {
-        public class PacienteConvenio : EntidadeBase
+    public class PacienteConvenio : EntidadeBase
     {
-        [Obrigar]
+        [Obrigar(typeof(Paciente))]
         public virtual long PacienteId { get; set; }
         [JsonIgnore]
         public virtual Paciente Paciente { get; set; }
-        [Obrigar]
+        [Obrigar(typeof(Convenio))]
         public virtual long ConvenioId { get; set; }
         [JsonIgnore]
         public virtual Convenio Convenio { get; set; }

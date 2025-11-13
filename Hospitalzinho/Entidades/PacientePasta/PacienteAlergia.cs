@@ -6,12 +6,12 @@ namespace Hospitalzinho.Entidades
 {
     public class PacienteAlergia : EntidadeBase
     {
-        [Obrigar]
+        [Obrigar(typeof(PacienteProntuario))]
         public virtual long ProntuarioId { get; set; }
         [JsonIgnore]
         public virtual PacienteProntuario Prontuario { get; set; }
 
-        [Obrigar]
+        [Obrigar(typeof(Alergia))]
         public virtual long AlergiaId { get; set; }
         [JsonIgnore]
         public virtual Alergia Alergia { get; set; }
