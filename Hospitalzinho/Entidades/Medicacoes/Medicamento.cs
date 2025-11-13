@@ -10,6 +10,7 @@ namespace Hospitalzinho.Entidades
         public virtual long ModeloId { get; set; }
         [JsonIgnore]
         public virtual MedicamentoModelo Modelo { get; set; }
+        [Unico]
         public virtual string? Lote { get; set; }
         public virtual DateTime? DataFabricacao { get; set; }
         public virtual DateTime? DataValidade { get; set; }

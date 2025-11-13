@@ -9,7 +9,7 @@ namespace Hospitalzinho.Entidades
     {
         [Obrigar]
         public virtual string Nome { get; set; }
-        [Obrigar]
+        [Obrigar, Unico]
         public virtual string CNES { get; set; } // Código Nacional de Estabelecimentos de Saúde
 
         [Obrigar]
@@ -18,7 +18,7 @@ namespace Hospitalzinho.Entidades
         public virtual Hospital InstituicaoPai { get; set; }
         [Obrigar(typeof(Hospital))] 
         public virtual long InstituicaoPaiId { get; set; }
-        [Obrigar]
+        [Obrigar, Unico]
         public virtual HospitalEndereco Endereco { get; set; }
 
         //LISTAS 

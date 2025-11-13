@@ -5,7 +5,7 @@ namespace Hospitalzinho.Entidades
 {
     public class Alergia : EntidadeBase
     {
-        [Obrigar]
+        [Obrigar, Unico]
         public virtual string Nome { get; set; }
         [Obrigar]
         public virtual TipoAlergia Tipo { get; set; }
