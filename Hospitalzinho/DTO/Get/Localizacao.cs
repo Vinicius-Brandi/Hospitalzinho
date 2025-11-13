@@ -25,7 +25,7 @@ namespace Hospitalzinho.DTO.Get
     public class SalaDto : EntidadeBase
     {
         public string Numero { get; set; }
-        public AlaDto Ala { get; set; }
+        public string AlaId { get; set; }
         public TipoSala Tipo { get; set; }
         public List<ConsultaDto> Consultas { get; set; } = new();
     }

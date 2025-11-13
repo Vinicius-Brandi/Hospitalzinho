@@ -18,7 +18,7 @@ namespace Hospitalzinho.Entidades
         public virtual Hospital InstituicaoPai { get; set; }
         [Obrigar(typeof(Hospital))] 
         public virtual long InstituicaoPaiId { get; set; }
-        [Obrigar, Unico]
+        [Obrigar]
         public virtual HospitalEndereco Endereco { get; set; }
 
         //LISTAS 

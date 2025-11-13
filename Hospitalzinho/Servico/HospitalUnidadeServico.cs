@@ -61,6 +61,8 @@ namespace Hospitalzinho.Servico
                         };
 
                         await repo.IncluiAsync(endereco);
+                        await repo.FlushAsync();
+
                         unidade.Endereco = endereco;
                     }
 
