@@ -21,7 +21,7 @@
     top: 100%; /* Logo abaixo do input */
     left: 0;
     right: 0;
-    z-index: 1000; /* Garante que fica acima de outros elementos */
+    z-index: 999; /* Garante que fica acima de outros elementos */
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     border-top: none; /* Remove a borda duplicada com o input */

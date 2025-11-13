@@ -120,7 +120,6 @@ export function ListaCadastroRegistro<T>({
     ) {
         const { name, value } = event.target;
 
-        // Campos que devem ser número
         if (name === "tipo") {
             setCadastroDado(prev => ({
                 ...prev,

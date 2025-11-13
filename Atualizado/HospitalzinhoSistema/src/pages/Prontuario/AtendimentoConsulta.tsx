@@ -1,7 +1,31 @@
+import { useState } from "react";
 import { Footer } from "../../components/HeaderAndFooter/Footer";
 import { Header } from "../../components/HeaderAndFooter/Header";
+import InputSugestion from "../../components/InputSugestion";
+import type { Paciente } from "../../../models/paciente";
+import { api } from "../../../services/api";
 
 export function AtendimentoConsulta() {
+    const [pesquisaCPF, setPesquisaCPF] = useState("");
+    const [paciente, setPaciente] = useState<Partial<Paciente>>({});
+
+    function handleCPFChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setPesquisaCPF(e.target.value);
+    }
+
+    async function buscarPacientePorCPF() {
+        try {
+            const response = await api.get(
+                `/Paciente?$filter=tolower(cpf) eq tolower('${pesquisaCPF}')`
+            );
+
+            console.log("Paciente encontrado:", response.data);
+            setPaciente(response.data[0]);
+        } catch (error) {
+            console.error("Erro ao buscar paciente:", error);
+        }
+    }
+
     return (
         <>
             <Header />
@@ -13,17 +37,14 @@ export function AtendimentoConsulta() {
                     <form className="form-pesquisa">
                         <div className="form-group">
                             <label htmlFor="cpf-paciente">CPF ou Cartão Nacional de Saúde (CNS)</label>
-                            <input type="text" id="cpf-paciente" name="cpf-paciente" placeholder="Digite o CPF ou CNS do paciente" required />
+                            <InputSugestion nameInput="cpf" tipoDado="Paciente" placeholder="Digite o CPF do paciente" valorBuscarAPI="cpf" setValorTeste={handleCPFChange} />
                         </div>
-                        <button type="submit" className="btn-pesquisar">Pesquisar</button>
+                        <button type="button" className="btn-pesquisar" onClick={buscarPacientePorCPF}>Pesquisar</button>
                     </form>
                 </section>
 
-                <div className="botoes-acao">
-                    <button type="button" className="btn-adicionar-novo">Adicionar Registro ao Paciente</button>
-                </div>
-
-                <div id="prontuario-detalhes"> <section className="card-prontuario" id="dados-paciente">
+                {paciente && paciente.nome && (
+                    <div id="prontuario-detalhes"> <section className="card-prontuario" id="dados-paciente">
                         <div className="card-header">
                             <h2>Dados Pessoais</h2>
                         </div>
@@ -37,111 +58,111 @@ export function AtendimentoConsulta() {
                         </div>
                     </section>
 
-                    <section className="card-prontuario" id="alergias">
-                        <div className="card-header">
-                            <h2>Alergias Conhecidas</h2>
-                        </div>
-                        <div className="card-body">
-                            <ul className="lista-itens">
-                                <li><strong>Medicamentosa:</strong> Penicilina</li>
-                                <li><strong>Alimentar:</strong> Frutos do mar</li>
-                            </ul>
-                        </div>
-                    </section>
+                        <section className="card-prontuario" id="alergias">
+                            <div className="card-header">
+                                <h2>Alergias Conhecidas</h2>
+                            </div>
+                            <div className="card-body">
+                                <ul className="lista-itens">
+                                    <li><strong>Medicamentosa:</strong> Penicilina</li>
+                                    <li><strong>Alimentar:</strong> Frutos do mar</li>
+                                </ul>
+                            </div>
+                        </section>
 
-                    <section className="card-prontuario" id="vacinas">
-                        <div className="card-header">
-                            <h2>Vacinas Recebidas</h2>
-                        </div>
-                        <div className="card-body table-container"> 
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Vacina</th>
-                                        <th>Dose</th>
-                                        <th>Data de Aplicação</th>
-                                    </tr>
-                                </thead>
-                                <tbody> <tr>
+                        <section className="card-prontuario" id="vacinas">
+                            <div className="card-header">
+                                <h2>Vacinas Recebidas</h2>
+                            </div>
+                            <div className="card-body table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Vacina</th>
+                                            <th>Dose</th>
+                                            <th>Data de Aplicação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> <tr>
                                         <td>COVID-19 (Pfizer)</td>
                                         <td>Dose de Reforço</td>
                                         <td>10/03/2023</td>
                                     </tr>
-                                    <tr>
-                                        <td>Gripe (Influenza)</td>
-                                        <td>Dose Única</td>
-                                        <td>15/04/2024</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                    
-                    <section className="card-prontuario" id="internacoes">
-                        <div className="card-header">
-                            <h2>Histórico de Internações</h2>
-                        </div>
-                        <div className="card-body table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data Entrada</th>
-                                        <th>Data Saída</th>
-                                        <th>Hospital</th>
-                                        <th>Motivo</th>
-                                    </tr>
-                                </thead>
-                                <tbody> <tr>
+                                        <tr>
+                                            <td>Gripe (Influenza)</td>
+                                            <td>Dose Única</td>
+                                            <td>15/04/2024</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section className="card-prontuario" id="internacoes">
+                            <div className="card-header">
+                                <h2>Histórico de Internações</h2>
+                            </div>
+                            <div className="card-body table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data Entrada</th>
+                                            <th>Data Saída</th>
+                                            <th>Hospital</th>
+                                            <th>Motivo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> <tr>
                                         <td>01/02/2022</td>
                                         <td>05/02/2022</td>
                                         <td>Hospital Santa Casa</td>
                                         <td>Apendicite</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
 
-                    <section className="card-prontuario" id="consultas">
-                        <div className="card-header">
-                            <h2>Histórico de Consultas</h2>
-                        </div>
-                        <div className="card-body table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                        <th>Especialidade</th>
-                                        <th>Resumo</th>
-                                    </tr>
-                                </thead>
-                                <tbody> <tr>
+                        <section className="card-prontuario" id="consultas">
+                            <div className="card-header">
+                                <h2>Histórico de Consultas</h2>
+                            </div>
+                            <div className="card-body table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Especialidade</th>
+                                            <th>Resumo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> <tr>
                                         <td>15/05/2024</td>
                                         <td>Cardiologia</td>
                                         <td>Consulta de rotina. Pressão arterial controlada.</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
 
-                    <section className="card-prontuario" id="medicamentos">
-                        <div className="card-header">
-                            <h2>Medicamentos em Uso / Prescrições</h2>
-                        </div>
-                        <div className="card-body table-container"> 
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Medicamento</th>
-                                        <th>Dosagem</th>
-                                        <th>Frequência</th>
-                                        <th>Via</th>
-                                        <th>Início</th>
-                                        <th>Término</th>
-                                    </tr>
-                                </thead>
-                                <tbody> <tr>
+                        <section className="card-prontuario" id="medicamentos">
+                            <div className="card-header">
+                                <h2>Medicamentos em Uso / Prescrições</h2>
+                            </div>
+                            <div className="card-body table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Medicamento</th>
+                                            <th>Dosagem</th>
+                                            <th>Frequência</th>
+                                            <th>Via</th>
+                                            <th>Início</th>
+                                            <th>Término</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> <tr>
                                         <td>Losartana Potássica</td>
                                         <td>50mg</td>
                                         <td>1x ao dia</td>
@@ -149,37 +170,37 @@ export function AtendimentoConsulta() {
                                         <td>05/04/2023</td>
                                         <td>Contínuo</td>
                                     </tr>
-                                    <tr>
-                                        <td>Amoxicilina</td>
-                                        <td>500mg</td>
-                                        <td>8 em 8 horas</td>
-                                        <td>Oral</td>
-                                        <td>10/10/2024</td>
-                                        <td>17/10/2024</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                                        <tr>
+                                            <td>Amoxicilina</td>
+                                            <td>500mg</td>
+                                            <td>8 em 8 horas</td>
+                                            <td>Oral</td>
+                                            <td>10/10/2024</td>
+                                            <td>17/10/2024</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
 
-                    <section className="card-prontuario" id="exames">
-                        <div className="card-header">
-                            <h2>Exames Realizados</h2>
-                        </div>
-                        <div className="card-body table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Exame</th>
-                                        <th>Data</th>
-                                        <th>Instituição (CNES)</th>
-                                        <th>Nome da Instituição</th>
-                                        <th>Solicitante (CRM)</th>
-                                        <th>Nome do Profissional</th>
-                                        <th>Resultado (Resumo)</th>
-                                    </tr>
-                                </thead>
-                                <tbody> <tr>
+                        <section className="card-prontuario" id="exames">
+                            <div className="card-header">
+                                <h2>Exames Realizados</h2>
+                            </div>
+                            <div className="card-body table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Exame</th>
+                                            <th>Data</th>
+                                            <th>Instituição (CNES)</th>
+                                            <th>Nome da Instituição</th>
+                                            <th>Solicitante (CRM)</th>
+                                            <th>Nome do Profissional</th>
+                                            <th>Resultado (Resumo)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> <tr>
                                         <td>Hemograma Completo</td>
                                         <td>12/05/2024</td>
                                         <td>1234567</td>
@@ -188,28 +209,28 @@ export function AtendimentoConsulta() {
                                         <td>Dr. Yamada</td>
                                         <td>Leucócitos ligeiramente elevados.</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
 
-                    <section className="card-prontuario" id="cirurgias">
-                        <div className="card-header">
-                            <h2>Histórico de Cirurgias</h2>
-                        </div>
-                        <div className="card-body table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Cirurgia</th>
-                                        <th>Data</th>
-                                        <th>Hora</th>
-                                        <th>Hospital</th>
-                                        <th>Cirurgião</th>
-                                        <th>Observações</th>
-                                    </tr>
-                                </thead>
-                                <tbody> <tr>
+                        <section className="card-prontuario" id="cirurgias">
+                            <div className="card-header">
+                                <h2>Histórico de Cirurgias</h2>
+                            </div>
+                            <div className="card-body table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Cirurgia</th>
+                                            <th>Data</th>
+                                            <th>Hora</th>
+                                            <th>Hospital</th>
+                                            <th>Cirurgião</th>
+                                            <th>Observações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> <tr>
                                         <td>Apendicectomia</td>
                                         <td>01/02/2022</td>
                                         <td>14:30</td>
@@ -217,12 +238,13 @@ export function AtendimentoConsulta() {
                                         <td>Dr. Roberto Alves</td>
                                         <td>Procedimento realizado sem intercorrências.</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
 
-                </div>
+                    </div>
+                )}
             </main>
             <Footer />
         </>

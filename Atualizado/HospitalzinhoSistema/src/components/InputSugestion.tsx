@@ -5,7 +5,7 @@ import { api } from "../../services/api";
 
 interface Sugestao {
     id: string;
-    nome: string;
+    [key: string]: any;
 }
 
 export default function InputSugestion({ placeholder, tipoDado, nameInput, setValorTeste, valorBuscarAPI }: { placeholder: string, tipoDado: string, nameInput: string, setValorTeste?: (valor: React.ChangeEvent<HTMLInputElement>) => void, valorBuscarAPI: string }) {
@@ -19,7 +19,9 @@ export default function InputSugestion({ placeholder, tipoDado, nameInput, setVa
                 `/${tipoDado}?$filter=startswith(tolower(${valorBuscarAPI}), tolower('${texto}'))`
             );
             const data = response.data;
-            const filtrados = data.filter((e: Sugestao) => e.nome.toLowerCase().includes(texto.toLowerCase()));
+            const filtrados = data.filter((e: any) =>
+                String(e[valorBuscarAPI]).toLowerCase().includes(texto.toLowerCase())
+            );
             setSugestoes(filtrados);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
@@ -63,8 +65,8 @@ export default function InputSugestion({ placeholder, tipoDado, nameInput, setVa
             {sugestoes.length > 0 && (
                 <ul className="sugestoes-lista">
                     {sugestoes.map((s, i) => (
-                        <li key={i} onClick={() => handleSelect(s.nome)}>
-                            {s.nome}
+                        <li key={i} onClick={() => handleSelect(s[valorBuscarAPI])}>
+                            {s[valorBuscarAPI]}
                         </li>
                     ))}
                 </ul>
