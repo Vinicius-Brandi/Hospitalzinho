@@ -11,7 +11,7 @@ export interface Especialidade {
 
 export interface Sala {
     numero: string;
-    nomeAla: number;
+    alaId: number;
     tipo: SalaTipoType;
 }
 

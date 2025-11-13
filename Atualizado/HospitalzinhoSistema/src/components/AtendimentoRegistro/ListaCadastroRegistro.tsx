@@ -79,13 +79,13 @@ export function ListaCadastroRegistro<T>({
         }
 
         if (tipoDado === "Sala") {
-            const alaResponse = await api.get(`/Ala?$filter=tolower(nome) eq tolower('${(cadastroDado as any).nomeAla}')`);
+            const alaResponse = await api.get(`/Ala?$filter=tolower(nome) eq tolower('${(cadastroDado as any).alaId}')`);
 
             const ala = alaResponse.data.value ?? alaResponse.data ?? [];
 
             dadoFinal = {
                 ...dadoFinal,
-                nomeAla: ala[0]?.id,
+                alaId: ala[0]?.id,
             };
         }
 
@@ -119,6 +119,16 @@ export function ListaCadastroRegistro<T>({
         >
     ) {
         const { name, value } = event.target;
+
+        // Campos que devem ser número
+        if (name === "tipo") {
+            setCadastroDado(prev => ({
+                ...prev,
+                [name]: Number(value),
+            }));
+            return;
+        }
+
         setCadastroDado((prev) => ({ ...prev, [name]: value }));
     }
 

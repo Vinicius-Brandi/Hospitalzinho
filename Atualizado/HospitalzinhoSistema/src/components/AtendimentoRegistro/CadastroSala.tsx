@@ -31,7 +31,7 @@ export function CadastroSala({sala, onChangeLista} : {sala: Partial<Ala>, onChan
                     <label htmlFor="nomeAla">Nome da Ala</label>
                     <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                 </div>
-                <InputSugestion placeholder="Digite o nome da ala" tipoDado="Ala" nameInput="nomeAla" setValorTeste={onChangeLista} valorBuscarAPI="nome" />
+                <InputSugestion placeholder="Digite o nome da ala" tipoDado="Ala" nameInput="alaId" setValorTeste={onChangeLista} valorBuscarAPI="nome" />
             </div>
 
             <label>Tipo</label>
