@@ -14,7 +14,6 @@ export function CadastroConsulta({
     onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
     const [showModal, setShowModal] = useState(false);
-    const [sala, setSala] = useState<Partial<Sala>>({});
 
     return (
         <>
@@ -46,25 +45,25 @@ export function CadastroConsulta({
                         />
                     </div>
 
-                    <CadastroResponsavel value={consulta.profissionalResponsavel ?? ""} onChange={onChange} />
+                    <CadastroResponsavel value={consulta.ProfResponsavelId ?? ""} onChange={onChange} />
 
                     <div className="form-group">
-                        <label htmlFor="hospital">Hospital</label>
+                        <label htmlFor="hospitalId">Hospital</label>
                         <input
                             type="text"
-                            id="hospital"
-                            name="hospital"
-                            value={consulta.hospital ?? ""}
+                            id="hospitalId"
+                            name="hospitalId"
+                            value={consulta.hospitalId ?? ""}
                             onChange={onChange}
                         />
                     </div>
 
                     <div className="form-group">
                         <div className="label-com-botao">
-                            <label htmlFor="sala">Sala</label>
+                            <label htmlFor="salaId">Sala</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Digite o numero da sala" tipoDado="Sala" nameInput="sala" setValorTeste={onChange} valorBuscarAPI="numero" />
+                        <InputSugestion placeholder="Digite o numero da sala" tipoDado="Sala" nameInput="salaId" setValorTeste={onChange} valorBuscarAPI="numero" />
                     </div>
 
                     <div className="form-group full-width">

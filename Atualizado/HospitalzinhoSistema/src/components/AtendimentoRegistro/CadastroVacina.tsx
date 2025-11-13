@@ -1,11 +1,11 @@
 import type { ChangeEvent } from "react";
-import type { Vacina } from "../../../models/prontuario";
+import type { Vacinacao } from "../../../models/prontuario";
 
 export function CadastroVacina({
     vacina,
     onChange
 }: {
-    vacina: Partial<Vacina>;
+    vacina: Partial<Vacinacao>;
     onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
     return (

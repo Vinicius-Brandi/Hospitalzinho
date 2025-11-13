@@ -1,30 +1,11 @@
 import { useState } from "react";
 import { Footer } from "../../components/HeaderAndFooter/Footer";
 import { Header } from "../../components/HeaderAndFooter/Header";
-import InputSugestion from "../../components/InputSugestion";
 import type { Paciente } from "../../../models/paciente";
-import { api } from "../../../services/api";
+import { ConsultaPacienteCPF } from "../../components/AtendimentoRegistro/ConsultaPacienteCPF";
 
 export function AtendimentoConsulta() {
-    const [pesquisaCPF, setPesquisaCPF] = useState("");
     const [paciente, setPaciente] = useState<Partial<Paciente>>({});
-
-    function handleCPFChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setPesquisaCPF(e.target.value);
-    }
-
-    async function buscarPacientePorCPF() {
-        try {
-            const response = await api.get(
-                `/Paciente?$filter=tolower(cpf) eq tolower('${pesquisaCPF}')`
-            );
-
-            console.log("Paciente encontrado:", response.data);
-            setPaciente(response.data[0]);
-        } catch (error) {
-            console.error("Erro ao buscar paciente:", error);
-        }
-    }
 
     return (
         <>
@@ -32,16 +13,7 @@ export function AtendimentoConsulta() {
             <main>
                 <h1>Prontuário Eletrônico do Paciente</h1>
 
-                <section id="pesquisa-paciente">
-                    <h2>Buscar Paciente</h2>
-                    <form className="form-pesquisa">
-                        <div className="form-group">
-                            <label htmlFor="cpf-paciente">CPF ou Cartão Nacional de Saúde (CNS)</label>
-                            <InputSugestion nameInput="cpf" tipoDado="Paciente" placeholder="Digite o CPF do paciente" valorBuscarAPI="cpf" setValorTeste={handleCPFChange} />
-                        </div>
-                        <button type="button" className="btn-pesquisar" onClick={buscarPacientePorCPF}>Pesquisar</button>
-                    </form>
-                </section>
+                <ConsultaPacienteCPF onPaciente={setPaciente} />
 
                 {paciente && paciente.nome && (
                     <div id="prontuario-detalhes"> <section className="card-prontuario" id="dados-paciente">

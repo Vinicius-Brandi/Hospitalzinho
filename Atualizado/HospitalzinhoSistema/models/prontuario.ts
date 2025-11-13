@@ -1,6 +1,6 @@
 export type MapTiposCadastro = {
     Consulta: Consulta;
-    Vacina: Vacina;
+    Vacinacao: Vacinacao;
     Exame: PacienteExame;
     Internacao: Internacao;
     Alergia: Alergia;
@@ -11,37 +11,37 @@ export type MapTiposCadastro = {
 
 
 export interface Consulta {
-    pacienteId: string;
+    prontuarioId: string;
     data: string;
-    profissionalResponsavel: string;
-    hospital: string;
+    ProfResponsavelId: string;
+    hospitalId: string;
     observacoes: string;
-    sala: string;
+    salaId: string;
 }
 
 export interface Vacina {
-    pacienteId: string;
+    prontuarioId: string;
     vacina: string;
-    profissionalResponsavel: string;
+    ProfResponsavelId: string;
     profRegistro: string;
     dataAplicacao: string;
     dose: string;
     observacoes: string;
-    hospital: number;
+    hospitalId: number;
 }
 
 export interface Internacao {
-    pacienteId: string;
+    prontuarioId: string;
     quarto: string;
-    hospital: string;
-    profissionalResponsavel: string;
+    hospitalId: string;
+    ProfResponsavelId: string;
     profRegistro: string;
     dataEntrada: string;
     dataSaida: string;
 }
 
 export interface Alergia {
-    pacienteId: string;
+    prontuarioId: string;
     alergia: string;
     descricao: string;
 }
@@ -53,19 +53,18 @@ export interface TipoExame {
 }
 
 export interface PacienteExame {
-    pacienteId: string;
+    prontuarioId: string;
     data: string;
     tipoExame: string;
     laboratorio: string;
     resultados: string;
     observacoes: string;
-    prontuarioId: string;
-    profissionalResponsavelId: string;
-    hospital: number;
+    ProfResponsavelIdId: string;
+    hospitalId: number;
 }
 
 export interface DoencaCronica {
-    pacienteId: string;
+    prontuarioId: string;
     doenca: string;
     dataDiagnostico: string;
     estagio: string;
@@ -81,7 +80,7 @@ export interface TipoDoencaCronica {
 }
 
 export interface Medicacao {
-    pacienteId: string;
+    prontuarioId: string;
     medicamento: string;
     dosagemPrescrita: string;
     frequenciaMedicacao: string;
@@ -102,12 +101,12 @@ export interface MedicamentoModelo {
 }
 
 export interface Cirurgia {
-    pacienteId: string;
+    prontuarioId: string;
     nome: string;
     data: string;
-    profissionalResponsavel: string;
+    ProfResponsavelId: string;
     profRegistro: string;
-    sala: string;
-    hospital: number;
+    salaId: string;
+    hospitalId: number;
     observacoes: string;
 }

@@ -6,7 +6,6 @@ import InputSugestion from "../InputSugestion";
 
 export function CadastroResponsavel({ value, onChange }: { value: string | undefined; onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void; }) {
     const [showModal, setShowModal] = useState(false);
-    const [profissional, setProfissional] = useState<Partial<ProfissionalResponsavel>>({});
 
     return (
         <>
@@ -27,10 +26,10 @@ export function CadastroResponsavel({ value, onChange }: { value: string | undef
 
             <div className="form-group">
                 <div className="label-com-botao">
-                    <label htmlFor="profissionalResponsavel">Profissional Responsável</label>
+                    <label htmlFor="ProfResponsavelId">Profissional Responsável</label>
                     <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                 </div>
-                <InputSugestion placeholder="Digite o nome do profissional" tipoDado="ProfissionalSaude" nameInput="profissionalResponsavel" setValorTeste={onChange} valorBuscarAPI="nome"/>
+                <InputSugestion placeholder="Digite o nome do profissional" tipoDado="ProfissionalSaude" nameInput="ProfResponsavelId" setValorTeste={onChange} valorBuscarAPI="nome"/>
             </div>
         </>
     )
