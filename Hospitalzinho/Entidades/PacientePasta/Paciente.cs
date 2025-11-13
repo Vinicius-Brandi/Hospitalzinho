@@ -9,9 +9,9 @@ namespace Hospitalzinho.Entidades
     {
         [Obrigar]
         public virtual string Nome { get; set; }
-        [Obrigar]
+        [Obrigar, Unico]
         public virtual string CNS { get; set; } // Cartão Nacional de Saúde
-        [Obrigar]
+        [Obrigar, Unico]
         public virtual string Cpf { get; set; }
         public virtual DateTime DataNascimento { get; set; }
         public virtual string? NomePai { get; set; }

@@ -5,7 +5,7 @@ namespace Hospitalzinho.Entidades
 {
     public class MedicamentoModelo : EntidadeBase
     {
-        [Obrigar]
+        [Obrigar, Unico]
         public virtual string Nome { get; set; } // Ex: "Losartana 50mg"
         public virtual string? PrincipioAtivo { get; set; } // Ex: "Losartana Potássica"
         public virtual string? Fabricante { get; set; }

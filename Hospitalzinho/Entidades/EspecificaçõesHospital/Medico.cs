@@ -9,7 +9,7 @@ namespace Hospitalzinho.Entidades
         [Obrigar]
         public virtual string Nome { get; set; } = null!;
 
-        [Obrigar]
+        [Obrigar, Unico]
         public virtual string RegistroProfissional { get; set; } // CRM, COREN etc.
 
         // FK

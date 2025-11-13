@@ -10,7 +10,7 @@ namespace Hospitalzinho.Entidades
         public virtual string? Posologia { get; set; } // Ex: "1 comprimido a cada 12h"
 
         // FK - Receita
-        [Obrigar(typeof(Receita))]
+        [Obrigar(typeof(Receita)), Unico]
         public virtual long ReceitaId { get; set; }
         [JsonIgnore]
         public virtual Receita? Receita { get; set; }

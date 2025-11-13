@@ -6,6 +6,7 @@ namespace Hospitalzinho.Entidades
 {
     public class Vacina : EntidadeBase
     {
+        [Unico]
         public virtual string? Lote { get; set; } // Lote da vacina
         public virtual DateTime? DataProducao { get; set; }
         public virtual DateTime? DataValidade { get; set; }

@@ -8,7 +8,7 @@ namespace Hospitalzinho.Entidades
     {
         [Obrigar]
         public virtual string Nome { get; set; }
-        [Obrigar]
+        [Obrigar,Unico]
         public virtual string CNPJ { get; set; }
         [JsonIgnore]
         public virtual IList<HospitalUnidade> Unidades { get; set; } = new List<HospitalUnidade>();
