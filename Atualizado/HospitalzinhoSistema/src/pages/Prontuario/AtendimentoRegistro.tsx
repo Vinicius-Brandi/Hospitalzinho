@@ -12,6 +12,7 @@ import { CadastroMedicacao } from '../../components/AtendimentoRegistro/Cadastro
 import { CadastroCirurgia } from '../../components/AtendimentoRegistro/CadastroCirurgia';
 import type { Alergia, Cirurgia, Consulta, DoencaCronica, PacienteExame, Internacao, Medicacao, Vacina, MapTiposCadastro } from '../../../models/prontuario';
 import { api } from '../../../services/api';
+import { HOSPITALID } from '../../../models/hospital';
 
 export function AtendimentoRegistro() {
     const [tipoCadastro, setTipoCadastro] = useState<keyof MapTiposCadastro>('Consulta');
@@ -43,9 +44,8 @@ export function AtendimentoRegistro() {
         console.log(novoDado);
 
         if ("hospital" in novoDado) {
-            console.log(novoDado.hospital);
+            novoDado.hospital = HOSPITALID;
         }
-
 
         await api.post(`/Paciente${tipoCadastro}`, novoDado);
     }
@@ -87,7 +87,7 @@ export function AtendimentoRegistro() {
                             <form>
                                 <div className="form-group">
                                     <label htmlFor="tipo-registro">Selecione o tipo de registro</label>
-                                    <select id="tipo-registro" name="tipo-registro" onChange={(e) => setTipoCadastro(e.target.value)}>
+                                    <select id="tipo-registro" name="tipo-registro" onChange={(e) => setTipoCadastro(e.target.value as keyof MapTiposCadastro)}>
                                         <option value="Consulta">Nova Consulta</option>
                                         <option value="Vacina">Nova Vacina</option>
                                         <option value="Internacao">Nova Internação</option>

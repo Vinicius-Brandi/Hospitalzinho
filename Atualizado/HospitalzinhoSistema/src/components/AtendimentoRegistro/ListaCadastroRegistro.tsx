@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { Modal } from "../Modal";
 import CadastroProfissional from "./CadastroProfissional";
+import InputSugestion from "../InputSugestion";
+import { CadastroSala } from "./CadastroSala";
+import { HOSPITALID } from "../../../models/hospital";
 
 interface ListaCadastroRegistroProps<T> {
     tipoDado: string;
@@ -65,15 +68,31 @@ export function ListaCadastroRegistro<T>({
 
         if (tipoDado === "ProfissionalSaude") {
             const especialidadeResponse = await api.get(`/Especialidade?$filter=tolower(nome) eq tolower('${(cadastroDado as any).especialidadeId}')`);
-            const hospitalResponse = await api.get(`/HospitalUnidade?$filter=tolower(nome) eq tolower('${(cadastroDado as any).hospitalId}')`);
 
             const especialidade = especialidadeResponse.data.value ?? especialidadeResponse.data ?? [];
-            const hospital = hospitalResponse.data.value ?? hospitalResponse.data ?? [];
 
             dadoFinal = {
                 ...dadoFinal,
                 especialidadeId: especialidade[0]?.id,
-                hospitalId: hospital[0]?.id,
+                hospitalId: HOSPITALID,
+            };
+        }
+
+        if (tipoDado === "Sala") {
+            const alaResponse = await api.get(`/Ala?$filter=tolower(nome) eq tolower('${(cadastroDado as any).nomeAla}')`);
+
+            const ala = alaResponse.data.value ?? alaResponse.data ?? [];
+
+            dadoFinal = {
+                ...dadoFinal,
+                nomeAla: ala[0]?.id,
+            };
+        }
+
+        if (tipoDado === "Ala") {
+            dadoFinal = {
+                ...dadoFinal,
+                hospitalId: HOSPITALID,
             };
         }
 
@@ -175,6 +194,17 @@ export function ListaCadastroRegistro<T>({
 
                         <label>Contraindicações</label>
                         <textarea rows={3} value={(cadastroDado as any).contraIndicacoes ?? ""} onChange={handleCadastroDadoChange} name="contraIndicacoes"></textarea>
+                    </>
+                )}
+
+                {tipoDado === "Sala" && (
+                    <CadastroSala sala={cadastroDado as any} onChangeLista={handleCadastroDadoChange} />
+                )}
+
+                {tipoDado === "Ala" && (
+                    <>
+                        <label>Nome</label>
+                        <input type="text" value={(cadastroDado as any).nome ?? ""} onChange={handleCadastroDadoChange} name="nome" />
                     </>
                 )}
 

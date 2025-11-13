@@ -30,7 +30,7 @@ export function CadastroResponsavel({ value, onChange }: { value: string | undef
                     <label htmlFor="profissionalResponsavel">Profissional Responsável</label>
                     <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                 </div>
-                <InputSugestion placeholder="Digite o nome do profissional" tipoDado="ProfissionalSaude" nameInput="profissionalResponsavel" setValorTeste={onChange}/>
+                <InputSugestion placeholder="Digite o nome do profissional" tipoDado="ProfissionalSaude" nameInput="profissionalResponsavel" setValorTeste={onChange} valorBuscarAPI="nome"/>
             </div>
         </>
     )

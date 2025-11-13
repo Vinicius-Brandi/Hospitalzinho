@@ -1,6 +1,10 @@
-import type { ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import type { Consulta } from "../../../models/prontuario";
 import { CadastroResponsavel } from "./CadastroResponsavel";
+import InputSugestion from "../InputSugestion";
+import { Modal } from "../Modal";
+import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
+import type { Sala } from "../../../models/hospital";
 
 export function CadastroConsulta({
     consulta,
@@ -9,56 +13,72 @@ export function CadastroConsulta({
     consulta: Partial<Consulta>;
     onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
+    const [showModal, setShowModal] = useState(false);
+    const [sala, setSala] = useState<Partial<Sala>>({});
+
     return (
-        <fieldset id="form-nova-consulta">
-            <legend>Dados da Consulta</legend>
-            <div className="form-grid">
-                <div className="form-group">
-                    <label htmlFor="data">Data</label>
-                    <input
-                        type="date"
-                        id="data"
-                        name="data"
-                        value={consulta.data ?? ""}
-                        onChange={onChange}
-                    />
-                </div>
-                
-                <CadastroResponsavel value={consulta.profissionalResponsavel ?? ""} onChange={onChange} />
+        <>
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                <ListaCadastroRegistro<Sala>
+                    tipoDado="Sala"
+                    titulo="Lista de Salas"
+                    renderItem={(sala) => (
+                        <>
+                            <div className="paciente-info">
+                                <h3>{sala.numero}</h3>
+                            </div>
+                        </>
+                    )}
+                />
+            </Modal>
 
-                <div className="form-group">
-                    <label htmlFor="hospital">Hospital</label>
-                    <input
-                        type="text"
-                        id="hospital"
-                        name="hospital"
-                        value={consulta.hospital ?? ""}
-                        onChange={onChange}
-                    />
-                </div>
+            <fieldset id="form-nova-consulta">
+                <legend>Dados da Consulta</legend>
+                <div className="form-grid">
+                    <div className="form-group">
+                        <label htmlFor="data">Data</label>
+                        <input
+                            type="date"
+                            id="data"
+                            name="data"
+                            value={consulta.data ?? ""}
+                            onChange={onChange}
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <label htmlFor="sala">Sala</label>
-                    <input
-                        type="text"
-                        id="sala"
-                        name="sala"
-                        value={consulta.sala ?? ""}
-                        onChange={onChange}
-                    />
-                </div>
+                    <CadastroResponsavel value={consulta.profissionalResponsavel ?? ""} onChange={onChange} />
 
-                <div className="form-group full-width">
-                    <label htmlFor="observacoes">Resumo / Anotações</label>
-                    <textarea
-                        id="observacoes"
-                        name="observacoes"
-                        rows={5}
-                        value={consulta.observacoes ?? ""}
-                        onChange={onChange}
-                    />
+                    <div className="form-group">
+                        <label htmlFor="hospital">Hospital</label>
+                        <input
+                            type="text"
+                            id="hospital"
+                            name="hospital"
+                            value={consulta.hospital ?? ""}
+                            onChange={onChange}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <div className="label-com-botao">
+                            <label htmlFor="sala">Sala</label>
+                            <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
+                        </div>
+                        <InputSugestion placeholder="Digite o numero da sala" tipoDado="Sala" nameInput="sala" setValorTeste={onChange} valorBuscarAPI="numero" />
+                    </div>
+
+                    <div className="form-group full-width">
+                        <label htmlFor="observacoes">Resumo / Anotações</label>
+                        <textarea
+                            id="observacoes"
+                            name="observacoes"
+                            rows={5}
+                            value={consulta.observacoes ?? ""}
+                            onChange={onChange}
+                        />
+                    </div>
                 </div>
-            </div>
-        </fieldset>
+            </fieldset>
+        </>
     );
 }

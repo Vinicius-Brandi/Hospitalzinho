@@ -21,7 +21,7 @@ export default function CadastroProfissional({profissional, onChangeLista} : {pr
                     <label>Especialidade</label>
                     <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                 </div>
-                <InputSugestion placeholder="Ex: Hemograma Completo" nameInput="especialidadeId" tipoDado="Especialidade" setValorTeste={(e) => onChangeLista(e)}/>
+                <InputSugestion placeholder="Ex: Hemograma Completo" nameInput="especialidadeId" tipoDado="Especialidade" setValorTeste={(e) => onChangeLista(e)} valorBuscarAPI="nome"/>
             </div>
         
             <label>Hospital / Unidade</label>

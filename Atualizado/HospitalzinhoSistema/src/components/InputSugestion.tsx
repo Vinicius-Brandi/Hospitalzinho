@@ -8,14 +8,14 @@ interface Sugestao {
     nome: string;
 }
 
-export default function InputSugestion({ placeholder, tipoDado, nameInput, setValorTeste}: { placeholder: string, tipoDado: string, nameInput: string, setValorTeste?: (valor: React.ChangeEvent<HTMLInputElement>) => void }) {
+export default function InputSugestion({ placeholder, tipoDado, nameInput, setValorTeste, valorBuscarAPI}: { placeholder: string, tipoDado: string, nameInput: string, setValorTeste?: (valor: React.ChangeEvent<HTMLInputElement>) => void, valorBuscarAPI: string }) {
     const [valor, setValor] = useState("");
     const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
     const selecionandoRef = useRef(false);
 
     const buscarSugestoes = debounce(async (texto: string) => {
         try {
-            const response = await api.get(`/${tipoDado}?$filter=startswith(tolower(nome), tolower('${texto}'))`);
+            const response = await api.get(`/${tipoDado}?$filter=startswith(tolower('${valorBuscarAPI}'), tolower('${texto}'))`);
             const data = response.data;
             const filtrados = data.filter((e: Sugestao) => e.nome.toLowerCase().includes(texto.toLowerCase()));
             setSugestoes(filtrados);

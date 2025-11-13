@@ -27,7 +27,7 @@ export interface Vacina {
     dataAplicacao: string;
     dose: string;
     observacoes: string;
-    hospital: string;
+    hospital: number;
 }
 
 export interface Internacao {
@@ -61,7 +61,7 @@ export interface PacienteExame {
     observacoes: string;
     prontuarioId: string;
     profissionalResponsavelId: string;
-    hospital: string;
+    hospital: number;
 }
 
 export interface DoencaCronica {
@@ -108,6 +108,6 @@ export interface Cirurgia {
     profissionalResponsavel: string;
     profRegistro: string;
     sala: string;
-    hospital: string;
+    hospital: number;
     observacoes: string;
 }
