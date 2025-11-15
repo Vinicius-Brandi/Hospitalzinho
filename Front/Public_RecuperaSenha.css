@@ -108,3 +108,28 @@ html, body {
 .login-footer a:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 480px) {
+    
+    .login-box {
+        /* Reduz o padding para o formulário não ficar "espremido" */
+        padding: 1.5rem;
+        
+        /* Remove a sombra para um visual mais limpo em mobile */
+        box-shadow: none;
+    }
+
+    .login-box h1 {
+        font-size: 1.5rem; /* Um título um pouco menor */
+    }
+
+    .login-box p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-login {
+        padding: 0.7rem; /* Botão um pouco mais baixo */
+        font-size: 1rem;
+    }
+}

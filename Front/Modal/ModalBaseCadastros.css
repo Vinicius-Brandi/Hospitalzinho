@@ -101,3 +101,52 @@ h1 {
 
 .btn-excluir { background-color: #dc3545; }
 .btn-excluir:hover { background-color: #c82333; transform: translateY(-2px); }
+
+@media (max-width: 768px) {
+    .modal-conteudo {
+        /* Reduz a margem superior/inferior em tablets */
+        margin: 10% auto;
+        /* Reduz a largura máxima para caber melhor */
+        max-width: 90%; 
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-conteudo {
+        /* Em celulares, usa quase 100% da largura */
+        margin: 10% auto; 
+        max-width: 95%;
+        padding: 1rem;
+        
+        /* Garante que se o conteúdo do modal for maior que a tela, */
+        /* o usuário possa rolar o *conteúdo* do modal */
+        max-height: 80vh; /* 80% da altura da tela */
+        overflow-y: auto; /* Adiciona scroll vertical *dentro* do modal */
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .formulario {
+        gap: 0.8rem; /* Diminui o espaçamento do formulário */
+    }
+
+    .botoes-form {
+        /* Empilha os botões em celulares */
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Faz os botões ocuparem 100% da largura */
+    .btn-editar, .btn-excluir {
+        width: 100%;
+        box-sizing: border-box; /* Garante que o padding não quebre o layout */
+    }
+}

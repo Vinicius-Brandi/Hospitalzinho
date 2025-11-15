@@ -153,3 +153,33 @@ select {
 .btn-cadastrar-inline:hover {
     background-color: #0056b3; 
 }
+
+@media (max-width: 768px) {
+    
+    /* * A secção de pesquisa já está tratada pelo CSS importado.
+     * Vamos apenas ajustar os paddings do novo formulário.
+     */
+
+    #adicionar-registro,
+    #cadastro-novo-paciente {
+        padding: 1.5rem;
+    }
+
+    fieldset {
+        padding: 1rem;
+    }
+}
+
+
+/* Para Telemóveis (até 480px) */
+@media (max-width: 480px) {
+    
+    #adicionar-registro,
+    #cadastro-novo-paciente {
+        padding: 1rem;
+    }
+
+    legend {
+        font-size: 1.1rem;
+    }
+}

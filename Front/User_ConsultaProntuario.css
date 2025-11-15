@@ -184,3 +184,63 @@ tbody tr:nth-child(even) {
 tbody tr:hover {
     background-color: #e9ecef;
 }
+
+@media (max-width: 768px) {
+    
+    main {
+        /* Reduz as margens laterais em ecrãs menores */
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    /* * Faz o formulário de pesquisa ficar em coluna.
+     * O 'label' e o 'input' ficam em cima e o 'button' em baixo.
+     */
+    .form-pesquisa {
+        flex-direction: column;
+        align-items: stretch; /* Faz os itens ocuparem 100% da largura */
+    }
+
+    .btn-pesquisar {
+        height: auto; /* Deixa a altura ser automática */
+        width: 100%; /* Botão com largura total */
+    }
+
+    /* * Faz o grid de informações do paciente (Nome, CPF, etc.)
+     * ficar com apenas 1 coluna.
+     */
+    .info-paciente {
+        grid-template-columns: 1fr; /* Apenas 1 coluna */
+    }
+
+    .card-body {
+        padding: 1rem; /* Menos padding dentro dos cards */
+    }
+}
+
+/* Para Telemóveis (até 480px) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    /* * Reduz o tamanho da fonte nas tabelas para tentar 
+     * encaixar mais informação antes de precisar de scroll.
+     */
+    th, td {
+        padding: 0.7rem;
+        font-size: 0.9rem; /* Fonte um pouco menor */
+    }
+
+    .info-paciente div {
+        font-size: 1rem; /* Fonte menor nos dados do paciente */
+    }
+}
