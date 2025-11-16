@@ -12,7 +12,6 @@ namespace Hospitalzinho.Entidades
         public virtual PacienteProntuario Prontuario { get; set; }
         public virtual DateTime DataInternacao { get; set; }
         public virtual DateTime? DataAlta { get; set; } // Pode ser nulo enquanto o paciente estiver internado
-        [Obrigar(typeof(Quarto))]
         public virtual long QuartoId { get; set; }
         [JsonIgnore]
         public virtual Quarto Quarto { get; set; }
