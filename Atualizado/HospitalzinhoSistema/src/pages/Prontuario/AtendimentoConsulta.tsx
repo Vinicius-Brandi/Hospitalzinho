@@ -45,6 +45,11 @@ export function AtendimentoConsulta() {
         carregarTiposDeAlergia();
     }, []);
 
+    useEffect(() => {
+        console.log("Paciente atualizado:", paciente);
+
+    }, [paciente]);
+
     async function AtualizarPaciente(pacienteBase: Partial<Paciente> | null) {
         setPaciente(null);
         setError(null);
