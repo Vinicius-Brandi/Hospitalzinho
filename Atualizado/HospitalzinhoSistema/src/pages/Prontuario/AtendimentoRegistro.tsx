@@ -3,7 +3,7 @@ import { Header } from "../../components/HeaderAndFooter/Header"
 import { Footer } from "../../components/HeaderAndFooter/Footer"
 import { useEffect, useState } from 'react';
 import { CadastroConsulta } from '../../components/AtendimentoRegistro/CadastroConsulta';
-import { CadastroVacina } from '../../components/AtendimentoRegistro/CadastroVacina';
+import { CadastroVacinacao } from '../../components/AtendimentoRegistro/CadastroVacinacao';
 import { CadastroInternacao } from '../../components/AtendimentoRegistro/CadastroInternacao';
 import { CadastroAlergia } from '../../components/AtendimentoRegistro/CadastroAlergia';
 import { CadastroExame } from '../../components/AtendimentoRegistro/CadastroExame';
@@ -44,10 +44,6 @@ export function AtendimentoRegistro() {
     async function HandleSubmit() {
         const novoDado: MapTiposCadastro[typeof tipoCadastro] = dado as MapTiposCadastro[typeof tipoCadastro];
 
-        if ("hospitalId" in novoDado) {
-            novoDado.hospitalId = HOSPITALID;
-        }
-
         if ("salaId" in novoDado) {
             novoDado.salaId = (await api.get(`Sala?$filter=numero eq '${novoDado.salaId}'`)).data[0].id;
         }
@@ -56,11 +52,29 @@ export function AtendimentoRegistro() {
             novoDado.ProfResponsavelId = (await api.get(`ProfissionalSaude?$filter=tolower(nome) eq tolower('${novoDado.ProfResponsavelId}')`)).data[0].id;
         }
 
-        console.log(paciente);
+        if ("quartoId" in novoDado) {
+            novoDado.quartoId = (await api.get(`Quarto?$filter=numero eq '${novoDado.quartoId}'`)).data[0].id;
+        }
+
+        if ("tipoExameId" in novoDado) {
+            novoDado.tipoExameId = (await api.get(`Exame?$filter=tolower(nome) eq tolower('${novoDado.tipoExameId}')`)).data[0].id;
+        }
+
+        if ("ModeloId" in novoDado) {
+            novoDado.ModeloId = (await api.get(`DoencaCronicaModelo?$filter=tolower(nome) eq tolower('${novoDado.ModeloId}')`)).data[0].id;
+        }
 
         const prontuarioResp = await api.get(
             `/PacienteProntuario?$filter=tolower(paciente/cpf) eq tolower('${paciente.cpf}')`
         );
+
+        if (tipoCadastro === 'Consulta' ||
+            tipoCadastro === 'Vacinacao' ||
+            tipoCadastro === 'Internacao' ||
+            tipoCadastro === 'Exame' ||
+            tipoCadastro === 'Cirurgia') {
+            (novoDado as any).hospitalId = HOSPITALID;
+        }
 
         novoDado.prontuarioId = prontuarioResp.data[0].id;
 
@@ -111,7 +125,7 @@ export function AtendimentoRegistro() {
 
                                 {tipoCadastro === 'Consulta' && <CadastroConsulta consulta={dado as Partial<Consulta>} onChange={onChange} />}
 
-                                {tipoCadastro === 'Vacinacao' && <CadastroVacina vacina={dado as Partial<Vacinacao>} onChange={onChange} />}
+                                {tipoCadastro === 'Vacinacao' && <CadastroVacinacao vacina={dado as Partial<Vacinacao>} onChange={onChange} />}
 
                                 {tipoCadastro === 'Internacao' && <CadastroInternacao internacao={dado as Partial<Internacao>} onChange={onChange} />}
 

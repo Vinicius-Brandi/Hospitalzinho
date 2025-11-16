@@ -40,4 +40,20 @@ export const AlaTipo = {
 
 export type AlaTipoType = typeof AlaTipo[keyof typeof AlaTipo];
 
+export interface Quarto {
+    numero: string;
+    alaId: number;
+    tipo: QuartoTipoType;
+    capacidade: number;
+}
+
+export const QuartoTipo = {
+    Enfermaria: 1,
+    UTI: 2,
+    Isolamento: 3,
+    SemiIntensivo: 4
+} as const;
+
+export type QuartoTipoType = typeof QuartoTipo[keyof typeof QuartoTipo];
+
 export const HOSPITALID = 3;

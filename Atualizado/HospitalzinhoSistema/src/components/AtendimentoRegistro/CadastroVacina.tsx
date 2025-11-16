@@ -1,30 +1,64 @@
-import type { ChangeEvent } from "react";
-import type { Vacinacao } from "../../../models/prontuario";
+import { useState, type ChangeEvent } from "react";
+import type { Vacina, VacinaModelo } from "../../../models/prontuario";
+import InputSugestion from "../InputSugestion";
+import { Modal } from "../Modal";
+import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
 
 export function CadastroVacina({
     vacina,
-    onChange
-}: {
-    vacina: Partial<Vacinacao>;
-    onChange: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
-}) {
+    onChangeLista }: {
+        vacina: Partial<Vacina>;
+        onChangeLista: (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => void;
+    }) {
+    const [showModal, setShowModal] = useState(false);
+
     return (
-        <fieldset id="form-nova-vacina">
-            <legend>Dados da Vacina</legend>
-            <div className="form-grid">
-                <div className="form-group">
-                    <label htmlFor="vacina">Nome da Vacina</label>
-                    <input type="text" id="vacina" name="vacina" value={vacina.vacina ?? ""} onChange={onChange}/>
+        <>
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                <ListaCadastroRegistro<VacinaModelo>
+                    tipoDado="VacinaModelo"
+                    titulo="Lista de Modelos de Vacina"
+                    renderItem={(vacinaModelo) => (
+                        <>
+                            <div className="paciente-info">
+                                <h3>{vacinaModelo.nome}</h3>
+                            </div>
+                        </>
+                    )}
+                />
+            </Modal>
+
+            <label>Lote</label>
+            <input type="text" required onChange={onChangeLista} name="lote" value={(vacina as any).lote ?? ""} />
+
+            <label htmlFor="dataProducao">Data Produção</label>
+            <input
+                type="date"
+                id="dataProducao"
+                name="dataProducao"
+                value={(vacina as any).dataProducao ?? ""}
+                onChange={onChangeLista}
+            />
+
+            <label htmlFor="dataValidade">Data Validade</label>
+            <input
+                type="date"
+                id="dataValidade"
+                name="dataValidade"
+                value={(vacina as any).dataValidade ?? ""}
+                onChange={onChangeLista}
+            />
+
+            <label>Quantidade Disponivel</label>
+            <input type="text" required onChange={onChangeLista} name="quantidadeDisponivel" value={(vacina as any).quantidadeDisponivel ?? ""} />
+
+            <div className="form-group">
+                <div className="label-com-botao">
+                    <label htmlFor="vacinaModeloId">Vacina Modelo</label>
+                    <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="dose">Dose</label>
-                    <input type="text" id="dose" name="dose" placeholder="Ex: 1ª Dose, Dose Única" value={vacina.dose ?? ""} onChange={onChange}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="dataAplicacao">Data de Aplicação</label>
-                    <input type="date" id="dataAplicacao" name="dataAplicacao" value={vacina.dataAplicacao ?? ""} onChange={onChange} />
-                </div>
+                <InputSugestion placeholder="Digite o nome do Modelo da Vacina" tipoDado="VacinaModelo" nameInput="vacinaModeloId" setValorTeste={onChangeLista} valorBuscarAPI="nome" />
             </div>
-        </fieldset>
+        </>
     )
 }

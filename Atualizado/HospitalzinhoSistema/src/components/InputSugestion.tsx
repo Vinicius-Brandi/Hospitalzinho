@@ -60,7 +60,8 @@ export default function InputSugestion({ placeholder, tipoDado, nameInput, setVa
 
     return (
         <div className="input-sugestion-container">
-            <input type="text" placeholder={placeholder} name={nameInput} value={valor} onChange={(e) => setarValor(e)} />
+            {valorBuscarAPI === "numero" && (<input type="number" placeholder={placeholder} name={nameInput} value={valor} onChange={(e) => setarValor(e)} />)}
+            {valorBuscarAPI !== "numero" && (<input type="text" placeholder={placeholder} name={nameInput} value={valor} onChange={(e) => setarValor(e)} />)}
 
             {sugestoes.length > 0 && (
                 <ul className="sugestoes-lista">

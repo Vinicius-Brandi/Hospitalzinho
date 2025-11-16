@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { Modal } from "../Modal";
 import CadastroProfissional from "./CadastroProfissional";
-import InputSugestion from "../InputSugestion";
 import { CadastroSala } from "./CadastroSala";
 import { HOSPITALID } from "../../../models/hospital";
+import { CadastroVacina } from "../AtendimentoRegistro/CadastroVacina";
+import { CadastroQuarto } from "./CadastroQuarto";
 
 interface ListaCadastroRegistroProps<T> {
     tipoDado: string;
@@ -96,6 +97,28 @@ export function ListaCadastroRegistro<T>({
             };
         }
 
+        if (tipoDado === "Vacina") {
+            const vacinaModeloResponse = await api.get(`/VacinaModelo?$filter=tolower(nome) eq tolower('${(cadastroDado as any).vacinaModeloId}')`);
+            const vacinaModelo = vacinaModeloResponse.data.value ?? vacinaModeloResponse.data ?? [];
+
+            dadoFinal = {
+                ...dadoFinal,
+                vacinaModeloId: vacinaModelo[0]?.id,
+                hospitalId: HOSPITALID,
+            };
+        }
+
+        if (tipoDado === "Quarto") {
+            const alaResponse = await api.get(`/Ala?$filter=tolower(nome) eq tolower('${(cadastroDado as any).alaId}')`);
+
+            const ala = alaResponse.data.value ?? alaResponse.data ?? [];
+
+            dadoFinal = {
+                ...dadoFinal,
+                alaId: ala[0]?.id,
+            };
+        }
+
         try {
             if (tipo === "Post") {
                 await api.post(`/${tipoDado}`, dadoFinal);
@@ -120,7 +143,7 @@ export function ListaCadastroRegistro<T>({
     ) {
         const { name, value } = event.target;
 
-        if (name === "tipo") {
+        if ((tipoDado === "Sala" || tipoDado === "Quarto") && name === "tipo") {
             setCadastroDado(prev => ({
                 ...prev,
                 [name]: Number(value),
@@ -210,10 +233,35 @@ export function ListaCadastroRegistro<T>({
                     <CadastroSala sala={cadastroDado as any} onChangeLista={handleCadastroDadoChange} />
                 )}
 
+                {tipoDado === "Quarto" && (
+                    <CadastroQuarto quarto={cadastroDado as any} onChangeLista={handleCadastroDadoChange} />
+                )}
+
                 {tipoDado === "Ala" && (
                     <>
                         <label>Nome</label>
                         <input type="text" value={(cadastroDado as any).nome ?? ""} onChange={handleCadastroDadoChange} name="nome" />
+                    </>
+                )}
+
+                {tipoDado === "Vacina" && (
+                    <CadastroVacina vacina={cadastroDado as any} onChangeLista={handleCadastroDadoChange} />
+                )}
+
+                {tipoDado === "VacinaModelo" && (
+                    <>
+                        <label>Nome</label>
+                        <input type="text" value={(cadastroDado as any).nome ?? ""} onChange={handleCadastroDadoChange} name="nome" />
+                        <label>Fabricante</label>
+                        <input type="text" value={(cadastroDado as any).fabricante ?? ""} onChange={handleCadastroDadoChange} name="fabricante" />
+                        <label>Tipo</label>
+                        <input type="text" value={(cadastroDado as any).tipo ?? ""} onChange={handleCadastroDadoChange} name="tipo" />
+                        <label>Indicação</label>
+                        <input type="text" value={(cadastroDado as any).indicacao ?? ""} onChange={handleCadastroDadoChange} name="indicacao" />
+                        <label>Número de Doses</label>
+                        <input type="text" value={(cadastroDado as any).numeroDoses ?? ""} onChange={handleCadastroDadoChange} name="numeroDoses" />
+                        <label>Intervalo entre Doses (dias)</label>
+                        <input type="text" value={(cadastroDado as any).intervaloEntreDoses ?? ""} onChange={handleCadastroDadoChange} name="intervaloEntreDoses" />
                     </>
                 )}
 

@@ -30,19 +30,14 @@ export function CadastroExame({exame, onChange} : {exame : Partial<PacienteExame
                 <div className="form-grid">
                     <div className="form-group">
                         <div className="label-com-botao">
-                            <label htmlFor="tipoExame">Tipo do Exame</label>
+                            <label htmlFor="tipoExameId">Tipo do Exame</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Ex: Hemograma Completo" nameInput="tipoExame" tipoDado="Exame"/>
+                        <InputSugestion placeholder="Ex: Hemograma Completo" nameInput="tipoExameId" tipoDado="Exame" valorBuscarAPI="nome" setValorTeste={onChange} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="dataExame">Data do Exame</label>
-                        <input type="date" id="dataExame" name="dataExame" value={exame.data} onChange={onChange} />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="hospital">Hospital</label>
-                        <input type="text" id="hospital" name="hospital" placeholder="Onde foi realizado o exame" value={exame.hospital} onChange={onChange} />
+                        <label htmlFor="data">Data do Exame</label>
+                        <input type="date" id="data" name="data" value={exame.data} onChange={onChange} />
                     </div>
 
                     <div className="form-group">
@@ -50,7 +45,7 @@ export function CadastroExame({exame, onChange} : {exame : Partial<PacienteExame
                         <input type="text" id="laboratorio" name="laboratorio" placeholder="Onde foi realizado o exame" value={exame.laboratorio} onChange={onChange} />
                     </div>
 
-                    <CadastroResponsavel value={exame.profissionalResponsavelId} onChange={onChange} />
+                    <CadastroResponsavel value={exame.ProfResponsavelId} onChange={onChange} />
 
                     <div className="form-group full-width">
                         <label htmlFor="resultados">Resultados</label>
