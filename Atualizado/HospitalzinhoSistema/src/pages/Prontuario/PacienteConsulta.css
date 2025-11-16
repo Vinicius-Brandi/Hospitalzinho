@@ -56,7 +56,8 @@ input[type="text"],
 input[type="date"],
 input[type="tel"],
 input[type="email"],
-input[type="time"] {
+input[type="time"],
+input[type="number"] {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #ced4da;

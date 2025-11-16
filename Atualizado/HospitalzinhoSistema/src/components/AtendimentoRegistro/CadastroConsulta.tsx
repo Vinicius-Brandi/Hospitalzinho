@@ -48,17 +48,6 @@ export function CadastroConsulta({
                     <CadastroResponsavel value={consulta.ProfResponsavelId ?? ""} onChange={onChange} />
 
                     <div className="form-group">
-                        <label htmlFor="hospitalId">Hospital</label>
-                        <input
-                            type="text"
-                            id="hospitalId"
-                            name="hospitalId"
-                            value={consulta.hospitalId ?? ""}
-                            onChange={onChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
                         <div className="label-com-botao">
                             <label htmlFor="salaId">Sala</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>

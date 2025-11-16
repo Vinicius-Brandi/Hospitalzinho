@@ -37,10 +37,10 @@ export function CadastroDoencaCronica({
 
                     <div className="form-group full-width">
                         <div className="label-com-botao">
-                            <label htmlFor="doencaCronicaPesquisa">Pesquisar Doença</label>
+                            <label htmlFor="ModeloId">Pesquisar Doença</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Digite o nome para buscar" tipoDado="DoencaCronicaModelo" nameInput="doencaCronicaPesquisa"/>
+                        <InputSugestion placeholder="Digite o nome para buscar" tipoDado="DoencaCronicaModelo" nameInput="ModeloId" setValorTeste={onChange} valorBuscarAPI="nome"/>
                     </div>
 
                     <div className="form-group">

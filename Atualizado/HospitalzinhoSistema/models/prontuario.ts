@@ -19,13 +19,30 @@ export interface Consulta {
     salaId: string;
 }
 
+export interface VacinaModelo {
+    nome: string;
+    fabricante: string;
+    tipo: string;
+    indicacao: string;
+    numeroDoses: number;
+    intervaloEntreDoses: number;
+}
+
 export interface Vacina {
+    lote: string;
+    dataProducao: string;
+    dataValidade: string;
+    quantidadeDisponivel: number;
+    vacinaModeloId: string;
+    hospitalId: number;
+}
+
+export interface Vacinacao {
     prontuarioId: string;
-    vacina: string;
+    vacinaId: number;
     ProfResponsavelId: string;
-    profRegistro: string;
     dataAplicacao: string;
-    dose: string;
+    doseNumero: number;
     observacoes: string;
     hospitalId: number;
 }
@@ -33,7 +50,7 @@ export interface Vacina {
 export interface Internacao {
     prontuarioId: string;
     quarto: string;
-    hospitalId: string;
+    hospitalId: number;
     ProfResponsavelId: string;
     profRegistro: string;
     dataEntrada: string;
@@ -55,17 +72,17 @@ export interface TipoExame {
 export interface PacienteExame {
     prontuarioId: string;
     data: string;
-    tipoExame: string;
+    tipoExameId: string;
     laboratorio: string;
     resultados: string;
     observacoes: string;
-    ProfResponsavelIdId: string;
+    ProfResponsavelId: string;
     hospitalId: number;
 }
 
 export interface DoencaCronica {
     prontuarioId: string;
-    doenca: string;
+    ModeloId: string;
     dataDiagnostico: string;
     estagio: string;
     observacoes: string;
