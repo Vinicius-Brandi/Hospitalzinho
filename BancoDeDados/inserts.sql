@@ -22,9 +22,9 @@ INSERT INTO hospital_unidade (nome, cnes, tipo_unidade, endereco_id, instituicao
 
 -- ESTRUTURA FÍSICA: ALA / QUARTO / SALA
 INSERT INTO ala (id, nome, hospital_unidade_id) VALUES (nextval('seq_ala'), 'Ala Pediatria', 1);
-INSERT INTO quarto (id, numero, ala_id, tipo, capacidade) VALUES (nextval('seq_quarto'), '101', 1, 1, 2);
-INSERT INTO leito (id, numero, quarto_id, ocupado) VALUES (nextval('seq_leito'), '101-B', 1, true);
-INSERT INTO sala (id, numero, ala_id, tipo) VALUES (nextval('seq_sala'), 'S1', 1, 1);
+INSERT INTO quarto (id, numero, ala_id, hospital_unidade_id , tipo, capacidade) VALUES (nextval('seq_quarto'), '101', 1, 1, 1, 2);
+INSERT INTO leito (id, numero, hospital_unidade_id, quarto_id, ocupado) VALUES (nextval('seq_leito'), '101-B',1, 1, true);
+INSERT INTO sala (id, numero, hospital_unidade_id, ala_id, tipo) VALUES (nextval('seq_sala'), 'S1',1, 1, 1);
 
 -- ESPECIALIDADE / PROFISSIONAL
 INSERT INTO especialidade (id, nome) VALUES (nextval('seq_especialidade'), 'Pediatria');

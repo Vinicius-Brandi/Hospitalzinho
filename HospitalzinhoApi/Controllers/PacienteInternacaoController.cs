@@ -21,7 +21,7 @@ namespace HospitalzinhoApi.Controllers
         public override IActionResult Post([FromBody] PacienteInternacao entidade)
         {
             var leito = _servicoleito.Retorna(entidade.LeitoId);
-            var QuartoId = leito.QuartoId;
+            entidade.QuartoId = leito.QuartoId;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -36,7 +36,7 @@ namespace HospitalzinhoApi.Controllers
         public override IActionResult Put(long id, [FromBody] PacienteInternacao entidade)
         {
             var leito = _servicoleito.Retorna(entidade.LeitoId);
-            var QuartoId = leito.QuartoId;
+            entidade.QuartoId = leito.QuartoId;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
