@@ -6,7 +6,7 @@ using Hospitalzinho.Servico;
 
 namespace HospitalzinhoApi.Controllers
 {
-    public class VacinaController : CrudControllerBase<Vacina, VacinaDto>
+    public class VacinaController : CrudControllerBase<Vacina, Vacina>
     {
         //Completo
         VacinaServico _servico;

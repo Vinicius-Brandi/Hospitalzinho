@@ -53,6 +53,7 @@ builder.Services.AddTransient<IRepositorioSessao, RepositorioSessao>();
 builder.Services.AddTransient<HospitalServico>();
 builder.Services.AddTransient<HospitalUnidadeServico>();
 builder.Services.AddTransient<PacienteServico>();
+builder.Services.AddTransient<PacienteAlergiaServico>();
 builder.Services.AddTransient<PacienteProntuarioServico>();
 builder.Services.AddTransient<AlergiaServico>();
 builder.Services.AddTransient<DoencaCronicaModeloServico>();
