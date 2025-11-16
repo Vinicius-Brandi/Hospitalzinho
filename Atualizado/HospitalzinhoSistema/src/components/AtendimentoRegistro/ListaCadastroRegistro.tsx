@@ -87,6 +87,7 @@ export function ListaCadastroRegistro<T>({
             dadoFinal = {
                 ...dadoFinal,
                 alaId: ala[0]?.id,
+                hospitalId: HOSPITALID
             };
         }
 
@@ -116,6 +117,7 @@ export function ListaCadastroRegistro<T>({
             dadoFinal = {
                 ...dadoFinal,
                 alaId: ala[0]?.id,
+                hospitalId: HOSPITALID
             };
         }
 
