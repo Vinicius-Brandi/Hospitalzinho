@@ -57,8 +57,8 @@ export function CadastroDoencaCronica({
                         <label htmlFor="emTratamento">Em Tratamento?</label>
                         <select id="emTratamento" name="emTratamento" value={doencaCronica.emTratamento} onChange={onChange}>
                             <option value="" disabled>Selecione</option>
-                            <option value="sim">Sim</option>
-                            <option value="nao">Não</option>
+                            <option value="true">Sim</option>
+                            <option value="false">Não</option>
                         </select>
                     </div>
 

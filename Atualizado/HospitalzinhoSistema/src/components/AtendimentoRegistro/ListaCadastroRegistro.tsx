@@ -6,6 +6,8 @@ import { CadastroSala } from "./CadastroSala";
 import { HOSPITALID } from "../../../models/hospital";
 import { CadastroVacina } from "../AtendimentoRegistro/CadastroVacina";
 import { CadastroQuarto } from "./CadastroQuarto";
+import { CadastroLeito } from "./CadastroLeito";
+import { TipoAlergia } from "../../../models/prontuario";
 
 interface ListaCadastroRegistroProps<T> {
     tipoDado: string;
@@ -121,6 +123,11 @@ export function ListaCadastroRegistro<T>({
             };
         }
 
+        dadoFinal = {
+            ...dadoFinal,
+            hospitalId: HOSPITALID
+        };
+
         try {
             if (tipo === "Post") {
                 await api.post(`/${tipoDado}`, dadoFinal);
@@ -145,7 +152,18 @@ export function ListaCadastroRegistro<T>({
     ) {
         const { name, value } = event.target;
 
-        if ((tipoDado === "Sala" || tipoDado === "Quarto") && name === "tipo") {
+        let valorFinal: string | number | boolean = value;
+
+        if (name === "ocupado") {
+            valorFinal = (value === "true");
+            setCadastroDado(prev => ({
+                ...prev,
+                [name]: valorFinal,
+            }));
+            return;
+        }
+
+        if ((tipoDado === "Sala" || tipoDado === "Quarto" || tipoDado === "Alergia") && name === "tipo") {
             setCadastroDado(prev => ({
                 ...prev,
                 [name]: Number(value),
@@ -264,6 +282,25 @@ export function ListaCadastroRegistro<T>({
                         <input type="text" value={(cadastroDado as any).numeroDoses ?? ""} onChange={handleCadastroDadoChange} name="numeroDoses" />
                         <label>Intervalo entre Doses (dias)</label>
                         <input type="text" value={(cadastroDado as any).intervaloEntreDoses ?? ""} onChange={handleCadastroDadoChange} name="intervaloEntreDoses" />
+                    </>
+                )}
+
+                {tipoDado === "Leito" && (
+                    <CadastroLeito leito={cadastroDado as any} onChangeLista={handleCadastroDadoChange} />
+                )}
+
+                {tipoDado === "Alergia" && (
+                    <>
+                        <label>Nome</label>
+                        <input type="text" value={(cadastroDado as any).nome ?? ""} onChange={handleCadastroDadoChange} name="nome" />
+                        <label>Tipo</label>
+                        <select name="tipo" value={(cadastroDado as any).tipo ?? ""} onChange={handleCadastroDadoChange}>
+                            <option value="">Selecione o tipo</option>
+                            <option value={TipoAlergia.Alimentar}>Alimentar</option>
+                            <option value={TipoAlergia.Medicamentos}>Medicamentos</option>
+                            <option value={TipoAlergia.Ambiental}>Ambiental</option>
+                            <option value={TipoAlergia.Outra}>Outra</option>
+                        </select>
                     </>
                 )}
 

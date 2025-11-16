@@ -23,9 +23,6 @@ export default function CadastroProfissional({profissional, onChangeLista} : {pr
                 </div>
                 <InputSugestion placeholder="Ex: Hemograma Completo" nameInput="especialidadeId" tipoDado="Especialidade" setValorTeste={(e) => onChangeLista(e)} valorBuscarAPI="nome"/>
             </div>
-        
-            <label>Hospital / Unidade</label>
-            <input type="text" required name="hospitalId" value={profissional.hospitalId} onChange={onChangeLista} />
         </>
     )
 }

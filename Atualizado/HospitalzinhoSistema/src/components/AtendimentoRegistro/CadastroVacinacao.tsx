@@ -3,6 +3,7 @@ import type { Vacina, Vacinacao } from "../../../models/prontuario";
 import { Modal } from "../Modal";
 import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
 import InputSugestion from "../InputSugestion";
+import { CadastroResponsavel } from "./CadastroResponsavel";
 
 export function CadastroVacinacao({
     vacina,
@@ -40,12 +41,11 @@ export function CadastroVacinacao({
                         <InputSugestion placeholder="Digite o Lote da Vacina" tipoDado="Vacina" nameInput="vacinaId" setValorTeste={onChange} valorBuscarAPI="lote" />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="vacinaId">Nome da Vacina</label>
-                        <input type="text" id="vacinaId" name="vacinaId" value={vacina.vacinaId ?? ""} onChange={onChange} />
-                    </div>
-                    <div className="form-group">
                         <label htmlFor="doseNumero">Dose</label>
                         <input type="text" id="doseNumero" name="doseNumero" placeholder="Ex: 1ª Dose, Dose Única" value={vacina.doseNumero ?? ""} onChange={onChange} />
+                    </div>
+                    <div className="form-group">
+                        <CadastroResponsavel value={vacina.ProfResponsavelId ?? ""} onChange={onChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="dataAplicacao">Data de Aplicação</label>

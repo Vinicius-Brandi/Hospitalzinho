@@ -3,7 +3,7 @@ import type { Internacao } from "../../../models/prontuario";
 import { CadastroResponsavel } from "./CadastroResponsavel";
 import { Modal } from "../Modal";
 import { ListaCadastroRegistro } from "./ListaCadastroRegistro";
-import type { Quarto } from "../../../models/hospital";
+import type { Leito } from "../../../models/hospital";
 import InputSugestion from "../InputSugestion";
 
 export function CadastroInternacao({
@@ -18,13 +18,13 @@ export function CadastroInternacao({
     return (
         <>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                <ListaCadastroRegistro<Quarto>
-                    tipoDado="Quarto"
-                    titulo="Lista de Quartos"
-                    renderItem={(quarto) => (
+                <ListaCadastroRegistro<Leito>
+                    tipoDado="Leito"
+                    titulo="Lista de Leitos"
+                    renderItem={(leito) => (
                         <>
                             <div className="paciente-info">
-                                <h3>{quarto.numero}</h3>
+                                <h3>{leito.numero}</h3>
                             </div>
                         </>
                     )}
@@ -36,10 +36,10 @@ export function CadastroInternacao({
                 <div className="form-grid">
                     <div className="form-group">
                         <div className="label-com-botao">
-                            <label htmlFor="quartoId">Quarto</label>
+                            <label htmlFor="leitoId">Leito</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Digite o numero do quarto" tipoDado="Quarto" nameInput="quartoId" setValorTeste={onChange} valorBuscarAPI="numero" />
+                        <InputSugestion placeholder="Digite o numero do leito" tipoDado="leito" nameInput="leitoId" setValorTeste={onChange} valorBuscarAPI="numero" />
                     </div>
 
                     <CadastroResponsavel value={internacao.ProfResponsavelId} onChange={onChange} />

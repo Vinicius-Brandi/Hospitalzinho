@@ -58,7 +58,7 @@ export function PacienteCadastro() {
         <h1>Cadastro de Paciente</h1>
         <div id="paciente-nao-encontrado">
             <section id="cadastro-novo-paciente">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} autoComplete="off">
                     <fieldset>
                         <legend>Dados Pessoais</legend>
                         <div className="form-grid">

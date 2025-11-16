@@ -3,7 +3,7 @@ export type MapTiposCadastro = {
     Vacinacao: Vacinacao;
     Exame: PacienteExame;
     Internacao: Internacao;
-    Alergia: Alergia;
+    Alergia: PacienteAlergia;
     DoencaCronica: DoencaCronica;
     Medicacao: Medicacao;
     Cirurgia: Cirurgia;
@@ -58,9 +58,21 @@ export interface Internacao {
 }
 
 export interface Alergia {
+    nome: string;
+    tipo: string;
+}
+
+export const TipoAlergia = {
+    Alimentar: 0,
+    Medicamentos: 1,
+    Ambiental: 2,
+    Outra: 3
+}
+
+export interface PacienteAlergia {
     prontuarioId: string;
-    alergia: string;
-    descricao: string;
+    alergiaId: string;
+    observacaoes: string;
 }
 
 export interface TipoExame {
@@ -98,7 +110,7 @@ export interface TipoDoencaCronica {
 
 export interface Medicacao {
     prontuarioId: string;
-    medicamento: string;
+    modeloId: string;
     dosagemPrescrita: string;
     frequenciaMedicacao: string;
     viaAdministracao: string;
@@ -120,9 +132,8 @@ export interface MedicamentoModelo {
 export interface Cirurgia {
     prontuarioId: string;
     nome: string;
-    data: string;
-    ProfResponsavelId: string;
-    profRegistro: string;
+    dataCirurgia: string;
+    profResponsavelId: string;
     salaId: string;
     hospitalId: number;
     observacoes: string;

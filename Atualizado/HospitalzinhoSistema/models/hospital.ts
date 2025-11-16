@@ -56,4 +56,11 @@ export const QuartoTipo = {
 
 export type QuartoTipoType = typeof QuartoTipo[keyof typeof QuartoTipo];
 
-export const HOSPITALID = 3;
+export interface Leito {
+    numero: string;
+    ocupado: boolean;
+    quartoId: number;
+    hospitalId: number;
+}
+
+export const HOSPITALID = 1;

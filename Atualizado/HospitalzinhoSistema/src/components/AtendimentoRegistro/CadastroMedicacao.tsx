@@ -35,10 +35,10 @@ export function CadastroMedicacao({
 
                     <div className="form-group">
                         <div className="label-com-botao">
-                            <label htmlFor="medicamento">Medicamento</label>
+                            <label htmlFor="modeloId">Medicamento</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Digite o nome para buscar" tipoDado="MedicamentoModelo" nameInput="medicamento" />
+                        <InputSugestion placeholder="Digite o nome para buscar" tipoDado="MedicamentoModelo" nameInput="modeloId" valorBuscarAPI="nome" setValorTeste={onChange}/>
                     </div>
 
                     <div className="form-group">

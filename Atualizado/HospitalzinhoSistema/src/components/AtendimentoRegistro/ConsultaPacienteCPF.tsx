@@ -33,7 +33,7 @@ export function ConsultaPacienteCPF({ onPaciente }: { onPaciente: (paciente: Par
     return (
         <section id="pesquisa-paciente">
             <h2>Buscar Paciente</h2>
-            <form className="form-pesquisa">
+            <form className="form-pesquisa" autoComplete="off">
                 <div className="form-group">
                     <label htmlFor="cpf-paciente">CPF ou Cartão Nacional de Saúde (CNS)</label>
                     <InputSugestion nameInput="cpf" tipoDado="Paciente" placeholder="Digite o CPF do paciente" valorBuscarAPI="cpf" setValorTeste={handleCPFChange} />
