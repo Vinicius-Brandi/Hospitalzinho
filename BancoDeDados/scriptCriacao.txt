@@ -94,7 +94,7 @@ CREATE TABLE quarto (
     tipo INTEGER NOT NULL,
     capacidade INTEGER NOT NULL,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
-    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAU LT now()
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE leito (
