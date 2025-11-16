@@ -85,6 +85,7 @@ namespace FGB.Servicos
                     entidade.CriadoEm = entidade.CriadoEm ?? DateTime.Now;
                     entidade.UltimaAlteracao = DateTime.Now;
                     repo.Inclui(entidade);
+
                 }
             }));
         }

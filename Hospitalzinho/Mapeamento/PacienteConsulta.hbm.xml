@@ -13,7 +13,8 @@
         </id>
 
         <!-- FK para Prontuário -->
-        <many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" not-null="true" />
+		<many-to-one name="Prontuario" class="PacienteProntuario" column="prontuario_id" insert="false" update="false"/>
+		<property name="ProntuarioId" column="prontuario_id" not-null="true"/>
 
         <!-- Colunas simples -->
         <property name="DataConsulta" column="data_consulta" not-null="true" />
