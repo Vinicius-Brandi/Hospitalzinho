@@ -90,16 +90,18 @@ CREATE TABLE quarto (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_quarto'),
     numero VARCHAR(50),
     ala_id BIGINT NOT NULL REFERENCES ala(id) ON DELETE CASCADE,
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE CASCADE,
     tipo INTEGER NOT NULL,
     capacidade INTEGER NOT NULL,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
-    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
+    data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAU LT now()
 );
 
 CREATE TABLE leito (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_leito'),
     numero VARCHAR(50),
     quarto_id BIGINT NOT NULL REFERENCES quarto(id) ON DELETE CASCADE,
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE CASCADE,
     ocupado BOOLEAN DEFAULT TRUE,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
@@ -109,6 +111,7 @@ CREATE TABLE sala (
     id BIGINT PRIMARY KEY DEFAULT nextval('seq_sala'),
     numero VARCHAR(50),
     ala_id BIGINT NOT NULL REFERENCES ala(id) ON DELETE CASCADE,
+    hospital_unidade_id BIGINT NOT NULL REFERENCES hospital_unidade(id) ON DELETE CASCADE,
     tipo INTEGER NOT NULL,
     data_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE DEFAULT now()

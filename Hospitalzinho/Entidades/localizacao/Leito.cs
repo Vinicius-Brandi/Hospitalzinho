@@ -13,6 +13,8 @@ namespace Hospitalzinho.Entidades
         public virtual long QuartoId { get; set; }
         [JsonIgnore]
         public virtual Quarto Quarto { get; set; }
+        [Obrigar(typeof(Hospital))]
+        public virtual long HospitalId { get; set; }
         [JsonIgnore]
         public virtual IList<PacienteInternacao> Internacoes { get; set; } = new List<PacienteInternacao>();
     }

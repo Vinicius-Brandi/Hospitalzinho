@@ -13,6 +13,8 @@ namespace Hospitalzinho.Entidades
         public virtual Ala Ala { get; set; } // Ala/setor da sala
         [Obrigar]
         public virtual TipoSala Tipo { get; set; } // Ex: "Consultório", "Sala de Exames", "Sala de Procedimentos"
+        [Obrigar(typeof(HospitalUnidade))]
+        public virtual long HospitalId { get; set; }
         [JsonIgnore]
 
         public virtual IList<PacienteConsulta> Consultas { get; set; } = new List<PacienteConsulta>();

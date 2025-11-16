@@ -19,6 +19,8 @@
 		<property name="QuartoId" column="quarto_id" not-null="true" type="long"/>
 		<many-to-one name="Quarto" class="Quarto" column="quarto_id" not-null="true" insert="false" update="false"/>
 
+		<property name="HospitalId" column="hospital_unidade_id" not-null="true" />
+
 		<!-- Relacionamento reverso com Internações -->
 		<bag name="Internacoes" table="paciente_internacao" inverse="true" cascade="none" lazy="true">
 			<key column="leito_id"/>

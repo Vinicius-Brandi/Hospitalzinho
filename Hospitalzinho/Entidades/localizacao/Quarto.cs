@@ -15,6 +15,8 @@ namespace Hospitalzinho.Entidades
         public virtual TipoQuarto Tipo { get; set; } // Enum: Enfermaria, UTI, Isolamento
         [Obrigar]
         public virtual int Capacidade { get; set; } // Quantas camas
+        [Obrigar(typeof(HospitalUnidade))]
+        public virtual long HospitalId { get; set; }
         [JsonIgnore]
         public virtual IList<PacienteInternacao> Internacoes { get; set; } = new List<PacienteInternacao>();
         [JsonIgnore]
