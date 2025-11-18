@@ -59,16 +59,6 @@ namespace FGB.Dominio.Repositorios
             await _session.DeleteAsync(entidade);
         }
 
-        public int Update<T>(Func<IBuilderUpdate<T>, IQueryable<T>> setValues) where T : EntidadeBase
-        {
-            throw new NotImplementedException("Update direto não implementado neste repositório.");
-        }
-
-        public Task<int> UpdateAsync<T>(Func<IBuilderUpdate<T>, IQueryable<T>> setValues) where T : EntidadeBase
-        {
-            throw new NotImplementedException("UpdateAsync direto não implementado neste repositório.");
-        }
-
         public IDisposable IniciaTransacao()
         {
             _transacao = _session.BeginTransaction();
@@ -107,20 +97,6 @@ namespace FGB.Dominio.Repositorios
             return new RepositorioConsulta(_session);
         }
 
-        public IEnumerable<T1> ExecutaComando<T1>(string comando, object[] args)
-        {
-            throw new NotImplementedException("Implementar execução de comando SQL e mapeamento para T1.");
-        }
-
-        public IEnumerable<dynamic> ExecutaComandoDynamic(string comando, object[] args)
-        {
-            throw new NotImplementedException("Implementar execução de comando SQL e retorno dinâmico.");
-        }
-
-        public async Task<IEnumerable<T1>> ExecutaComandoAsync<T1>(string comando, object[] args)
-        {
-            throw new NotImplementedException("Implementar execução assíncrona de comando SQL e mapeamento para T1.");
-        }
         public async Task FlushAsync()
         {
             await _session.FlushAsync();

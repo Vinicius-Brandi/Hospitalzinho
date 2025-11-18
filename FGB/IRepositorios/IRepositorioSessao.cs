@@ -18,13 +18,7 @@ namespace FGB.IRepositorios
 
         void RollBackTransacao();
 
-        IEnumerable<T1> ExecutaComando<T1>(string comando, object[] args);
-
-        IEnumerable<dynamic> ExecutaComandoDynamic(string comando, object[] args);
-
         Task CommitaTransacaoAsync();
-
-        Task<IEnumerable<T1>> ExecutaComandoAsync<T1>(string comando, object[] args);
 
         Task RollBackTransacaoAsync();
     }
