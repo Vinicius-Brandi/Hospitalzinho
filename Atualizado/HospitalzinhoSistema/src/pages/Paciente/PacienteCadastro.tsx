@@ -90,7 +90,8 @@ export function PacienteCadastro() {
             };
 
             if (id) {
-                await api.put(`/Paciente/${id}`, payload); 
+                payload.id = Number(id);
+                await api.put(`/Paciente/atualiza`, payload); 
                 alert("Paciente atualizado com sucesso!");
             } else {
                 await api.post("/Paciente/cadastro", payload);
