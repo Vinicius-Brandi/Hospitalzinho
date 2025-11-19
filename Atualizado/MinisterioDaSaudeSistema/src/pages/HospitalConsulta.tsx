@@ -3,7 +3,8 @@ import { Footer } from "../components/HeaderAndFooter/Footer";
 import { Header } from "../components/HeaderAndFooter/Header";
 import './HospitalConsulta.css';
 import { api } from "../../services/api";
-import { tipoUnidadeOptions, type TipoUnidadeType } from "../../models/hospital";
+import { TipoUnidade, tipoUnidadeOptions, type TipoUnidadeType } from "../../models/hospital";
+import type { HospitalUnidade } from "../../models/hospital";
 
 export default function HospitalConsulta() {
     const [tipoPesquisa, setTipoPesquisa] = useState('nome');
@@ -12,6 +13,7 @@ export default function HospitalConsulta() {
         tiposUnidade: [],
     });
     const [enderecoFiltro, setEnderecoFiltro] = useState('');
+    const [hospitais, setHospitais] = useState<Partial<HospitalUnidade>[]>([]);
 
     function handleCheckboxChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { value, checked } = e.target;
@@ -62,10 +64,31 @@ export default function HospitalConsulta() {
 
         try {
             const response = await api.get(query);
-            console.log("Hospitais filtrados:", response.data.value);
+            setHospitais(response.data);
         } catch (error) {
             console.error("Erro ao buscar hospitais:", error);
         }
+    }
+
+    function obterDescricaoUnidade(valor: any): string {
+        if (valor === undefined || valor === null) return "Não informado";
+
+        let valorParaBuscar = valor;
+
+        if (typeof valor === 'string') {
+            if (valor in TipoUnidade) {
+                valorParaBuscar = TipoUnidade[valor as keyof typeof TipoUnidade];
+            } else {
+                const numeroConvertido = Number(valor);
+                if (!isNaN(numeroConvertido)) {
+                    valorParaBuscar = numeroConvertido;
+                }
+            }
+        }
+
+        const opcao = tipoUnidadeOptions.find(opt => opt.value === valorParaBuscar);
+
+        return opcao ? opcao.label : `Desconhecido (${valor})`;
     }
 
     return (
@@ -142,30 +165,16 @@ export default function HospitalConsulta() {
 
                     <p id="sem-resultados" style={{ display: 'none' }}>Nenhum resultado encontrado para os filtros informados.</p>
 
-                    <article className="hospital-item">
-                        <h3>Hospital Municipal Central</h3>
-                        <p><strong>Endereço:</strong> Rua das Flores, 123 - Centro</p>
-                        <p><strong>Telefone:</strong> (XX) XXXX-XXXX</p>
-                        <p><strong>Especialidades:</strong> Clínica Geral, Pediatria, Ortopedia.</p>
-                        <a href="detalhes-hospital-1.html">Ver mais detalhes</a>
-                    </article>
-
-                    <article className="hospital-item">
-                        <h3>UPA - Unidade de Pronto Atendimento 24h</h3>
-                        <p><strong>Endereço:</strong> Avenida Principal, 789 - Bairro Novo</p>
-                        <p><strong>Telefone:</strong> (XX) YYYY-YYYY</p>
-                        <p><strong>Especialidades:</strong> Atendimento de Urgência e Emergência.</p>
-                        <a href="detalhes-hospital-2.html">Ver mais detalhes</a>
-                    </article>
-
-                    <article className="hospital-item">
-                        <h3>Posto de Saúde da Família</h3>
-                        <p><strong>Endereço:</strong> Travessa das Palmeiras, 45 - Vila Esperança</p>
-                        <p><strong>Telefone:</strong> (XX) ZZZZ-ZZZZ</p>
-                        <p><strong>Especialidades:</strong> Atendimento Primário, Vacinação, Pré-natal.</p>
-                        <a href="detalhes-hospital-3.html">Ver mais detalhes</a>
-                    </article>
-
+                    {hospitais && (
+                        hospitais.map((hospital, index) => (
+                            <article className="hospital-item" key={index}>
+                                <h3>{hospital.nome}l</h3>
+                                <p><strong>Endereço:</strong>{hospital.endereco?.rua}, {hospital.endereco?.numero} - {hospital.endereco?.bairro}</p>
+                                <p><strong>Especialidades:</strong>{obterDescricaoUnidade(hospital.tipoUnidade)}</p>
+                                <a href="detalhes-hospital-1.html">Ver mais detalhes</a>
+                            </article>
+                        )
+                        ))}
                 </section>
             </main>
             <Footer />
