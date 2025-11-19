@@ -5,6 +5,7 @@ import './HospitalConsulta.css';
 import { api } from "../../services/api";
 import { TipoUnidade, tipoUnidadeOptions, type TipoUnidadeType } from "../../models/hospital";
 import type { HospitalUnidade } from "../../models/hospital";
+import { SearchHospital } from "../components/SearchHospital";
 
 export default function HospitalConsulta() {
     const [tipoPesquisa, setTipoPesquisa] = useState('nome');
@@ -29,6 +30,7 @@ export default function HospitalConsulta() {
 
     function montarFiltroOData() {
         const filtrosOData: string[] = [];
+        setHospitais([]);
 
         if (valorPesquisa.trim() !== "") {
             const campo =
@@ -105,15 +107,7 @@ export default function HospitalConsulta() {
                             buscarHospitais();
                         }}
                     >
-                        <div className="form-group">
-                            <label htmlFor="tipo-pesquisa">Pesquisar por:</label>
-                            <select id="tipo-pesquisa" name="tipo-pesquisa" onChange={(e) => setTipoPesquisa(e.target.value)} value={tipoPesquisa}>
-                                <option value="nome">Nome</option>
-                                <option value="cnes">CNES</option>
-                                <option value="cnpj">CNPJ</option>
-                            </select>
-                            <input type="text" id="valor-pesquisa" name="valor-pesquisa" placeholder={`Digite o ${tipoPesquisa} do hospital`} maxLength={255} style={{ marginTop: "0.5rem" }} value={valorPesquisa} onChange={(e) => setValorPesquisa(e.target.value)} />
-                        </div>
+                        <SearchHospital tipoPesquisa={tipoPesquisa} setTipoPesquisa={setTipoPesquisa} valorPesquisa={valorPesquisa} setValorPesquisa={setValorPesquisa}/>
 
                         <fieldset>
                             <legend>Tipo de Unidade</legend>
