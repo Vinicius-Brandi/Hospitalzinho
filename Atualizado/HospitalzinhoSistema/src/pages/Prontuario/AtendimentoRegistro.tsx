@@ -13,13 +13,13 @@ import { CadastroCirurgia } from '../../components/AtendimentoRegistro/CadastroC
 import type { PacienteAlergia, Cirurgia, Consulta, DoencaCronica, PacienteExame, Internacao, Medicacao, Vacinacao, MapTiposCadastro } from '../../../models/prontuario';
 import { api } from '../../../services/api';
 import { HOSPITALID } from '../../../models/hospital';
-import type { Paciente } from '../../../models/paciente';
 import { ConsultaPacienteCPF } from '../../components/AtendimentoRegistro/ConsultaPacienteCPF';
+import type { Paciente } from '../../../models/paciente';
 
 export function AtendimentoRegistro() {
     const [tipoCadastro, setTipoCadastro] = useState<keyof MapTiposCadastro>('Consulta');
     const [dado, setDado] = useState<Record<string, any>>({});
-    const [paciente, setPaciente] = useState<Partial<Paciente>>({});
+    const [paciente, setPaciente] = useState<Paciente | null>(null);
 
     function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
@@ -88,7 +88,7 @@ export function AtendimentoRegistro() {
         }
 
         const prontuarioResp = await api.get(
-            `/PacienteProntuario?$filter=tolower(paciente/cpf) eq tolower('${paciente.cpf}')`
+            `/PacienteProntuario?$filter=tolower(paciente/cpf) eq tolower('${paciente?.cpf}')`
         );
 
         if (tipoCadastro === 'Consulta' ||
@@ -111,14 +111,13 @@ export function AtendimentoRegistro() {
 
     }
 
-
     return (
         <>
             <Header />
             <main>
                 <h1>Registro de Atendimento e Prontuário</h1>
 
-                <ConsultaPacienteCPF onPaciente={setPaciente} />
+                <ConsultaPacienteCPF paciente={paciente} setPaciente={setPaciente} />
 
                 {paciente && paciente.nome && (
                     <div id="area-de-trabalho">

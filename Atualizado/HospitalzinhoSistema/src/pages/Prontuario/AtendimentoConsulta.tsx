@@ -3,7 +3,6 @@ import { Footer } from "../../components/HeaderAndFooter/Footer";
 import { Header } from "../../components/HeaderAndFooter/Header";
 import { ConsultaPacienteCPF } from "../../components/AtendimentoRegistro/ConsultaPacienteCPF";
 import { api } from "../../../services/api";
-import type { Paciente } from "../../../models/paciente";
 import type { Alergia } from "../../../models/prontuario";
 
 function formatDate(dateString: string | undefined) {
@@ -17,7 +16,6 @@ function formatDate(dateString: string | undefined) {
 
 export function AtendimentoConsulta() {
     const [paciente, setPaciente] = useState<Partial<any> | null>(null);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const [alergiasMap, setAlergiasMap] = useState<Map<number, Alergia>>(new Map());
@@ -26,14 +24,14 @@ export function AtendimentoConsulta() {
         async function carregarTiposDeAlergia() {
             try {
                 const response = await api.get('/Alergia');
-                
+
                 if (response.data && Array.isArray(response.data)) {
                     const map = new Map<number, Alergia>();
-                    
+
                     for (const alergia of response.data) {
                         map.set(alergia.id, alergia);
                     }
-                    
+
                     setAlergiasMap(map);
                 }
             } catch (err) {
@@ -45,64 +43,19 @@ export function AtendimentoConsulta() {
         carregarTiposDeAlergia();
     }, []);
 
-    useEffect(() => {
-        console.log("Paciente atualizado:", paciente);
-
-    }, [paciente]);
-
-    async function AtualizarPaciente(pacienteBase: Partial<Paciente> | null) {
-        setPaciente(null);
-        setError(null);
-
-        if (!pacienteBase || !pacienteBase.cpf) {
-            console.error("Busca cancelada: CPF não encontrado ou paciente nulo.");
-            return;
-        }
-        
-        setLoading(true);
-
-        try {
-            const response = await api.get('/PacienteProntuario', {
-                params: {
-                    '$filter': `paciente/cpf eq '${pacienteBase.cpf}'`
-                }
-            });
-
-            if (response.data && response.data.length > 0) {
-                const prontuarioCompleto = response.data[0];
-                setPaciente({
-                    ...pacienteBase,
-                    ...prontuarioCompleto
-                });
-            } else {
-                setPaciente(pacienteBase);
-                setError("Prontuário não encontrado, exibindo dados básicos do paciente.");
-            }
-
-        } catch (err) {
-            console.error("Erro ao buscar prontuário:", err);
-            setError("Erro ao carregar o prontuário. Exibindo dados básicos.");
-            setPaciente(pacienteBase);
-        } finally {
-            setLoading(false);
-        }
-    }
-
     return (
         <>
             <Header />
             <main>
                 <h1>Prontuário Eletrônico do Paciente</h1>
 
-                <ConsultaPacienteCPF onPaciente={AtualizarPaciente} />
+                <ConsultaPacienteCPF paciente={paciente} setPaciente={setPaciente} />
 
-                {loading && <div className="loading-message">Carregando prontuário...</div>}
-                
                 {error && <div className="error-message">{error}</div>}
 
                 {paciente && paciente.nome && (
                     <div id="prontuario-detalhes">
-                        
+
                         <section className="card-prontuario" id="dados-paciente">
                             <div className="card-header">
                                 <h2>Dados Pessoais</h2>
@@ -128,32 +81,29 @@ export function AtendimentoConsulta() {
                             <div className="card-header">
                                 <h2>Alergias Conhecidas</h2>
                             </div>
-                            <div className="card-body">
-                                <ul className="lista-itens">
-                                    {paciente.alergias && paciente.alergias.length > 0 ? (
-                                        paciente.alergias.map((alergiaRelacao: any) => {
-                                            const alergiaId = alergiaRelacao.alergiaId;
-                                            
-                                            const alergiaDetalhe = alergiasMap.get(alergiaId);
-                                            
-                                            return (
-                                                <li key={alergiaRelacao.id}>
-                                                    <strong>
-                                                        {alergiaDetalhe ? alergiaDetalhe.nome : `Alergia ID: ${alergiaId}`}
-                                                    </strong>
-                                                    
-                                                    {alergiaDetalhe && (
-                                                        <span>
-                                                            {Number(alergiaDetalhe.tipo) === 1 ? " (Medicamentosa)" : " (Outro Tipo)"}
-                                                        </span>
-                                                    )}
-                                                </li>
-                                            );
-                                        })
-                                    ) : (
-                                        <li>Nenhuma alergia registrada.</li>
-                                    )}
-                                </ul>
+                            <div className="card-body table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Nome</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {paciente.alergias && paciente.alergias.length > 0 ? (
+                                            paciente.alergias.map((a: any) => (
+                                                <tr key={a.id}>
+                                                    <td>{a.tipo}</td>
+                                                    <td>{a.nome}</td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <tr>
+                                                <td colSpan={2}>Nenhuma alergia registrada.</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
                         </section>
 
@@ -204,22 +154,24 @@ export function AtendimentoConsulta() {
                                             <th>Data Entrada</th>
                                             <th>Data Saída</th>
                                             <th>Hospital</th>
-                                            <th>Motivo (Adapte)</th>
+                                            <th>Motivo</th>
+                                            <th>Descrição</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {paciente.internacoes && paciente.internacoes.length > 0 ? (
                                             paciente.internacoes.map((i: any) => (
                                                 <tr key={i.id}>
-                                                    <td>{formatDate(i.dataEntrada)}</td>
-                                                    <td>{formatDate(i.dataSaida)}</td>
+                                                    <td>{formatDate(i.dataInternacao)}</td>
+                                                    <td>{formatDate(i.dataAlta)}</td>
                                                     <td>{i.hospital}</td>
                                                     <td>{i.motivo}</td>
+                                                    <td>{i.observacoes}</td>
                                                 </tr>
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan={4}>Nenhuma internação registrada.</td>
+                                                <td colSpan={5}>Nenhuma internação registrada.</td>
                                             </tr>
                                         )}
                                     </tbody>

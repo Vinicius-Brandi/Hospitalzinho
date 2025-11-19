@@ -49,12 +49,13 @@ export interface Vacinacao {
 
 export interface Internacao {
     prontuarioId: string;
-    quarto: string;
-    hospitalId: number;
+    dataInternacao: string;
+    dataAlta: string;
+    leitoId: string;
+    motivo: string;
     ProfResponsavelId: string;
-    profRegistro: string;
-    dataEntrada: string;
-    dataSaida: string;
+    observacoes: string;
+    hospitalId: number;
 }
 
 export interface Alergia {
