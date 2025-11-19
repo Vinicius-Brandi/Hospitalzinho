@@ -20,6 +20,7 @@ namespace Hospitalzinho.DTO.Get
         public string? Nacionalidade { get; set; }
         public RacaPaciente? Raca { get; set; }
         public string? Naturalidade { get; set; }
+        public TipoSanguineo TipoSanguineo { get; set; }
         public EscolaridadePaciente? Escolaridade { get; set; }
         public List<PacienteContato> Contatos { get; set; } = new();
         public List<PacienteEndereco> Enderecos { get; set; } = new();
