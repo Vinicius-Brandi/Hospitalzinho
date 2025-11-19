@@ -45,6 +45,7 @@ export const PacienteTipoSanguineo = {
 export type PacienteTipoSanguineoType = typeof PacienteTipoSanguineo[keyof typeof PacienteTipoSanguineo];
 
 export interface Paciente {
+    id?: number;
     nome: string;
     cns: string;
     cpf: string;
@@ -58,7 +59,7 @@ export interface Paciente {
     cpfMae?: string;
     nomePai?: string;
     cpfPai?: string;
-    contatos?: PacienteContato;
+    contatos?: PacienteContato[];
 
     telefoneResidencial?: string;
     telefoneCelular?: string;

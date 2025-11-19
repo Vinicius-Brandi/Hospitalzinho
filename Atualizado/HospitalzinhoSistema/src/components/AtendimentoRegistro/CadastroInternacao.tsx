@@ -45,16 +45,21 @@ export function CadastroInternacao({
                     <CadastroResponsavel value={internacao.ProfResponsavelId} onChange={onChange} />
 
                     <div className="form-group">
+                        <label htmlFor="motivo">Motivo da internação</label>
+                        <input type="text" id="motivo" name="motivo" placeholder="Motivo da internação" value={internacao.motivo} onChange={onChange} />
+                    </div>
+
+                    <div className="form-group">
                         <label htmlFor="dataEntrada">Data de Entrada</label>
-                        <input type="date" id="dataEntrada" name="dataEntrada" value={internacao.dataEntrada} onChange={onChange} />
+                        <input type="date" id="dataEntrada" name="dataEntrada" value={internacao.dataInternacao} onChange={onChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="dataSaida">Data de Saída</label>
-                        <input type="date" id="dataSaida" name="dataSaida" value={internacao.dataSaida} onChange={onChange} />
+                        <input type="date" id="dataSaida" name="dataSaida" value={internacao.dataAlta} onChange={onChange} />
                     </div>
                     <div className="form-group full-width">
-                        <label htmlFor="profRegistro">Registro do profissional</label>
-                        <textarea id="profRegistro" name="profRegistro" rows={4} value={internacao.profRegistro} onChange={onChange}></textarea>
+                        <label htmlFor="observacoes">Observações</label>
+                        <textarea id="observacoes" name="observacoes" rows={4} value={internacao.observacoes} onChange={onChange}></textarea>
                     </div>
                 </div>
             </fieldset>
