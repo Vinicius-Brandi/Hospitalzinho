@@ -24,14 +24,14 @@ export function AtendimentoConsulta() {
         async function carregarTiposDeAlergia() {
             try {
                 const response = await api.get('/Alergia');
-                
+
                 if (response.data && Array.isArray(response.data)) {
                     const map = new Map<number, Alergia>();
-                    
+
                     for (const alergia of response.data) {
                         map.set(alergia.id, alergia);
                     }
-                    
+
                     setAlergiasMap(map);
                 }
             } catch (err) {
@@ -55,7 +55,7 @@ export function AtendimentoConsulta() {
 
                 {paciente && paciente.nome && (
                     <div id="prontuario-detalhes">
-                        
+
                         <section className="card-prontuario" id="dados-paciente">
                             <div className="card-header">
                                 <h2>Dados Pessoais</h2>
@@ -81,32 +81,29 @@ export function AtendimentoConsulta() {
                             <div className="card-header">
                                 <h2>Alergias Conhecidas</h2>
                             </div>
-                            <div className="card-body">
-                                <ul className="lista-itens">
-                                    {paciente.alergias && paciente.alergias.length > 0 ? (
-                                        paciente.alergias.map((alergiaRelacao: any) => {
-                                            const alergiaId = alergiaRelacao.alergiaId;
-                                            
-                                            const alergiaDetalhe = alergiasMap.get(alergiaId);
-                                            
-                                            return (
-                                                <li key={alergiaRelacao.id}>
-                                                    <strong>
-                                                        {alergiaDetalhe ? alergiaDetalhe.nome : `Alergia ID: ${alergiaId}`}
-                                                    </strong>
-                                                    
-                                                    {alergiaDetalhe && (
-                                                        <span>
-                                                            {Number(alergiaDetalhe.tipo) === 1 ? " (Medicamentosa)" : " (Outro Tipo)"}
-                                                        </span>
-                                                    )}
-                                                </li>
-                                            );
-                                        })
-                                    ) : (
-                                        <li>Nenhuma alergia registrada.</li>
-                                    )}
-                                </ul>
+                            <div className="card-body table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Nome</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {paciente.alergias && paciente.alergias.length > 0 ? (
+                                            paciente.alergias.map((a: any) => (
+                                                <tr key={a.id}>
+                                                    <td>{a.tipo}</td>
+                                                    <td>{a.nome}</td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <tr>
+                                                <td colSpan={2}>Nenhuma alergia registrada.</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
                         </section>
 
@@ -157,6 +154,7 @@ export function AtendimentoConsulta() {
                                             <th>Data Entrada</th>
                                             <th>Data Saída</th>
                                             <th>Hospital</th>
+                                            <th>Motivo</th>
                                             <th>Descrição</th>
                                         </tr>
                                     </thead>
@@ -167,12 +165,13 @@ export function AtendimentoConsulta() {
                                                     <td>{formatDate(i.dataInternacao)}</td>
                                                     <td>{formatDate(i.dataAlta)}</td>
                                                     <td>{i.hospital}</td>
+                                                    <td>{i.motivo}</td>
                                                     <td>{i.observacoes}</td>
                                                 </tr>
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan={4}>Nenhuma internação registrada.</td>
+                                                <td colSpan={5}>Nenhuma internação registrada.</td>
                                             </tr>
                                         )}
                                     </tbody>
