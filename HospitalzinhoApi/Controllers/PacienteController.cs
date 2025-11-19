@@ -42,5 +42,22 @@ namespace HospitalzinhoApi.Controllers
             var pacienteDto = _mapper.Map<PacienteDto>(paciente);
             return CreatedAtAction(nameof(GetById), new { id = paciente.Id }, pacienteDto);
         }
+
+        [HttpPut("atualiza")]
+            public async Task<IActionResult> Atualiza([FromBody] PacientePostDto dto)
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                var paciente = await _servico.Editar(dto);
+                if (paciente == null)
+                {
+                    var erros = _servico.Mensagens
+                        .Select(m => new { mensagem = m })
+                        .ToArray();
+                    return UnprocessableEntity(erros);
+                }
+                var pacienteDto = _mapper.Map<PacienteDto>(paciente);
+                return Ok(pacienteDto);
+            }
     }
 }

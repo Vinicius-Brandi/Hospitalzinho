@@ -9,8 +9,14 @@ namespace Hospitalzinho.DTO.Get
         public string Paciente { get; set; }
         public string Quarto { get; set; }
         public string Hospital { get; set; }
+        public long HospitalId { get; set; }
         public string ProfResponsavel { get; set; }
+        public string ProfResponsavelId { get; set; }
         public string ProfRegistro { get; set; }
+        public string? Motivo { get; set; }
+        public string Leito { get; set; }
+        public long LeitoId { get; set; }
+        public string? Observacoes { get; set; }
         public DateTime DataInternacao { get; set; }
         public DateTime? DataAlta { get; set; }
     }

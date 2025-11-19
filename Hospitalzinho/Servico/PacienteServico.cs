@@ -141,5 +141,128 @@ namespace Hospitalzinho.Servico
                 return null;
             }
         }
+
+        public async Task<Paciente> Editar(PacientePostDto dto)
+        {
+            Mensagens.Clear();
+            Paciente pacienteSalvo = null;
+
+            try
+            {
+                await MakeCrudTransactionAsync(async repo =>
+                {
+                    var consulta = _repositorioSessao.GetRepositorioConsulta();
+
+                    // 1. Carrega o paciente do banco
+                    var paciente = consulta.Consulta<Paciente>()
+                        .FirstOrDefault(p => p.Id == dto.Id);
+
+                    if (paciente == null)
+                        throw new InvalidOperationException("Paciente não encontrado.");
+
+                    // 2. Verifica duplicidade CPF e CNS
+                    var pacienteExistente = consulta.Consulta<Paciente>()
+                        .FirstOrDefault(p => p.Cpf == dto.Cpf && p.Id != dto.Id);
+                    if (pacienteExistente != null)
+                        throw new InvalidOperationException("Já existe outro paciente com o mesmo CPF.");
+
+                    pacienteExistente = consulta.Consulta<Paciente>()
+                        .FirstOrDefault(p => p.CNS == dto.CNS && p.Id != dto.Id);
+                    if (pacienteExistente != null)
+                        throw new InvalidOperationException("Já existe outro paciente com o mesmo CNS.");
+
+                    // 3. Atualiza dados principais
+                    paciente.Nome = dto.Nome;
+                    paciente.CNS = dto.CNS;
+                    paciente.Cpf = dto.Cpf;
+                    paciente.DataNascimento = dto.DataNascimento;
+                    paciente.NomePai = dto.NomePai;
+                    paciente.NomeMae = dto.NomeMae;
+                    paciente.CpfPai = dto.CpfPai;
+                    paciente.CpfMae = dto.CpfMae;
+                    paciente.Ativo = dto.Ativo;
+                    paciente.Sexo = dto.Sexo;
+                    paciente.Nacionalidade = dto.Nacionalidade;
+                    paciente.Raca = dto.Raca;
+                    paciente.Naturalidade = dto.Naturalidade;
+                    paciente.Escolaridade = dto.Escolaridade;
+                    paciente.UltimaAlteracao = DateTime.Now;
+
+                    await repo.MergeAsync(paciente);
+
+                    // ----- CONTATO -----
+                    if (paciente.Contatos.Count == 0)
+                    {
+                        var contatoNovo = new PacienteContato
+                        {
+                            Paciente = paciente,
+                            PacienteId = paciente.Id,
+                            CriadoEm = DateTime.Now
+                        };
+                        paciente.Contatos.Add(contatoNovo);
+                    }
+
+                    var contato = paciente.Contatos.First();
+                    contato.TelefoneResidencial = dto.TelefoneResidencial;
+                    contato.TelefoneCelular = dto.TelefoneCelular;
+                    contato.Email = dto.Email;
+                    contato.UltimaAlteracao = DateTime.Now;
+
+                    await repo.MergeAsync(contato);
+
+                    // ----- ENDEREÇO -----
+                    var endereco = paciente.Enderecos.FirstOrDefault();
+                    if (endereco == null)
+                    {
+                        endereco = new PacienteEndereco
+                        {
+                            Paciente = paciente,
+                            PacienteId = paciente.Id,
+                            CriadoEm = DateTime.Now
+                        };
+                        paciente.Enderecos.Add(endereco);
+                    }
+
+                    endereco.Logradouro = dto.Logradouro;
+                    endereco.Numero = dto.Numero;
+                    endereco.Complemento = dto.Complemento;
+                    endereco.Bairro = dto.Bairro;
+                    endereco.Cidade = dto.Cidade;
+                    endereco.Estado = dto.Estado;
+                    endereco.Cep = dto.Cep;
+                    endereco.UltimaAlteracao = DateTime.Now;
+
+                    await repo.MergeAsync(endereco);
+
+                    // ----- PRONTUÁRIO -----
+                    var prontuario = paciente.Prontuario;
+                    if (prontuario == null)
+                    {
+                        prontuario = new PacienteProntuario
+                        {
+                            Paciente = paciente,
+                            CriadoEm = DateTime.Now
+                        };
+                        paciente.Prontuario = prontuario;
+                    }
+
+                    prontuario.TipoSangue = dto.TipoSanguineo;
+                    prontuario.UltimaAlteracao = DateTime.Now;
+
+                    await repo.MergeAsync(prontuario);
+
+                    await repo.FlushAsync();
+
+                    pacienteSalvo = paciente;
+                });
+
+                return pacienteSalvo;
+            }
+            catch (Exception ex)
+            {
+                Mensagens.Add(ex.Message);
+                return null;
+            }
+        }
     }
 }

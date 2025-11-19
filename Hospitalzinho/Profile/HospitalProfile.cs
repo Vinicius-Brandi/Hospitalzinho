@@ -54,8 +54,10 @@ namespace Hospitalzinho.Profiles
                 .ForMember(dest => dest.Quarto, opt => opt.MapFrom(src => src.Quarto.Numero))
                 .ForMember(dest => dest.Hospital, opt => opt.MapFrom(src => src.Hospital.Nome))
                 .ForMember(dest => dest.ProfResponsavel, opt => opt.MapFrom(src => src.ProfResponsavel.Nome))
-                .ForMember(dest => dest.ProfRegistro, opt => opt.MapFrom(src => src.ProfResponsavel.RegistroProfissional)); ;
-            ;
+                .ForMember(dest => dest.ProfRegistro, opt => opt.MapFrom(src => src.ProfResponsavel.RegistroProfissional))
+                .ForMember(dest => dest.DataInternacao, opt => opt.MapFrom(src => src.DataInternacao))
+                .ForMember(dest => dest.DataAlta, opt => opt.MapFrom(src => src.DataAlta))
+                .ForMember(dest => dest.Leito, opt => opt.MapFrom(src=> src.Leito.Numero)) ;
 
             //Consulta
             CreateMap<PacienteConsulta, ConsultaDto>()
