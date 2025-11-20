@@ -11,7 +11,7 @@ namespace Hospitalzinho.Entidades
         public virtual string Nome { get; set; }
         [Obrigar, Unico]
         public virtual string CNS { get; set; } // Cartão Nacional de Saúde
-        [Obrigar, Unico]
+        [Obrigar, Unico, Cpf]
         public virtual string Cpf { get; set; }
         public virtual DateTime DataNascimento { get; set; }
         public virtual string? NomePai { get; set; }
@@ -24,10 +24,6 @@ namespace Hospitalzinho.Entidades
         public virtual RacaPaciente? Raca { get; set; }
         public virtual string? Naturalidade { get; set; }
         public virtual EscolaridadePaciente? Escolaridade { get; set; }
-        [JsonIgnore]
-        public virtual IList<PacienteContato> Contatos { get; set; } = new List<PacienteContato>();
-        [JsonIgnore]
-        public virtual IList<PacienteEndereco> Enderecos { get; set; } = new List<PacienteEndereco>();
         [JsonIgnore]
         public virtual IList<PacienteConvenio> Convenios { get; set; } = new List<PacienteConvenio>();
         [JsonIgnore]

@@ -82,7 +82,7 @@ namespace Hospitalzinho.Servico
                         };
 
                         await repo.IncluiAsync(contato);
-                        paciente.Contatos.Add(contato);
+                        await repo.FlushAsync();
                     }
 
                     // Endereço
@@ -102,7 +102,7 @@ namespace Hospitalzinho.Servico
                     };
 
                     await repo.IncluiAsync(endereco);
-                    paciente.Enderecos.Add(endereco);
+                    await repo.FlushAsync();
 
                     // Prontuário
                     var prontuario = new PacienteProntuario

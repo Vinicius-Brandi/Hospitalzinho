@@ -6,7 +6,7 @@ namespace Hospitalzinho.Entidades
 {
     public class PacienteContato : EntidadeBase
     {
-        [Obrigar(typeof(Paciente))]
+        [Obrigar(typeof(Paciente)), Unico(typeof(Paciente))]
         public virtual long PacienteId { get; set; }
         [JsonIgnore]
         public virtual Paciente Paciente { get; set; }

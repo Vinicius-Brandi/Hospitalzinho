@@ -1,4 +1,6 @@
-﻿using FGB.Entidades;
+﻿using FGB.Dominio.Atributos;
+using FGB.Entidades;
+using Hospitalzinho.Entidades;
 using Hospitalzinho.Enum;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,11 +8,11 @@ namespace Hospitalzinho.DTO.Post
 {
     public class PacientePostDto : EntidadeBase
     {
-        [Required]
+        [Obrigar]
         public string Nome { get; set; }
-        [Required]
+        [Obrigar, Unico(typeof(Paciente))]
         public string CNS { get; set; }
-        [Required]
+        [Unico(typeof(Paciente)), Cpf, Obrigar]
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; set; }
         public string? NomePai { get; set; }
@@ -30,19 +32,19 @@ namespace Hospitalzinho.DTO.Post
         public string? Email { get; set; }
 
         // Endereço
-        [Required] 
+        [Obrigar] 
         public string Logradouro { get; set; }
         public string Numero { get; set; }
         public string? Complemento { get; set; }
         public string Bairro { get; set; }
-        [Required] 
+        [Obrigar] 
         public string Cidade { get; set; }
-        [Required] 
+        [Obrigar] 
         public string Estado { get; set; }
         public string? Cep { get; set; }
 
         // Prontuário
-        [Required]
+        [Obrigar]
         public TipoSanguineo TipoSanguineo { get; set; }
     }
 }

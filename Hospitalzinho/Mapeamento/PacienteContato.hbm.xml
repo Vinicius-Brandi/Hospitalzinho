@@ -13,7 +13,7 @@
 		</id>
 
 		<!-- Coluna para FK do paciente -->
-		<property name="PacienteId" column="paciente_id" not-null="true" />
+		<property name="PacienteId" column="paciente_id" not-null="true" unique="true"/>
 		<many-to-one name="Paciente" column="paciente_id" class="Paciente" not-null="true" insert="false" update="false"/>
 
 		<!-- Colunas simples -->

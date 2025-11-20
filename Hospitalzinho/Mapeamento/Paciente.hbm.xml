@@ -36,16 +36,7 @@
 		<property name="UltimaAlteracao" column="data_atualizacao" type="DateTime" not-null="true" />
 
 		<one-to-one name="Prontuario" class="PacienteProntuario" property-ref="Paciente" cascade="all" />
-
-		<bag name="Contatos" cascade="all-delete-orphan" inverse="true">
-			<key column="paciente_id" />
-			<one-to-many class="PacienteContato" />
-		</bag>
-
-		<bag name="Enderecos" cascade="all-delete-orphan" inverse="true">
-			<key column="paciente_id" />
-			<one-to-many class="PacienteEndereco" />
-		</bag>
+		<one-to-one name="Contato" class="PacienteContato" property-ref="Paciente" cascade="all" />
 
 		<bag name="Convenios" cascade="all-delete-orphan" inverse="true">
 			<key column="paciente_id" />
