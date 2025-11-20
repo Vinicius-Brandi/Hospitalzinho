@@ -103,8 +103,6 @@ namespace Hospitalzinho.Profiles
 
             //Paciente
             CreateMap<Paciente, PacienteDto>()
-                .ForMember(dest => dest.Contatos, opt => opt.MapFrom(src => src.Contatos))
-                .ForMember(dest => dest.Enderecos, opt => opt.MapFrom(src => src.Enderecos))
                 .ForMember(dest => dest.TipoSanguineo, opt => opt.MapFrom(src => src.Prontuario.TipoSangue)) ;
 
             //PacienteProntuario
