@@ -37,6 +37,7 @@
 
 		<one-to-one name="Prontuario" class="PacienteProntuario" property-ref="Paciente" cascade="all" />
 		<one-to-one name="Contato" class="PacienteContato" property-ref="Paciente" cascade="all" />
+		<one-to-one name="Endereco" class="PacienteEndereco" property-ref="Paciente" cascade="all" />
 
 		<bag name="Convenios" cascade="all-delete-orphan" inverse="true">
 			<key column="paciente_id" />

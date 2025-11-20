@@ -28,5 +28,9 @@ namespace Hospitalzinho.Entidades
         public virtual IList<PacienteConvenio> Convenios { get; set; } = new List<PacienteConvenio>();
         [JsonIgnore]
         public virtual PacienteProntuario? Prontuario { get; set; }
-    }
+        [JsonIgnore]
+        public virtual PacienteContato? Contato { get; set; }
+        [JsonIgnore]
+        public virtual PacienteEndereco? Endereco { get; set; }
+        }
 }

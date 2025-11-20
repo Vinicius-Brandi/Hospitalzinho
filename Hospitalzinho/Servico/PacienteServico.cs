@@ -191,18 +191,8 @@ namespace Hospitalzinho.Servico
                     await repo.MergeAsync(paciente);
 
                     // ----- CONTATO -----
-                    if (paciente.Contatos.Count == 0)
-                    {
-                        var contatoNovo = new PacienteContato
-                        {
-                            Paciente = paciente,
-                            PacienteId = paciente.Id,
-                            CriadoEm = DateTime.Now
-                        };
-                        paciente.Contatos.Add(contatoNovo);
-                    }
 
-                    var contato = paciente.Contatos.First();
+                    var contato = paciente.Contato;
                     contato.TelefoneResidencial = dto.TelefoneResidencial;
                     contato.TelefoneCelular = dto.TelefoneCelular;
                     contato.Email = dto.Email;
@@ -211,7 +201,7 @@ namespace Hospitalzinho.Servico
                     await repo.MergeAsync(contato);
 
                     // ----- ENDEREÇO -----
-                    var endereco = paciente.Enderecos.FirstOrDefault();
+                    var endereco = paciente.Endereco;
                     if (endereco == null)
                     {
                         endereco = new PacienteEndereco
@@ -220,7 +210,7 @@ namespace Hospitalzinho.Servico
                             PacienteId = paciente.Id,
                             CriadoEm = DateTime.Now
                         };
-                        paciente.Enderecos.Add(endereco);
+                        await repo.IncluiAsync(endereco);
                     }
 
                     endereco.Logradouro = dto.Logradouro;

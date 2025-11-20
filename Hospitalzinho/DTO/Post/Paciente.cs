@@ -12,7 +12,7 @@ namespace Hospitalzinho.DTO.Post
         public string Nome { get; set; }
         [Obrigar, Unico(typeof(Paciente))]
         public string CNS { get; set; }
-        [Unico(typeof(Paciente)), Cpf, Obrigar]
+        [Unico(typeof(Paciente)), Obrigar] // CPF
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; set; }
         public string? NomePai { get; set; }

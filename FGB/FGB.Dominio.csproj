@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="15.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
-    <PackageReference Include="NHibernate" Version="5.6.0" />
+    <Compile Remove="Validacoes\**" />
+    <EmbeddedResource Remove="Validacoes\**" />
+    <None Remove="Validacoes\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Validacoes\" />
+    <PackageReference Include="AutoMapper" Version="15.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="NHibernate" Version="5.6.0" />
   </ItemGroup>
 
 </Project>

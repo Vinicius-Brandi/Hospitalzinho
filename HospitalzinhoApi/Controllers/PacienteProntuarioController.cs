@@ -37,11 +37,6 @@ namespace HospitalzinhoApi.Controllers
                 NHibernateUtil.Initialize(pront.Consultas);
                 NHibernateUtil.Initialize(pront.Internacoes);
                 NHibernateUtil.Initialize(pront.Exames);
-                if (pront.Paciente != null)
-                {
-                    NHibernateUtil.Initialize(pront.Paciente.Contatos);
-                    NHibernateUtil.Initialize(pront.Paciente.Enderecos);
-                }
             }
 
             var listaDto = lista.Select(p => _mapper.Map<ProntuarioDto>(p));
@@ -63,12 +58,6 @@ namespace HospitalzinhoApi.Controllers
             NHibernateUtil.Initialize(pront.Consultas);
             NHibernateUtil.Initialize(pront.Internacoes);
             NHibernateUtil.Initialize(pront.Exames);
-
-            if (pront.Paciente != null)
-            {
-                NHibernateUtil.Initialize(pront.Paciente.Contatos);
-                NHibernateUtil.Initialize(pront.Paciente.Enderecos);
-            }
 
             var dto = _mapper.Map<ProntuarioDto>(pront);
             return Ok(dto);

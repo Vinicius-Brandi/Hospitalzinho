@@ -22,6 +22,8 @@ namespace Hospitalzinho.DTO.Get
         public string? Naturalidade { get; set; }
         public TipoSanguineo TipoSanguineo { get; set; }
         public EscolaridadePaciente? Escolaridade { get; set; }
+        public PacienteEndereco Endereco { get; set; }
+        public PacienteContato Contato { get; set; }
     }
 
     public class ProntuarioDto : EntidadeBase
