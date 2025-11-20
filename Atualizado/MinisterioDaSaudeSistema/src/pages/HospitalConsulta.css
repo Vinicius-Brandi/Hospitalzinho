@@ -66,11 +66,11 @@ button[type="submit"]:hover {
     transform: translateY(-2px);
 }
 
-button[type="reset"] {
+.button_reset {
     background-color: #6c757d;
     color: white;
 }
-button[type="reset"]:hover {
+.button_reset:hover {
     background-color: #5a6268;
     transform: translateY(-2px);
 }

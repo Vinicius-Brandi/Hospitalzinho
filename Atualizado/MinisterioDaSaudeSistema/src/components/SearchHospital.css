@@ -1,0 +1,57 @@
+/* Container para o input e a lista */
+.input-sugestion-container {
+    position: relative; /* Necessário para posicionar a lista dentro deste bloco */
+    width: 100%;
+}
+
+/* Input com consistência visual */
+.input-sugestion {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+/* Lista flutuante de sugestões */
+.sugestoes-lista {
+    position: absolute;
+    top: 100%; /* Logo abaixo do input */
+    left: 0;
+    right: 0;
+    z-index: 999; /* Garante que fica acima de outros elementos */
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-top: none; /* Remove a borda duplicada com o input */
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 200px; /* Altura máxima antes de rolar */
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cada sugestão individual */
+.sugestoes-lista li {
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Hover e foco */
+.sugestoes-lista li:hover {
+    background-color: #e9f3ff;
+    color: #0056b3;
+}
+
+/* Caso deseje exibir scrollbar discreta (opcional) */
+.sugestoes-lista::-webkit-scrollbar {
+    width: 8px;
+}
+.sugestoes-lista::-webkit-scrollbar-thumb {
+    background-color: #ced4da;
+    border-radius: 4px;
+}

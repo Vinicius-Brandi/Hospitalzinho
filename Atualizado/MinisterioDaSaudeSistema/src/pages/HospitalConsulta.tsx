@@ -6,15 +6,15 @@ import { api } from "../../services/api";
 import { TipoUnidade, tipoUnidadeOptions, type TipoUnidadeType } from "../../models/hospital";
 import type { HospitalUnidade } from "../../models/hospital";
 import { SearchHospital } from "../components/SearchHospital";
+import { useNavigate } from "react-router";
 
 export default function HospitalConsulta() {
-    const [tipoPesquisa, setTipoPesquisa] = useState('nome');
-    const [valorPesquisa, setValorPesquisa] = useState('');
     const [filtros, setFiltros] = useState<{ tiposUnidade: TipoUnidadeType[] }>({
         tiposUnidade: [],
     });
     const [enderecoFiltro, setEnderecoFiltro] = useState('');
     const [hospitais, setHospitais] = useState<Partial<HospitalUnidade>[]>([]);
+    const navigate = useNavigate();
 
     function handleCheckboxChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { value, checked } = e.target;
@@ -31,16 +31,6 @@ export default function HospitalConsulta() {
     function montarFiltroOData() {
         const filtrosOData: string[] = [];
         setHospitais([]);
-
-        if (valorPesquisa.trim() !== "") {
-            const campo =
-                tipoPesquisa === "nome"
-                    ? "Nome"
-                    : tipoPesquisa === "cnes"
-                        ? "Cnes"
-                        : "Cnpj";
-            filtrosOData.push(`contains(${campo},'${valorPesquisa}')`);
-        }
 
         if (filtros.tiposUnidade.length > 0) {
             const tipoFiltro = filtros.tiposUnidade
@@ -93,6 +83,16 @@ export default function HospitalConsulta() {
         return opcao ? opcao.label : `Desconhecido (${valor})`;
     }
 
+    function limparFiltros() {
+        setFiltros({ tiposUnidade: [] });
+        setEnderecoFiltro('');
+        setHospitais([]);
+    }
+
+    function setarValorPesquisa(valor: string) {
+        console.log("Valor de pesquisa selecionado:", valor);
+    }
+
     return (
         <>
             <Header />
@@ -107,7 +107,7 @@ export default function HospitalConsulta() {
                             buscarHospitais();
                         }}
                     >
-                        <SearchHospital tipoPesquisa={tipoPesquisa} setTipoPesquisa={setTipoPesquisa} valorPesquisa={valorPesquisa} setValorPesquisa={setValorPesquisa}/>
+                        <SearchHospital setarValorPesquisa={(valor) => setarValorPesquisa(valor)} />
 
                         <fieldset>
                             <legend>Tipo de Unidade</legend>
@@ -149,7 +149,7 @@ export default function HospitalConsulta() {
 
                         <div className="botoes-form">
                             <button type="submit">Pesquisar</button>
-                            <button type="reset">Limpar Filtros</button>
+                            <button type="button" className="button_reset" onClick={limparFiltros}>Limpar Filtros</button>
                         </div>
                     </form>
                 </section>
