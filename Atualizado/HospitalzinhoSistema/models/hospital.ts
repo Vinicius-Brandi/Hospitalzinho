@@ -64,3 +64,13 @@ export interface Leito {
 }
 
 export const HOSPITALID = 1;
+
+export interface Medicamento {
+    modeloId: number;
+    lote: string;
+    dataFabricacao: string;
+    dataValidade: string;
+    quantidadeDisponivel: number;
+    hospitalId: number;
+    modelo: MedicamentoModelo;
+}

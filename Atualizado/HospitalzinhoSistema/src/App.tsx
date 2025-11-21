@@ -4,6 +4,7 @@ import { PacienteCadastro } from './pages/Paciente/PacienteCadastro'
 import { AtendimentoRegistro } from './pages/Prontuario/AtendimentoRegistro'
 import { AtendimentoConsulta } from './pages/Prontuario/AtendimentoConsulta'
 import { PacienteLista } from './pages/Paciente/PacienteLista'
+import { ListaEstoque } from './pages/Medicamento/ListaEstoque'
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
       
       <Route path="/atendimento/registro" element={<AtendimentoRegistro />} />
       <Route path="/atendimento/consulta" element={<AtendimentoConsulta />} />
+
+      <Route path="/medicamento/estoque" element={<ListaEstoque />} />
     </Routes>
   )
 }

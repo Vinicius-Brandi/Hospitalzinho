@@ -1,3 +1,5 @@
+// Salvar em: src/types/index.ts
+
 // --- Tipos do Frontend (Estado da Aplicação) ---
 
 export const TipoUnidade = {
@@ -26,6 +28,7 @@ export interface Medicamento {
   estoqueMinimo: number;
   unidade: string;
   lotes: string[];
+  proximaValidade?: string; // Data de validade mais crítica
 }
 
 export interface Hospital {
@@ -46,6 +49,12 @@ export interface EstatisticasGerais {
   ocupacaoMedia: number;
   alertasEstoque: number;
   totalUnidades: number;
+}
+
+export interface DadoRelatorio {
+  label: string;
+  valor: number;
+  percentual: number;
 }
 
 // --- Tipos da API (.NET Core) ---
@@ -75,62 +84,11 @@ export interface ApiLeito {
   hospitalId: number;
 }
 
-// NOVOS TIPOS ADICIONADOS
-export interface ApiMedicamentoModelo {
-  id: number;
-  nome: string;
-  principioAtivo: string;
-  dosagem: string;
-  formaFarmaceutica: string;
-}
-
-export interface ApiMedicamentoEstoque {
-  id: number;
-  modelo: ApiMedicamentoModelo;
-  lote: string;
-  dataValidade: string;
-  hospital: string; // Vem o Nome do hospital
-}
-
-// ... (Mantenha todo o código anterior de TipoUnidade, Hospital, etc)
-
-// --- NOVOS TIPOS PARA CADASTRO ---
-
-// Payload para POST /api/Hospital
-export interface CadastroInstituicaoPayload {
-  nome: string;
-  cnpj: string;
-  tokenAcesso: string;
-}
-
-// Payload para POST /api/HospitalUnidade/cadastro
-export interface CadastroUnidadePayload {
-  nome: string;
-  cnes: string;
-  tipoUnidade: number;
-  instituicaoPaiId: number;
-  endereco: {
-    cep: string;
-    cidade: string;
-    bairro: string;
-    rua: string;
-    numero: string;
-    complemento: string;
-  }
-}
-
-// Tipo simples para listar instituições no select
-export interface InstituicaoResumo {
-  id: number;
-  nome: string;
-  cnpj: string;
-}
-
 export interface ApiAla {
   id: number;
   nome: string;
-  hospitalId: number; // Supondo que a API retorne o vínculo ou filtramos pelo objeto hospital
-  hospital?: { id: number }; // Ajuste conforme o retorno real da sua API
+  hospitalId: number; 
+  hospital?: { id: number };
 }
 
 export interface ApiQuarto {
@@ -140,12 +98,11 @@ export interface ApiQuarto {
   capacidade: number;
 }
 
-// Estrutura hierárquica para o Frontend usar
 export interface AlaEstruturada {
   id: number;
   nome: string;
   quartos: QuartoEstruturado[];
-  ocupacao: number; // %
+  ocupacao: number;
   totalLeitos: number;
   leitosOcupados: number;
 }
@@ -160,10 +117,29 @@ export interface QuartoEstruturado {
   }[];
 }
 
+// Tipos para Medicamentos
+export interface ApiMedicamentoModelo {
+  id: number;
+  nome: string;
+  principioAtivo: string;
+  dosagem: string;
+  formaFarmaceutica: string;
+}
+
+export interface ApiMedicamentoEstoque {
+  id: number;
+  modelo: ApiMedicamentoModelo;
+  lote: string;
+  dataValidade: string;
+  quantidadeDisponivel: number; // <--- CAMPO NOVO IMPORTANTE
+  hospital: string;
+}
+
+// Tipos para Relatórios
 export interface ApiPaciente {
   id: number;
   cns: string;
-  sexo: number; 
+  sexo: number;
   dataNascimento: string;
   endereco: {
     bairro: string;
@@ -188,8 +164,30 @@ export interface ApiPacienteDoenca {
   };
 }
 
-export interface DadoRelatorio {
-  label: string;
-  valor: number;
-  percentual: number;
+// Tipos para Cadastro
+export interface CadastroInstituicaoPayload {
+  nome: string;
+  cnpj: string;
+  tokenAcesso: string;
+}
+
+export interface CadastroUnidadePayload {
+  nome: string;
+  cnes: string;
+  tipoUnidade: number;
+  instituicaoPaiId: number;
+  endereco: {
+    cep: string;
+    cidade: string;
+    bairro: string;
+    rua: string;
+    numero: string;
+    complemento: string;
+  }
+}
+
+export interface InstituicaoResumo {
+  id: number;
+  nome: string;
+  cnpj: string;
 }

@@ -16,6 +16,7 @@ export function Header(){
                         <li><NavLink to="/paciente/cadastro" className={({ isActive }) => isActive ? "active" : ""}>Cadastro de Paciente</NavLink></li>
                         <li><NavLink to="/atendimento/registro" className={({ isActive }) => isActive ? "active" : ""}>Registro de Atendimento</NavLink></li>
                         <li><NavLink to="/atendimento/consulta" className={({ isActive }) => isActive ? "active" : ""}>Consulta de Atendimento</NavLink></li>
+                        <li><NavLink to="/medicamento/estoque" className={({ isActive }) => isActive ? "active" : ""}>Estoque de Medicamentos</NavLink></li>
                     </ul>
                 </nav>
             </header>

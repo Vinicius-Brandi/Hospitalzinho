@@ -1,0 +1,199 @@
+.subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+/* Estilo Padrão para os Cards */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    color: #0056b3;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.75rem;
+}
+
+/* Estilos para a Seção de Filtros */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.form-group input[type="text"],
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.form-group-checkbox {
+    display: flex;
+    align-items: center;
+    padding-top: 1.75rem; /* Alinhar com os inputs */
+}
+
+.form-group-checkbox input {
+    margin-right: 0.75rem;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Estilos para a Tabela de Resultados */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Garante rolagem em telas pequenas */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+thead th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.sem-resultados td {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+}
+
+/* Estilos para o Status do Estoque */
+.status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #fff;
+    display: inline-block;
+}
+
+.status-ok {
+    background-color: #28a745; /* Verde */
+}
+
+.status-alerta {
+    background-color: #ffc107; /* Amarelo */
+    color: #333;
+}
+
+.status-critico {
+    background-color: #dc3545; /* Vermelho */
+}
+
+/* Botão de Detalhes na Tabela */
+.btn-details {
+    background-color: #17a2b8;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-details:hover {
+    background-color: #138496;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+}
