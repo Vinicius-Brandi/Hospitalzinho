@@ -8,7 +8,7 @@ interface Sugestao {
     [key: string]: any;
 }
 
-export function SearchHospital({setarValorPesquisa}: {setarValorPesquisa: (valor: string) => void}) {
+export function SearchHospital({ setarValorPesquisa }: { setarValorPesquisa: (valor: string) => void }) {
     const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
     const [tipoPesquisa, setTipoPesquisa] = useState('nome');
     const [valorPesquisa, setValorPesquisa] = useState('');
@@ -24,7 +24,6 @@ export function SearchHospital({setarValorPesquisa}: {setarValorPesquisa: (valor
             const filtrados = data.filter((e: any) =>
                 String(e[tipoPesquisa]).toLowerCase().includes(texto.toLowerCase())
             );
-            console.log("Sugestoes encontradas:", filtrados);
             setSugestoes(filtrados);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
@@ -50,11 +49,17 @@ export function SearchHospital({setarValorPesquisa}: {setarValorPesquisa: (valor
     }, [valorPesquisa]);
 
     function setarValor(e: React.ChangeEvent<HTMLInputElement> | string) {
+        let novoValor = "";
+
         if (typeof e === "string") {
-            setValorPesquisa(e);
+            novoValor = e;
         } else {
-            setValorPesquisa(e.target.value);
+            novoValor = e.target.value;
         }
+
+        setValorPesquisa(novoValor);
+
+        setarValorPesquisa(novoValor);
     }
 
     function handleFocus() {
@@ -64,11 +69,10 @@ export function SearchHospital({setarValorPesquisa}: {setarValorPesquisa: (valor
     function handleBlur() {
         setTimeout(() => {
             setIsSugestoesVisivel(false);
-        }, 100); 
+        }, 100);
     }
 
     function handleSelect(nome: string) {
-        console.log("Selecionado:", nome);
         selecionandoRef.current = true;
         setIsSugestoesVisivel(false);
         setarValor(nome);

@@ -12,7 +12,8 @@ export default function HospitalConsulta() {
     const [filtros, setFiltros] = useState<{ tiposUnidade: TipoUnidadeType[] }>({
         tiposUnidade: [],
     });
-    const [enderecoFiltro, setEnderecoFiltro] = useState('');
+    const [enderecoFiltro, setEnderecoFiltro] = useState('todos');
+    const [valorPesquisa, setValorPesquisa] = useState('');
     const [hospitais, setHospitais] = useState<Partial<HospitalUnidade>[]>([]);
     const navigate = useNavigate();
 
@@ -32,6 +33,10 @@ export default function HospitalConsulta() {
         const filtrosOData: string[] = [];
         setHospitais([]);
 
+        if (valorPesquisa.trim() !== "") {
+            filtrosOData.push(`startswith(tolower(nome), tolower('${valorPesquisa}'))`);
+        }
+
         if (filtros.tiposUnidade.length > 0) {
             const tipoFiltro = filtros.tiposUnidade
                 .map(v => `TipoUnidade eq '${v}'`)
@@ -39,7 +44,7 @@ export default function HospitalConsulta() {
             filtrosOData.push(`(${tipoFiltro})`);
         }
 
-        if (enderecoFiltro.trim() !== "") {
+        if (enderecoFiltro.trim() !== "" && enderecoFiltro !== "todos") {
             filtrosOData.push(`contains(Endereco/Cidade,'${enderecoFiltro}')`);
         }
 
@@ -89,10 +94,6 @@ export default function HospitalConsulta() {
         setHospitais([]);
     }
 
-    function setarValorPesquisa(valor: string) {
-        console.log("Valor de pesquisa selecionado:", valor);
-    }
-
     return (
         <>
             <Header />
@@ -107,7 +108,7 @@ export default function HospitalConsulta() {
                             buscarHospitais();
                         }}
                     >
-                        <SearchHospital setarValorPesquisa={(valor) => setarValorPesquisa(valor)} />
+                        <SearchHospital setarValorPesquisa={(valor) => setValorPesquisa(valor)} />
 
                         <fieldset>
                             <legend>Tipo de Unidade</legend>
@@ -134,7 +135,7 @@ export default function HospitalConsulta() {
                                 <div>
                                     <label htmlFor="cidade">Cidade:</label>
                                     <select id="cidade" name="cidade" onChange={(e) => setEnderecoFiltro(e.target.value)} value={enderecoFiltro}>
-                                        <option value="" disabled>Selecione a cidade/distrito</option>
+                                        <option value="todos">Qualquer</option>
                                         <option value="marilia">Marília</option>
                                         <option value="amadeu-amaral">Amadeu Amaral</option>
                                         <option value="avencas">Avencas</option>
