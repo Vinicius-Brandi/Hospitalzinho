@@ -1,3 +1,5 @@
+import type { MedicamentoModelo } from "./prontuario";
+
 export interface ProfissionalResponsavel {
     nome: string;
     registroProfissional: string;
