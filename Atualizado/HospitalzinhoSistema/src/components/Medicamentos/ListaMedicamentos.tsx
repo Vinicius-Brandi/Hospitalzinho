@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
-import type { Medicamento } from "../../../models/hospital";
+import { HOSPITALID, type Medicamento } from "../../../models/hospital";
 
 export function ListaMedicamentos() {
     const [medicamentos, setMedicamentos] = useState<Medicamento[]>([]);
@@ -19,7 +19,7 @@ export function ListaMedicamentos() {
     }, []);
 
     async function fetchMedicamentos() {
-        const response = await api.get('/Medicamento');
+        const response = await api.get(`/Medicamento?filter=hospitalId eq ${HOSPITALID}`);
         setMedicamentos(response.data);
     }
 
