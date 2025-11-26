@@ -1,14 +1,28 @@
+import { useEffect, useState } from 'react';
 import './Header.css'
-import { NavLink  } from "react-router";
+import { NavLink } from "react-router";
+import { api } from '../../../services/api';
+import { HOSPITALID } from '../../../models/hospital';
 
-export function Header(){
+export function Header() {
+    const [hospital, setHospital] = useState<any>(null);
+
+    async function fetchHospital() {
+        const response = await api.get(`/HospitalUnidade/${HOSPITALID}`)
+        setHospital(response.data);
+    };
+
+    useEffect(() => {
+        fetchHospital();
+    }, []);
+
     return (
         <>
             <header>
                 <a href="index.html" title="Voltar para a página inicial">
-                    <img src="https://placehold.co/200x60/0056b3/white?text=Hospital 1" alt="Logotipo do Sistema" />
+                    <img src={`https://placehold.co/275x60/0056b3/white?text=${hospital?.nome || 'Hospital'}`} alt={`Logotipo do ${hospital?.nome || 'Sistema'}`} />
                 </a>
-                
+
                 <nav>
                     <ul>
                         <li><NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home Page</NavLink></li>

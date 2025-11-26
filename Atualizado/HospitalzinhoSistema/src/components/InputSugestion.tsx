@@ -2,21 +2,27 @@ import { useEffect, useRef, useState } from "react";
 import debounce from "lodash.debounce";
 import './InputSugestion.css'
 import { api } from "../../services/api";
+import { HOSPITALID } from "../../models/hospital";
 
 interface Sugestao {
     id: string;
     [key: string]: any;
 }
 
-export default function InputSugestion({ placeholder, tipoDado, nameInput, setValorTeste, valorBuscarAPI }: { placeholder: string, tipoDado: string, nameInput: string, setValorTeste?: (valor: React.ChangeEvent<HTMLInputElement>) => void, valorBuscarAPI: string }) {
+export default function InputSugestion({ placeholder, tipoDado, nameInput, setValorTeste, valorBuscarAPI, temHospitalId }: { placeholder: string, tipoDado: string, nameInput: string, setValorTeste?: (valor: React.ChangeEvent<HTMLInputElement>) => void, valorBuscarAPI: string, temHospitalId?: boolean }) {
     const [valor, setValor] = useState("");
     const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
     const selecionandoRef = useRef(false);
 
     const buscarSugestoes = debounce(async (texto: string) => {
         try {
+            let filterQuery = `startswith(tolower(${valorBuscarAPI}), tolower('${texto}'))`;
+            if (temHospitalId) {
+                filterQuery += ` and hospitalId eq ${HOSPITALID}`;
+            }
+            const url = `/${tipoDado}?$filter=${filterQuery}`;
             const response = await api.get(
-                `/${tipoDado}?$filter=startswith(tolower(${valorBuscarAPI}), tolower('${texto}'))`
+                url
             );
             const data = response.data;
             const filtrados = data.filter((e: any) =>

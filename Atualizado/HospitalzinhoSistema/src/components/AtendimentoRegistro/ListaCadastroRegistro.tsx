@@ -13,12 +13,14 @@ interface ListaCadastroRegistroProps<T> {
     tipoDado: string;
     renderItem: (item: T, index: number) => React.ReactNode;
     titulo?: string;
+    temHospitalId?: boolean;
 }
 
 export function ListaCadastroRegistro<T>({
     tipoDado,
     renderItem,
     titulo,
+    temHospitalId,
 }: ListaCadastroRegistroProps<T>) {
     const [dados, setDados] = useState<T[]>([]);
     const [showModal, setShowModal] = useState(false);
@@ -29,7 +31,11 @@ export function ListaCadastroRegistro<T>({
     async function carregarDados() {
         try {
             setIsLoading(true);
-            const response = await api.get(`/${tipoDado}`);
+            let filterQuery = `/${tipoDado}`;
+            if (temHospitalId) {
+                filterQuery += `?filter=hospitalId eq ${HOSPITALID}`;
+            }
+            const response = await api.get(filterQuery);
             setDados(response.data.value ?? response.data);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
