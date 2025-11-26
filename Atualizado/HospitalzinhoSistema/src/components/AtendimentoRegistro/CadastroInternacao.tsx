@@ -28,6 +28,7 @@ export function CadastroInternacao({
                             </div>
                         </>
                     )}
+                    temHospitalId={true}
                 />
             </Modal>
 
@@ -39,7 +40,7 @@ export function CadastroInternacao({
                             <label htmlFor="leitoId">Leito</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Digite o numero do leito" tipoDado="leito" nameInput="leitoId" setValorTeste={onChange} valorBuscarAPI="numero" />
+                        <InputSugestion placeholder="Digite o numero do leito" tipoDado="leito" nameInput="leitoId" setValorTeste={onChange} valorBuscarAPI="numero" temHospitalId={true}/>
                     </div>
 
                     <CadastroResponsavel value={internacao.ProfResponsavelId} onChange={onChange} />

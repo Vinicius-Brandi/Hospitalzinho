@@ -28,6 +28,7 @@ export function CadastroCirurgia({
                             </div>
                         </>
                     )}
+                    temHospitalId={true}
                 />
             </Modal>
 
@@ -45,7 +46,7 @@ export function CadastroCirurgia({
                             <label htmlFor="salaId">Sala</label>
                             <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                         </div>
-                        <InputSugestion placeholder="Digite o numero da sala" tipoDado="Sala" nameInput="salaId" setValorTeste={onChange} valorBuscarAPI="numero" />
+                        <InputSugestion placeholder="Digite o numero da sala" tipoDado="Sala" nameInput="salaId" setValorTeste={onChange} valorBuscarAPI="numero" temHospitalId={true}/>
                     </div>
 
                     <CadastroResponsavel value={cirurgia.profResponsavelId} onChange={onChange} />

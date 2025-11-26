@@ -27,6 +27,7 @@ export function CadastroQuarto({
                             </div>
                         </>
                     )}
+                    temHospitalId={true}
                 />
             </Modal>
 
@@ -38,7 +39,7 @@ export function CadastroQuarto({
                     <label htmlFor="nomeAla">Nome da Ala</label>
                     <button onClick={() => setShowModal(true)} type="button" className="btn-cadastrar-inline">Cadastrar</button>
                 </div>
-                <InputSugestion placeholder="Digite o nome da ala" tipoDado="Ala" nameInput="alaId" setValorTeste={onChangeLista} valorBuscarAPI="nome" />
+                <InputSugestion placeholder="Digite o nome da ala" tipoDado="Ala" nameInput="alaId" setValorTeste={onChangeLista} valorBuscarAPI="nome" temHospitalId={true}/>
             </div>
 
             <label>Tipo</label>
