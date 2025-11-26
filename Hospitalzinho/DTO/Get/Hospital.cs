@@ -18,6 +18,7 @@ namespace Hospitalzinho.DTO.Get
         public string Nome { get; set; } = string.Empty;
         public string CNES { get; set; } = string.Empty;
         public string TipoUnidade { get; set; } = string.Empty;
+        public long EnderecoId { get; set; }
         public HospitalEndereco Endereco { get; set; } 
     }
 }

@@ -26,10 +26,14 @@ namespace Hospitalzinho.DTO.Get
         public string Paciente { get; set; }
         public DateTime DataConsulta { get; set; }
         public string ProfResponsavel { get; set; }
+        public long ProfResponsavelId { get; set; }
         public string ProfRegistro { get; set; }
         public string Hospital { get; set; }
+        public long HospitalId { get; set; }
         public string Observacoes { get; set; }
         public string Sala { get; set; }
+        public long SalaId { get; set; }
+        
 
         //public List<PacienteExame> Exames { get; set; } = new List<PacienteExame>();
     }
@@ -41,33 +45,44 @@ namespace Hospitalzinho.DTO.Get
         public DateTime DataCirurgia { get; set; }
         public string ProfResponsavel { get; set; }
         public string ProfRegistro { get; set; }
+        public long ProfResponsavelId { get; set; }
         public string Sala { get; set; }
+        public long SalaId { get; set; }
         public string Hospital { get; set; }
+        public long HospitalId { get; set; }
         public virtual string Observacoes { get; set; }
     }
 
     public class ExameDto : EntidadeBase
     {
         public string Paciente { get; set; }
+        public long ProntuarioId { get; set; }
         public DateTime DataExame { get; set; }
         public Exame tipoExame { get; set; } // Ex: "Sangue", "Raio-X"
+        public long TipoExameId { get; set; }
         public string Laboratorio { get; set; }
         public string Resultados { get; set; }
         public string Observacoes { get; set; }
         public string ProfResponsavel { get; set; }
+        public long ProfResponsavelId { get; set; }
         public string ProfRegistro { get; set; }
         public string Hospital { get; set; }
+        public long HospitalId { get; set; }
     }
 
     public class VacinacaoDto : EntidadeBase
     {
         public string Paciente { get; set; }
+        public long ProntuarioId { get; set; }
         public string Vacina { get; set; }
+        public long VacinaId { get; set; }
         public string ProfResponsavel { get; set; }
         public string ProfRegistro { get; set; }
+        public  long ProfResponsavelId { get; set; }
         public DateTime DataAplicacao { get; set; }
         public int DoseNumero { get; set; }
         public string Observacoes { get; set; }
         public string Hospital { get; set; }
+        public long HospitalId { get; set; }
     }
 }

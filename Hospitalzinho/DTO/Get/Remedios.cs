@@ -9,6 +9,8 @@ namespace Hospitalzinho.DTO.Get
         public int Quantidade { get; set; }
         public string Posologia { get; set; }
         public MedicamentoModelo Modelo { get; set; }
+        public long ModeloId { get; set; }
+        public long ReceitaId { get; set; }
     }
 
     public class MedicamentoDto : EntidadeBase
@@ -19,6 +21,7 @@ namespace Hospitalzinho.DTO.Get
         public DateTime DataValidade { get; set; }
         public int QuantidadeDisponivel { get; set; } // Quantidade em estoque
         public string Hospital { get; set; }
+        public long HospitalId { get; set; }
     }
 
     public class PacienteMedicacaoDto : EntidadeBase
@@ -41,5 +44,6 @@ namespace Hospitalzinho.DTO.Get
         public int QuantidadeDisponivel { get; set; } // Quantidade disponível no estoque
         public VacinaModelo VacinaModelo { get; set; } // Referência ao modelo
         public HospitalUnidade Hospital { get; set; }
+        public long HospitalId { get; set; }
     }
 }

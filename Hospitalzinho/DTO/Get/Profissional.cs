@@ -24,9 +24,10 @@ namespace Hospitalzinho.DTO.Get
         public string Paciente { get; set; }
         public string ProfResponsavel { get; set; }
         public string ProfRegistro { get; set; }
-
+        public long ProfissionalId { get; set; }
         public virtual List<ItemReceitaDto> Itens { get; set; } = new();
         public string Hospital { get; set; }
+        public long HospitalId { get; set; }
     }
     public class EspecialidadeDto : EntidadeBase
     {

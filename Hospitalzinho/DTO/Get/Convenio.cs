@@ -1,4 +1,5 @@
 ﻿using FGB.Entidades;
+using Hospitalzinho.Entidades
 
 namespace Hospitalzinho.DTO.Get
 {
@@ -15,7 +16,9 @@ namespace Hospitalzinho.DTO.Get
     {
         public string PacienteNome { get; set; }
         public string PacienteCpf { get; set; }
+        public long PacienteId { get; set; }
         public string ConvenioCNPJ { get; set; }
+        public long ConvenioId { get; set; }
         public string NumeroCarteirinha { get; set; }
         public DateTime? Validade { get; set; }
         public bool Ativo { get; set; }

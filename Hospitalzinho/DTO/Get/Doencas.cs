@@ -13,7 +13,9 @@ namespace Hospitalzinho.DTO.Get
     {
         public string Paciente { get; set; }
         public string PacienteCNS { get; set; }
+        public long ProntuarioId { get; set; }
         public DoencaCronicaModelo Modelo { get; set; }
+        public long ModeloId { get; set; }
         public DateTime DataDiagnostico { get; set; }
         public string Estagio { get; set; } // Ex: "Leve", "Moderada", "Avançada"
         public string Observacoes { get; set; }
