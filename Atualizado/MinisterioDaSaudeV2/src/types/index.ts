@@ -1,3 +1,7 @@
+// ============================================================================
+// ENUMS E CONSTANTES
+// ============================================================================
+
 export const TipoUnidade = {
   UnidadeBasicaDeSaude: 0,
   CentroDeSaude: 1,
@@ -17,11 +21,15 @@ export const TipoUnidade = {
 
 export type TipoUnidade = typeof TipoUnidade[keyof typeof TipoUnidade];
 
+// ============================================================================
+// TIPOS DO FRONTEND (ESTADO VISUAL)
+// ============================================================================
+
 export interface Medicamento {
   id: string;
   nome: string;
   estoqueAtual: number;
-  estoqueMinimo: 25;
+  estoqueMinimo: number;
   unidade: string;
   lotes: string[];
   proximaValidade?: string;
@@ -53,13 +61,18 @@ export interface DadoRelatorio {
   percentual: number;
 }
 
+// ============================================================================
+// TIPOS DA API (.NET CORE) - INFRAESTRUTURA
+// ============================================================================
+
 export interface ApiEndereco {
+  id: number;
   cep: string;
   cidade: string;
   bairro: string;
   rua: string;
   numero: string;
-  id: number;
+  complemento?: string;
 }
 
 export interface ApiHospitalUnidade {
@@ -70,16 +83,14 @@ export interface ApiHospitalUnidade {
   endereco: ApiEndereco;
 }
 
-// ATUALIZADO: Leito agora reflete o objeto dentro de Quarto
 export interface ApiLeito {
   id: number;
   numero: string;
   quartoId: number;
   hospitalId: number;
-  ocupado?: boolean; // Opcional pois no endpoint plano /api/Leito pode não vir, mas no aninhado vem
+  ocupado?: boolean;
 }
 
-// ATUALIZADO: Quarto agora contem a lista de leitos
 export interface ApiQuarto {
   id: number;
   numero: string;
@@ -87,18 +98,20 @@ export interface ApiQuarto {
   hospitalId: number;
   capacidade: number;
   tipo: number;
-  leitos: ApiLeito[]; // Lista aninhada vinda da API
+  leitos: ApiLeito[];
 }
 
-// ATUALIZADO: Ala agora contem a lista de quartos e o hospitalId direto
 export interface ApiAla {
   id: number;
   nome: string;
-  hospitalId: number; 
-  quartos: ApiQuarto[]; // Lista aninhada vinda da API
+  hospitalId: number;
+  quartos: ApiQuarto[];
 }
 
-// --- Tipos de Estrutura Visual (Mantidos) ---
+// ============================================================================
+// Tipos de Estrutura Visual (Mapa de Leitos)
+// ============================================================================
+
 export interface AlaEstruturada {
   id: number;
   nome: string;
@@ -118,22 +131,34 @@ export interface QuartoEstruturado {
   }[];
 }
 
+// ============================================================================
+// TIPOS DA API - MEDICAMENTOS E ESTOQUE
+// ============================================================================
+
 export interface ApiMedicamentoModelo {
   id: number;
   nome: string;
   principioAtivo: string;
   dosagem: string;
   formaFarmaceutica: string;
+  fabricante: string;
+  indicacoes?: string;
+  contraIndicacoes?: string;
 }
 
 export interface ApiMedicamentoEstoque {
   id: number;
   modelo: ApiMedicamentoModelo;
   lote: string;
+  dataFabricacao?: string;
   dataValidade: string;
   quantidadeDisponivel: number;
   hospital: string;
 }
+
+// ============================================================================
+// TIPOS DA API - PACIENTE E PRONTUÁRIO
+// ============================================================================
 
 export interface ApiPaciente {
   id: number;
@@ -145,6 +170,8 @@ export interface ApiPaciente {
   nomeMae: string;
   sexo: number;
   nacionalidade: string;
+  raca?: number;
+  naturalidade?: string;
   endereco: {
     logradouro: string;
     numero: string;
@@ -159,20 +186,23 @@ export interface ApiPaciente {
   };
 }
 
+export interface ApiAlergia {
+  id: number;
+  nome: string;
+}
+
 export interface ApiPacienteAlergia {
   id: number;
   prontuarioId: number;
   alergiaId: number;
-  // Como a API não retornou o nome da alergia no objeto, assumimos que o Frontend cruzará com uma lista ou que virá num update futuro. 
-  // Para este exemplo, vou simular o nome baseado no ID ou adicionar um campo opcional caso a API mude.
-  nomeAlergia?: string; 
+  nomeAlergia?: string;
 }
 
 export interface ApiPacienteDoenca {
   id: number;
   dataDiagnostico: string;
   estagio: string;
-  emTratamento: boolean;
+  emTratamento?: boolean;
   modelo: {
     nome: string;
     cid: string;
@@ -187,6 +217,7 @@ export interface ApiPacienteConsulta {
   hospital: string;
   observacoes: string;
   sala: string;
+  paciente: string;
 }
 
 export interface ApiPacienteExame {
@@ -200,6 +231,7 @@ export interface ApiPacienteExame {
   resultados: string;
   observacoes: string;
   hospital: string;
+  paciente: string;
 }
 
 export interface ApiPacienteInternacao {
@@ -211,29 +243,31 @@ export interface ApiPacienteInternacao {
   profResponsavel: string;
   quarto: string;
   leito: string;
+  paciente: string;
 }
 
 export interface ApiPacienteCirurgia {
   id: number;
-  nome: string; // Nome da cirurgia
+  nome: string;
   dataCirurgia: string;
   hospital: string;
   profResponsavel: string;
+  paciente: string;
 }
 
 export interface ApiPacienteMedicacao {
   id: number;
-  dataInicio: string;
-  dataFim: string;
+  dataInicio?: string;
   dosagemPrescrita: string;
   viaAdministracao: string;
+  paciente: string;
   modelo: {
     nome: string;
     principioAtivo: string;
+    dosagem?: string;
   };
 }
 
-// Tipo Agregado para facilitar o uso na tela
 export interface ProntuarioCompleto {
   dadosPessoais: ApiPaciente;
   alergias: ApiPacienteAlergia[];
@@ -244,6 +278,10 @@ export interface ProntuarioCompleto {
   cirurgias: ApiPacienteCirurgia[];
   medicacoes: ApiPacienteMedicacao[];
 }
+
+// ============================================================================
+// TIPOS PARA CADASTRO ADMINISTRATIVO
+// ============================================================================
 
 export interface CadastroInstituicaoPayload {
   nome: string;

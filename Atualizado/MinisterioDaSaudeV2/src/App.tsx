@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Menu, Loader2, AlertTriangle } from 'lucide-react';
 
-// Imports dos Componentes de Layout e Páginas
 import { Sidebar } from './components/layout/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { HospitaisList } from './pages/HospitaisList';
@@ -9,29 +8,24 @@ import { HospitalDetails } from './pages/HospitalDetails';
 import { MedicamentosSearch } from './pages/MedicamentosSearch';
 import { Cadastro } from './pages/Cadastro';
 import { Relatorios } from './pages/Relatorios';
-import { PacientesSearch } from './pages/PacientesSearch'; // Nova Importação
+import { PacientesSearch } from './pages/PacientesSearch';
 
-// Imports de Lógica e Tipos
 import { type Hospital } from './types';
 import { hospitalService } from './services/api';
 
 export default function SaudeApp() {
-  // Estado de navegação com todas as rotas do sistema
   const [view, setView] = useState<'dashboard' | 'lista' | 'detalhe' | 'medicamentos' | 'cadastro' | 'relatorios' | 'pacientes'>('dashboard');
   const [selectedHospitalId, setSelectedHospitalId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
-  // Estados de Dados Globais
   const [hospitais, setHospitais] = useState<Hospital[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Busca de dados ao iniciar (Dashboard e Listas)
   useEffect(() => {
     const carregarDados = async () => {
       try {
         setLoading(true);
-        // Busca dados reais da API .NET
         const dados = await hospitalService.buscarDadosCompletos();
         setHospitais(dados);
         setError(null);
@@ -43,17 +37,13 @@ export default function SaudeApp() {
       }
     };
 
-    // Carrega apenas se não estiver em telas que têm seu próprio loading (Cadastro, Relatórios, Pacientes)
-    // Isso evita chamadas desnecessárias ao banco principal quando o foco é outro
     if (view !== 'cadastro' && view !== 'relatorios' && view !== 'pacientes') {
         carregarDados();
     } else {
-        // Se mudar para uma dessas abas, podemos "liberar" o loading global
         setLoading(false);
     }
   }, [view]); 
 
-  // Cálculos para o Dashboard (useMemo para performance)
   const estatisticasGerais = useMemo(() => {
     let totalLeitos = 0;
     let leitosOcupados = 0;
@@ -75,13 +65,10 @@ export default function SaudeApp() {
   const hospitalSelecionado = hospitais.find(h => h.id === selectedHospitalId);
   const cidadesDisponiveis = Array.from(new Set(hospitais.map(h => h.cidade)));
 
-  // Função auxiliar para navegar da busca de remédios para o detalhe do hospital
   const handleNavigateToHospital = (id: string) => {
     setSelectedHospitalId(id);
     setView('detalhe');
   };
-
-  // --- Renderização de Estados de Carregamento/Erro (Apenas para dashboard/listas) ---
 
   if (loading && ['dashboard', 'lista', 'detalhe', 'medicamentos'].includes(view)) {
     return (
@@ -110,7 +97,6 @@ export default function SaudeApp() {
             >
                 Tentar Novamente
             </button>
-            {/* Permite ir para o cadastro/prontuário mesmo sem dados do dashboard */}
             <button 
                 onClick={() => { setError(null); setView('pacientes'); }} 
                 className="bg-white border border-slate-300 text-slate-700 px-6 py-2 rounded-lg hover:bg-slate-50 transition-colors font-medium"
@@ -122,8 +108,6 @@ export default function SaudeApp() {
       </div>
     );
   }
-
-  // --- Renderização Principal ---
 
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans text-slate-900">
@@ -161,8 +145,6 @@ export default function SaudeApp() {
           </button>
         </header>
 
-        {/* Roteamento Manual */}
-        
         {view === 'dashboard' && (
           <Dashboard estatisticas={estatisticasGerais} hospitais={hospitais} />
         )}

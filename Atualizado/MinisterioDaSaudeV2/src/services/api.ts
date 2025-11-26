@@ -4,7 +4,7 @@ import {
   type Hospital,
   type Medicamento,
   type TipoUnidade,
-  type ApiAla, // Importado
+  type ApiAla,
   type AlaEstruturada,
   type ApiPaciente,
   type ApiPacienteAlergia,
@@ -20,7 +20,6 @@ const API_URL = 'http://localhost:5102/api';
 
 export const hospitalService = {
 
-  // --- BUSCA DE DADOS PRINCIPAL (DASHBOARD/LISTA) ---
   buscarDadosCompletos: async (): Promise<Hospital[]> => {
     try {
       // 1. Busca Unidades
@@ -28,26 +27,20 @@ export const hospitalService = {
       if (!resUnidades.ok) throw new Error('Falha ao buscar unidades.');
       const apiUnidades: ApiHospitalUnidade[] = await resUnidades.json();
 
-      // 2. Busca Estrutura de Alas (Para calcular ocupação com precisão)
-      // Como a API Ala traz tudo aninhado (Alas -> Quartos -> Leitos), é a fonte da verdade
       let todasAlas: ApiAla[] = [];
       try {
         const resAlas = await fetch(`${API_URL}/Ala`);
         if (resAlas.ok) todasAlas = await resAlas.json();
       } catch (e) { console.warn("Alas off"); }
 
-      // 3. Busca Medicamentos
       let apiMedicamentos: ApiMedicamentoEstoque[] = [];
       try {
         const resMed = await fetch(`${API_URL}/Medicamento`);
         if (resMed.ok) apiMedicamentos = await resMed.json();
       } catch (e) { console.warn("Medicamentos off"); }
 
-      // 4. Processamento
       const hospitaisFormatados: Hospital[] = apiUnidades.map(unidade => {
 
-        // A. CÁLCULO DE OCUPAÇÃO (Baseado nas Alas)
-        // Filtra alas que pertencem a este hospital
         const alasDoHospital = todasAlas.filter(a => a.hospitalId === unidade.id);
 
         let totalLeitos = 0;
@@ -58,14 +51,12 @@ export const hospitalService = {
             ala.quartos.forEach(quarto => {
               if (quarto.leitos) {
                 totalLeitos += quarto.leitos.length;
-                // Conta quantos estão com ocupado: true
                 leitosOcupados += quarto.leitos.filter(l => l.ocupado).length;
               }
             });
           }
         });
 
-        // B. CÁLCULO DE ESTOQUE
         const remediosDoHospital = apiMedicamentos.filter(m =>
           m.hospital.toLowerCase().trim() === unidade.nome.toLowerCase().trim()
         );
@@ -79,7 +70,7 @@ export const hospitalService = {
               id: item.modelo.id.toString(),
               nome: `${item.modelo.nome} ${item.modelo.dosagem}`,
               estoqueAtual: 0,
-              estoqueMinimo: 50,
+              estoqueMinimo: 25,
               unidade: item.modelo.formaFarmaceutica,
               lotes: [],
               proximaValidade: undefined
@@ -117,30 +108,25 @@ export const hospitalService = {
     }
   },
 
-  // --- MAPA DE LEITOS (REFATORADO) ---
   buscarMapaDeLeitos: async (hospitalId: string): Promise<AlaEstruturada[]> => {
     try {
-      // Agora precisamos apenas buscar as Alas, pois elas já contém quartos e leitos
       const resAlas = await fetch(`${API_URL}/Ala`);
 
       if (!resAlas.ok) throw new Error('Erro ao buscar dados de alas');
 
       const todasAlas: ApiAla[] = await resAlas.json();
 
-      // Filtra alas deste hospital usando o ID direto
       const alasDoHospital = todasAlas.filter(a => a.hospitalId === Number(hospitalId));
 
       const mapa: AlaEstruturada[] = alasDoHospital.map(ala => {
-        // Mapeia os quartos que já vieram dentro da Ala
         const quartosEstruturados = (ala.quartos || []).map(quarto => {
           return {
             id: quarto.id,
             numero: quarto.numero,
-            // Mapeia os leitos que já vieram dentro do Quarto
             leitos: (quarto.leitos || []).map(l => ({
               id: l.id,
               numero: l.numero,
-              ocupado: !!l.ocupado // Garante booleano
+              ocupado: !!l.ocupado
             }))
           };
         });
@@ -165,7 +151,6 @@ export const hospitalService = {
     }
   },
 
-  // ... (Mantenha os métodos de cadastro, deletar e relatórios inalterados) ...
   buscarInstituicoes: async (): Promise<InstituicaoResumo[]> => {
     const res = await fetch(`${API_URL}/Hospital`);
     if (!res.ok) throw new Error('Erro ao buscar instituições');
@@ -242,12 +227,10 @@ export const hospitalService = {
 
   buscarProntuario: async (termo: string): Promise<ProntuarioCompleto | null> => {
     try {
-      // 1. Busca Lista de Pacientes para Identificar o Alvo
       const resPacientes = await fetch(`${API_URL}/Paciente`);
       if (!resPacientes.ok) throw new Error('Erro ao buscar base de pacientes');
       const listaPacientes: ApiPaciente[] = await resPacientes.json();
 
-      // Filtra por CPF, CNS ou Nome (Case insensitive)
       const pacienteEncontrado = listaPacientes.find(p => 
         p.cpf.includes(termo) || 
         p.cns.includes(termo) || 
@@ -258,15 +241,12 @@ export const hospitalService = {
 
       const nomePaciente = pacienteEncontrado.nome;
 
-      // 2. Busca dados de suporte (ex: Nomes das alergias, já que PacienteAlergia só traz ID)
       let listaAlergias: ApiAlergia[] = [];
       try {
         const resAl = await fetch(`${API_URL}/Alergia`);
         if (resAl.ok) listaAlergias = await resAl.json();
-      } catch(e) {}
+      } catch(e) {console.error(e)}
 
-      // 3. Dispara buscas paralelas para todos os endpoints de histórico
-      // Nota: Estamos filtrando no front (filter) pois a API retorna listas completas.
       const [
         resAlergiasPac,
         resDoencas,
@@ -274,8 +254,8 @@ export const hospitalService = {
         resExames,
         resInternacoes,
         resCirurgias,
-        resMedicacoesA, // PacienteMedicacao
-        resMedicacoesB  // Medicamento (prescrição pontual)
+        resMedicacoesA,
+        resMedicacoesB
       ] = await Promise.all([
         fetch(`${API_URL}/PacienteAlergia`),
         fetch(`${API_URL}/PacienteDoencaCronica`),
@@ -287,7 +267,6 @@ export const hospitalService = {
         fetch(`${API_URL}/Medicamento`)
       ]);
 
-      // Extrai JSON ou arrays vazios em caso de erro
       const alergiasRaw = resAlergiasPac.ok ? await resAlergiasPac.json() : [];
       const doencasRaw = resDoencas.ok ? await resDoencas.json() : [];
       const consultasRaw = resConsultas.ok ? await resConsultas.json() : [];
@@ -297,10 +276,6 @@ export const hospitalService = {
       const medsARaw = resMedicacoesA.ok ? await resMedicacoesA.json() : [];
       const medsBRaw = resMedicacoesB.ok ? await resMedicacoesB.json() : [];
 
-      // --- FILTRAGEM E CRUZAMENTO DE DADOS ---
-
-      // Alergias: Filtra pelo ID do prontuario (assumindo prontuarioId == paciente.id para este exemplo)
-      // E cruza com a lista de nomes de alergia
       const minhasAlergias = alergiasRaw
         .filter((a: any) => a.prontuarioId === pacienteEncontrado.id)
         .map((a: any) => ({
@@ -308,12 +283,10 @@ export const hospitalService = {
             nomeAlergia: listaAlergias.find(la => la.id === a.alergiaId)?.nome || "Alergia não especificada"
         }));
 
-      // Doenças: Filtra pelo Nome (ou pacienteCNS se disponível)
       const minhasDoencas = doencasRaw.filter((d: any) => 
         d.paciente === nomePaciente || d.pacienteCNS === pacienteEncontrado.cns
       );
 
-      // Medicamentos: Une as duas fontes e filtra por nome
       const todosMedicamentos = [...medsARaw, ...medsBRaw].filter((m: any) => m.paciente === nomePaciente);
 
       return {
