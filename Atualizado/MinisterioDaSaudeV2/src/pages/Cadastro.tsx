@@ -177,10 +177,11 @@ export const Cadastro: React.FC = () => {
                         <label className="block text-sm font-medium text-slate-700 mb-1">CNPJ</label>
                         <input required type="text" className="w-full p-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="00.000.000/0001-00" value={instForm.cnpj} onChange={e => setInstForm({...instForm, cnpj: e.target.value})} />
                     </div>
+                    {/* API Token Field 
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">Token de Acesso (API)</label>
                         <input required type="text" className="w-full p-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Chave de segurança" value={instForm.tokenAcesso} onChange={e => setInstForm({...instForm, tokenAcesso: e.target.value})} />
-                    </div>
+                    </div>*/}
                 </div>
                 <div className="flex justify-end pt-4">
                     <button type="submit" disabled={loading} className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 font-medium flex items-center gap-2 disabled:opacity-50">

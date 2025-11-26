@@ -97,12 +97,6 @@ export default function SaudeApp() {
             >
                 Tentar Novamente
             </button>
-            <button 
-                onClick={() => { setError(null); setView('pacientes'); }} 
-                className="bg-white border border-slate-300 text-slate-700 px-6 py-2 rounded-lg hover:bg-slate-50 transition-colors font-medium"
-            >
-                Ir para Prontuários
-            </button>
           </div>
         </div>
       </div>
