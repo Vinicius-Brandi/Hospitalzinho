@@ -1,7 +1,3 @@
-// Salvar em: src/types/index.ts
-
-// --- Tipos do Frontend (Estado da Aplicação) ---
-
 export const TipoUnidade = {
   UnidadeBasicaDeSaude: 0,
   CentroDeSaude: 1,
@@ -25,10 +21,10 @@ export interface Medicamento {
   id: string;
   nome: string;
   estoqueAtual: number;
-  estoqueMinimo: number;
+  estoqueMinimo: 25;
   unidade: string;
   lotes: string[];
-  proximaValidade?: string; // Data de validade mais crítica
+  proximaValidade?: string;
 }
 
 export interface Hospital {
@@ -56,8 +52,6 @@ export interface DadoRelatorio {
   valor: number;
   percentual: number;
 }
-
-// --- Tipos da API (.NET Core) ---
 
 export interface ApiEndereco {
   cep: string;
@@ -117,7 +111,6 @@ export interface QuartoEstruturado {
   }[];
 }
 
-// Tipos para Medicamentos
 export interface ApiMedicamentoModelo {
   id: number;
   nome: string;
@@ -131,11 +124,10 @@ export interface ApiMedicamentoEstoque {
   modelo: ApiMedicamentoModelo;
   lote: string;
   dataValidade: string;
-  quantidadeDisponivel: number; // <--- CAMPO NOVO IMPORTANTE
+  quantidadeDisponivel: number;
   hospital: string;
 }
 
-// Tipos para Relatórios
 export interface ApiPaciente {
   id: number;
   cns: string;
@@ -164,7 +156,6 @@ export interface ApiPacienteDoenca {
   };
 }
 
-// Tipos para Cadastro
 export interface CadastroInstituicaoPayload {
   nome: string;
   cnpj: string;

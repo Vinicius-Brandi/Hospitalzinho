@@ -20,11 +20,6 @@ import {
 
 const API_URL = 'http://localhost:5102/api';
 
-// Mock mantido apenas para caso a API de medicamentos falhe completamente (fallback)
-const gerarEstoqueMock = (hospitalId: string): Medicamento[] => {
-  return []; // Retornando vazio para priorizar dados reais
-};
-
 export const hospitalService = {
   
   // --- BUSCA DE DADOS PRINCIPAL (DASHBOARD/LISTA) ---
