@@ -12,7 +12,7 @@ namespace Hospitalzinho.Entidades
         public virtual string CNPJ { get; set; }
         [JsonIgnore]
         public virtual IList<HospitalUnidade> Unidades { get; set; } = new List<HospitalUnidade>();
-        [Obrigar]
+        [JsonIgnore]
         public virtual string TokenAcesso { get; set; } = Guid.NewGuid().ToString();
     }
 }

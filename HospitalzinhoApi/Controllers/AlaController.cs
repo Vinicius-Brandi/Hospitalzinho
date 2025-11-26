@@ -1,8 +1,9 @@
 using AutoMapper;
 using FGB.Api.Controllers;
+using Hospitalzinho.DTO.Get;
 using Hospitalzinho.Entidades;
 using Hospitalzinho.Servico;
-using Hospitalzinho.DTO.Get;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using NHibernate;
