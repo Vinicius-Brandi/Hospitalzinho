@@ -1,9 +1,9 @@
 import React from 'react';
-import { LayoutDashboard, Building2, Activity, X, Pill, PlusCircle, PieChart } from 'lucide-react';
+import { LayoutDashboard, Building2, Activity, X, Pill, PlusCircle, PieChart, ClipboardList } from 'lucide-react';
 
 interface SidebarProps {
   currentView: string;
-  onNavigate: (view: 'dashboard' | 'lista' | 'medicamentos' | 'cadastro' | 'relatorios') => void;
+  onNavigate: (view: 'dashboard' | 'lista' | 'medicamentos' | 'cadastro' | 'relatorios' | 'pacientes') => void;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -61,6 +61,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate, isOpe
           >
             <Pill className="w-5 h-5" />
             Medicamentos
+          </button>
+
+          <button
+            onClick={() => { onNavigate('pacientes'); onClose(); }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${currentView === 'pacientes' ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50'}`}
+          >
+            <ClipboardList className="w-5 h-5" />
+            Prontuários
           </button>
 
           <button

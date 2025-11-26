@@ -57,13 +57,13 @@ export function CadastroMedicacao({
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="dataInicioMedicacao">Data de Início</label>
-                        <input type="date" id="dataInicioMedicacao" name="dataInicioMedicacao" value={medicacao.dataInicioMedicacao} onChange={onChange} />
+                        <label htmlFor="dataInicio">Data de Início</label>
+                        <input type="date" id="dataInicio" name="dataInicio" value={medicacao.dataInicio} onChange={onChange} />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="dataFinalMedicacao">Data Final</label>
-                        <input type="date" id="dataFinalMedicacao" name="dataFinalMedicacao" value={medicacao.dataFinalMedicacao} onChange={onChange} />
+                        <label htmlFor="dataFim">Data Final</label>
+                        <input type="date" id="dataFim" name="dataFim" value={medicacao.dataFim} onChange={onChange} />
                     </div>
 
                     <div className="form-group full-width">

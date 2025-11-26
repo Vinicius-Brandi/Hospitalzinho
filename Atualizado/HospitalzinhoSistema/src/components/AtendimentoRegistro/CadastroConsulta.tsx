@@ -35,12 +35,12 @@ export function CadastroConsulta({
                 <legend>Dados da Consulta</legend>
                 <div className="form-grid">
                     <div className="form-group">
-                        <label htmlFor="data">Data</label>
+                        <label htmlFor="dataConsulta">Data</label>
                         <input
                             type="date"
-                            id="data"
-                            name="data"
-                            value={consulta.data ?? ""}
+                            id="dataConsulta"
+                            name="dataConsulta"
+                            value={consulta.dataConsulta ?? ""}
                             onChange={onChange}
                         />
                     </div>

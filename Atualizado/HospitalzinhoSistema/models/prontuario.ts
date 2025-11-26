@@ -12,7 +12,7 @@ export type MapTiposCadastro = {
 
 export interface Consulta {
     prontuarioId: string;
-    data: string;
+    dataConsulta: string;
     ProfResponsavelId: string;
     hospitalId: string;
     observacoes: string;
@@ -115,8 +115,8 @@ export interface Medicacao {
     dosagemPrescrita: string;
     frequenciaMedicacao: string;
     viaAdministracao: string;
-    dataInicioMedicacao: string;
-    dataFinalMedicacao: string;
+    dataInicio: string;
+    dataFim: string;
     obsMedicacao: string;
 }
 

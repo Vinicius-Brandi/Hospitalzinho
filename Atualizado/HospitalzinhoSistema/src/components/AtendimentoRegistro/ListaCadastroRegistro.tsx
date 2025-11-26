@@ -118,13 +118,25 @@ export function ListaCadastroRegistro<T>({
         }
 
         if (tipoDado === "Quarto") {
-            const alaResponse = await api.get(`/Ala?$filter=tolower(nome) eq tolower('${(cadastroDado as any).alaId}')`);
+            const alaResponse = await api.get(`/Ala?$filter=tolower(nome) eq tolower('${(cadastroDado as any).alaId}') and hospitalId eq ${HOSPITALID}`);
 
             const ala = alaResponse.data.value ?? alaResponse.data ?? [];
 
             dadoFinal = {
                 ...dadoFinal,
                 alaId: ala[0]?.id,
+                hospitalId: HOSPITALID
+            };
+        }
+
+        if (tipoDado === "Leito") {
+            const quartoResponse = await api.get(`/Quarto?$filter=tolower(numero) eq tolower('${(cadastroDado as any).quartoId}') and hospitalId eq ${HOSPITALID}`);
+
+            const quarto = quartoResponse.data.value ?? quartoResponse.data ?? [];
+
+            dadoFinal = {
+                ...dadoFinal,
+                quartoId: quarto[0]?.id,
                 hospitalId: HOSPITALID
             };
         }

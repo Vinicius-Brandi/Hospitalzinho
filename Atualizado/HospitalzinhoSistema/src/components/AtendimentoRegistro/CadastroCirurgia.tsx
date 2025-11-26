@@ -52,8 +52,8 @@ export function CadastroCirurgia({
                     <CadastroResponsavel value={cirurgia.profResponsavelId} onChange={onChange} />
 
                     <div className="form-group">
-                        <label htmlFor="data">Data</label>
-                        <input type="date" id="data" name="data" value={cirurgia.dataCirurgia} onChange={onChange} />
+                        <label htmlFor="dataCirurgia">Data</label>
+                        <input type="date" id="dataCirurgia" name="dataCirurgia" value={cirurgia.dataCirurgia} onChange={onChange} />
                     </div>
 
                     <div className="form-group full-width">
