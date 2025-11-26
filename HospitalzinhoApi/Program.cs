@@ -1,54 +1,92 @@
 using FGB.Dominio.Repositorios;
 using FGB.IRepositorios;
+using Hospitalzinho.Seguranca;
 using Hospitalzinho.Servico;
-using NHibernate.Cfg;
-using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.OData;
-
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using NHibernate.Cfg;
+using System;
+using System.Text;
+using System.Text.Json.Serialization;
 using NHSession = NHibernate.ISession;
 using NHSessionFactory = NHibernate.ISessionFactory;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração de JSON para ignorar ciclos de referência + habilitar OData
+// =======================================
+// CONFIGURAÇÕES DE JWT
+// =======================================
+
+// Lê JwtSettings do appsettings.json
+builder.Services.Configure<JwtSettings>(
+    builder.Configuration.GetSection("JwtSettings")
+);
+
+builder.Services.AddScoped<JwtService>();
+
+var jwt = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+var key = Encoding.UTF8.GetBytes(jwt.Secret);
+
+// Configuração de autenticação JWT
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwt.Emissor,
+        ValidAudience = jwt.Audiencia,
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+builder.Services.AddAuthorization();
+
+
+// =======================================
+// Configuração de CONTROLLERS + JSON + ODATA
+// =======================================
 builder.Services.AddControllers()
     .AddOData(opt =>
-        opt.Select()
-           .Filter()
-           .OrderBy()
-           .Count()
-           .Expand()
-           .SetMaxTop(1000)) // permite $top até 1000 (ou remova o limite)
+        opt.Select().Filter().OrderBy().Count().Expand().SetMaxTop(1000))
     .AddJsonOptions(opt =>
     {
         opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         opt.JsonSerializerOptions.DefaultIgnoreCondition =
-            System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
+            JsonIgnoreCondition.WhenWritingDefault;
     });
 
 // =======================================
-// Configuração NHibernate
+// NHIBERNATE
 // =======================================
 builder.Services.AddSingleton<NHSessionFactory>(factory =>
 {
     var cfg = new Configuration();
-    cfg.Configure(); // lê hibernate.cfg.xml na saída do build
+    cfg.Configure(); // lê hibernate.cfg.xml
     return cfg.BuildSessionFactory();
 });
 
-// Registrar NHibernate.ISession para injeção (scoped)
 builder.Services.AddScoped<NHSession>(sp =>
     sp.GetRequiredService<NHSessionFactory>().OpenSession());
 
-// Registrar RepositorioSessao para injeção de IRepositorioSessao
 builder.Services.AddTransient<IRepositorioSessao, RepositorioSessao>();
 
 // =======================================
-// Injeção de dependência dos serviços
+// Serviços do Hospitalzinho
 // =======================================
 builder.Services.AddTransient<HospitalServico>();
 builder.Services.AddTransient<HospitalUnidadeServico>();
@@ -84,12 +122,14 @@ builder.Services.AddTransient<PacienteMedicacaoServico>();
 builder.Services.AddTransient<PacienteProntuarioServico>();
 builder.Services.AddTransient<PacienteVacinacaoServico>();
 
-// Swagger/OpenAPI
+// =======================================
+// Swagger
+// =======================================
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // =======================================
-// Configuração CORS para permitir qualquer origem (teste em rede local)
+// CORS
 // =======================================
 builder.Services.AddCors(options =>
 {
@@ -101,38 +141,35 @@ builder.Services.AddCors(options =>
     });
 });
 
-// AutoMapper — corrigido para evitar MissingMethodException
+// =======================================
+// AutoMapper
+// =======================================
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AllowNullCollections = true;
 }, AppDomain.CurrentDomain.GetAssemblies());
 
+
+// =======================================
+// BUILD APP
+// =======================================
 var app = builder.Build();
 
-// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Remover redirecionamento para HTTPS durante testes
-// app.UseHttpsRedirection();
-
 app.UseCors("AllowAll");
 
+// JWT (obrigatório: vem antes do MapControllers)
+app.UseAuthentication();
 app.UseAuthorization();
 
-// Mapear controllers
 app.MapControllers();
 
-// =======================================
-// Teste rápido para conferir NHibernate
-// =======================================
-using (var scope = app.Services.CreateScope())
-{
-    var session = scope.ServiceProvider.GetRequiredService<NHSession>();
-}
-
+// Rodar em todas interfaces (ex: para docker)
 app.Run();
+
 //app.Run("http://0.0.0.0:5102");

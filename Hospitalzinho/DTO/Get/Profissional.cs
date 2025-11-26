@@ -15,6 +15,7 @@ namespace Hospitalzinho.DTO.Get
         public List<ReceitaDto> ReceitasPrescritas { get; set; } = new();
 
         public HospitalUnidadeDto Hospital { get; set; } = null!;
+        public long HospitalId { get; set; }
 
     }
 
