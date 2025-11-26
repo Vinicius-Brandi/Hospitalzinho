@@ -88,7 +88,7 @@ export function ListaCadastroRegistro<T>({
         }
 
         if (tipoDado === "Sala") {
-            const alaResponse = await api.get(`/Ala?$filter=tolower(nome) eq tolower('${(cadastroDado as any).alaId}')`);
+            const alaResponse = await api.get(`/Ala?$filter=tolower(nome) eq tolower('${(cadastroDado as any).alaId}') and hospitalId eq ${HOSPITALID}`);
 
             const ala = alaResponse.data.value ?? alaResponse.data ?? [];
 
