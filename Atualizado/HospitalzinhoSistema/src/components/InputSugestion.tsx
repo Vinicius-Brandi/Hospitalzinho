@@ -21,9 +21,7 @@ export default function InputSugestion({ placeholder, tipoDado, nameInput, setVa
                 filterQuery += ` and hospitalId eq ${HOSPITALID}`;
             }
             const url = `/${tipoDado}?$filter=${filterQuery}`;
-            const response = await api.get(
-                url
-            );
+            const response = await api.get(url);
             const data = response.data;
             const filtrados = data.filter((e: any) =>
                 String(e[valorBuscarAPI]).toLowerCase().includes(texto.toLowerCase())
@@ -39,19 +37,22 @@ export default function InputSugestion({ placeholder, tipoDado, nameInput, setVa
         setValorTeste?.(e);
     }
 
+    const handleBlur = () => {
+        setTimeout(() => {
+            setSugestoes([]);
+        }, 200);
+    };
+
     useEffect(() => {
         if (selecionandoRef.current) {
             selecionandoRef.current = false;
             return;
         }
-
         if (valor.trim() !== "") {
             buscarSugestoes(valor);
-        }
-        else {
+        } else {
             setSugestoes([]);
         }
-
         return () => {
             buscarSugestoes.cancel();
         };
@@ -66,13 +67,34 @@ export default function InputSugestion({ placeholder, tipoDado, nameInput, setVa
 
     return (
         <div className="input-sugestion-container">
-            {valorBuscarAPI === "numero" && (<input type="number" placeholder={placeholder} name={nameInput} value={valor} onChange={(e) => setarValor(e)} />)}
-            {valorBuscarAPI !== "numero" && (<input type="text" placeholder={placeholder} name={nameInput} value={valor} onChange={(e) => setarValor(e)} />)}
+            {valorBuscarAPI === "numero" && (
+                <input 
+                    type="number" 
+                    placeholder={placeholder} 
+                    name={nameInput} 
+                    value={valor} 
+                    onChange={(e) => setarValor(e)} 
+                    onBlur={handleBlur} 
+                />
+            )}
+            {valorBuscarAPI !== "numero" && (
+                <input 
+                    type="text" 
+                    placeholder={placeholder} 
+                    name={nameInput} 
+                    value={valor} 
+                    onChange={(e) => setarValor(e)} 
+                    onBlur={handleBlur} 
+                />
+            )}
 
             {sugestoes.length > 0 && (
                 <ul className="sugestoes-lista">
                     {sugestoes.map((s, i) => (
-                        <li key={i} onClick={() => handleSelect(s[valorBuscarAPI])}>
+                        <li 
+                            key={i} 
+                            onMouseDown={() => handleSelect(s[valorBuscarAPI])}
+                        >
                             {s[valorBuscarAPI]}
                         </li>
                     ))}
