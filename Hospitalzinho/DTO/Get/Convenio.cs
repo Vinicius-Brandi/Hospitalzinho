@@ -1,5 +1,4 @@
 ﻿using FGB.Entidades;
-using Hospitalzinho.Entidades
 
 namespace Hospitalzinho.DTO.Get
 {
